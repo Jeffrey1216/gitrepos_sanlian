@@ -1,0 +1,30 @@
+{include file="header.html"}
+<script type="text/javascript" src="{lib file=../ckeditor/ckeditor.js}"></script>
+<style>
+ .testpaper_title{border:1px solid red;margin:30px;width:1000px;}
+
+  .testpaper_title ul li{margin-top:10px;padding:5px;}
+.testpaper_title_text{width:200px;height:20px;}
+</style>
+<div class="testpaper_title">
+<form method="post">
+<ul>
+<li>试卷标题：<input type="text" class="testpaper_title_text" name="tpi_title"/ value="{$testpaper.tpi_title}" ></li>
+<li>试卷副标题：<input type="text" class="testpaper_title_text" name="tpi_subhead" value="{$testpaper.tpi_subhead}" /></li>
+<li><ul><li>公告信息：</li>
+    <li><textarea id="article" name="tpi_notice" style="width:300px;height:300px;" >{$testpaper.tpi_notice}</textarea>
+    </ul></li>
+<li>试卷模板：<input type="text" class="testpaper_title_text" name="tpi_templates" value="{$testpaper.tpi_templates}" /></li>
+<li><input type="submit" name="submit" value="提交"><input type="reset" value="重置"></li>
+</ul>
+</form>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+CKEDITOR.replace('article');
+//]]>
+</script>
+
+
+
+{include file="footer.html"}

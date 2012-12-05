@@ -1,0 +1,35 @@
+<h1 class="proline">
+        <a href="index.php?app=search&cate_id=192" class="btn_03"></a>
+
+        <div class="proline_fr">
+            <a href="index.php?app=search&cate_id=1&area_type=pailamall">手机数码</a><a href="index.php?app=search&cate_id=51&area_type=pailamall">家具家装</a><a href="index.php?app=search&cate_id=90&area_type=pailamall">电脑办公</a>
+            <a href="index.php?app=search&cate_id=124&area_type=pailamall">服饰鞋帽</a><a href="index.php?app=search&cate_id=167&area_type=pailamall">礼品箱包</a>
+            <a href="index.php?app=search&cate_id=192&area_type=pailamall">个护化妆</a><a class="more" href="index.php?app=category&area_type=pailamall"></a>
+        </div>
+</h1>
+<div class="productlist_left_02">
+      <div><a href="{$widget_data.top.url}"><img original="{$widget_data.top.img}"/> </a></div>
+      <ul>
+      	<!-- {foreach from=$widget_data.goods item=good} -->
+          <li class="border4">
+              <div class="line_02">
+              <div class="fl" style="margin:5px"><a href="index.php?app=goods&id={$good.goods_info.goods_id}"><img original="{$good.goods_info.simage_url}" alt="{$good.goods_info.goods_name}" title="{$good.goods_info.goods_name}"/></a></div>
+              <div class="f1_font">
+                  <div><a href="index.php?app=goods&id={$good.goods_info.goods_id}">{$good.goods_info.goods_name|truncate:12}</a><!-- {if $good.subjoin_img neq '#'} --><img height="16px" width="37px" original="{$good.subjoin_img}" alt="{$good.goods_info.goods_name}" title="{$good.goods_info.goods_name}"/><!-- {/if} --></div>                 
+                  <div class="price_name">售价：<span class="paila_price">{$good.goods_info.price|price}</span></div>
+                  <div class="price_name">派送积分：<span class="paila_price">{$good.goods_info.credit}PL</span></div>
+              </div>
+              </div>
+          </li>
+          <!-- {/foreach} --> 
+      </ul>
+  </div>
+  <div class="productlist_right_02">
+      <div>
+      <!-- {foreach from=$widget_data.right item=image} -->
+      	<a href="{$image.url}"><img original="{$image.img}"  title="{$image.title}" alt="{$image.title}"/> </a>
+     <div style="padding-top:10px"></div>
+      <!-- {/foreach} -->
+      </div>
+  </div>
+</div>

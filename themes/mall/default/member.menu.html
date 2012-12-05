@@ -1,0 +1,46 @@
+<div class="mypaila_left">
+<h2 class="mypaila_h2"><a href="index.php?app=member">我的派啦</a></h2>
+<!--{foreach from=$_member_menu item=item}-->
+<!--{if $item.submenu}-->   
+    <dl>
+        <dt class='now'><b>{$item.text}</b></dt>
+        <dd><ul>
+        <!--{foreach from=$item.submenu item=subitem name=k}-->       
+        <!--{if $subitem.name eq 'cart'}--><li><a target="view_window"  href="{$subitem.url}">{$subitem.text}</a></li>
+        <!-- {else} -->
+	        <!--{if $subitem.name eq $_curitem}--><li><a href="{$subitem.url}" class="click_on">{$subitem.text}</a></li>
+	        <!--{else}-->
+	        	<!-- {if $smarty.foreach.k.last} --><li class='nob'><a href="{$subitem.url}" >{$subitem.text}</a></li>
+	        	<!-- {else} --><li><a href="{$subitem.url}" >{$subitem.text}</a></li>
+	        	<!-- {/if} -->	        
+	        <!--{/if}-->
+        <!-- {/if} -->       
+        <!--{/foreach}-->
+        </ul></dd>
+    </dl>
+    <!--{/if}-->
+<!--{/foreach}-->
+<!--{if $_member_menu.overview.text}-->
+    <div>
+        <h3 class="mypaila_h3">您还不是卖家，您可以：</h3>
+
+        <div><a href="{$_member_menu.overview.url}" class="kaidian"></a></div>
+    </div>
+<!--{elseif $_member_menu.overview.is_seller eq 'yes'}-->
+	<div>
+        <h3 class="mypaila_h3">您是卖家，您可以：</h3>
+        <div><a href="index.php?app=store_league&act=view&id={$store.store_id}" class="chakandianpu"></a></div>
+    </div>
+<!--{/if}-->
+</div>
+<script type="text/javascript">
+$(".mypaila_left dl dt").click(function(){
+	if($(this).attr('class')=="now"){
+		$(this).removeClass('now');
+		$(this).parent('dl').children('dd').slideUp('slow');
+	}
+	else{
+		$(this).addClass('now');
+		$(this).parent('dl').children('dd').slideDown('slow');
+	}});
+</script>

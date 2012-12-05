@@ -1,0 +1,53 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+
+{include file=help_curlocal.html}
+<div class="content">
+    <div class="left">
+        {include file=article_help.left.html}
+    </div>
+    <div class="right">
+    	<div class="help_right">
+	     	<h1 class="help_right_bg">
+	          <div class="help_fl">请输入你想咨询的问题：</div>
+	          <form method="post">
+	              <fieldset>
+	                  <input type="text" class="text3" name="keyword">
+	                  <input type="submit" class="text04 quiet" value="搜索">
+	              </fieldset>
+	          </form>
+	      	</h1>                
+	     <div class="shop_text_list">            
+	            <table cellpadding="0" cellspacing="0">
+	            <colgroup>
+	            <col width="80%"/>
+	            <col width="20%"/>
+	            </colgroup>
+	                <tr>
+	                   <!--  <th class="align1" colspan="2">
+	                        <div class="table_title">
+	                        </div>
+	                        <div class="top_page">
+	                            {include file=page.top2.html}
+	                        </div>
+	                    </th>--> 
+	                </tr>
+	                <!-- {foreach from=$articles item=article} -->
+	                <tr>
+	                    <td><a {if $article.link}target="_blank"{/if} href="{url app=article&act=view&cate_id=$article.cate_id&article_id=$article.article_id}" class="lebioa">{$article.title|escape}</a></td>
+	                    <td class="width9">{$article.add_time|date:Y-m-d H:i}</td>
+	                </tr>
+	                <!-- {foreachelse} -->
+	                <tr>
+	                  <td align="center" colspan="2">{$lang.no_records}</td>
+	                </tr>
+	                <!-- {/foreach} -->
+	            </table>
+	       </div>
+           </div>
+        {include file=page.bottom.html}
+    </div>
+</div>
+<div class="clear"></div>
+{include file=footer.html}

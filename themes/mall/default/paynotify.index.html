@@ -1,0 +1,23 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+<div class="content">
+   <img src="{res file=images/cart3.jpg}" />
+    <div class="module_common" style="margin-top:10px">
+    <div class="fastorder">
+<div class="line"></div>
+<div><img src="themes/mall/default/styles/default/images/jycg.jpg"></div>
+<div class="zhifu6">
+<p>订单号：{$order.order_sn}</p>
+<!-- {if $order.seller_id eq $store_id} -->
+<div>您已支付成功，派啦网将在24小时内给您发货。</div>
+<!-- {else} -->
+<p>店铺名称：{$order.seller_name}</p>
+<p>取货地址：{$order.address}</p>
+<!-- {/if} -->
+</div>
+<div><a href="index.php"><img src="{res file=images/gouwuche_10.gif}">返回首页</a></div>
+    </div>     
+    </div>
+</div>
+{include file="footer.html"}

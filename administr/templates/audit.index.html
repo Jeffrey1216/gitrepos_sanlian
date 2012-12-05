@@ -1,0 +1,75 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    // multi-select mall_gcategory
+    $('#gcategory').length>0 && gcategoryInit("gcategory");
+    $('#time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+//]]>
+</script>
+
+<div id="rightTop">
+  <p>{$lang.goods_audit}</p>
+  <ul class="subnav">
+    <li><!--{if $sta eq 0}--><span>未审核</span><!--{else}--><a class="btn1" href="index.php?app=audit&act=index&status=0">未审核</a><!--{/if}--></li>
+    <li><!--{if $sta eq 1}--><span>已审核</span><!--{else}--><a class="btn1" href="index.php?app=audit&status=1&act=index">已审核</a><!--{/if}--></li>
+    <li><!--{if $sta eq 2}--><span>未通过</span><!--{else}--><a class="btn1" href="index.php?app=audit&status=2&act=index">未通过</a><!--{/if}--></li>
+  </ul>
+</div>
+
+  <div class="fontl">
+    <form method="get" action="index.php">     
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$lang.goods_name}:<input class="queryInput" type="text" name="goods_name" value="{if !empty($gname)}{$gname}{/if}"/>
+  	审核时间:<input class="queryInput2" type="text" value="{$query.add_time_from}" id="time_from" name="time_from" class="pick_date" />
+  	-	<input class="queryInput2" type="text" value="{$query.add_time_to}" id="time_to" name="time_to" class="pick_date" />
+	  <input type="hidden" name="app" value="audit"/>
+	  <input type="hidden" name="act" value="index"/>
+	  <input type="hidden" name="status" value="{$sta}" />
+   <input type="submit" class="formbtn" value="查询" />
+   </form>
+  </div>
+ <div class="fontr">
+       {if $page_info}{include file=page.top.html}{/if}
+    </div>
+<form method="post">
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">   
+    <tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall"/></td>
+      <td width="30%"><span ectype="order_by" fieldname="goods_name">{$lang.goods_name}</span></td>
+      <td>供应商名称</td>
+      <td><span ectype="order_by" fieldname="brand">{$lang.brand}</span></td>
+      <td class="table-center"><span ectype="order_by" fieldname="if_show">{$lang.Status}</span></td>
+      <td>添加时间</td>
+      <td>{$lang.operate}</td>
+    </tr>
+    
+    <!-- {foreach from=$goods_info item=goods} -->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" name="id[]" value="{$goods.goods_id}"/></td>
+      <td><img src="{$image}{$goods.simage_url}"/><a href="{$site_url}/index.php?app=goods&xx=2&id={$goods.goods_id}" target="_blank">{$goods.goods_name|escape}</a></td>
+      <td>{$goods.supply_name|escape}</td>
+      <td>{$goods.brand|escape}</td>
+      <td class="table-center">{if $goods.status==0}未审核{elseif $goods.status==1}已通过{elseif $goods.status==2}未通过{/if}</td>    
+      <td>{$goods.add_time|date:Y-m-d H:i:s}</td>
+      <td><!-- {if $goods.status eq 0} --><a href="index.php?app=audit&act=audit&goods_id={$goods.goods_id}">审核</a><!-- {else} --><a href="index.php?app=audit&act=audit&goods_id={$goods.goods_id}">审核查看</a><!-- {/if} --></td>	
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="8">{$lang.no_such_goods}</td>
+    </tr>
+   <!--{/foreach}-->
+  </table>
+  <div id="batchAction" class="left paddingT15">
+ 	 <input class="formbtn batchButton" type="button" name="id" value="批量审核" uri="index.php?app=audit&act=bath_edit&ret_page={$page_info.curr_page}"/>
+  </div>
+</div>
+</form>
+
+   <div class="pageLinks"> 
+            {if $page_info}{include file=page.bottom.html}{/if}
+        </div>
+  <div class="clear"></div>
+{include file="footer.html"}

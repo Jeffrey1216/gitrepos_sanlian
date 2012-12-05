@@ -1,0 +1,86 @@
+{include file="header.html"}
+<div class="grouporder">
+<h2>订单管理</h2>
+<div class="mrightTop">
+  <div class="fontl">
+  <form method="get">
+    <div class="left"> 
+	  <ul class="subnav" id="ordermgt">
+	    <li><!--{if $sta eq 11}--><span>等待买家付款</span><!--{else}--><a class="btn1" href="index.php?app=grouporder&status=11&act=index">等待买家付款</a><!--{/if}--></li>	
+	    <li><!--{if $sta eq 20}--><span>买家已付款</span><!--{else}--><a class="btn1" href="index.php?app=grouporder&status=20&act=index">买家已付款</a><!--{/if}--></li>
+	    <li><!--{if $sta eq 30}--><span>卖家已发货</span><!--{else}--><a class="btn1" href="index.php?app=grouporder&status=30&act=index">卖家已发货</a><!--{/if}--></li>	
+	    <li><!--{if $sta eq 40}--><span>交易成功</span><!--{else}--><a class="btn1" href="index.php?app=grouporder&status=40&act=index">交易完成</a><!--{/if}--></li>
+	    <li><!--{if $sta eq 50}--><span>退款中</span><!--{else}--><a class="btn1" href="index.php?app=grouporder&status=50&act=index">退款中</a><!--{/if}--></li>
+	    <li><!--{if $sta eq 60}--><span>退款完成</span><!--{else}--><a class="btn1" href="index.php?app=grouporder&status=60&act=index">退款完成</a><!--{/if}--></li>
+	    <li><!--{if $sta eq -1}--><span>交易取消</span><!--{else}--><a class="btn1" href="index.php?app=grouporder&status=-1&act=index">交易取消</a><!--{/if}--></li>
+	    	
+	  </ul>      	
+
+    </div>
+  </form>
+  </div>
+  <div class="fontr"></div>
+  </div>
+  <div id="grouporderselect">
+	  
+	<form method="get" action="index.php">	
+	<div>
+		<label>订单编号：</label><input type="text" name="order_sn" value="{$order_sn}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label>用户：</label><input type="text" name="buyer_name" value="{$buyer_name}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label>项目编号：</label><input type="text" name="project_id" value="{$project_id}" />
+	</div>
+	<div>
+		<label>下单日期：</label><input type="text" name="add_time" value="{$add_time_from}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<label>付款日期：</label><input type="text" name="pay_time" value="{$pay_time_from}"/>&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="hidden" name="app" value="grouporder"/>
+	    <input type="hidden" name="act" value="index"/>
+	    <input type="hidden" name="status" value="{$sta}" />
+	    <input type="submit" style="padding:1px 6px;" class="formbtn" value="筛选"/>
+	</div>					
+	</form></div>
+	 <div style="clear:both;overflow:hidden;padding-right:20px">
+       {if $page_info}{include file=page.top.html}{/if}
+    </div>
+	</div>
+<div>
+	<table cellpadding="0" cellspacing="0" class="orderlist">
+<colgroup>
+<col width="5%"/>
+<col width="20%"/>
+<col width="5%"/>
+<col width="5%"/>
+<col width="5%"/>
+<col width="5%"/>
+<col width="5%"/>
+<col width="5%"/>
+</colgroup>
+
+<tr>
+<th>订单编号</th>
+<th style="text-align:left">商品名称</th>
+<th>买家</th>
+<th>数量</th>
+<th>总款</th>
+<th>下单时间</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+ <!--{foreach from=$order_info item=goinfo}-->
+<tr>
+<td>{$goinfo.order_sn}</td>
+<td style="text-align:left"><strong>[{$goinfo.category}]</strong><a href="#">{$goinfo.title}</a></td>
+<td>{$goinfo.buyer_name}</td>
+<td>{$goinfo.quantity}</td>
+<td>{$goinfo.order_amount}</td>
+<td>{$goinfo.add_time|date:complete|default:未填写}</td>
+<td>{if $goinfo.status==11}等待买家付款{elseif $goinfo.status==20}买家已付款{elseif $goinfo.status==30}卖家已发货{elseif $goinfo.status==40}交易成功{elseif $goinfo.status==50}退款中{elseif $goinfo.status==60}退款完成{elseif $goinfo.status==0}交易取消{/if}</td>
+<td><a href="index.php?app=grouporder&act=view&order_id={$goinfo.order_id}">详情</a>|<a href="index.php?app=grouporder&act=audit&order_id={$goinfo.order_id}">修改</a><!-- {if $goinfo.status eq 20} -->|<a href="index.php?app=grouporder&act=delivery&order_id={$goinfo.order_id}">发货</a><!-- {/if} --></td>
+</tr>
+<!--{/foreach}-->
+</table>
+</div>
+
+   <div class="pageLinks">
+            {if $page_info}{include file=page.bottom.html}{/if}
+        </div>
+{include file="footer.html"}

@@ -1,0 +1,110 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+
+<div class="content">
+    {include file=member.menu.html}
+<div style="border:0" class="myPaila-content r">
+	{include file=member.newrighttop.html}
+           <div class="myPaila-content-head">
+				<h2 id="myPaila-content-headHover">我的会员</h2>
+			</div>
+			<div class="search_huiyuan">
+			 <form>
+			 <input type="hidden" name="app" value="member"/>
+			 <input type="hidden" name="act" value="uninvitgroup"/>
+			 <select class="select_bg text" name="type">
+			  <option value='2' {if $type eq 2}selected="selected"{/if}>团购员</option>
+			  <option value='1' {if $type eq 1}selected="selected"{/if}>会员</option> 
+              <option value='3' {if $type eq 3}selected="selected"{/if}>代数</option> 
+              <option value='4' {if $type eq 4}selected="selected"{/if}>级别</option>		  
+			 </select>
+			 <input type="text" class="text text_width" name="pub"/>
+			 <input type="submit" class="btn" value="搜索"/>
+		    </form>	
+			</div>
+			<!-- {if $ungroup} -->
+			<div style="border:solid 1px #e7e7e7;border-top:none;padding-top:10px;border-bottom:none">
+			<table class="myPaila-content-list">
+				<tbody>
+				<tr>
+					<th>编号</th>	
+					<th>会员名</th>
+					<th>真实姓名</th>
+					<th>会员种类</th>
+					<th>代数</th>
+					<th>级别</th>
+					<th>邀请时间</th>
+					<th>总业绩(元)</th>
+					<th>操作</th>
+				</tr>
+				<!-- {foreach from=$ungroup item=ungro name=ungro} -->
+				<tr>
+					<td>{$smarty.foreach.ungro.iteration}</td>		
+					<td>{$ungro.user_name}</td>
+					<td>{$ungro.real_name}</td>
+					<td>团购员</td>
+					<td>{$ungro.algebra}</td>
+					<td>
+					{if $ungro.customer_level eq 1}初级{/if}
+					{if $ungro.customer_level eq 2}中级{/if}
+					{if $ungro.customer_level eq 3}高级{/if}
+					{if $ungro.customer_level eq 4}顶级{/if}
+					</td>
+					<td>{$ungro.reg_time|date}</td>
+					<td>{$ugnro.outstanding_achievement_total|default:0.00元}</td>
+					<td style="border-right:none"><a href="{url app=member&act=uninvitgroup&unid=$ungro.user_id}" class="col-blue">查看明细</a></td>
+				</tr>
+				<!-- {foreachelse} -->
+					<tr>
+						<th>
+						没有信息
+						</th>
+					</tr>					
+				<!-- {/foreach} -->
+			</tbody>
+			</table>
+			</div>
+			<!-- {/if} -->
+			<!-- {if $unmember} -->
+			<div style="border:solid 1px #e7e7e7;border-top:none;padding-top:10px;border-bottom:none">
+			<table class="myPaila-content-list">
+				<tbody>
+				<tr>
+					<th>编号</th>
+					<th>会员名</th>
+					<th>真实姓名</th>
+					<th>会员种类</th>
+					<th>邀请时间</th>
+					<th>操作</th>
+				</tr>
+				<!-- {foreach from=$unmember item=ungro name=ungro} -->
+				<tr>
+					<td>{$smarty.foreach.ungro.iteration}</td>		
+					<td>{$ungro.user_name}</td>
+					<td>{$ungro.real_name}</td>
+					<td>会员</td>
+					<td>{$ungro.reg_time|date}</td>
+					<td style="border-right:none"><a href="{url app=member&act=uninvitgroup&unid=$ungro.user_id}" class="col-blue">查看明细</a></td>
+				</tr>
+				<!-- {foreachelse} -->
+					<tr>
+						<th>
+						没有信息
+						</th>
+					</tr>					
+				<!-- {/foreach} -->
+			</tbody>
+			</table>
+			</div>
+			<!-- {/if} -->
+		</div>
+<div class="order_form_page">
+     <div class="page">
+         {include file=member.page.bottom.html}
+     </div>
+</div>
+</div>
+
+{include file=footer.html}

@@ -1,0 +1,33 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<style type="text/css">
+.bgwhite { background: #FFFFFF; }
+</style>
+<style>
+.borline td { padding:10px 0px; }
+.ware_list th { text-align:left; }
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>µÍ∆Ã≥‰÷µ</span></h3>
+	<ul class="tabDiv mb10">
+		<li  class="hover"><a href="index.php?app=shopadmin&act=recharge">µÍ∆Ã≥‰÷µ</a></li>
+	</ul>
+	<form method="post" id="register_form">
+		<div class="information">
+			<div class="info individual">
+			 <table>
+                     <tr>
+                         <th class="width4">≥‰÷µΩ∂Ó: </th>
+                         <td><input type="text" class="text width_normal" id="balance" name="balance" /><label class="field_notice"></label><label id="checking_user" class="checking">{$lang.checking}</label></td>
+                     </tr>
+                     <tr>
+                         <th></th>
+                         <td><input type="submit" class="btn" value="{$lang.submit}" /></td>
+                     </tr>
+             </table>
+           </div>
+       </div>
+    </form>
+</div>
+{include file=storeadmin.footer.html}

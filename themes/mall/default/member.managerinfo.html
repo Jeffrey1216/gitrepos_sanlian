@@ -1,0 +1,67 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+
+<div class="content">
+    {include file=member.menu.html}
+<div id="manager_info" class="mypaila_right">
+            {include file=member.submenu.html}
+<div class="manager_l" >
+	<table style="overflow:hidden;">		
+		<tr>
+	   	<td> <b>真实姓名:</b></td><td>{$info.real_name}</td>
+	   </tr>   
+	   	<td> <b>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</b></td><td>{$info.sex}</td>
+	   </tr>
+	   <tr>
+	   	<td> <b>身份证号:</b></td><td>{$info.identity_num}</td>
+	   </tr>
+	   <tr>
+	   	<td> <b>开户银行:</b></td><td>
+	   		{if $info.bank_name eq "ABC"}
+		 	中国农业银行
+		 	{elseif $info.bank_name eq "ICBC"}
+		 	中国工商银行
+		 	{elseif $info.bank_name eq "BC"}
+		 	中国银行
+		 	{elseif $info.bank_name eq "CCB"}
+		 	中国建设银行
+		 	{/if}</td>
+	   </tr>
+	   <tr>
+	   	<td> <b>银行账号:</b></td><td>{$info.card_number}</td>
+	   </tr>	  
+	   <tr>
+	   	<td> <b>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话:</b></td><td>{$info.tel_phone}</td>
+	   </tr>
+	   <tr>
+	   	<td> <b>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱:</b></td><td>{$info.email}</td>
+	   </tr>
+	   <tr>
+	   	<td><b> 地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址:</b></td>
+	   	<td ><span>{$info.region_name}</span>&nbsp;&nbsp;<span>{$info.address}</span></td>
+	   </tr>
+	    <tr>
+	   	<td><b>收&nbsp;&nbsp;益&nbsp;&nbsp;率:</b></td><td>{$info.benefit_ratio}%</td>
+	   </tr>
+	   <tr>
+	   	<td><b>等&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级:</b></td><td>{$info.level_definition}</td>
+	   </tr>
+	   <tr>
+	   	<td><b>总&nbsp;&nbsp;业&nbsp;&nbsp;绩:</b></td><td>{$info.outstanding_achievement_total|price}</td>
+	   </tr>
+	   <tr>
+	   	<td><b>总&nbsp;&nbsp;收&nbsp;&nbsp;益:</b></td><td>{$info.gains_total|price}</td>
+	   </tr>
+	   <tr>
+	   <td colspan="2"><!-- <a class="submit_btn" href="#">修改基本信息</a> <a href="javascript:history.back()" style="color:#1566b1;font-weight:normal">返回上一层</a> --></td>
+	   </tr>	   
+	 </table> 
+</div>
+	
+	 
+
+</div>
+</div>
+{include file=footer.html}

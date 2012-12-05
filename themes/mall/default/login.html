@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset=gbk" />
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+{$page_seo}
+<meta name="author" content="www.paila100.com" />
+<meta name="generator" content="PaiLa {$paila_version}" />
+<meta name="copyright" content="PaiLa Inc. All Rights Reserved" />
+<link href="{res file=css/public.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/paila.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=jquery.plugins/jquery.validate.js}"></script> 
+<script type="text/javascript">
+	$(function(){
+	    $('#login_form').validate({
+	        errorPlacement: function(error, element){
+	            $(element).parent('td').append(error); 
+	        },
+	        success       : function(label){
+	            label.addClass('validate_right').text('OK!');
+	        },
+	        onkeyup : false,
+	        rules : {
+	            user_name : {
+	                required : true
+	            },
+	            password : {
+	                required : true
+	            },
+	            captcha : {
+	                required : true,
+	                remote   : {
+	                    url : 'index.php?app=captcha&act=check_captcha',
+	                    type: 'get',
+	                    data:{
+	                        captcha : function(){
+	                            return $('#captcha1').val();
+	                        }
+	                    }
+	                }
+	            }
+	        },
+	        messages : {
+	            user_name : {
+	                required : '{$lang.user_name_required}'
+	            },
+	            password  : {
+	                required : '{$lang.password_required}'
+	            },
+	            captcha : {
+	                required : '{$lang.captcha_required}',
+	                remote   : '{$lang.captcha_error}'
+	            }
+	        }
+	    });
+	});
+</script>
+<script type="text/javascript">
+//得到焦点时触发事件
+function OnFocusFun(element,elementvalue)
+{
+if(element.value==elementvalue)
+{
+element.value="";
+element.style.color="#000";
+}
+}
+//离开输入框时触发事件
+function OnBlurFun(element,elementvalue)
+{
+if(element.value==""||element.value.replace(/\s/g,"")=="")
+{
+element.value=elementvalue;
+element.style.color="#999";
+}
+}
+</script>
+</head>
+<body>
+<div class="sign">
+<div class="content">
+<div class="l"><a href="index.php"><img src="{res file=images/sign_logo.gif}"/></a></div>
+<div class="r">
+<div class="signfont"><a href="index.php?app=article&article_id=100">派啦模式简介</a>|<a href="index.php?app=download&act=Merchant">派啦店下载</a>|<a href="index.php?app=article&act=help">帮助中心</a></div>
+<div><img src="{res file=images/phone.gif}"/></div>
+</div>
+</div>
+ </div>
+<form method="post" id="login_form">
+<div class="content" style="overflow:hidden">
+<div class="l signimg"><img src="{res file=images/jixiangwu.gif}" align="absmiddle"/></div>
+<div class="r">
+<div class="signbg">
+<div><img src="{res file=images/signtitle.gif}" alt="派啦会员登录"/></div>
+<div class="signcontent"><label>{$lang.user_name}：</label><input type="text" name="user_name" class="text01"/></div>
+<div class="signcontent"><label>{$lang.password}：</label><input type="password" name="password" class="text01"/><a href="index.php?app=find_password" class="blue_col">忘记密码?</a>
+<div class="signcontent2"><input type="checkbox"/>&nbsp;下次自动登录<span>(公共场所慎用)</span></div></div>
+<div class="signcontent3"><input type="submit" name="Submit" value="" class="signbutton" />     
+<input type="hidden" name="ret_url" value="{$ret_url}" />
+<a href="{url app=member&act=register}">免费注册</a></div>
+</div>
+</div>
+</div>
+</form>
+<div class="signfoot">
+<div class="content">
+<a href="index.php?app=article&article_id=46">关于我们</a> |  <a href="index.php?app=article&article_id=49">联系我们</a>|  <a href="index.php?app=article&article_id=47">客服中心 </a> | <a href="index.php?app=article&article_id=54">服务协议</a> |  <a href="index.php?app=article&article_id=48">渠道招商</a> |  <a href="index.php?app=article&article_id=51">服务条款</a> |  <a href="index.php?app=article&article_id=52">隐私声明</a> |  <a href="index.php?app=article&article_id=50">招贤纳士</a></ul>
+</div>
+</div>
+</body>
+</html>

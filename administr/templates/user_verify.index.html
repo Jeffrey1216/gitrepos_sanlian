@@ -1,0 +1,74 @@
+{include file="header.html"}
+<script type="text/javascript">
+	$(function(){
+		$('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+		$('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+	});
+</script>
+<div id="rightTop">
+	<p>会员账户变动审核</p>
+	<div>
+		<ul class="subnav2">
+			<li {if $user_verify.verify eq 0} class='on'{/if}><a href="index.php?app=user_verify&verify=0">未审核<span></span></a></li>
+            <li {if $user_verify.verify eq 1} class='on'{/if}><a href="index.php?app=user_verify&verify=1">已审核<span></span></a></li>
+            <li {if $user_verify.verify eq 2} class='on'{/if}><a href="index.php?app=user_verify&verify=2">未通过<span></span></a></li>
+		</ul>
+	</div>
+</div>
+<div class="mrightTop" style="padding-top:6px;">
+	<div class="font1">
+		<form method="get" action="index.php">
+			<div class="left">
+				<input type="hidden" name="app" value="user_verify"/>
+				<input type="hidden" name="verify" value="{$verify}"/>
+				<select class="querySelect" name="field">
+				{html_options options=$search_options selected=$smarty.get.field}
+				</select>:<input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+	     余额变动:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+      PL币变动:<input class="queryInput2" type="text" value="{$query.order_pl_from}" name="order_pl_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_pl_to}" name="order_pl_to" class="pick_date" />
+	     添加时间:<input class="queryInput3" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                至:<input class="queryInput3" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+				<input type="submit" class="formbtn" value="查询"/>
+			</div>
+		</form>
+	</div>
+	<div class="fontr">{include file=page.top.html}</div>	
+</div>
+<form method="POST">
+	<div class="tdare">
+		<table width="100%" cellspacing="0" class="dataTable">
+			<tr class="tatr1">
+				<td>会员名&nbsp;&nbsp;|&nbsp;&nbsp;真实姓名</td>
+				<td>手机</td>
+				<td>余额变动</td>
+				<td>积分变动</td>
+				<td>变更记录</td>
+				<td>审核状态</td>
+				<td>添加时间 </td>
+				<td>操作人</td>
+				<td>审核</td>
+			</tr>
+			<!-- {foreach from=$verify item=user_verify} -->
+			<tr class="tatr2">
+				<td>{$user_verify.user_name|escape}&nbsp;&nbsp;|&nbsp;&nbsp;{$user_verify.real_name|escape}</td>
+				<td>{$user_verify.mobile|escape}</td>
+				<td>{$user_verify.money|price}</td>
+				<td>{$user_verify.credit}PL</td>
+				<td>{$user_verify.notes}</td>
+				<td><!-- {if $user_verify.verify eq 0} -->待审核<!-- {elseif $user_verify.verify eq 1} -->已通过<!-- {else} -->未通过<!-- {/if} --></td>
+				<td>{$user_verify.add_time|date:complete}</td>
+				<td>{$user_verify.operator|escape}</td>	
+				<td><a href="index.php?app=user_verify&act=verify&id={$user_verify.id}"><!-- {if $user_verify.verify eq 0} -->审核<!-- {else} -->查看<!-- {/if} --></a></td>
+			</tr>
+			<!-- {foreachelse} -->
+			<tr class="no_data">
+				<td colspan="10">{$lang.no_data}</td>
+			</tr>
+			<!-- {/foreach} -->
+		</table>
+	</div>
+</form>
+	<div class="pageLinks">{include file=page.bottom.html}</div>
+{include file="footer.html"}

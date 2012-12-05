@@ -1,0 +1,65 @@
+<div style="text-align:center;">
+	<table style="margin:auto;">
+		<tr>
+			<td>商品ID:</td>
+			<td><input type="text" name="gs_id" /><input type="hidden" name="label" value="{$label}" /></td>
+		</tr>
+		<tr>
+			<td>商品名称:</td>
+			<td><input type="text" name="goods_name" /></td>
+		</tr>
+		<tr>
+			<td>所属店铺:</td>
+			<td>
+				<select name="store_id">
+					<option value="{$store_id}">所有商城</option>
+				</select>
+			
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><input type="button" id="ipt_search" value="确定" /></td>
+		</tr>
+	</table>
+</div>
+<div>
+	<form action="index.php?app=widget&act=editWidgetData&widget_name={$widget_name}&pics_num={$pics_num}
+
+&goods_num={$goods_num}" method="post">
+		<table width="400px" id="showTable">
+			<tr>
+				<th>商品ID</th>
+				<th>商品名称<input type="hidden" name="label"/></th>
+			</tr>
+		</table>
+	</form>
+</div>
+<script type="text/javascript">
+$("#ipt_search").click(function () {
+	var ipt_gs_id = $("input[name='gs_id']").attr("value");
+	var ipt_goods_name = $("input[name='goods_name']").attr("value");
+	var label = $("input[name='label']").attr('value');
+	var store_id = $("select[name='store_id']").attr('value');
+	var cate_id = $("select[name='cate_id']").attr('value');
+	var datas = ipt_gs_id == "" ? "" : "gs_id="+ipt_gs_id+"&";
+	datas += ipt_goods_name == "" ? "" : "goods_name="+ipt_goods_name+"&"; 
+	datas += label == "" ? "" : "label="+label+"&";
+	datas += store_id == "" ? "" : "store_id="+store_id+"&";
+	//alert(ipt_goods_id + " : " + ipt_goods_name);
+	$.ajax({
+		type:'POST',
+		url:"index.php?app=widget&act=search",
+		data:datas,
+		success:function (msg) {
+			var jsonArr=eval('('+msg+')');
+			$("input[name='label']").attr("value",jsonArr.label);
+			for(var i in jsonArr.all_goods) {
+				var content = "<tr><td><input type='radio' name='gs_id' value='"+jsonArr.all_goods[i]['gs_id']+"' /> </td><td>"+jsonArr.all_goods[i]['gs_id']+"</td><td>"+decodeURI(jsonArr.all_goods[i]['goods_name'])+"</td></tr>";
+				$('#showTable').append(content);
+			}
+			$("#showTable").append("<tr><td colspan='3'><input type='submit' id='ipt_submit' value='确定' /></td></tr>");
+		}
+	});
+});
+
+</script>

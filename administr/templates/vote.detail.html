@@ -1,0 +1,63 @@
+{include file="header.html"}
+<style type="text/css">
+#vote_box{margin:30px;}
+#vote_box input{height:25px;width:400px;font-size:16px;line-height:25px;}
+#vote_box .short_input{width:50px;text-align:center;}
+.vote_tab{width:97%;}
+.vote_tab td{padding:10px 5px;}
+#vote_box .input_radio{width:10px;margin-left:40px;vertical-align:-7px;}
+#vote_box .add_col{color:#d5238c;cursor:pointer;}
+#vote_box textarea{width:400px;height:150px;max-height:150px;}
+#vote_box .times_width{width:160px;}
+.vote_tab{border-right:1px solid #e7e7e7;border-bottom:1px solid #e7e7e7}
+#vote_box td,#vote_box th{border-left:1px solid #e7e7e7;border-top:1px solid #e7e7e7}
+.list_span{margin:0 15px;color:#3180e2;}
+.vote_ul li{line-height:30px;}
+.editer_btn{margin:20px;display:inline-block;color:#000;text-align:center;text-decoration:none;line-height:20px;}
+#vote_box_tab a{margin:0 8px;color:#3180E2;}
+#vote_box_tab td{border:none;width:500px;overflow:hidden;line-height:20px;}
+</style>
+<div id="rightTop">
+  <p>投票管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=vote&act=addVote">发起投票</a></li>
+    <li><a class="btn1" href="index.php?app=vote">管理</a></li>    
+  </ul>
+</div>
+<div class="mrightTop">
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div id="vote_box">	
+	<form id="i_sub">
+	<table cellpadding="0" cellspacing="0" class="vote_tab">
+		<tr><th>投票标题：</th><td>{$theme.th_name}</td></tr>				
+		<tr><th>投票规则说明：</th><td>{$theme.th_rules}</td></tr>
+		<tr><th>是否允许重复投票：</th><td>{$theme.th_repeat}</td></tr>
+		<tr><th>开始时间：</th><td>{$theme.th_starttime}</td></tr>
+		<tr><th>结束时间：</th><td>{$theme.th_endtime}</td></tr>							
+		<tr>
+			<th>投票选项：</th>
+			<td>
+				<table id="vote_box_tab">
+				<!--{foreach from=$content item=rs}-->
+					<tr>
+						<td>
+						{$rs.c_content}</td><td>（共{$rs.c_num}票）
+						<a href="index.php?app=vote&act=detail_examine&cid={$rs.c_id}">详情</a>
+						<a href="index.php?app=vote&act=editContent&cid={$rs.c_id}">修改</a>
+						<a href="index.php?app=vote&act=delContent&cid={$rs.c_id}">删除</a>
+					</td>
+					</tr>
+				<!--{/foreach}-->  
+				</table>
+			</td>
+		</tr>						
+		<tr><th>投票方式：</th><td>最多选{$theme.th_max}项</td></tr>	
+			
+	</table>
+		<a class="formbtn editer_btn" href="index.php?app=vote&act=editVote&tid={$theme.th_id}">编辑</a><a class="formbtn editer_btn"  href="javascript:history.back()">返回</a>
+	</form>
+ </div> 
+  
+
+{include file="footer.html"}

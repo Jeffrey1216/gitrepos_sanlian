@@ -1,0 +1,143 @@
+{include file=storeadmin.member.header.html}
+<style>
+.member_no_records {border-top: 0px !important;}
+.table td{ padding-left: 5px; }
+.table .ware_text { width: 155px; }
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>派啦专柜</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=my_goods">商品列表</a></li>
+			
+	</ul>
+        
+            
+            <div class="public_02">
+<div class="table">
+                <table id="my_goods" server="{$site_url}/index.php?app=my_goods&amp;act=ajax_col" >
+<colgroup>  
+               <col width="2%"/>
+                <col width="18%"/>
+                <col width="10%"/>             
+                <col width="10%"/>
+                <col width="10%"/>
+                <col width="10%"/>
+               
+                </colgroup>
+                    <form id="my_goods_form" method="get">
+                    <tr class="line_bold">
+                        <th>
+						
+                            
+                         </th>  
+                            <th>  
+                            <select name='cate_id' id="selCate">
+                                <option value="0">选择商品分类</option>   
+                                <!-- {foreach from=$gcategory_list item=cate} -->
+                                <option value="{$cate.cate_id}" <!-- {if $cate_id eq $cate.cate_id} --> selected<!-- {/if} -->>{$cate.cate_name}</option>
+                                <!-- {/foreach} -->                         
+                            </select>  
+                              <select name='priceRegion' id="priceRegion">
+                                <option>选择价格区间</option>   
+                                <!-- {foreach from=$priceRegion item=region} -->
+                                <option value="{$region.key}" <!-- {if $priceReg eq $region.key} --> selected<!-- {/if} -->>{$region.value}</option>
+                                <!-- {/foreach} -->                            
+                            </select>  </th>                                                
+  							<th colspan="9">
+                           		 <div class="select_div"> 
+                           		 
+                           		 			<input type="hidden" name="app" value="my_pailagoods" />
+                           		 			<input type="hidden" name="act" value="index" />                          
+                        					 <input type="text" id="keyword" name="keyword" value="请输入搜索关键字!"/>
+                            				<input type="submit" class="btn" value="搜索" />
+                            		
+                            	</div>
+                      		  </th>
+                     
+                    </tr>     
+                    </form>
+                    <!--{if $goods_list}-->
+                    <tr class="gray"  ectype="table_header">                       
+						<th></th>
+						<th width="2%">商品货号</th>
+                        <th width="18%">商品信息</th>                 
+                        <th width="10%" class="cursor_pointer" coltype="editable" column="price" checker="check_number" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">售价</span></th>
+                        <th width="10%" class="cursor_pointer" coltype="editable" column="credit" checker="check_number" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">赠送CC</span></th>
+                        <th width="10%" colspan="5" class="cursor_pointer" coltype="editable" column="stock" checker="check_pint" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">{$lang.stock}</span></th>
+                        <th width="10%" class="cursor_pointer" coltype="editable" column="operate" checker="check_pint" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">操作</span></th>
+                    </tr>
+                    <!--{/if}-->
+                    <!--{foreach from=$goods_list item=goods name=_goods_f}-->
+                    <tr class="line<!--{if $smarty.foreach._goods_f.last}--> last_line<!--{/if}-->" ectype="table_item" idvalue="{$goods.goods_id}">
+                        <td><input type="checkbox" class="checkitem" value="{$goods.gs_id}"/></td>
+                        <td>{$goods.goods_id}</td>
+                        <td>
+                        <div style="float:left;"><a href="{url app=goods&id=$goods.gs_id}" target="_blank"><img src="{$goods.default_image}" width="50" height="50"/></a></div>
+                        <div style="float:left">
+                        <div column="cate_id" title="{$lang.sort_order}"  class="cursor_pointer">
+                        <span ectype="order_by"  class="descr_02">{$lang.gcategory}</span>  
+                        <span class="descr_01">{$goods.cate_name|nl2}</span>
+                        </div>
+                        <div coltype="editable" column="brand" checker="check_required" inputwidth="55px" title="{$lang.sort_order}"  class="cursor_pointer">                        
+                        <span ectype="order_by"  class="descr_02">{$lang.brand}</span> 
+                        <span class="descr_01" ectype="editobj">{$goods.brand|escape}</span></div>                                           
+                        <p coltype="editable" column="goods_name" checker="check_required" inputwidth="90%" title="{$lang.sort_order}"  class="cursor_pointer">
+                        <span ectype="order_by" class="descr_02">{$lang.goods_name}</span>
+                        <span class="descr_01" ectype="editobj">{$goods.goods_name|escape}</span></p>
+                        </div>
+                        </td>                                          
+                        <td><!--{if $goods.spec_qty}--><span ectype="dialog" dialog_width="430" uri="index.php?app=my_goods&amp;act=spec_edit&amp;id={$goods.goods_id}" dialog_id="my_goods_spec_edit" class="cursor_pointer"><!--{else}--><span class="color2"><!--{/if}-->{$goods.price}</span></td>
+                        <td style="padding-left:15px"><span>{$goods.credit}</span></td>
+                        <td colspan="5"><!--{if $goods.spec_qty}--><span ectype="dialog" dialog_width="430" uri="index.php?app=my_goods&amp;act=spec_edit&amp;id={$goods.goods_id}" dialog_id="my_goods_spec_edit" class="cursor_pointer"><!--{else}--><span class="color2" ectype="editobj"><!--{/if}-->{$goods.stock}</span></td>
+                                             
+                        <!--{if $goods.status eq '未通过'}-->
+                        <td><a href="javascript:void(0);" onclick="reason('{$goods.reason}')"><span class="fRed">{$goods.status}</span></a></td>
+                        <!--{elseif $goods.status eq '已通过'}-->
+                        <td><span class="fGreen">{$goods.status}</span></td>
+                        <!--{else}-->                       
+ 						<!--{/if}-->  
+                        <td colspan="5"><a href="{url app=promotion&act=apply&gs_id=$goods.gs_id}">促销</a>&nbsp;|&nbsp;<a href="{url app=my_pailagoods&act=cut_stock&id=$goods.goods_id }"/>减少库存</a></td>
+                    </tr>
+                    <!--{foreachelse}-->
+                    <tr>
+                        <td class="align2 member_no_records padding6" colspan="8">{$lang.$smarty.get.act}{$lang.no_records}</td>
+                    </tr>
+                    <!--{/foreach}-->
+                    <!--{if $goods_list}-->
+                 
+                    <tr>
+                        <th></th>
+                        <th colspan="9">
+                            <p class="position1">
+                         
+                            </p>
+                            <p class="position2">
+                                {$page}
+                            </p>
+                        </th>
+                    </tr>
+                    <!--{/if}-->
+                </table>
+            </div>        
+        </div>
+</div>
+<iframe name="iframe_post" id="iframe_post" width="0" height="0"></iframe>
+<script type="text/javascript">
+$("#selCate").change(function(){
+	$("#my_goods_form").submit();
+});
+$("#priceRegion").change(function(){
+	$("#my_goods_form").submit();
+});
+$("#keyword").focus(function() {
+	if($("#keyword").val() == '' || $("#keyword").val() == '请输入搜索关键字!') {
+		$("#keyword").val("");
+	}
+});
+$("#keyword").blur(function() {
+	if($("#keyword").val() == '') {
+		$("#keyword").val("请输入搜索关键字!");
+	}
+});
+</script>
+{include file=storeadmin.footer.html}

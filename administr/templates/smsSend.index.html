@@ -1,0 +1,108 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    // multi-select mall_gcategory
+    $('#gcategory').length>0 && gcategoryInit("gcategory");
+});
+//]]>
+</script>
+<div id="rightTop">
+  <p>短信群发</p>
+  
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+    <form method="get" action="index.php">
+       <div class="left">
+          <input type="hidden" name="app" value="smsSend" />
+          <input type="hidden" name="act" value="index" />
+          <select id="smstype" class="querySelect" name="condt">
+          	<option value="0" {if $condt eq 0}selected{/if}>会员名</option>
+          	<option value="1" {if $condt eq 1}selected{/if}>真实姓名</option>
+          	<option value="2" {if $condt eq 2}selected{/if}>手机号码</option>
+          	<option value="3" {if $condt eq 3}selected{/if}>会员类型</option>
+          </select>
+          <span class="two_grade"><input class="queryInput" name="mem" type="text" value="{}"></span>
+       	   排序:
+          <select class="querySelect" name="sorder">
+          	<option value="0" {if $sorder eq 0}selected{/if}>登陆次数</option>
+          	<option value="1" {if $sorder eq 1}selected{/if}>注册时间</option>
+          </select>
+          <input type="hidden" name="app" value="smsSend"/>
+          <input type="hidden" name="act" value="index"/>
+          <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+
+    </form>
+  </div>
+  <div class="fontr">{if $page_info}{include file=page.top.html}{/if}</div>
+</div>
+<form method="post">
+<div class="sms_send_box">
+	<p>请输入您要发送的短信内容：</p>
+	<textarea id="question_content" name="content"> </textarea>
+	<input style="margin-top:10px;"  class="formbtn" type="submit" value="发送"/>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">   
+    <tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+      <td>用户名|真实姓名</td>
+      <td>会员类型</td>      
+      <td>手机号码</td>
+      <td>登陆次数</td>
+      <td>注册时间</td>    
+    </tr>  
+    <!-- {foreach from=$member_info item=member} -->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" name="uid[]" value="{$member.user_id}" class="checkitem" /></td>
+      <td>{$member.user_name}&nbsp;|&nbsp;{$member.real_name}</td>
+      <td>{if $member.is_bind_channel eq 1}渠道商{/if}&nbsp;&nbsp;{if $member.store_id eq $member.user_id}商户{/if}&nbsp;&nbsp;会员</td>
+      <td> {$member.mobile} </td>
+      <td>{$member.logins}</td>
+      <td>{$member.reg_time|date:complete}</td>
+    </tr>
+       <!-- {/foreach} -->
+  </table>
+  <div id="dataFuncs">
+    <div id="batchAction" class="left paddingT15">
+          &nbsp;&nbsp;
+    </div>
+    </form>
+    	 <div class="pageLinks">
+            {if $page_info}{include file=page.bottom.html}{/if}
+        </div>
+</div>
+<script type="text/javascript">
+var member_value = "{$member_value|default:0}";
+	$(function(){
+		$("#smstype").change(function(){
+			changeValue();
+		})
+	})
+	function changeValue() {
+		var inputNode;
+		$(".two_grade").empty();
+		$("#smstype").attr('value'); //变
+		switch(parseInt($("#smstype").attr('value'))) {
+		case 0: inputNode ="<input class=\"queryInput\" name='user_name' type=\"text\" value=\"{$user_name}\"/>";break;
+		case 1: inputNode ="<input class=\"queryInput\" name='real_name' type=\"text\" value=\"{$real_name}\"/>"; break;
+		case 2: inputNode ="<input class=\"queryInput\" name='mobile' type=\"text\" value=\"{$mobile}\"/>";break;
+		case 3: inputNode ="<select class=\"selNode\" name=\"member\"><option value=\"shops\">商户</option><option value=\"channel\">渠道商</option><option value=\"user\">会员</option></select>"; break;
+		default : alert("Error! ..");return;
+		}
+		
+		$(".two_grade").append(inputNode);
+		if(member_value != 0) {
+			switch(member_value) {
+			case 'shops': $("select[name='member']").find("option[value='shops']").attr('selected',true);break;
+			case 'channel': $("select[name='member']").find("option[value='channel']").attr('selected',true); break;
+			case 'user': $("select[name='member']").find("option[value='user']").attr('selected',true); break;
+			default: ;
+			}
+		}
+	}
+	changeValue();
+</script>
+{include file="footer.html"}

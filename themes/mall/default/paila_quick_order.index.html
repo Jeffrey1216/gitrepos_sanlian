@@ -1,0 +1,139 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>快捷支付</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=quickorder&goods=quickCart&store_id={$smarty.get.store_id}&mobile={$smarty.get.mobile}&uid={$smarty.get.uid}">确认订单</a></li>
+	</ul>
+	<div id="quick_pays">
+	<ul class="pays_head">
+		<li>用户名:<span><!-- {$memberinfo.user_name} --></span></li>
+		<li>手机号:<span><!-- {$memberinfo.mobile} --></span></li>
+		<li>剩余PL:<span><!-- {$memberinfo.credit} --></span></li>
+		<li>余额:<span><!-- {$memberinfo.money} --></span></li>
+	</ul>
+		<form method="post" id="quickForm">
+		<!-- {if $goods_info.items} -->
+    	<table>
+    		<h3 style="float:left;">{$paila_goods_info.store_name}</h3>
+    		<tr>
+    			<th>商品名称</th>
+    			<th>规格</th>
+    			<th>数量</th>
+    			<th>派送积分</th>
+    			<th>价格</th>
+    		</tr>
+    		<!-- {foreach from=$goods_info.items item=goods} -->
+    		<tr>
+    			<td>
+    				<img src="{$goods.simage_url}" title="{$goods.goods_name}" alt="{$goods.goods_name}" />
+    				{$goods.goods_name}
+    			</td>
+    			<td>{$goods.specification|default:通用}</td>
+    			<td>{$goods.quantity}</td>
+    			<td>{$goods.credit}</td>
+    			<td>{$goods.price|price}</td>
+ 			</tr>
+ 			<!-- {/foreach} -->
+    		<tr>
+    			<td colspan="5">
+    				<ul class="use_ul_zhifu">
+    					<li>
+    						<span><label class="use_payqr">总共需要支付：</label><span class="pay" id='pay' label="1">{$goods_info.amount|price}</span></span>
+    						<span style="{if $allowUseCredit eq 0}display:none{/if}">,使用 <input type="text" id="use_credit" name="use_credit" value="0" class="use_credit"/> 积分（可以使用  {$allowUseCredit}  PL）</span>
+    					</li>
+    					<li>
+    						<label class="use_payqr">付款：</label><input type="text" id="pay_money" class="use_credit"/> 元
+    					</li>
+    				</ul>
+    				<input type="hidden" name="paila_pay_cash" id="paila_pay_cash" value="{$goods_info.amount}" />
+    				<input type="hidden" name="paila_get_credit" id="paila_get_credit" value="{$goods_info.credit_total}" />
+    				<input type="hidden" name="paila_pay_credit" id="paila_pay_credit" value="0" />
+    				<input type="hidden" name="order_id" value="{$order_id}" />
+    				<span style="text-align:right;float:right;">总商品数：{$goods_info.quantity}&nbsp;&nbsp;
+    				支付总价：<span id="pay_mon">{$goods_info.amount|price}</span>元&nbsp;&nbsp; 共赠送积分：<span id="credit_total">{$goods_info.credit_total}</span> PL
+    				</span>
+    				<span><label class="use_payqr">找零：</label></span><span id="balance" class="use_credit"></span><br/>
+		    	
+		    		<!-- {if $memberinfo.user_id eq 0} -->
+		    		<input type="submit" value="支付"/>
+		    		<!-- {else} -->
+		    		<span style="{if $allowUseCredit eq 0}display:none{/if}">
+    				<label class="use_payqr">支付密码：</label><input type="password" id="testpass" name="testpass" class="use_testword"/>
+		    		</span>
+		    		<input type="submit" value="支付" class="pass_submit"/>
+		    		<!-- {/if} --> 
+    			</td>
+		    		
+    		</tr>
+    	</table>
+    	<!-- {/if} -->
+    	
+    	</form>
+    </div>   
+</div>
+<script type="text/javascript">
+var amount = parseFloat({$goods_info.amount});
+var credit_total = parseFloat({$goods_info.credit_total});
+var allowUseCredit = parseFloat({$allowUseCredit});
+$('#paila_pay_cash').val(
+			amount - allowUseCredit
+		);
+$('#paila_get_credit').val(
+		credit_total - allowUseCredit
+	);
+$('#paila_pay_credit').val(
+		allowUseCredit
+	);
+$('#use_credit').val(
+		allowUseCredit
+	);
+$('#pay_mon').html(
+		amount - allowUseCredit
+	);
+$('#credit_total').html(
+		credit_total - allowUseCredit
+	);
+$('#use_credit').keyup(function () {
+	var use_credit = parseFloat($(this).val());
+	if (use_credit > allowUseCredit)
+	{
+		use_credit = allowUseCredit;	
+	}
+	var use_cash = amount - use_credit;
+	var get_credit = credit_total - use_credit;	
+	$('#paila_pay_cash').val(use_cash);
+	$('#paila_get_credit').val(get_credit);
+	$('#paila_pay_credit').val(use_credit);
+	$('#use_credit').val(use_credit);
+	if (isNaN($('#paila_pay_cash').val())){
+		$('#paila_pay_cash').val(amount);
+	}
+	if (isNaN($('#paila_get_credit').val())){
+		$('#paila_get_credit').val(credit_total);
+	}
+	if (isNaN($('#paila_pay_credit').val())){
+		$('#paila_pay_credit').val('0');
+	}
+	if (isNaN($('#use_credit').val())){
+		$('#use_credit').val('0');
+	}
+	$('#pay_mon').html(
+			use_cash
+		);
+	if (isNaN($('#pay_mon').html())){
+		$('#pay_mon').html(amount);
+	}
+	$('#credit_total').text(get_credit);
+	if(isNaN($('#credit_total').text())){
+		$('#credit_total').text(credit_total);
+		} 
+});
+$('#pay_money').keyup(function () {
+	var pay_money = parseFloat($(this).val());
+	var use_credit =parseFloat($('#use_credit').val());
+	var balance = pay_money + use_credit - amount;
+	balance = isNaN(balance) ? 0 : balance;
+	$('#balance').text(balance.toFixed(2));
+});
+
+</script>

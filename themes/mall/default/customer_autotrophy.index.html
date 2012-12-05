@@ -1,0 +1,39 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+
+<div class="content">
+    {include file=member.menu.html}
+<div id="right">
+<ul class="tab">
+    <li class="active">产品购买</li>
+ </ul>
+<div class="wrap">
+<ul class="listshow">
+	<!-- {foreach from=$goods_list item=l} -->
+     <li>
+     <a href="index.php?app=goods&amp;id={$l.gs_id}"><img alt="100g上珍开心果" src="http://img.paila100.com/{$l.smimage_url}"></a> 
+     <div class="listshow_text"><a href="index.php?app=goods&amp;id={$l.gs_id}">{$l.goods_name}</a></div>
+     <div class="listshow_price">派啦价：<span>{$l.price|price}</span></div>
+     <div class="listshow_text"><a href="index.php?app=goods&amp;id={$l.gs_id}" class="btn_c1"></a></div>
+     </li>
+    <!-- {/foreach} -->
+</ul>
+<div class="wrap_bottom"></div>
+ </div>
+  <div class="order_form_page">
+                    <div class="page">
+                        {include file=member.page.bottom.html}
+                    </div>
+                </div>     
+</div>
+ <div class="clear"></div>
+<iframe id='iframe_post' name="iframe_post" src="about:blank" frameborder="0" width="0" height="0"></iframe>
+</div>
+<script type="text/javascript">
+$("#page_sel").change(function () {
+	window.location.href = $(this).children(":selected").val();
+});
+</script>
+{include file=footer.html}

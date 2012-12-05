@@ -1,0 +1,98 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<style type="text/css">
+.querySelect{width:80px;height:20px;}
+</style>
+<div id="rightTop">
+    <ul class="subnav">
+        <li><span>{$lang.manage}</span></li>
+    </ul>
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">
+                <input type="hidden" name="app" value="credit" />
+                <input type="hidden" name="act" value="index" />
+                <select class="querySelect" name="opt" id="credit">
+                <option {if $opt eq 0}selected{/if} value="0">买家姓名</option>
+                <option {if $opt eq 1}selected{/if} value="1">卖家姓名</option>
+                </select>:
+                <span class="two_grade" {if $opt eq 1}style='display:none;'{/if} id='opt0'>
+             	<input class="wish_input" name="buyer_name" type="text"  value="{$buyer_name}"/>
+          		</span>
+          		<span class="two_grade" id='opt1' {if $opt neq 1}style='display:none;'{/if}>
+           		<input class="wish_input" name='seller_name' type="text" value="{$seller_name}"/>
+          		</span>
+                <select class="querySelect" name="status">
+                    <option {if $status eq 0}selected{/if} value="0">所有订单</option>
+                    <option {if $status eq 11}selected{/if} value="11">等待付款</option>
+                    <option {if $status eq 20}selected{/if} value="20"">已付款</option>
+                    <option {if $status eq 40}selected{/if} value="40">交易成功</option>           
+                </select>
+                下单时间从:<input class="queryInput2" type="text" value="{$credit_orderadd_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                至:<input class="queryInput2" type="text" value="{$credit_order.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="查询" />
+            </div>
+        </form>
+    </div>
+    <div class="fontr">
+        {if $orders}{include file=page.top.html}{/if}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+
+        <tr class="tatr1">
+            <td width="10%" class="firstCell"><span ectype="order_by" fieldname="seller_id">订单号</span></td>
+            <td width="15%"><span ectype="order_by" fieldname="order_sn">买家姓名</span></td>
+            <td width="15%"><span ectype="order_by" fieldname="add_time">卖家姓名</span></td>
+            <td width="10%"><span ectype="order_by" fieldname="buyer_name">派啦币数</span></td>
+            <td width="15%"><span ectype="order_by" fieldname="order_amount">价格</span></td>
+            <td>下单时间</td>
+            <td width="10%"><span ectype="order_by" fieldname="status">支付方式</span></td>
+            <td>订单状态</td>
+            <td width="10%">操作</td>
+        </tr>
+		<!-- {foreach from=$credit_order item="credit"} -->
+        <tr class="tatr2">
+            <td class="firstCell">{$credit.order_sn}</td>
+            <td>{$credit.buyer_name}</td>
+            <td>{$credit.seller_name}</td>
+            <td>{$credit.credit}PL</td>
+            <td>{$credit.order_amount|price}</td>
+            <td>{$credit.add_time|date:complete}</td>
+            <td>{$credit.payment_name}</td>
+            <td><!-- {if $credit.status eq 11} -->等待付款<!-- {elseif $credit.status eq 20} -->已付款<!-- {elseif $credit.status eq 40} -->交易成功<!-- {/if} --></td>
+            <td><a href="index.php?app=credit&act=view&id={$credit.id}">{$lang.view}</a></td>
+        </tr>
+		  <!--{foreachelse}-->
+	    <tr class="no_data info">
+	      <td colspan="8">没有符合条件的订单！</td>
+	    </tr>
+    	<!-- {/foreach} --> 
+
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">
+$(function(){
+	$("#credit").change(function(){
+        var val = $('#credit').val();
+        $('.two_grade').hide();
+        $('#opt'+val).show();
+	})
+})
+
+</script>

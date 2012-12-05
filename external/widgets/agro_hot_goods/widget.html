@@ -1,0 +1,12 @@
+<div class="l">
+		<div class ="hot_goods">
+		<div class="hot_goods_tit"> </div>
+			<!-- {foreach from=$widget_data.goods  item=good} -->
+			<ul class="goods_120">
+				<li class="goods_120_img"><a href="index.php?app=goods&id={$good.gs_id}"><img class="img_120" src="{$image_url}{$good.default_image}"/></a></li>
+				<li><a href="index.php?app=goods&id={$good.gs_id}">{$good.goods_name}</a></li>
+				<li>≈…¿≤º€: <span class="red_col">{$good.price}</span></li>
+			</ul>
+			<!-- {/foreach} -->
+		</div>
+</div>

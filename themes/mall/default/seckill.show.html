@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>派啦网秒杀</title>
+<link href="{res file=topics/seckill_groupbuy/css/seckill_groupbuy.css}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{lib file=jquery.js}"></script>
+<script type="text/javascript" src="{res file=topics/seckill_groupbuy/js/time.js}"></script>
+</head>
+<body>
+{include file=seckill.head.html}
+<div class="skl_ctt">
+    <div class="skl_ctt_buy">
+        <div class="skl_ctt_sklimg">
+            <img src="{res file=topics/seckill_groupbuy/images/skl.gif}" alt="秒杀" /> 
+        </div>
+        <div class="skl_ctt_share">
+            <ul>
+               <li>
+                  分享到：
+               </li>
+               <!--  
+               <li>   
+                   <a href="#">
+                     <img src="{res file=topics/seckill_groupbuy/images/sina_logo.gif}" alt="#" />
+                   </a>
+                   <a href="#">
+                      新浪微博
+                   </a>
+               </li>
+               -->
+               <li>
+                    <a href="http://www.kaixin001.com/repaste/share.php?rurl=http://www.paila100.com/" target="_blank">
+                     <img src="{res file=topics/seckill_groupbuy/images/kx_logo.jpg}" alt="#" />
+                   </a>
+                   <a href="http://www.kaixin001.com/repaste/share.php?rurl=http://www.paila100.com/" target="_blank">
+                      开心
+                   </a>
+               </li>
+               
+               <li>   
+                    <a href="http://share.renren.com/share/buttonshare?link=http://www.paila100.com" target="_blank">
+                     <img src="{res file=topics/seckill_groupbuy/images/rr_logo.gif}" alt="#" />
+                   </a>
+                    <a href="http://share.renren.com/share/buttonshare?link=http://www.paila100.com" target="_blank">
+                      人人
+                   </a>
+               </li>
+               
+               <li>    
+                    <a href="http://www.douban.com/recommend/?url=http://www.paila100.com/" target="_blank">
+                   <img src="{res file=topics/seckill_groupbuy/images/dp_logo.jpg}" alt="#" />
+                   </a>
+                    <a href="http://www.douban.com/recommend/?url=http://www.paila100.com/" target="_blank">
+                      豆瓣
+                   </a>
+               </li>
+               
+               <li>
+                     <a target="_blank" href="http://profile.live.com/badge/?url=http://www.paila100.com;screenshot=http://www.paila100.com"  title="分享到MSN">
+                     <img src="{res file=topics/seckill_groupbuy/images/msn_logo.jpg}" alt="#" />
+                   </a>
+                    <a target="_blank" href="http://profile.live.com/badge/?url=http://www.paila100.com;screenshot=http://www.paila100.com"  title="分享到MSN">
+                      MSN
+                   </a>
+               </li>                                           
+               <li>
+                  <a target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.paila100.com">
+                    <img src="{res file=topics/seckill_groupbuy/images/QQq_logo.jpg}" alt="#" />
+                  </a>
+                 <a target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.paila100.com">
+                     QQ空间
+                  </a>
+               </li>
+                                           
+               <li>
+                  <a target="_blank" href="http://t.sohu.com/third/post.jsp?content=gbk&amp;url=http://www.paila100.com&title=派啦网--零售商业大革命" title="转发至搜狐微博">
+                    <img src="{res file=topics/seckill_groupbuy/images/sohu_logo.jpg}" alt="#" />
+                  </a>
+                  <a target="_blank" href="http://t.sohu.com/third/post.jsp?content=gbk&amp;url=http://www.paila100.com&title=派啦网--零售商业大革命" title="转发至搜狐微博">
+                     搜狐微博
+                  </a>
+               </li>
+            </ul>
+       </div>
+       <ul class="skl_ctt_gdsimg">
+          <li class="skl_ctt_img">
+             <img src="{$seckill.image_show}" alt="{$seckill.goods_name}" />
+          </li>
+          <li class="dtld_l_adword">
+             {$seckill.warm_prompt}
+          </li>      
+       </ul>
+       <!-- {if $seckill.is_start eq 1} -->
+       <div class="skl_ctt_buy_r goods_box">
+           <div class="skl_ctt_ttl">
+               <p>
+                 <strong>{$seckill.goods_name}</strong>{$seckill.title}
+               </p>
+           </div>
+           <div class="skl_ctt_time">
+               <div class="skl_ctt_time_go">
+                   <p>请抓紧时间购买，距结束时间还有：</p>
+               </div>
+               <ul class="skl_ctt_time_ctd">
+				  <li class="skl_ctt_time_s" style="display:none;">
+                     <span class="ddd">0</span>
+                  </li>
+                  <li class="skl_ctt_time_s">
+                     <span class="hhh">{$seckill.hour}</span>
+                  </li>
+                  <li class="skl_ctt_time_unit">
+                      时
+                  </li>
+                  <li class="skl_ctt_time_s">
+                     <span class="mmm">{$seckill.minute}</span>
+                  </li>
+                  <li class="skl_ctt_time_unit">
+                      分
+                  </li>
+                  <li class="skl_ctt_time_s">
+                     <span class="sss">{$seckill.second}</span>
+                  </li>
+                  <li class="skl_ctt_time_unit">
+                      秒
+                  </li>
+                  <li class="skl_ctt_time_rest">
+                      (限量<span>{$seckill.max_quantity}</span>件，还剩<span class="cases">{$seckill.surplus_quantity}</span>件)
+                  </li>
+               </ul>
+               <ul class="skl_ctt_time_prc">
+                  <li class="skl_ctt_time_prc1">
+                      秒杀价：<span>{$seckill.price|price}</span>
+                  </li>
+                  <li class="skl_ctt_time_prc2">
+                      市场价：<span>{$seckill.cprice|price}</span>
+                  </li> 
+               </ul>
+           </div>
+           <div class="skl_ctt_bn">
+               <div class="skl_ctt_bn_l">
+                   <a class="details_btn" href="index.php?app=group_order&act=index&id={$seckill.id}"></a>
+               </div>
+               <!-- 
+               <div class="skl_ctt_bn_r">
+                   <a href="http://www.paila100.com"><img src="{res file=topics/seckill_groupbuy/images/pailalogo.gif}" alt="派啦网" /></a>
+                   <a href="#"><img src="{res file=topics/seckill_groupbuy/images/att.gif}" alt="加关注" /></a>
+               </div>
+                -->
+             </div>
+           </div>
+           <!-- {else} -->
+           <div class="skl_ctt_buy_r goods_box">
+           <div class="skl_ctt_ttl">
+               <p>
+                 <strong>{$seckill.goods_name}</strong>{$seckill.title}
+               </p>
+           </div>
+           <div class="skl_ctt_time">
+               <div class="skl_ctt_time_go">
+                   <p>敬请期待，距开始时间还有：</p>
+               </div>
+               <ul class="skl_ctt_time_ctd">
+				  <li class="skl_ctt_time_s" style="display:none;">
+                     <span class="ddd">0</span>
+                  </li>
+                  <li class="skl_ctt_time_s">
+                     <span class="hhh">{$seckill.hour}</span>
+                  </li>
+                  <li class="skl_ctt_time_unit">
+                      时
+                  </li>
+                  <li class="skl_ctt_time_s">
+                     <span class="mmm">{$seckill.minute}</span>
+                  </li>
+                  <li class="skl_ctt_time_unit">
+                      分
+                  </li>
+                  <li class="skl_ctt_time_s">
+                     <span class="sss">{$seckill.second}</span>
+                  </li>
+                  <li class="skl_ctt_time_unit">
+                      秒
+                  </li>
+                  <li class="skl_ctt_time_rest">
+                      (限量<span>{$seckill.max_quantity}</span>件，还剩<span class="cases">{$seckill.surplus_quantity}</span>件)
+                  </li>
+               </ul>
+               <ul class="skl_ctt_time_prc">
+                  <li class="skl_ctt_time_prc1">
+                      秒杀价：<span>{$seckill.price|price}</span>
+                  </li>
+                  <li class="skl_ctt_time_prc2">
+                      市场价：<span>{$seckill.cprice|price}</span>
+                  </li> 
+               </ul>
+           </div>
+           <div class="skl_ctt_bn">
+               <div class="skl_ctt_bn_l">
+                   <a class="details_btn skl_just_btn"></a>
+               </div>
+             </div>
+           </div>
+           <!-- {/if} -->
+        </div>
+        <div class="skl_ctt_fcst">
+           <div class="skl_ctt_fcst_top">
+               <h3><span>秒杀预告</span></h3>
+           </div>
+		   <div class="skl_ctt_fcst_l to_left_none">
+			</div>
+		   <div class="skl_ctt_fcst_content">	
+			<div id="moveUl">
+			<!-- {foreach from=$seckill_list item=v} -->
+				<ul class="skl_ctt_fcst_box">
+					<li class="skl_ctt_fcst_img"><a href="index.php?app=group_project&act=seckillShow&id={$v.id}"><img src="{$v.image_list}" width="220px" height="140" alt="{$v.goods_name}"/></a></li>
+					<li class="skl_ctt_fcst_text" style="text-align:left;">{$v.goods_name}</li>
+					<li class="skl_ctt_fcst_price"><span style="float:left;">秒杀价：<b class="skl_price_col">{$v.price|price}</b></span><span style="float:right;">市场价：<b class="skl_cprice_col">{$v.cprice|price}</b></span></li>
+					<li class="skl_ctt_fcst_time goods_box">距离开始时间还有：<span class="hhh">{$v.hour}</span>小时<span class="mmm">{$v.minute}</span>分<span class="sss">{$v.second}</span>秒</li>
+				</ul>	
+			<!-- {/foreach} -->
+			</div>	
+		   </div>
+		   
+		   <div class="skl_ctt_fcst_r">
+			</div>
+        </div>
+        <div class="skl_ctt_bttm">
+            <h3 class="skl_ctt_bttm_part1"><span><img src="{res file=topics/seckill_groupbuy/images/bttmioc.gif}" /> 本单详情</span></h3>
+            <p>
+               {$seckill.introduction}
+            </p>
+            <h3 class="skl_ctt_bttm_part1"><span><img src="{res file=topics/seckill_groupbuy/images/bttmioc.gif}" /> 温馨提示</span></h3>
+            <ul style="color:#505050;font-size:14px;margin:20px auto;width:960px;line-height:24px;">
+				<li>1、参加秒杀活动前请先仔细阅读本活动规则，参与本期活动即视为认同本规则所有条款。</li>
+				
+				<li>2、活动时间在每天上午10:00整准时开始，相继多款商品不断进行，待所有秒杀商品显示“此商品已秒杀完毕”时，秒杀自动结束；</li>
+				
+				<li>3、由于秒杀商品数量有限，价格劲爆，所以每人，每个商品，限购一单，且在活动期间1元秒杀，每人限购一款。以您在派啦网注册的ID和手机号码作为参考；</li>
+				
+				<li>4、所有秒杀活动商品均不参与PL币的赠送、且均不享受7天无条件退款；</li>
+				
+				<li>5、派啦网内部员工不得参加本活动。其他用户一切作弊和非合理的参与活动行为，一经发现，直接取消活动资格；</li>
+				
+				<li>6、因为显示器不同存在色差，本次商品包装及颜色以实物为准；</li>
+				
+				<li>7、如订单收货地址超出所选快递的配送范围，派啦网有可能直接转运邮局包裹等全国各地可到达的运输方式（点击查看配送区域）；</li>
+				
+				<li>8、派啦网对本次活动保留最终解释权，更多活动详情请致电服务热线：400-166-1616</li>
+               
+            </ul>
+            <h3 class="skl_ctt_bttm_part1"><span><img src="{res file=topics/seckill_groupbuy/images/bttmioc.gif}" /> 商品详情</span></h3>
+            <p>
+               {$seckill.goods_desc}
+            </p>
+            
+        </div>
+</div>
+{include file=seckill.foot.html}
+<script type="text/javascript">
+var paila_move_flag = true;
+var paila_move_width = 300;
+$(".skl_ctt_fcst_l").click(function () {
+	if(!paila_move_flag) {
+		return;
+	}
+	if($('.skl_ctt_fcst_r').hasClass('to_right_none')) { 
+		$('.skl_ctt_fcst_r').removeClass('to_right_none'); 
+	}
+	
+	if(parseInt($("#moveUl").css("left")) < 0){
+		paila_move_flag = false;
+		$("#moveUl").animate({left: "+="+paila_move_width},{duration:300,complete:function () {
+			if(parseInt($("#moveUl").css("left")) >= 0) {
+				$('.skl_ctt_fcst_l').addClass('to_left_none');
+			} 
+		paila_move_flag = true;}});
+	}
+});
+$(".skl_ctt_fcst_r").click(function () {
+	if(!paila_move_flag) {
+		return;
+	}
+	if($('.skl_ctt_fcst_l').hasClass('to_left_none')) { 
+		$('.skl_ctt_fcst_l').removeClass('to_left_none'); 
+	}
+	if(parseInt($("#moveUl").css("left")) > -(4*232)){
+		paila_move_flag = false;
+		$("#moveUl").animate({left: "-="+paila_move_width},{duration:300,complete:function () {
+			if(parseInt($("#moveUl").css("left")) <= -(4*232)) {
+				$('.skl_ctt_fcst_r').addClass('to_right_none');
+			}
+		paila_move_flag = true;}});
+	}
+});
+</script>
+</body>
+</html>

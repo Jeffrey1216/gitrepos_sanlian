@@ -1,0 +1,77 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+	
+    <ul class="subnav">
+     <li><span>店铺商品</span></li>
+     <li><a class="btn1" href="index.php?app=store_stock">店铺管理</a></li>
+    </ul>
+     
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">
+                <input type="hidden" name="app" value="store_stock" />
+                <input type="hidden" name="act" value="store_goods" />
+                <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                </select>:<input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                进货时间从:<input class="queryInput2" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                至:<input class="queryInput2" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+                商品价格:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+            <a class="left formbtn1" href="index.php?app=store_stock&act=store_goods">{$lang.cancel_query}</a>
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+        {if $orders}{include file=page.top.html}{/if}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <tr class="tatr1">
+            <td>商品</td>
+            <td>品牌</td>
+            <td>商品编码</td>
+            <td>商品规格</td>
+            <td>商品单位</td>
+            <td>店铺进货单价</td>
+            <td>进货数量</td>
+            <td>退换商品数量</td>
+            <td>商品总价</td>
+        </tr>
+        <!-- {foreach from=$goods item=store_info} -->
+        <tr class="tatr2">
+          <td>{$store_info.goods_name|escape}</td>
+          <td>{$store_info.brand}</td>
+          <td>{$store_info.goods_number}</td>
+          <td>{$store_info.specification}</td>         
+          <td>{$store_info.unit}</td>
+          <td>{$store_info.zprice|price}</td>
+          <td>{$store_info.quantity}</td>
+          <td></td>
+          <td></td>
+        </tr>
+		<!-- {foreachelse} -->
+        <tr class="no_data">
+            <td colspan="13">{$lang.no_data}</td>
+        </tr>
+		<!-- {/foreach} -->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

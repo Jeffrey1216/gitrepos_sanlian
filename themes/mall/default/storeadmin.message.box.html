@@ -1,0 +1,95 @@
+{include file=storeadmin.member.header.html}
+<style type="text/css">
+.user_name { position: relative; bottom: 18px; margin-left:5px; }
+
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>短消息</span></h3>
+	<ul class="tabDiv mb10">
+		<li <!--{if $smarty.get.act eq newpm}-->class="hover"<!--{/if}-->><a href="index.php?app=message&act=newpm&from=storeadmin">未读消息</a></li>
+		<li <!--{if $smarty.get.act eq privatepm}-->class="hover"<!--{/if}-->><a href="index.php?app=message&act=privatepm&from=storeadmin">私人消息</a></li>
+		<li <!--{if $smarty.get.act eq systempm}-->class="hover"<!--{/if}-->><a href="index.php?app=message&act=systempm&from=storeadmin">系统消息</a></li>
+	</ul>
+        <div>
+         <h3 class="margin2 h3_text">
+            <div class="eject_btn" title="{$lang.send_message}">           
+            <a class="ico2" onclick="go('index.php?app=message&act=send&from=storeadmin');">{$lang.send_message}</a>
+            </h3>
+            </div>
+            <div class="public table">
+                <table>
+                <colgroup>
+                <col width="2%" align="left">
+                <col width="8%" align="left">
+                <col width="15%" align="left">
+                <col width="15%" align="left">
+                <col width="15%" align="left">
+            </colgroup>
+                    <!--{if $messages}-->
+
+                    <tr class="line_bold">
+                    <!--{if $smarty.get.act neq 'announcepm'}-->
+                        <th><input type="checkbox" id="all" class="checkall"/></th>
+                        <th colspan="4">
+                            <label for="all"><span class="all">{$lang.checkall}</span></label>
+                            <a href="javascript:;" class="delete" uri="index.php?app=message&act=drop&from=storeadmin" name="msg_id" presubmit="confirm('{$lang.drop_confirm}')" ectype="batchbutton">{$lang.drop}</a>
+                        </th>
+                    <!--{else}-->
+                        <th></th>
+                        <th colspan="5"></th>
+                    <!--{/if}-->
+                    </tr>
+
+                    <tr>
+                        <th></th>
+                        <th>{$lang.user_name}</th>
+                        <th>{$lang.content}</th>
+                        <th>{$lang.last_update}</th>
+                        <th>{$lang.handle}</th>
+                    </tr>
+                    <!--{/if}-->
+                    <!--{foreach from=$messages item=message name=v}-->
+                    <tr <!--{if $smarty.foreach.v.last}-->class="line_bold"<!--{else}-->class="line"<!--{/if}-->>
+                        <td><!--{if $smarty.get.act neq 'announcepm'}--><input type="checkbox" class="checkitem" value="{$message.msg_id}"/><!--{/if}--></td>
+                        <td><img max_width="48" max_height="48" src="{$message.user_info.portrait}" /><span class="user_name">{$message.user_info.user_name}</span></td>
+                        <td <!--{if $message.new eq 1}-->class="link2 font_bold"<!--{else}--><!--{/if}-->>{$message.content|truncate:110}</td>
+                        <td>{$message.last_update|date:Y-m-d H:i}</td>
+                        <td>
+                            <a href="{url app=message&act=view&msg_id=$message.msg_id&from=storeadmin}" class="desc">{$lang.view_detail}</a>
+                            <!--{if $smarty.get.act neq 'announcepm'}--><a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=message&amp;act=drop&msg_id={$message.msg_id}&from=storeadmin');" class="delete">{$lang.drop}</a><!--{/if}-->
+                        </td>
+                    </tr>
+                    <!--{foreachelse}-->
+                    <tr>
+                        <td colspan="5" class="member_no_records padding6">{$lang.no_records}{$lang.$smarty.get.act}</td>
+                    </tr>
+
+                    <!--{/foreach}-->
+                    <!--{if $messages}-->
+                    <!--{if $smarty.get.act neq 'announcepm'}-->
+                    <tr>
+                        <th><input id="all2" type="checkbox" class="checkall" /></th>
+                        <th><label for="all2"><span class="all">{$lang.checkall}</span></label><a href="javascript:void(0);" class="delete" uri="index.php?app=message&act=drop&from=storeadmin" name="msg_id" presubmit="confirm('{$lang.drop_confirm}')" ectype="batchbutton">{$lang.drop}</a></th>
+                        <td colspan="3">
+                           <p class="position2">
+                                {include file=member.page.bottom.html}
+                            </p>
+                         </td>
+                    </tr>
+                    <!--{else}-->
+                    <tr>
+                        <td colspan="5">
+                           <p class="position2">
+                                {include file=member.page.bottom.html}
+                            </p>
+                        </td>
+                    </tr>
+                    <!--{/if}-->
+                    <!--{/if}-->
+                </table>
+            </div>            
+        </div>
+</div>
+<iframe id='iframe_post' name="iframe_post" frameborder="0" width="0" height="0">
+</iframe>
+{include file=storeadmin.footer.html}

@@ -1,0 +1,194 @@
+<body>
+<!--     头部      start       -->
+<div id="header">
+<div style="position:absolute;top:0;">
+	        			<ul class="subnav"><!--上方菜单-->
+	            			<li id="select_list"><!--下拉菜单容器--></li><!--select_list-->
+	        			</ul><!--subnav-->
+	        		</div>
+    <div class="loginbar">
+        <div class="loginbar_ctt">
+            <div class="loginbar_l">
+                 欢迎来到派啦网！ <span>{$visitor.user_name|escape}
+                 <!--{if !$visitor.user_id}-->&nbsp;
+                 <a href="{url app=member&act=login}">登录</a></span> / <span><a href="{url app=member&act=register}">免费注册</a>
+                 <!--{else}-->
+                 [<a href="{url app=member&act=logout}">退出</a>]
+                 <!--{/if}-->
+                 </span>
+            </div>
+            <div class="loginbar_r">
+            <div style="width:65px;height:32px;line-height:32px;float:left;position:absolute;z-index:1000;margin-left:0px;">
+           <div id="navss">
+				<ul>
+					<li class="menu2" onMouseOver="this.className='menu1'" onMouseOut="this.className='menu2'">
+					<a style="margin-left:8px;_margin-left:4px;padding:0;" href="index.php?app=member">我的派啦<b></b></a>
+						 <div class="list">	       									
+			       <a href="{url app=buyer_order}">{$lang.my_order}</a>
+			       <a href="{url app=buyer_group_order}">{$lang.my_groupbuy}</a>
+			       <a href="{url app=my_question}">{$lang.my_question}</a>										  
+						 </div>
+					</li>
+				 </ul>
+</div>
+</div>
+                | <a href="index.php?app=message&act=newpm"><span style="padding:0 0 0 5px;color:#505050">站内消息</span>
+																	</a> | <a href="index.php?app=download&act=Merchant">派啦店下载</a> | <a href="index.php?app=download&act=Channel">渠道商下载</a> | <a href="index.php?app=default&act=map">派啦店分布图</a> | <a href="{url app=article&act=help&article_id=11}">帮助中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="header_logo">
+        <div class="logo_l">
+            <a href="index.php"><img src="{new_res file=images/logo_03.gif}" alt="派啦网" /></a>
+        </div>
+        <div class="logo_m">
+                <form action="" method="">
+                <div class="search">
+                    <div class="search_l">
+                        <p><span>商品</span></p>
+                         
+                        <div class="search_ico"></div>
+                        <ul style="display: none;">
+                             <li ectype="store">商品</li>
+                             <li ectype="index">店铺</li>
+                        </ul>
+                        <input type="hidden" value="search" name="app">
+                        <input type="hidden" value="index" name="act">
+                    </div>
+                    <div class="search_m">
+                        <input type="text" class="search_box" name="keyword">
+                    </div>
+                    <div class="search_r">
+                     <input type="submit" class="search_sub" value="搜索" name="Submit">
+                     </div>
+                </div> 
+            </form>
+            <div class="search_hot">
+                热门搜索：
+              <!--{foreach from=$hot_keywords item=keyword}-->
+			    			<a href="index.php?app=search&keyword={$keyword}">{$keyword}</a>
+			  <!--{/foreach}-->           
+            </div>
+        </div>
+        <div class="logo_r">
+        </div>
+    </div>
+</div>
+<div id="nav">
+  <div class="nav_ctt">
+        <div id="all_goods" class="nav_l">
+			<div class="placeholder">
+			</div>
+			<div class="nav_downico"></div>
+            <a href="index.php?app=search">全部商品分类</a>
+        </div>
+        <ul class="nav_r">
+           <li {if $index eq 0} id="clk_bg"{/if}>
+              <a href="index.php" >
+                首页
+              </a>
+           </li>  
+           <!--{foreach from=$middle item=nav}--> 
+           <li {if $index eq $nav.nav_id} id="clk_bg0"{/if}>
+              <a href="{$nav.link}" {if $nav.open_new} target="_blank"{/if}>
+                <span>{$nav.title|escape}</span>
+              </a>
+           </li>
+           <!-- {/foreach} -->
+           
+        </ul>
+    </div>
+</div>
+ <div class="notice">
+        <div class="notice_ctt" id="_menu">
+            <ul id="main_menu" class="menu">
+            <!-- {foreach from=$navigator item=nav} -->
+				<li class="menu_li_node">			
+					<a href="index.php?app=search&cate_id={$nav.id}" class="menu_tit"><span class="{$nav.icon} ml_20">{$nav.value}</span></a>
+					<div class="line"></div>
+					<div style="display:none" class="bottom_line"></div>
+					<ul class = "sub_menu">
+						<!-- {foreach from=$nav.children item=navs} -->
+							<li>
+							<a href="index.php?app=search&cate_id={$nav_id.id}"><strong class="red_col">{$navs.value}</strong></a>
+									<!-- {foreach from=$navs.children item=nav_id} -->
+										<a href="index.php?app=search&cate_id={$nav_id.id}">{$nav_id.value}</a>
+									<!-- {/foreach} -->
+							</li>
+						<!-- {/foreach} -->
+					</ul>				
+				</li>
+			<!-- {/foreach} -->
+            </ul>
+            <div class="notice_ctt_m">
+            <ul>
+            <!-- {foreach from=$notic item=notice} -->
+               <li><a href="#">{$notice.title}</a></li>
+            <!-- {/foreach} -->
+            </ul>
+            </div>
+            <div class="notice_ctt_r">
+                <a href="{url app=plb_cart}"><p>我的购车有 <span>{$credit_cart_num|default 0}</span> 件</p>
+                <input class="notice_bn" onclick="window.location.href='{url app=plb_cart}'" type="button" value="" /></a>
+            </div>			
+        </div>		
+    </div> 
+<!--主菜单JS-->
+	<script type="text/javascript" src="{new_res file=js/menu.js}"></script>
+<script type="text/javascript">
+$(function()
+{
+    $(".search_l ul li").hover(
+        function()
+        {
+            $(this).addClass('search_nonce');
+        },
+        function()
+        {
+            $(this).removeClass();
+        }
+    );
+
+    $(".search_l").click(block_fn);
+
+    $(".search_l ul li").click(function(){
+        var text = $(this).text();
+        $(".search_l p").text(text);
+
+        var act  = $(this).attr("ectype");
+        $(".search_l input").val(act);
+    });
+
+    $('body').click(mouseLocation);
+    
+});
+
+function block_fn()
+{
+    $(".search_l ul").toggle();
+}
+
+function mouseLocation(e)
+{
+    if (e.pageX < $('.search_l').position().left ||
+        e.pageX > $('.search_l').position().left + $('.search_l').outerWidth() ||
+        e.pageY < $('.search_l').position().top ||
+        e.pageY > $('.search_l').position().top + $('.search_l').outerHeight())
+    {
+        $('.search_l ul').hide();
+    }
+}
+</script>
+<script type="text/javascript">
+function AutoScroll(obj){
+	$(obj).find("ul:first").animate({
+		marginTop:"-37px"
+	},1000,function(){
+		$(this).css({marginTop:"0px"}).find("li:first").appendTo(this);
+	});
+};
+$(document).ready(function(){
+	setInterval('AutoScroll(".notice_ctt_m ")',5000)
+}); 
+</script>
+	

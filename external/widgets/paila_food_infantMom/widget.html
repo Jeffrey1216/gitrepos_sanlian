@@ -1,0 +1,34 @@
+<div class="productlist">
+    <h1 class="proline">
+        <a href="index.php?app=search&cate_id=280" class="btn_05"></a>
+
+        <div class="proline_fr">
+            <a href="index.php?app=search&cate_id=1&area_type=pailamall">手机数码</a><a href="index.php?app=search&cate_id=51&area_type=pailamall">家具家装</a><a href="index.php?app=search&cate_id=90&area_type=pailamall">电脑办公</a>
+            <a href="index.php?app=search&cate_id=124&area_type=pailamall">服饰鞋帽</a><a href="index.php?app=search&cate_id=167&area_type=pailamall">礼品箱包</a>
+            <a href="index.php?app=search&cate_id=192&area_type=pailamall">个护化妆</a><a class="more" href="index.php?app=category&area_type=pailamall"></a>
+        </div>
+    </h1>
+    <div class="productlist_left">
+    	<!-- {foreach from=$widget_data.images item=image} -->
+        <a href="{$image.url}"><img original="{$image.img}"  alt="{$image.title}" title="{$image.title}"/></a>
+        <!-- {/foreach} -->
+    </div>
+
+        <div class="productlist_right">
+            <ul class="ul_width">
+            	<!-- {foreach from=$widget_data.goods item=good} -->
+                <li class="border3">
+                    <div class="width_160"><a href="index.php?app=goods&id={$good.goods_info.goods_id}&area_type={$good.goods_info.area_tyep}"><img original="{$good.goods_info.smimage_url}" alt="{$good.goods_info.goods_name}" title="{$good.goods_info.goods_name}"/></a></div>
+                    <div class="name">
+                        <div><a href="index.php?app=goods&id={$good.goods_info.goods_id}&area_type={$good.goods_info.area_tyep}">{$good.goods_info.goods_name|truncate:12}</a><!-- {if $good.subjoin_img neq '#'} --><img height="16px" width="37px" original="{$good.subjoin_img}" alt="{$good.goods_info.goods_name}" title="{$good.goods_info.goods_name}"/><!-- {/if} --></div>
+                       	<div class="paila_delprice">市场价：<span>{$good.goods_info.cprice|price}</span></div>
+                        <div class="price_name">售价：<span class="paila_price">{$good.goods_info.price|price}</span></div>
+                        <div class="price_name">派送积分：<span class="paila_price">{$good.goods_info.price}PL</span></div>
+                    </div>
+                </li>
+                <!-- {/foreach} -->
+                
+            </ul>
+        </div>
+    </div>
+</div>

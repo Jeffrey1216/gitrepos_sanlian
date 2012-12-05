@@ -1,0 +1,77 @@
+{include file="header.html"}
+<div class="borderBox">
+	<div class="public_02">
+ <div id="rightTop">
+ <p>产品促销</p>
+ <ul class="subnav">
+    <li><a href="index.php?app=promotion" class="btn1">管理</a></li>
+    <li><span>新增</span></li>
+  </ul>
+  </div>
+		<div class="table">
+			<form id="goods_form" method="post" enctype="multipart/form-data">
+				<div class="infospan">
+					<span><strong>商品名：</strong>{$pr.goods_name}</span>
+					<span><strong>原派啦价：</strong>{$pr.price}</span>
+			        <span><strong>原赠送积分数：</strong>{$pr.credit}</span>
+					<span><strong>促销价：</strong>{$pr.pr_price}</span>
+					<span><strong>促销赠送PL：</strong>{$pr.pr_credit}</span>
+					<span><strong>促销数量：</strong>{$pr.pr_stock}</span>
+					<span><strong>促销商品名：</strong>{$pr.pr_name}</span>
+					<span><strong>促销时间:</strong>{$pr.pr_addtime|date:Y-m-d}—{$pr.pr_endtime|date:Y-m-d}</span>
+					<span><strong>促销店铺：</strong>{$pr.store_name}</span>
+					<span>
+					<strong>促销图片：</strong>
+					<span><img src="{$site_url}/{$pr.pr_img}"/></span>
+					</span>
+					<span><strong>是否包邮：</strong>
+					{if $pr.pr_art eq 1}
+					是
+					{else}
+					否
+					{/if}
+					</span>
+					<!-- {if $pr.spec_name_1} -->
+					<span>规格信息</span>
+					<span>{$pr.spec_name_1}:{$pr.spec_1}</span>
+					<span>{$pr.spec_name_2}:{$pr.spec_2}</span>	
+					<!-- {/if} -->
+					<!-- {if $check} -->
+					<!-- {else} -->   
+					<label><input type="radio" name="pr_status" value="10" id="yes" checked/>同意</label>
+					<label><input type="radio" name="pr_status" value="11" id="no"/>不同意</label>
+					<!-- {/if} -->
+					<div class="clear"></div>
+					<span id="reason_info" style="{if $check}{else}display:none{/if}">
+							<strong>未通过原因:</strong><input type="text" name="pr_reason" id="reason" value="{$pr.pr_reason}"/></span>
+						<!-- {if $check} -->
+						<!-- {else} -->                                            
+							<div class="select_div"> 
+								<input type="hidden" name="app" value="promotion" />
+								<input type="hidden" name="act" value="varify" />
+								<input type="hidden" name="promotion_id" value="{$pr.promotion_id}" />  						 
+								<input type="submit" class="formbtn" value="提交" />	
+							</div>
+						<!-- {/if} -->
+					      <a href="{url app=promotion}" class="formbtn">返回</a>
+				</div>    
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$("#yes").click(function(){
+	$("#reason_info").css("display",'none');
+	$("#reason").val("");
+});
+$("#no").click(function(){
+	$("#reason_info").css("display",'block');
+});
+function add_uploadedfile(file_data)
+{
+    var newImg = '<tr id="' + file_data.file_id + '" class="tatr2"><input type="hidden" name="file_id[]" value="' + file_data.file_id + '" /><td><img width="40px" height="40px" src="' + SITE_URL + '/' + file_data.file_path + '" /></td><td>' + file_data.file_name + '</td><td><a href="javascript:insert_editor(\'' + file_data.file_name + '\', \'' + file_data.file_path + '\');">{$lang.insert_editor}</a> | <a href="javascript:drop_uploadedfile(' + file_data.file_id + ');">{$lang.drop}</a></td></tr>';
+    $('#thumbnails').prepend(newImg);
+}
+</script>
+
+{include file="footer.html"}

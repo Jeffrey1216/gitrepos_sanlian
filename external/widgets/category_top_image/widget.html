@@ -1,0 +1,13 @@
+<div style="padding-bottom:10px;">
+<!-- {foreach from=$widget_data.images item=image name=tpimg} -->
+<!-- {if $cate_id neq 0} -->
+	<!-- {if $image.cate_id eq $cate_id} -->
+		<a href="{$image.url}"> <img src="{$image.img}"  title="{$image.title}" alt="{$image.title}"/> </a>
+	<!-- {/if} -->
+<!-- {else} -->
+	<!-- {if $smarty.foreach.tpimg.last} -->
+		<a href="{$image.url}"> <img src="{$image.img}"  title="{$image.title}" alt="{$image.title}"/> </a>
+	<!-- {/if} -->
+<!-- {/if} -->
+<!-- {/foreach} -->
+</div>

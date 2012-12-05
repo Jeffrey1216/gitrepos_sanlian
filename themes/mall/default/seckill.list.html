@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>派拉网秒杀专区</title>
+    <meta name="description" content="派啦网,PMB模式,派啦网,派啦商城,秒杀"/>
+    <meta name="keywords" content="派啦网,派啦商城,PMB模式,派啦网,秒杀"/>
+    <meta name="author" content="www.paila100.com"/>
+    <link href="{res file=topics/seckill_groupbuy/css/seckill_groupbuy.css}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{lib file=jquery.js}" ></script>
+	<script type="text/javascript" src="{res file=topics/seckill_groupbuy/js/time.js}"></script>
+	
+</head>
+<body>
+	{include file=seckill.head.html}
+	<div id="content">
+        <div class="banner">
+            
+        </div>
+        <!-- {if $oneSeckill_list} -->
+        <div class="osk">          
+            <!-- {foreach from=$oneSeckill_list item=v} -->
+            	<!-- {if $v.is_start eq 1} -->
+            <div style="overflow:hidden">      
+            <div class="osk_gds">
+              <div class="oneprice"></div>
+                <div class="osk_gds_img">
+                    <a href="index.php?app=group_project&act=seckillShow&id={$v.id}"><img src="{$v.image_list}" alt="{$v.goods_name}" /></a> 
+                </div>
+                <ul class="osk_gds_inf goods_box">
+                   <li class="osk_gds_name">
+                       <a href="index.php?app=group_project&act=seckillShow&id={$v.id}"><span>{$v.category}：</span>{$v.title}</a>
+                   </li>
+                   <li class="osk_gds_prc">
+                      <p>秒杀价：<span>{$v.price|price}</span></p>
+                      <p>市场价：<i>{$v.cprice|price}</i></p>
+                      <p>限量：{$v.max_quantity}件</p>
+                   </li>
+                   <li class="osk_gds_time">
+                      <p>剩余数量：<span class="cases">{$v.surplus_quantity}</span>件</p>
+                      <p>剩余时间：<span class="ddd"style="display:none;">0</span><span class="hhh skl_ctt_time_s">{$v.hour}</span>时<span class="mmm skl_ctt_time_s">{$v.minute}</span>分<span class="sss skl_ctt_time_s">{$v.second}</span>秒</p>
+                   </li>
+                   <li class="osk_gds_btn">
+                      <a class="osk_gds_btn_a" href="index.php?app=group_project&act=seckillShow&id={$v.id}"></a>
+                   </li>
+                </ul>           
+            </div> 
+            </div>
+            	<!-- {else} -->
+            <div style="overflow:hidden">      
+            <div class="osk_gds">
+              <div class="oneprice"></div>
+                <div class="osk_gds_img">
+                    <a href="index.php?app=group_project&act=seckillShow&id={$v.id}"><img src="{$v.image_list}" alt="{$v.goods_name}" /></a> 
+                </div>
+                <ul class="osk_gds_inf goods_box">
+                   <li class="osk_gds_name">
+                       <a href="index.php?app=group_project&act=seckillShow&id={$v.id}"><span>{$v.category}：</span>{$v.title}</a>
+                   </li>
+                   <li class="osk_gds_prc">
+                      <p>秒杀价：<span>{$v.price|price}</span></p>
+                      <p>市场价：<i>{$v.cprice|price}</i></p>
+                      <p>限量：{$v.max_quantity}件</p>
+                   </li>
+                   <li class="osk_gds_time">
+                      <p style="display:none">剩余数量：<span class="cases">{$v.surplus_quantity}</span>件</p>
+                      <p>离开始还有：<span class="ddd"style="display:none;">0</span><span class="hhh skl_ctt_time_s">{$v.hour}</span>时<span class="mmm skl_ctt_time_s">{$v.minute}</span>分<span class="sss skl_ctt_time_s">{$v.second}</span>秒</p>
+                   </li>
+                   <li class="osk_gds_btn">
+                      <a class="osk_gds_btn_a details_btn_view" href="index.php?app=group_project&act=seckillShow&id={$v.id}"></a>
+                   </li>
+                </ul>           
+            </div> 
+            </div>	
+            	<!-- {/if} -->
+            <!-- {/foreach} -->
+        </div>
+        <!-- {/if} -->
+        </div>
+        <!-- {if $seckill_list} -->
+		<div class="today">
+			<div class="today_h">
+				<div class="today_tittle">					
+				</div>
+			</div>
+			<div class="today_page">
+			<!-- {foreach from=$seckill_list item=v} -->
+				<!-- {if $v.is_start eq 1} -->
+				<div class="today_goods">
+				<div class="goods_box">
+					<div class="goods_img">
+						<a href="index.php?app=group_project&act=seckillShow&id={$v.id}"><img src="{$v.image_list}" alt="{$v.goods_name}"/></a>
+					</div>
+					<div class="details">
+						<p><a href="index.php?app=group_project&act=seckillShow&id={$v.id}">{$v.title}</a></p>
+						<ul>
+							<li class="li1">秒杀价：<span>{$v.price|price}</span></li>
+							<li>市场价：<i class="delete_line">{$v.cprice|price}</i></li>
+							<li>限量：{$v.max_quantity}件</li>
+							<li>仅剩：<b class="cases">{$v.surplus_quantity}</b>件</li>
+                          
+                            <li>
+                            <!-- {if $v.surplus_quantity neq 0} -->
+                            	<a class="details_btn" href="index.php?app=group_project&act=seckillShow&id={$v.id}"></a>
+                            <!-- {else} -->
+                            	<a class="details_btn" href="javascript(0)"></a>
+                            <!-- {/if} -->
+                            </li>
+						</ul>
+					</div>
+				</div>
+				</div>
+				<!-- {else} -->
+				<div class="today_goods">
+				<div class="goods_box">
+					<div class="goods_img">
+						<a href="index.php?app=group_project&act=seckillShow&id={$v.id}"><img src="{$v.image_list}" alt="{$v.goods_name}"/></a>
+					</div>
+					<div class="details">
+						<p><a href="index.php?app=group_project&act=seckillShow&id={$v.id}">{$v.title}</a></p>
+						<ul>
+							<li class="li1">秒杀价：<span>{$v.price|price}</span></li>
+							<li>市场价：<i class="delete_line">{$v.cprice|price}</i></li>
+							<li>限量：{$v.max_quantity}件</li>
+							<li style="display:none">仅剩：<b class="cases">{$v.surplus_quantity}</b>件</li>
+                          	<li><p id="seckill_herald" style="font-size:14px;height:30px;font-weight:400;">离开始还有：<span class="ddd"style="display:none;">0</span><span class="hhh">{$v.hour}</span>时<span class="mmm">{$v.minute}</span>分<span class="sss">{$v.second}</span>秒</p></li>
+                            <li>
+                            <!-- {if $v.surplus_quantity neq 0} -->
+                            	<a class="details_btn details_btn_view" href="index.php?app=group_project&act=seckillShow&id={$v.id}"></a>
+                            <!-- {else} -->
+                            	<a class="details_btn" href="javascript(0)"></a>
+                            <!-- {/if} -->
+                            </li>
+						</ul>
+					</div>
+				</div>
+				</div>
+				<!-- {/if} -->
+            <!-- {/foreach} -->
+			</div>
+		</div>
+		<!-- {/if} -->
+		{include file=seckill.foot.html}
+	
+</body>
+</html>

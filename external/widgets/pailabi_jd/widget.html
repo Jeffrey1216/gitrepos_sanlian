@@ -1,0 +1,89 @@
+<div class="plm_cosm">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>2F</span>数码家电 
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+                 <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=19">更多 >></a>
+               </li>
+            </ul>
+            <div class="plam_cosm_mark"></div>   
+			<div class="photo_box plb_cosm_r" id="index_slider_4">
+				<div class="plm_cosm_r_ttl">
+					他们刚刚购买
+				</div>
+				<!--排行榜轮播器start-->
+				<div class="plb_cosm_photos">
+					<ul>
+					<!-- {foreach from=$widget_data.orders item=o} -->
+						<li>
+						<!-- {foreach from=$o item=goods} -->
+							<div class="plb_cosm_line">
+								<div>{$goods.buyer_name}购买了：</div>
+								<div><a href="index.php?app=goods&id={$goods.goods_id}"><img class="img_160"src="{$goods.smimage_url}"/></a></div>
+								<div class="h_2"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></div>
+								<div>市场价:<span class="del_line">{$goods.cprice}</span></div>
+								<div>派啦价:<span class="red_col">{$goods.price}</span></div>
+								<div class="plb_cosm_rebate">配送{$goods.credit}PL</div>
+							</div>
+						<!-- {/foreach} -->
+						</li>
+					<!-- {/foreach} -->
+					</ul>
+				</div>
+				<!--排行榜轮播器end-->		
+			</div>
+			
+            <div class="plm_cosm_l l">
+                         <div class="photo_box plb_photo" id="index_slider_2">
+					<ul>
+					<!-- {foreach from=$widget_data.imagesGroup item=i} -->
+						<li>
+							<a class="plb_photo_img_l plb_clk" href="{$i.0.url}">
+								<div class="plb_photo_layer"></div>
+								<img  src="{$i.0.img}" alt="{$i.0.title}" />
+							</a>
+							<a class="plb_photo_img_r plb_clk" href="{$i.1.url}">
+								<div class="plb_photo_layer"></div>
+								<img  src="{$i.1.img}" alt="{$i.1.title}" />
+							</a>
+						</li>
+					<!-- {/foreach} -->
+					</ul>
+				</div>
+				<div class="clear"></div>
+                <div class="plm_cosm_gds">
+                    <ul class="plm_cosm_gds1">
+                       <!-- {foreach from=$widget_data.goods item=goods} -->
+                       <li>
+                          <span class="plb_hot plb_get">送{$goods.credit}PL</span>
+                          <a href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.smimage_url}" alt="{$goods.goods_name|truncate:16}" /></a> 
+                          <p class="plm_cosm_gds1_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:16}</a></p>
+                          <p class="plm_cosm_gds1_prc">派啦价：<span>{$goods.price}</span></p>
+                       </li>
+                       <!-- {/foreach} -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+ <script type="text/javascript">
+ Effect.slider({   		//轮播器启动
+		'target': 'index_slider_4',
+		'showMarkers': true,
+		'showControls': true,
+		'width_allow':false,
+		'crosswise':true
+	});
+ </script>
+ <script type="text/javascript">
+ Effect.slider2({   		//轮播器启动
+		'target': 'index_slider_2',
+		'showMarkers': false,
+		'showControls': true,
+		'autostart':true,
+		'crosswise':true
+	});
+ </script>

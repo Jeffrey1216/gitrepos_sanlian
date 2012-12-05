@@ -1,0 +1,37 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+	<div>
+		<p>我的投诉查看</p>
+	</div>
+	<table>
+		<tr>
+			<td>涉及订单:{$complain_info.order_sn} &nbsp;&nbsp;&nbsp;&nbsp;订单类型:{$complain_info.complain_type} &nbsp;&nbsp;&nbsp;&nbsp;状态:<!-- {if $complain_info.c_status eq 1} -->处理中<!-- {else} -->已解决<!-- {/if} --></td>		
+		</tr>
+		<tr>
+		<!-- {if $complain_info.c_status eq 1} -->
+			<td colspan="3">您已提交成功，我们的客服人员将尽快处理。</td>
+		<!-- {else} -->
+			<td colspan="3">您反映的问题已由客服人员处理完毕，若还有其他问题，请再提交，谢谢理解：-）</td>
+		<!-- {/if} -->
+		</tr>
+	</table>
+	<div>详细信息</div>
+	<table>
+		<tr>
+			<td>投诉内容:{$complain_info.complain_reason|escape}</td>
+		</tr>
+		<tr>
+			<td>提交时间:{$complain_info.c_add_time|date:complete}</td>
+		</tr>
+		<!-- {if $complain_info.reply_content neq ''} -->
+		<tr>
+			<td>客服回复:{$complain_info.reply_content|escape}</td>
+		</tr>
+		<tr>
+			<td>回复时间:{$complain_info.reply_time|date:complete}</td>
+		</tr>
+		<!-- {/if} -->
+	</table>
+	<input type="button" value="返回" onclick="window.location='index.php?app=buyer_order'"/>
+{include file="footer.html"}

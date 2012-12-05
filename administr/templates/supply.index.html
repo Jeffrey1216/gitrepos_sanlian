@@ -1,0 +1,90 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+  <p>供应商管理</p>
+    <ul class="subnav2">
+    <li{if !$smarty.get.wait_verify} class="on"{/if}><a href="index.php?app=supply">管理<span></span></a></li>
+    <li><a href="index.php?app=supply&act=add">新增<span></span></a></li>
+  </ul>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+    <form method="get" id="queryForm">
+       <div class="left" style="padding-top:4px;">
+          <input type="hidden" name="app" value="supply" />
+          <input type="hidden" name="act" value="index" />
+          帐号:
+          <input class="queryInput" type="text" name="user_name" value="{$query.user_name}" />
+          公司名:
+          <input class="queryInput" type="text" name="supply_name" value="{$query.supply_name}" />
+          签约人:
+          <input class="queryInput" type="text" name="parties" value="{$query.parties}" />
+          合同类型:
+          <select class="queryInput" name="parties_type">
+          			<option value="">请选择..</option>
+                    <!-- {foreach from=$parties_type item=gcategory_info} -->
+                    <option value="{$gcategory_info.cate_id}" {if $gcategory_info.cate_id eq $cate_id}selected{/if}>{$gcategory_info.cate_name|escape}</option>
+                    <!-- {/foreach} -->
+                </select>
+          合同编号:
+          <input class="queryInput2" type="text" name="contract_number" value="{$query.contract_number}" />
+          合同等级:
+          <input class="queryInput2" type="text" name="parties_level" value="{$query.parties_level}" />
+          签约年份:<input class="queryInput2" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                至:<input class="queryInput2" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+          <input type="submit" class="formbtn" value="查询" />
+          <!-- {if $username or $company_name} -->
+          <input type="button" class="formbtn" value="取消查询" onclick="$('.queryInput').val('');$('#queryForm').submit();" />
+          <!-- {/if} -->
+      </div>
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html} </div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+	<tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+      <td><span>供应商帐号</span></td>
+      <td>供应商姓名</td>
+      <td>供应商公司名</td>
+      <td>供应商地址</td>
+      <td>签约人</td>
+      <td>合同编号</td>
+      <td>合同等级</td>
+      <td>合同类型</td>
+      <td>供应商联系方式(手机/电话)</td>
+      <td class="table-center">公司网址</td>
+      <td class="table-center">供应商公司类型</td>
+      <td class="table-center">加入时间</td>
+      <td>签约时间</td>
+      <td class="handler">操作</td>
+    </tr>
+    <!-- {foreach from=$supply_list item=supply_info} -->
+    <tr class="tatr2">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkitem"  value="" /></td>
+      <td>{$supply_info.user_name}</td>
+      <td>{$supply_info.linkman}</td>
+      <td>{$supply_info.supply_name}</td>
+	  <td>{$supply_info.region_name}&nbsp;&nbsp;{$supply_info.address}</td>
+	  <td>{$supply_info.parties|escape}</td>
+	  <td>{$supply_info.contract_number}</td>
+	  <td>{$supply_info.parties_level}</td>
+	  <td>{$supply_info.parties_type|escape}</td>
+	  <td>{$supply_info.mobile}/{$supply_info.telphone}</td>
+	  <td>{$supply_info.domain}</td>
+      <td>{$supply_info.category}</td>
+      <td>{$supply_info.add_time|date:Y-m-d H:i}</td>
+      <td>{$supply_info.parties_time|date:Y-m-d}</td>
+      <td class="handler"><a href="index.php?app=supply&act=edit&supply_id={$supply_info.supply_id}"> 编辑 </a> |<a href="index.php?app=supply&act=goods_list&supply_id={$supply_info.supply_id}" > 详细商品 </a></td>
+    </tr>
+    <!-- {/foreach} -->
+  </table>
+ <div class="pageLinks">{include file=page.bottom.html}</div>
+</div>
+{include file="footer.html"}

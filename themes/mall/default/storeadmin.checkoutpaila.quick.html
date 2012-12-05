@@ -1,0 +1,150 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox5">
+<h3 class="tit"><span>派啦商城结算</span></h3>
+	<ul class="tabDiv">
+		<li ><a href="index.php?app=checkoutpaila&act=index">派啦商城线上结算</a></li>
+		<li class="hover"><a href="index.php?app=checkoutpaila&act=quickCheckOutPaila">派啦商城线下结算</a></li>
+		<li><a href="index.php?app=checkoutpaila&act=settle_accounts_detailed">派啦结算账单</a></li>		
+    </ul>
+    
+
+<div class="public_02">
+    <div class="module_common"> 
+       <h3>派啦线上商城结算一览表(注：每月结算一次)</h3>
+    <div class="line"></div>  
+	    <form id="search" method="get">
+	    	<table class="search_tab">
+	    		<tr>
+	    			<td id="p_top15">
+	    				请选择年份:
+	    				<select class="date" name="year">
+	    				</select>年
+	    			</td>
+	    			<td id="p_top15">
+	    				请选择月份:
+	    				<select class="date" name="month">
+	    					<option value="1">一月</option>
+	    					<option value="2">二月</option>
+	    					<option value="3">三月</option>
+	    					<option value="4">四月</option>
+	    					<option value="5">五月</option>
+	    					<option value="6">六月</option>
+	    					<option value="7">七月</option>
+	    					<option value="8">八月</option>
+	    					<option value="9">九月</option>
+	    					<option value="10">十月</option>
+	    					<option value="11">十一月</option>
+	    					<option value="12">十二月</option>
+	    				</select>
+	    				<input type="hidden" name="app" value="checkoutpaila" />
+	    				<input type="hidden" name="act" value="quickCheckOutPaila" />
+	    			</td>
+	    			<td>
+	    				本月已结算收益: <span class="search_span">{$total_income|price}</span>
+	    			</td>
+	    			<td>
+	    				本月未结算收益: <span class="search_span">{$total_unincome|price}</span>
+	    			</td>
+	    		</tr>
+	    	</table>   
+    	</form>        
+        <table width="100%" cellspacing="0" cellpadding="0" class="ordermgt order_details">
+            <colgroup>
+                <col width="8%" align="left">
+                <col width="12%" align="left">           
+                <col width="8%" align="left">
+                <col width="8%" align="left">
+                <col width="12%" align="left">
+                <col width="7%" align="left"> 
+   				<col width="7%" align="left"> 
+     			<col width="7%" align="left"> 
+            </colgroup>
+            <thead>
+            <tr class="tr1">                
+                <th>订单编号</th>    
+                <th>完成时间</th>  
+                <th>交易状态</th>        
+                <th>订单金额</th>
+                <th>支付方式</th>
+                <th>收益金额</th>   
+                <th>结算状态</th>                   
+                <th>操作</th>    
+            </tr>
+            </thead>
+            <tbody>
+            <!--{foreach from=$orders item=order}-->
+            <tr>              
+                <td><span class="color3">{$order.order_sn}{if $order.extension eq 'groupbuy'}<span class="color8">[{$lang.groupbuy}]</span>{/if}</span></td>             
+                <td>{$order.finished_time|date:Y-m-d H:i}</td> 
+                <td><span class="color4">{$order.status|modifier:order_status}<!--{if $order.evaluation_status}-->,&nbsp;{$lang.already_evaluate}<!--{/if}--></span></td>
+                <td>{$order.total_amount|price} </td>                
+           		  <td><div><b>现金+积分</b></div>
+           		   <div>积分：<b>{$order.pay_credit}PL</b></div>
+           		  <div>现金：<b>{$order.pay_cash|price}</b></div>           		
+           		   </td>                           
+                   <td><b>{$order.income|price} </b></td>       
+                   <td><b><!-- {if $order.is_settle_accounts eq 1} -->已结算<!-- {else} -->未结算<!-- {/if} --></b></td> 
+                   <td>
+                    <a style="float:none;display:inline-block" class="btn1" href="index.php?app=checkoutpaila&act=quickcheckoutview&order_id={$order.order_id}">查看详细</a>
+                                  
+            </tr> 
+			<!--{foreachelse}-->
+            <tr><td class="member_no_records" colspan="8">{$lang.no_records}</td></tr>
+            <!--{/foreach}-->                                         
+            </tbody>
+           
+        </table>
+        <p class="position2">
+          	{include file=member.page.bottom.html}
+      	</p>
+    </div>
+</div>  
+
+
+
+</div>
+<include file="Admin:tfoot" />
+<script type="text/javascript">
+//动态创建年份
+$(function () {
+	var checkYear = {$year|default:0};
+	var checkMonth = {$month|default:0};
+	//初始年: 2011
+	var startYear = 1970 ;
+	//当前年: JS获取
+	var d = new Date();
+	var thisYear = d.getFullYear();
+	var thisMonth = d.getMonth() + 1;
+	var sel = $("select[name='year']");
+	for(var i = startYear ; i <= thisYear ; i++) {
+		if(checkYear == 0) { 
+			if(i == thisYear) {
+				var str = "<option value='" + i + "' selected >" + i + "</option>";
+				sel.append(str);
+			} else {
+				var str = "<option value='" + i + "'>" + i + "</option>";
+				sel.append(str);
+			}
+		} else {
+			if(i == checkYear) {
+				var str = "<option value='" + i + "' selected >" + i + "</option>";
+				sel.append(str);
+			} else {
+				var str = "<option value='" + i + "'>" + i + "</option>";
+				sel.append(str);
+			}
+		}
+	}
+	//确定当前月
+	if(checkMonth == 0) {
+		$("select[name='month']").find("option[value='"+thisMonth+"']").attr("selected",'true');
+	} else {
+		$("select[name='month']").find("option[value='"+checkMonth+"']").attr("selected",'true');
+	}
+});
+$(".date").change(function() {
+	$("#search").submit();
+});
+
+</script>

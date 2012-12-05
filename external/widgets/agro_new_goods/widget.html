@@ -1,0 +1,27 @@
+<div class="goods_box">
+	<div class="goods_tit_box">
+		<div class="goods_tit agr_new">
+		</div>		
+		<a class="agr_more" href="index.php?app=search">∏¸∂‡>></a>
+		<div class="r">		
+		<!-- {foreach from=$widget_data.gcategorys item=gcate} -->
+            <a href="index.php?app=search&cate_id={$gcate.cate_id}">{$gcate.cate_name}</a>
+        <!-- {/foreach} -->
+		</div>
+	</div>
+        
+	    <div class="l goods_banner2">	
+			<a href="{$widget_data.images.0.url}"><img class="banner_size2" src="{$image_url}{$widget_data.images.0.img}"/></a>		
+			<a href="{$widget_data.images.1.url}"><img class="banner_size2 mt_10" src="{$image_url}{$widget_data.images.1.img}"/></a>		
+	     </div>
+	     <div style="float:right;width:783px">
+	<!-- {foreach from=$widget_data.goods item=good} -->
+	<ul class="goods_160">
+			<li><a href="index.php?app=goods&id={$good.gs_id}"><img class="img_160"src="{$image_url}{$good.smimage_url}"/></a></li>
+			<li class="h_2"><a href="index.php?app=goods&id={$good.gs_id}">{$good.goods_name|truncate:16}</a></li>
+			<li>≈…¿≤º€:<span class="red_col">{$good.price}</span></li>
+	</ul>
+	<!-- {/foreach} -->
+	</div>
+	<div class="clear"></div>
+</div>

@@ -1,0 +1,133 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#starttime').datepicker({dateFormat: 'yy-mm-dd'});
+	$('#endtime').datepicker({dateFormat: 'yy-mm-dd'});
+	$(".footact a").not($(".footact a:eq(0)")).click(function(){
+			var i=$(".footact a").index(this);
+			var text=$(this).html();
+			if($(this).attr("down")==1){
+				var d = DialogManager.create('show_error');
+				d.setWidth(350);
+				d.setTitle(lang.error);
+				d.setContents('message', {type:'warning', text:"服务器正在为您处理数据...,请您稍候!"});
+				d.show('center');
+				return;
+				}
+			$(this).attr("down","1");
+			$(this).width($(this).width());
+			$(this).html("<font>处理中请稍等</font><span></span>");
+			$("#hideframe").attr("src",$(this).attr("_href"));
+			$("#hideframe").load(function(){
+					$(".footact a:eq("+i+")").html(text);
+					$(".footact a:eq("+i+")").attr("down","0");
+				});
+		});
+});
+</script>
+<div id="rightTop">
+  <ul class="subnav2">
+        <li class="on"><a>出货订单结算<span></span></a></li>
+        <li>所有订单统计</li>
+        <li>总计：<font class='price'>{$count2.order_amount}</font></li>
+        <li>（其中：现金总计：<font class='price'>{$count2.cash}</font>，</li>
+        <li>使用余额总计：<font class='price'>{$count2.use_money}</font>，</li>
+        <li>使用PL币总计：<font class='price'>{$count2.use_credit}</font>）</li>
+        <!--<li>货品总计：<font class='price'>{$count2.goods_amount}</font></li>-->
+        <li>赠送PL币：<font class='price'>{$count2.get_credit}</font></li>
+       
+    </ul>
+</div>
+<div class="mrightTop">
+  <form action="index.php?app=checkout&act=_get_orders" method="get">
+  <div class="fontl">  
+ 	<!-- {if !$financeStore} -->
+    <input type="hidden" name="app" value="store" />
+    <!-- {else} -->
+    <input type="hidden" name="app" value="financeStore" />
+    <!-- {/if} -->
+    <input type="hidden" name="act" value="get_shipment" />
+    <input type="hidden" name="id" value="{$store_id}" />
+    订单编号:<input class="queryInput hasDatepicker" type="text" name="order_sn" value="{$smarty.get.order_sn}" />
+    订单状态:<select class="querySelect" name="status">
+                <option value="">请选择</option>
+                {html_options options=$status selected=$nowstatus}
+            </select>
+    支付时间：
+    <input type="text" class="queryInput3" name="starttime" id="starttime" value="{$smarty.get.starttime}" />—
+    <input type="text" class="queryInput3" name="endtime" id="endtime" value="{$smarty.get.endtime}" />
+   <input type="submit" class="formbtn" value="{$lang.query}" />
+
+	
+  </div>
+  </form> 
+  <div class="fontr">{include file=page.top.html} </div>
+</div> 
+
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable stoceTable">
+    <tr class="tatr1">
+      <td>订单编号</td>
+      <td>支付时间</td>
+      {if $smarty.get.status eq 30}<td>完成时间</td>{/if}    
+      <td>完成状态</td>
+      <td>交易方式</td>
+      <td>订单总价（含运费）</td>
+      <td>商品总价</td>
+      <td>赠送PL</td>      
+    </tr>
+    <!-- {foreach from=$store_order_info item=order} -->
+    <tr class="tatr2">
+     <td>{$order.order_sn}</td>
+     <td>{$order.pay_time|date:Y-m-d H:m:s}</td>
+     {if $smarty.get.status eq 30}<td>{$order.finished_time|date:Y-m-d H:m:s}</td>{/if}
+     <td>{$order.status|modifier:order_status}</td>
+     <td>{$order.payment_name}</td>
+     <td><font class="price">{$order.order_amount}</font>
+     	{if $order.showmany gt 0}(
+           	{if $order.cash gt 0}现金:<font class="cash">{$order.cash|price}</font>{/if}
+            {if $order.use_money gt 0}余额:<font class="money">{$order.use_money|price}</font>{/if}
+            {if $order.use_credit gt 0}PL币:<font class="credit">{$order.use_credit}</font>{/if})
+            {/if}
+     </td>
+     <td>{$order.goods_amount}</td>
+     <td>{$order.get_credit}</td>
+    </tr>
+    <!-- {/foreach} -->
+    <!-- {if $store_order_info} -->
+        <tr style=" background:#eee;">
+    	<td colspan="{if $smarty.get.status eq 30}5{else}4{/if}" style="text-align:right">本页订单小计:</td>
+        <td>
+        <font class="price">{$count.order_amount}</font>
+        	(
+           	{if $count.cash gt 0}现金:<font class="cash">{$count.cash|price}</font>{/if}
+            {if $count.use_money gt 0}余额:<font class="money">{$count.use_money|price}</font>{/if}
+            {if $count.use_credit gt 0}PL币:<font class="credit">{$count.use_credit}</font>{/if}
+            )
+        </td>
+        <td><font class="price">{$count.goods_amount}</font></td>
+        <td><font class="price">{$count.get_credit}</font></td>
+    	</tr>
+    <!-- {else} -->
+    <tr class="no_data">
+      <td colspan="12">没有符合条件的记录</td>
+    </tr>
+    <!-- {/if} -->	
+  </table>
+</div>
+<div style="clear:both; width:98%; margin:0 auto; height:40px;">
+    <div class="footact" style="width:49%;">
+    	<!-- {if !$financeStore} -->
+     	<a href="index.php?app=store">返&nbsp;回<span></span></a>
+     	<!-- {else} -->
+     	<a href="index.php?app=financeStore">返&nbsp;回<span></span></a>
+     	<!-- {/if} -->
+     	<a _href="{$acturl}all" down='0'>导出全部订单<span></span></a>
+        <a _href="{$acturl}page" down='0'>导出本页订单<span></span></a>
+        <a _href="{$acturl}alldetail" down='0'>导出全部订单详情<span></span></a>
+        <a _href="{$acturl}pagedetail" down='0'>导出本页订单详情<span></span></a>
+    </div>
+    <div class="pageLinks" style="width:49%; padding-bottom:10px;">{include file=page.bottom.html}</div>
+</div>
+<iframe id="hideframe" name="hideframe" style="display:none;"></iframe>
+{include file="footer.html"}

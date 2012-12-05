@@ -1,0 +1,53 @@
+ <div class="plb_food">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>5F</span>食品母婴
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+                 <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=280">更多 >></a>
+               </li>
+            </ul>
+            <div class="plb_food_ctt">
+            <!-- {foreach from=$widget_data.images item=i} -->
+                <div class="plb_food_ad">
+                    <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /></a>                     
+                </div>
+                <!-- {/foreach} -->
+                <div class="plb_food_r">
+                    <div class="plb_food_r_top">
+                        <ul class="plm_cosm_gds1">
+                        <!-- {foreach from=$widget_data.goods_u item=goods} -->
+                           <li>
+                              <span class="plb_hot plb_get5">送{$goods.credit}PL</span>
+                              <a href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.smimage_url}" alt="{$goods.goods_name|truncate:20}" /></a> 
+                              <p class="plm_cosm_gds1_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></p>
+                              <p class="plm_cosm_gds1_prc">派啦价：<span>{$goods.price}</span></p>
+                           </li>
+                        <!-- {/foreach} -->
+                        </ul>   
+                    </div>
+                    <div class="clear"></div>
+                    <div class="plm_gds_bottom plb_gds_btm">
+                    <!-- {foreach from=$widget_data.goods_d item=goods} -->
+                        <ul>
+                           <li>
+                              <a href="index.php?app=goods&id={$goods.goods_id}">
+                                <img src="{$goods.simage_url}" alt="{$goods.goods_name|truncate:20}" />
+                              </a> 
+                          </li>
+                          <li>
+                             <p class="plm_house_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></p>
+                             <p class="plm_house_prc">售价：<span class="plm_house_prc1">{$goods.cprice}</span></p>
+                             <p class="plm_house_prc">派啦价：<span>{$goods.price}</span></p>
+                          </li>
+                        </ul>
+                 <!-- {/foreach} -->
+                    
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>

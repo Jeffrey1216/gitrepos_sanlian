@@ -1,0 +1,16 @@
+
+<div class="about_left">
+  <div class="sidebar3_h">
+  <h3>{$helpCategories.cate_name}</h3>
+</div>
+<div class="sidebar3">
+	<div class="box01">
+		<div id="acc">
+		<!-- {foreach from=$helpCategories.child_article item=child} -->
+			<b class="nav {if $child.article_id eq $article.article_id} about_a{/if}"><span class="span1_img"><a href="index.php?app=article&act={$helpCategories.code}&article_id={$child.article_id}">{$child.title}</a></span></b>
+		<!-- {/foreach} -->	
+		</div>
+	</div>
+  </div>
+</div>
+<script type="text/javascript" src="{lib file=public.js}" charset="utf-8"></script>

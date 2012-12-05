@@ -1,0 +1,136 @@
+{include file=storeindex_top.html}
+{if $store_id eq 0}
+{include file=../../mall/default/new_head.html}
+{include file=../../mall/default/menu_select_js.html}
+{else}
+{include file=store_top.html}
+{/if}
+<body>
+    
+
+	<!--     头部      END       --> 
+   <div class="content dtl_content">
+       <ul class="Visit_position">
+          <li class="Visit_position_l">
+          </li>
+          <li class="Visit_position_m">
+            <!-- {foreach from=$data.cur_local item=cur name=curlocal} -->
+            <!-- {if $smarty.foreach.curlocal.last} -->
+             <a href="{$cur.url}">{$cur.text}</a>
+            <!-- {else} -->
+            <a href="{$cur.url}">{$cur.text}</a>&nbsp;
+            <!-- {/if} -->
+            <!-- {/foreach} -->
+          </li>
+          <li class="Visit_position_r">
+          </li>
+       </ul>
+       <div class="dtl_level2bg">
+   	   </div>
+     <div class="level3_right">
+    	<div><i>商品分类：</i><span id="line_del" class="paila_price">{$vgoods.cate_name}</span></div>
+        <div><i>商品名称：</i><span class="paila_price" ectype="goods_price">{$vgoods.goods_name}</span></div>
+        <div><i>是否是自营产品：</i><span class="paila_price" ectype="goods_pl_price">
+        <!--{if $vgoods.autotrophy eq 0}-->
+        不是
+        <!--{else}-->
+        是
+        <!--{/if}-->
+        
+        </span></div>
+        <div><i>是否热卖：</i><span>
+        <!--{if $vgoods.is_hot eq 0}-->
+        不是
+        <!--{else}-->
+        是
+        <!--{/if}--></span></div>
+        <div><i>是否新品上架：</i><span>
+         <!--{if $vgoods.is_new eq 0}-->
+        不是
+        <!--{else}-->
+        是
+        <!--{/if}-->
+        </span></div>
+        <div><i>是否推荐：</i><span class="star_01"><em style="width:13px"></em></span>
+         <!--{if $vgoods.is_best eq 0}-->
+        不是
+        <!--{else}-->
+        是
+        <!--{/if}--></div>
+        <div><i>产品审核状态：</i><span>
+        
+        
+         <!--{if $vgoods.status eq 0}-->
+        未审核
+        <!--{elseif $vgoods.status eq 1}-->
+        已通过
+        <!--{else}-->
+        未通过
+        <!--{/if}-->
+        </span></div>
+        <div><i>产品编号：</i><span>{if $vgoods.goods_number}$vgoods.goods_number{else}无{/if}</span></div>
+        <div class="handle">
+            <!--{if $goods.spec_qty gt 0}-->
+            <ul>
+                <li class="handle_title">{$goods.spec_name_1|escape}: </li>
+            </ul>
+            <!--{/if}-->
+            <!--{if $goods.spec_qty gt 1}-->
+            <ul>
+                <li class="handle_title">{$goods.spec_name_2|escape}: </li>
+            </ul>
+            <!--{/if}-->
+           
+            <!--{if $goods.spec_qty gt 0}-->
+            <ul>
+                <li class="handle_title">{$lang.your_select}: </li>
+                <li class="aggregate" ectype="current_spec"></li>
+            </ul>
+            <!--{/if}-->
+        </div>
+    </div>
+    <!-- 注释了 貌似没用
+       <div class="dtl_prmt">
+       <!-- {if $data.goods.spec_name_1} -->
+          <ul type="square">
+             <li>
+             	<span>{$data.goods.spec_name_1}：</span>
+             	<!-- {foreach from=$data.goods._specs item=spec} -->
+             	<span>{$spec.spec_1}</span>
+             	<!-- {/foreach} -->
+             </li>
+			 <li>
+             	<span>{$data.goods.spec_name_2}：</span>
+             	<!-- {foreach from=$data.goods._specs item=spec} -->
+             	<span>{$spec.spec_2}</span>
+             	<!-- {/foreach} -->
+             </li>
+          </ul> 
+
+       <!-- {else} -->   
+		<span>本产品没有规格信息</span>
+       <!-- {/if} -->
+       </div> 
+       <div class="dtl_intr_ctt">
+           <div class="dtl_intr_ctt_l">
+              <div>
+         		{$goods.description}
+              </div>
+           	</div>
+           <div class="clear"></div>                      		
+        </div>
+       注释了 貌似没用 -->
+       商品图片：
+       <!--{if $vgoods.default_image}-->
+       <img src="{$vgoods.default_image}">
+       <!--{else}-->
+       无图片
+       <!--{/if}-->
+    </div>
+    </div>
+   {include file=../../mall/default/footer.html}
+ <div id="goTopBtn" style="display: block;right:0 "><a href="javascript:void(0);" id="top"><div class="backtop"></div> </a></div>
+<!--返回顶端js -->
+
+</body>
+</html>

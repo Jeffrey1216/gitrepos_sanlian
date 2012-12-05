@@ -1,0 +1,95 @@
+{include file="header.html"}
+<style>
+	#tr1 {display:none;}
+</style>
+<script type="text/javascript">
+	window.onload = function ()
+	{
+		var oPa = document.getElementById('pass');
+		var onPa = document.getElementById('no_pass');
+		var cTr = document.getElementById('tr1');
+		oPa.onclick = function ()
+		{
+			cTr.style.display = 'none';
+		}
+		onPa.onclick = function ()
+		{
+			cTr.style.display = 'inline-block';
+		}
+	}
+</script>
+<div id="rightTop">
+  <p>查看</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=refunds">{$lang.manage}</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" >
+    <table class="infoTable">
+     <tr>
+        <th class="paddingT15">订单号：</th>
+        <td>{$order_info.order_sn}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">订单类型：</th>
+        <td class="paddingT15 wordSpacing5"><!-- {if $order_info.type eq 0} -->线上订单<!-- {else} -->线下订单<!-- {/if} --></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">店铺：</th>
+        <td class="paddingT15 wordSpacing5">{$order_info.seller_name|escape}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">买家：</th>
+        <td class="paddingT15 wordSpacing5">{$order_info.buyer_name|escape}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">购买时间：</th>
+        <td class="paddingT15 wordSpacing5">{$order_info.pay_time|date:complete}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">退货时间：</th>
+        <td class="paddingT15 wordSpacing5">{$order_info.refund_time|date:complete}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">订单状态：</th>
+        <td class="paddingT15 wordSpacing5"><!-- {if $order_info.status eq 50} -->退货中...<!-- {else} -->退货完成<!-- {/if} --></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">退货原因：</th>
+        <td class="paddingT15 wordSpacing5">{$order_info.refund_cause|escape}</td>
+      </tr>     
+      <!-- {if $type neq 1} -->
+      <tr>
+        <th class="paddingT15">审核：</th>
+        <td class="paddingT15 wordSpacing5">
+        	<p>
+通过:
+	            <input type="radio" id="pass" name="pass" value="1" checked="checked" />
+未通过:
+	            <input type="radio" id="no_pass" name="pass" value="2" />
+         	</p>
+        </td>
+      </tr>  
+      <tr id="tr1">
+        <th class="paddingT15">未通过原因：</th>
+        <td class="paddingT15" style="padding-left:38px;font-weight:700;color:#333"><textarea name="reason"></textarea></td>
+      </tr>   
+       <tr>
+      	<th class=""><input class="" name="user_name" type="submit" value="审核" /></th>
+        <td class=""><a style="text-decoration:none" href="index.php?app=refunds"><input type="button" value="返回" /></a></td>
+      </tr>
+      <!-- {else} -->
+      <tr>
+      	<tr>
+        <th class="paddingT15">审核状态：</th>
+        <td class="paddingT15 wordSpacing5"><!-- {if $order_info.op_status eq 0} -->未操作<!-- {elseif $order_info.op_status eq 1} -->物流已审核，待财务审核<!-- {else} -->未通过<!-- {/if} --></td>
+      	</tr>
+      	<tr>
+      	 <td class=""><a style="text-decoration:none" href="index.php?app=refunds"><input type="button" value="返回" /></a></td>
+      </tr>
+      <!-- {/if} -->
+    </table>
+  </form>
+</div>
+{include file="footer.html"}	

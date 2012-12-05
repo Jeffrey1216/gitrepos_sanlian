@@ -1,0 +1,53 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>确认支付订单</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=store_cashier&order_id={$order.order_id}">确认订单金额及支付方式</a></li>
+	</ul>
+		<div class="public_02">
+<div id="zhifu">
+<form action="index.php?app=store_cashier&act=goto_pay&order_id={$order.order_id}" method="POST" id="goto_pay">
+<h3>支付货款</h3>
+	   <div class="zhifu6">
+	   <p><span>恭喜</span>，订单<span>{$order.order_sn}</span>已生成！</p>
+	   <p>请选择以下支付方式，支付成功后，预计1天内发货</p>
+	   </div>
+	   <h3>订单信息</h3>
+	   <div class="zhifu7">
+	   <ul>
+	   <li>收款方：派啦网</li>
+	   <li>类型：店铺进货订单</li>
+	   <li>编号：<span>{$order.order_sn}</span></li>
+	   <li>店铺可用余额：<span>{$money|price}</span></li>
+	   <li>订单总额：<span>{$order.order_amount|price}</span></li>
+	      {if $order.op_status!=0}<li>物流费：<span>{$order.shipping_fee|price}</span></li>{/if}  
+	      {if $order.op_status==2}
+	      	{if $order.arrears_amount>0}<li>欠款总额：<span>{$order.arrears_amount|price}</span></li>{/if}
+	      	 <li>应付总额：<span>{$order.pay_amount|price}</span></li> 
+	      {/if}
+	   </ul>
+	   </div>
+	   <h3>选择支付平台</h3>
+	   <div class="zhifu8">	    
+	   <!--{if $payments}-->
+	   <h6>点击以下平台支付:</h6>
+	   <div class="zhifu8_1">
+	   	  <!--{foreach from=$payments item=payment}-->
+          <div style="float:left;margin:10px;">
+              <span class="radio"><input id="payment_{$payment.payment_code}" type="radio" name="payment_id" value="{$payment.payment_id}" checked/></span>
+              <span class="logo"><label for="payment_{$payment.payment_code}"><img src="{$site_url}/includes/payments/{$payment.payment_code}/logo.gif" alt="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" title="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" width="125" height="47" /></label></span>
+              <span class="explain">{$payment.payment_desc|escape}</span>
+          </div>
+		  <!--{/foreach}-->
+	   </div>
+	   </div>
+	   <!--{/if}-->
+	   
+
+<ul class="zhifu5">
+   <li><a style="color:#fff;" href="javascript:window.location.reload()" class="gouwuche_btn" >刷新价格</a></li>
+   <li ><a style="color:#fff;" href="javascript: $('#goto_pay').submit();" class="gouwuche_btn">{$lang.confirm_pay}</a></li>
+	</ul>	
+</form>
+</div>
+</div>

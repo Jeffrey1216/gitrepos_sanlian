@@ -1,0 +1,128 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#user_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        onkeyup    : false,
+        rules : {
+            user_name : {
+                required : true,
+                byteRange: [3,15,'{$charset}'],
+                remote   : {
+                    url :'index.php?app=user&act=check_user',
+                    type:'get',
+                    data:{
+                        user_name : function(){
+                            return $('#user_name').val();
+                        },
+                        id : '{$user.user_id}'
+                    }
+                }
+            },
+            password: {
+                <!--{if $smarty.get.act eq 'add'}-->
+                required : true,
+                <!--{/if}-->
+                maxlength: 20,
+                minlength: 6
+            },
+            email   : {
+                required : true,
+                email : true
+            }
+            {if !$set_avatar}
+            ,
+            portrait : {
+                accept : 'png|gif|jpe?g'
+            }
+            {/if}
+        },
+        messages : {
+            user_name : {
+                required : '{$lang.user_not_empty}',
+                byteRange: '{$lang.user_length_limit}',
+                remote   : '{$lang.name_exist}'
+            },
+            password : {
+                <!--{if $smarty.get.act eq 'add'}-->
+                required : '{$lang.password_empty}',
+                <!--{/if}-->
+                maxlength: '{$lang.password_limit}',
+                minlength: '{$lang.password_limit}'
+            },
+            email  : {
+                required : '{$lang.email_not_empty}',
+                email   : '{$lang.currect_email}'
+            }
+            {if !$set_avatar}
+            ,
+            portrait : {
+                accept : '{$lang.note_portrait}'
+            }
+            {/if}
+        }
+    });
+});
+</script>
+<div id="rightTop">
+  <p>新增业务员</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=salesman">{$lang.manage}</a></li>
+    <li>
+      <!-- {if $user.user_id} -->
+      <a class="btn1" href="index.php?app=salesman&amp;act=add">{$lang.add}</a>
+      <!-- {else} -->
+      <span>{$lang.add}</span>
+      <!-- {/if} -->
+    </li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" enctype="multipart/form-data" id="user_form">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15"> 真实姓名:</th>
+        <td class="paddingT15 wordSpacing5"><!-- {if $user.user_id} -->
+          {$user.user_name|escape}
+          <!-- {else} -->
+          <input class="infoTableInput2" id="user_name" type="text" name="user_name" value="{$user.user_name|escape}" />
+          <!-- {/if} -->        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> 电话:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="password" type="text" id="password" />
+          <!--{if $user.user_id} -->
+          <span class="grey">{$lang.note_password}</span>
+          <!-- {/if} -->        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> 选择地区:</th>
+        <td class="paddingT15 wordSpacing5">
+        <select>
+        	<option></option>
+        </select>
+       </td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> 详细地址:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="real_name" type="text" id="real_name" value="{$user.real_name|escape}" />        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> 职位:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="real_name" type="text" id="real_name" value="{$user.real_name|escape}" /></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+          <input class="formbtn" type="reset" name="Reset" value="{$lang.reset}" />        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

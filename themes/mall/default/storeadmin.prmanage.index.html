@@ -1,0 +1,112 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox">
+	<h3 class="tit"><span>促销管理</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=promotion_manage">本店管理</a></li>
+	</ul>
+	<div class="public_02">
+		<div class="table">
+                <table id="my_goods" server="{$site_url}/index.php?app=my_goods&amp;act=ajax_col" >
+				<colgroup>  
+               	<col width="2%"/>
+                <col width="18%"/>
+                <col width="10%"/>             
+                <col width="10%"/>
+                <col width="10%"/>
+                <col width="10%"/>
+                </colgroup>
+                    <form id="my_goods_form" method="get">
+                    <tr class="line_bold">
+					<th>
+					</th>  
+					<th>  
+					</th>                                                
+					<th colspan="9">
+                  		 <div class="select_div"> 
+                  		 
+                  		 			<input type="hidden" name="app" value="promotion_manage" />
+                  		 			<input type="hidden" name="act" value="index" />                          
+               					 <input type="text" id="keyword" name="keyword" value="请输入搜索关键字!"/>
+                   				<input type="submit" class="btn" value="搜索"/>
+                   		
+                   		</div>
+             		  </th>
+                    </tr>     
+                    </form>
+                    <tr class="gray"  ectype="table_header">                       
+						<th width="8%">商品名</th>
+                        <th width="4%">原价</th>                 
+						<th width="6%">原赠送PL</th>
+						<th width="6%">促销名</th>
+						<th width="6%">促销价</th>
+						<th width="6%">促销赠送PL</th>
+						<th width="6%">剩余促销数量</th>
+						<th width="6%">售出数量</th>
+						<th width="6%">促销状态</th>
+						<th width="4%">促销排序</th>
+						<th width="8%">操作</th>		
+                    </tr>
+                    <!--{foreach from=$promotion.goods item=goods name=_goods_f}-->
+                    <tr class="gray">                       
+						<th width="8%">{$goods.goods_name}</th>
+                        <th width="4%">{$goods.price|price}</th>                 
+						<th width="6%">{$goods.credit}PL</th>
+						<th width="6%">{$goods.pr_name|default:暂无}</th>
+						<th width="6%">{$goods.pr_price|price}</th>
+						<th width="6%">{$goods.pr_credit}PL</th>
+						<th width="6%">{$goods.pr_stock}</th>
+						<th width="6%">{$goods.pr_selllog}</th>
+						<th width="6%">{if $goods.pr_status eq 0}待审核{elseif $goods.pr_status eq 10}正常{elseif $goods.pr_status eq 11}未通过{elseif $goods.pr_status eq 20}已关闭{/if}</th>
+						<th width="4%">{$goods.pr_sort}</th>
+						<th width="8%">
+						{if $goods.pr_status eq 0}
+							<a href="{url app=promotion_manage&act=edit&pr_id=$goods.promotion_id}">修改</a>
+							|<a href="{url app=promotion_manage&act=drop&pr_id=$goods.promotion_id}" onclick="return confirm('是否将此促销信息删除?')">删除</a>
+						{elseif $goods.pr_status eq 10}
+							<a href="{url app=promotion_manage&act=edit_close&pr_id=$goods.promotion_id}" onclick="return confirm('是否将此促销信息关闭?关闭过后会归还该商品所有剩余库存')">关闭促销</a>
+						{elseif $goods.pr_status eq 11}
+							<a href="{url app=promotion_manage&act=drop&pr_id=$goods.promotion_id}" onclick="return confirm('是否将此促销信息删除?')">删除</a>
+						{elseif $goods.pr_status eq 20}
+							暂无
+						{/if}
+						</th>	
+                    </tr>
+                    <!--{foreachelse}-->
+                    <tr>
+                        <td class="align2 member_no_records padding6" colspan="8">{$lang.$smarty.get.act}{$lang.no_records}</td>
+                    </tr>
+                    <!--{/foreach}-->
+                    <tr>
+                        <th></th>
+                        <th colspan="9">
+                            <p class="position1">
+                         
+                            </p>
+                            <p class="position2">
+                                {include file=member.page.bottom.html}
+                            </p>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+       </div>
+<script type="text/javascript">
+$("#selCate").change(function(){
+	$("#my_goods_form").submit();
+});
+$("#priceRegion").change(function(){
+	$("#my_goods_form").submit();
+});
+$("#keyword").focus(function() {
+	if($("#keyword").val() == '' || $("#keyword").val() == '请输入搜索关键字!') {
+		$("#keyword").val("");
+	}
+});
+$("#keyword").blur(function() {
+	if($("#keyword").val() == '') {
+		$("#keyword").val("请输入搜索关键字!");
+	}
+});
+</script>
+{include file=storeadmin.footer.html}

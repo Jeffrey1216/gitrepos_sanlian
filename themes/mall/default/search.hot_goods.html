@@ -1,0 +1,190 @@
+{include file=other_top.html}
+{include file=new_head.html}
+<style type="text/css">
+.module_filter_line{width:988px;background:#ffe5e5;border:none;}
+.module_filter{background:#ffe5e5;width:998px;margin-bottom:0;border:1px solid #ebbd7d;border-top:none;border-bottom:none;;}
+.shop_con_lists{background:#ffe5e5;width:998px;border:1px solid #ebbd7d;border-top:none;}
+.module_filter .contain_list{width:985px;]
+</style>
+<div style="width:1000px;overflow:hidden;margin:0 auto;">
+	<div class="hot_goods_box">
+		<div class="hot_goods_left">
+			<a href="index.php?app=search&cate_id=1" class="hot_pos1">手机数码</a>
+			<a href="index.php?app=search&cate_id=19" class="hot_pos2">家用电器</a>
+			<a href="index.php?app=search&cate_id=51" class="hot_pos3">家具家装</a>
+			<a href="index.php?app=search&cate_id=167" class="hot_pos4">礼品箱包</a>
+			<a href="index.php?app=search&cate_id=225" class="hot_pos5">户外运动</a>
+			<a href="index.php?app=search&cate_id=124" class="hot_pos6">服饰鞋帽</a>
+			<a href="index.php?app=search&cate_id=90" class="hot_pos7">电脑办公</a>
+			<a href="index.php?app=search&cate_id=264" class="hot_pos8">钟表首饰</a>
+			<a href="index.php?app=search&cate_id=192" class="hot_pos9">个人化妆</a>
+			<a href="index.php?app=search&cate_id=280" class="hot_pos10">食品饮料</a>
+			<a href="index.php?app=search&cate_id=313" class="hot_pos11">母婴玩具</a>
+		</div>
+		<!-- 挂件块 -->
+		<div style="width:770px;overflow:hidden;height:250px;margin:15px 8px auto auto;_margin-right:4px;float:right" area="sales" widget_type="area"><!-- 挂件DIV2 -->
+		<!--{widgets page=search area=sales}-->
+		</div>
+	</div>	
+	<!-- 条件块 -->
+	<div class="module_filter">
+	
+	    <div class="module_filter_line">
+	        <ul class="module_filter_nav" ectype="ul_filter">
+	            <!--{foreach from=$filters item=filter}-->
+	            <li class="normal" ectype="li_filter">
+	                <span class="txt">{$filter.name}: {$filter.value}</span>
+	                <span class="ico"><img src="{res file=images/delete.gif}" title="{$filter.key}" /></span>
+	            </li>
+	            <!--{/foreach}-->
+	            <!-- {if !$filters.brand} -->
+	            <li class="normal" ectype="dropdown_filter_title" ecvalue="brand">
+	                <span class="txt">{$lang.brand}: <a href="javascript:void(0);">{$lang.select_pls}</a></span>
+	                <span class="ico"><img src="{res file=images/down.gif}" /></span>
+	            </li>
+	            <!-- {/if} -->
+	            <li class="normal" ectype="dropdown_filter_title" ecvalue="price">
+	                <span class="txt">{$lang.price}: <a href="javascript:void(0);">{$lang.select_pls}</a></span>
+	                <span class="ico"><img src="{res file=images/down.gif}" /></span>
+	            </li>
+	            <!-- {if !$filters.region_id} -->
+	            <li class="normal" ectype="dropdown_filter_title" ecvalue="region">
+	                <span class="txt">{$lang.region}: <a href="javascript:void(0);">{$lang.select_pls}</a></span>
+	                <span class="ico"><img src="{res file=images/down.gif}" /></span>
+	            </li>
+	            <!-- {/if} -->
+	        </ul>
+	
+	        <!-- {if !$filters.brand} -->
+	        <div class="contain_list" ectype="dropdown_filter_content" ecvalue="brand" style="display:none">
+	            <ul ectype="ul_brand">
+	                <!--{foreach from=$brands item=row}-->
+	                <li><a href="javascript:void(0);" title="{$row.brand}" id="{$row.brand|escape:url}">{$row.brand|escape} ({$row.count})</a></li>
+	                <!--{/foreach}-->
+	            </ul>
+	        </div>
+	        <!-- {/if} -->
+	        <div class="contain_list" ectype="dropdown_filter_content" ecvalue="price" style="display:none">
+	            <ul ectype="ul_price">
+	                <!--{foreach from=$price_intervals item=row}-->
+	                <li><a href="javascript:void(0);" title="{$row.min} - {$row.max}">{$row.min|price} - {$row.max|price} ({$row.count})</a></li>
+	                <!--{/foreach}-->
+	            </ul>
+	        </div>
+	        <!-- {if !$filters.region_id} -->
+	        <div class="contain_list" ectype="dropdown_filter_content" ecvalue="region" style="display:none">
+	            <ul ectype="ul_region">
+	                <!--{foreach from=$regions item=row}-->
+	                <li><a href="javascript:void(0);" id="{$row.region_id}" title="{$row.region_name|escape}">{$row.region_name|escape} ({$row.count})</a></li>
+	                <!--{/foreach}-->
+	            </ul>
+	        </div>
+	        <!-- {/if} -->
+	         <div class="top_page">{include file=page.top.html}</div>
+	    </div>
+	</div>
+	<!-- 条件块结束 -->
+	<div class="shop_con_lists">
+		<div class="hot_goods_content">
+		
+			<ul class="hot_goods_div">
+				<li class="hot_goods_img">
+					<a href="#">
+						<!-- 热卖标签 -->
+						<div class="hot_goods_hot"></div>
+						<!-- 热卖标签END -->
+						<img src=""alt="图片未找到"/>
+						<!-- 折扣标签 -->
+						<div class="hot_goods_tag">原价<span>350000.00</span>折扣<b>8.8</b>折</div>
+						<!-- 折扣标签END -->
+					</a>
+				</li>
+			    <li class="hot_li_hei"><a href="#">奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达</a></li>
+				<li>派啦价：￥<span>30000.00</span></li>
+				<li>积分价：<span>28000</span>PL</li>
+				<li><a class="hot_goods_buybtn" href="#"></a></li>
+			</ul>
+			
+			<ul class="hot_goods_div">
+				<li class="hot_goods_img">
+					<a href="#">
+						<!-- 热卖标签 -->
+						<div class="hot_goods_hot"></div>
+						<!-- 热卖标签END -->
+						<img src=""alt="图片未找到"/>
+						<!-- 折扣标签 -->
+						<div class="hot_goods_tag">原价<span>350000.00</span>折扣<b>8.8</b>折</div>
+						<!-- 折扣标签END -->
+					</a>
+				</li>
+			    <li class="hot_li_hei"><a href="#">奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达</a></li>
+				<li>派啦价：￥<span>30000.00</span></li>
+				<li>积分价：<span>28000</span>PL</li>
+				<li><a class="hot_goods_buybtn" href="#"></a></li>
+			</ul>
+			
+			<ul class="hot_goods_div">
+				<li class="hot_goods_img">
+					<a href="#">
+						<!-- 热卖标签 -->
+						<div class="hot_goods_hot"></div>
+						<!-- 热卖标签END -->
+						<img src=""alt="图片未找到"/>
+						<!-- 折扣标签 -->
+						<div class="hot_goods_tag">原价<span>350000.00</span>折扣<b>8.8</b>折</div>
+						<!-- 折扣标签END -->
+					</a>
+				</li>
+			    <li class="hot_li_hei"><a href="#">奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达</a></li>
+				<li>派啦价：￥<span>30000.00</span></li>
+				<li>积分价：<span>28000</span>PL</li>
+				<li><a class="hot_goods_buybtn" href="#"></a></li>
+			</ul>
+			
+			<ul class="hot_goods_div">
+				<li class="hot_goods_img">
+					<a href="#">
+						<!-- 热卖标签 -->
+						<div class="hot_goods_hot"></div>
+						<!-- 热卖标签END -->
+						<img src=""alt="图片未找到"/>
+						<!-- 折扣标签 -->
+						<div class="hot_goods_tag">原价<span>350000.00</span>折扣<b>8.8</b>折</div>
+						<!-- 折扣标签END -->
+					</a>
+				</li>
+			    <li class="hot_li_hei"><a href="#">奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达</a></li>
+				<li>派啦价：￥<span>30000.00</span></li>
+				<li>积分价：<span>28000</span>PL</li>
+				<li><a class="hot_goods_buybtn" href="#"></a></li>
+			</ul>
+			
+			<ul class="hot_goods_div">
+				<li class="hot_goods_img">
+					<a href="#">
+						<!-- 热卖标签 -->
+						<div class="hot_goods_hot"></div>
+						<!-- 热卖标签END -->
+						<img src=""alt="图片未找到"/>
+						<!-- 折扣标签 -->
+						<div class="hot_goods_tag">原价<span>350000.00</span>折扣<b>8.8</b>折</div>
+						<!-- 折扣标签END -->
+					</a>
+				</li>
+			    <li class="hot_li_hei"><a href="#">奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达奋达</a></li>
+				<li>派啦价：￥<span>30000.00</span></li>
+				<li>积分价：<span>28000</span>PL</li>
+				<li><a class="hot_goods_buybtn" href="#"></a></li>
+			</ul>
+							
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="{lib file=search_goods.js}" charset="utf-8"></script>
+<script type="text/javascript">
+var upimg   = '{res file=images/up.gif}';
+var downimg = '{res file=images/down.gif}';
+imgUping = new Image();
+imgUping.src = upimg;
+</script>
+{include file=footer.html}

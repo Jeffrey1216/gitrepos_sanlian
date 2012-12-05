@@ -1,0 +1,129 @@
+{include file=../../mall/default/newothers_top.html}
+{include file=../../mall/default/new_head.html}
+{include file=../../mall/default/menu_select_js.html}
+{include file=service.html}
+<div id="shangcheng">
+	  <div class="shangcheng_page">
+	  	 {include file=top.html}
+	     {include file=store.left.html}
+	     <!--{if $temp==1}-->
+	    
+	     <!--{if $searched_goods}-->
+		 <div class="shangcheng_pr">
+		     <div class="shangcheng_pr1">
+			      <div class="pr1_head">
+				     <h4>{$search_name|escape}</h4>
+				  </div>
+				  <!--{foreach from=$searched_goods item=sgoods}-->
+				  <div class="scpr_map">
+				  <a class="width_160" href="index.php?app=goods&id={$sgoods.gs_id}"><img src="http://img.paila100.com/{$sgoods.default_image}" /></a>
+				  <ul>
+				  <li class="li_height"><a href="index.php?app=goods&id={$sgoods.gs_id}">{$sgoods.goods_name|escape}</a></li>
+				  <li class="li1">派啦价{$sgoods.price|price}</li>
+				  <li>返积分：<span>{$sgoods.credit|default:0}PL</span></li>
+				  </ul>
+				  </div>
+			 	  <!-- {/foreach} -->
+			 </div>
+		 </div>
+		 <!--{else}-->
+         <div class="nothing"><p>{$lang.no_records}</p></div>
+		 <!-- {/if} -->
+         
+		 <!-- {/if} -->
+	     <!--{if $temp==2}-->
+	    
+	     <!--{if $searched_goods}-->
+		 <div class="shangcheng_pr">
+		     <div class="shangcheng_pr1">
+			      <div class="pr1_head">
+				     <h4>全部商品</h4>
+				     <div class="order_paixu">
+				     <!-- {if $divtmp eq 2} -->
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=2" class="channel_langbtn order_hover">上架时间</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}}&tmp=3"  class="channel_langbtn">价格降序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=4"  class="channel_langbtn">价格升序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=1"  class="channel_langbtn">销量</a>
+				      <!-- {/if} -->
+				     <!-- {if $divtmp eq 3} -->
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=2" class="channel_langbtn">上架时间</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}}&tmp=3"  class="channel_langbtn order_hover">价格降序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=4"  class="channel_langbtn">价格升序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=1"  class="channel_langbtn">销量</a>
+				      <!-- {/if} -->
+				     <!-- {if $divtmp eq 4} -->
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=2" class="channel_langbtn">上架时间</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}}&tmp=3"  class="channel_langbtn">价格降序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=4"  class="channel_langbtn order_hover">价格升序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=1"  class="channel_langbtn">销量</a>
+				      <!-- {/if} -->
+				     <!-- {if $divtmp eq ""} -->
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=2" class="channel_langbtn order_hover">上架时间</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}}&tmp=3"  class="channel_langbtn">价格降序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=4"  class="channel_langbtn">价格升序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=1"  class="channel_langbtn">销量</a>
+				      <!-- {/if} -->
+				     <!-- {if $divtmp eq 1} -->
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=2" class="channel_langbtn">上架时间</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}}&tmp=3"  class="channel_langbtn">价格降序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=4"  class="channel_langbtn">价格升序</a>
+				       <a href="index.php?app=store&act=search&id={$store.store_id}&tmp=1"  class="channel_langbtn order_hover">销量</a>
+				      <!-- {/if} -->
+				     </div>
+				  </div>
+				  <!--{foreach from=$searched_goods item=sgoods}-->
+				  <div class="scpr_map">
+				  <a class="width_160" href="index.php?app=goods&id={$sgoods.gs_id}"><img src="http://img.paila100.com/{$sgoods.default_image}" /></a>
+				  <ul>
+				  <li class="li_height"><a href="index.php?app=goods&id={$sgoods.gs_id}">{$sgoods.goods_name|escape}</a></li>
+				  <li class="li1">派啦价{$sgoods.price|price}</li>
+				  <li>返积分：<span>{$sgoods.credit|default:0}PL</span></li>
+				  </ul>
+				  </div>
+			 	  <!-- {/foreach} -->
+			 </div>
+		 </div>
+		 <!--{else}-->
+         <div class="nothing"><p>{$lang.no_records}</p></div>
+		 <!-- {/if} -->
+         
+		 <!-- {/if} -->
+	</div>
+	<div style="float:right">
+	{include file=page.bottom.html}
+	</div>
+</div>    
+
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $("select[ectype='order_by']").change(function(){
+        var params = location.search.substr(1).split('&');
+        var key    = 'order';
+        var value  = this.value;
+        var found  = false;
+        for (var i = 0; i < params.length; i++)
+        {
+            param = params[i];
+            arr   = param.split('=');
+            pKey  = arr[0];
+            if (pKey == 'page')
+            {
+                params[i] = 'page=1';
+            }
+            if (pKey == key)
+            {
+                params[i] = key + '=' + value;
+                found = true;
+            }
+        }
+        if (!found)
+        {
+            params.push(key + '=' + value);
+        }
+        location.assign(SITE_URL + '/index.php?' + params.join('&'));
+    });
+});
+//]]>
+</script>
+{include file=../../mall/default/footer.html}

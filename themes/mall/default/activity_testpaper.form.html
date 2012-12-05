@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/ xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>大转轮活动-派啦网，零销商业大革命派啦模式，创造服务中国10亿人的购买力资产平台</title>
+    <meta name="description" content="派啦网,PMB模式"/>
+    <meta name="keywords" content="派啦网 派啦商城 PMB模式"/>
+    <meta name="author" content="www.paila100.com"/>
+    <link href="{res file=topics/paisong/css/zhuanpan.css}" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript"  src="{lib file=jquery.js}"></script>
+	<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+	<style type="text/css">
+	h3 p {
+		display:inline-block;	
+	}
+	</style>
+</head>
+<body>
+
+<div class="content2">
+    <div class="font">
+        <div class="font_01"></div>
+    </div>
+    <div class="main">
+        <div class="text">
+            <div class="line">
+                <img src="{res file=topics/paisong/images/lan_07.jpg}"/>
+                <div class="textright">
+                	{$paper.tpi_notice}
+                </div>
+            </div>
+			<form method="post">
+            <div class="text_01">
+				<h2>您的基本信息</h2>
+				<div class="baseinfo">
+					<ol>						
+						<!-- {foreach from=$paper.basic_question_info name=basicinfo item=v} -->
+						<li>
+							<h3>{$smarty.foreach.basicinfo.iteration}&nbsp;&nbsp;.&nbsp;&nbsp;{$v.stem}</h3>
+							<!-- {if $v.class_id eq 1} -->
+								<!-- {foreach from=$v.options item=_v} -->
+								<span><input type="radio" name="c_{$_v.sn}" value="{$_v.option_tab}"/>{$_v.option_content}</span>
+								<!-- {/foreach} -->
+							<!-- {/if} -->
+							<!-- {if $v.class_id eq 2} -->
+								<!-- {foreach from=$v.options item=_v} -->
+								<span><input type="checkbox" name="c_{$_v.sn}[]" value="{$_v.option_tab}"/>{$_v.option_content}</span>
+								<!-- {/foreach} -->
+							<!-- {/if} -->
+							<!-- {if $v.class_id eq 4} -->
+								<span>
+									<select onchange="regionChange(this,'{$v.sn}',{$smarty.foreach.basicinfo.iteration})">
+                                    <option value="0">{$lang.select_pls}</option>
+                                    {html_options options=$regions}
+                                	</select>
+                                	<input type="hidden" class="a_{$v.sn}_{$smarty.foreach.basicinfo.iteration}" name="a_{$v.sn}_{$smarty.foreach.basicinfo.iteration}"/>
+								</span>
+							<!-- {/if} -->
+						</li>
+						<!-- {/foreach} -->
+					</ol>
+				</div>
+            </div>
+			
+			<div class="text_02">
+				<h4>问卷内容</h4>	
+				<p><span>温馨提示：</span>请您认真阅读以下的描述，并根据您的实际情况回答问卷并提交，您的意见将会是我们最宝贵的财富。</p>
+				<ol>
+					<!-- {foreach from=$paper.paper_question_info name=paper item=v} -->
+						<li>
+							<h3>{$smarty.foreach.paper.iteration}&nbsp;&nbsp;.&nbsp;&nbsp;{$v.stem}</h3>
+							<!-- {if $v.class_id eq 1} -->
+								<!-- {foreach from=$v.options item=_v} -->
+								<span><input type="radio" name="c_{$_v.sn}" value="{$_v.option_tab}"/>{$_v.option_content}</span>
+								<!-- {/foreach} -->
+							<!-- {/if} -->
+							<!-- {if $v.class_id eq 2} -->
+								<!-- {foreach from=$v.options item=_v} -->
+								<span><input type="checkbox" name="c_{$_v.sn}[]" value="{$_v.option_tab}"/>{$_v.option_content}</span>
+								<!-- {/foreach} -->
+							<!-- {/if} -->
+						</li>
+					<!-- {/foreach} -->
+					<div class="clear">
+					</div>
+										
+					<li>
+						<input type="hidden" name="tpi_id" value="{$paper.tpi_id}" />
+						<input type="submit" value="提交问卷"class="suvery_btn" onclick="checkform()"/>
+					</li>
+					
+					
+				</ol>				
+			</div>
+			</form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+var SITE_URL = "{$SITE_URL}";
+function regionChange(obj,sn,num)
+{
+    // 删除后面的select
+    $(obj).nextAll("select").remove();
+
+    // 计算当前选中到id和拼起来的name
+    var selects = $(obj).siblings("select").andSelf();
+    var id = 0;
+    var names = new Array();
+    for (i = 0; i < selects.length; i++)
+    {
+        sel = selects[i];
+        if (sel.value > 0)
+        {
+            id = sel.value;
+            name = sel.options[sel.selectedIndex].text;
+            names.push(name);
+        }
+    }
+    $(".a_"+sn+"_"+num).val(id);
+	var str = "regionChange(this,'" + sn + "',"+num+")";
+    // ajax请求下级地区
+    if (obj.value > 0)
+    {
+        var _self = obj;
+        var url = SITE_URL + '/index.php?app=mlselection&type=region';
+        $.getJSON(url, {'pid':obj.value}, function(data){
+            if (data.done)
+            {
+                if (data.retval.length > 0)
+                {
+                    $("<select onchange="+ str +"><option>请选择...</option></select>").change(regionChange).insertAfter(_self);
+                    var data  = data.retval;
+                    for (i = 0; i < data.length; i++)
+                    {
+                        $(_self).next("select").append("<option value='" + data[i].region_id + "'>" + data[i].region_name + "</option>");
+                    }
+                }
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+    }
+}
+</script>

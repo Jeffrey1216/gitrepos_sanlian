@@ -1,0 +1,21 @@
+{include file="header.html"}
+<div id="rightTop">
+  <ul class="subnav">
+    <li>短信发送</li>
+    <li><a href="index.php?app=service&act=user" style="text-decoration:none;"><span>会员管理</span></a></li>
+  </ul>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+	<span style="color:red;">会员:{$user.user_name|escape}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>手机：{$user.mobile	}</span>
+  </div>
+  <div class="fontr"></div>
+</div>
+<form method="post">
+<div class="sms_send_box">
+	<p>请输入您要发送的短信内容：</p>
+	<textarea id="question_content" name="content"> </textarea>
+	<input style="margin-top:10px;"  class="formbtn" type="submit" value="发送"/>
+</div>
+    </form>
+{include file="footer.html"}

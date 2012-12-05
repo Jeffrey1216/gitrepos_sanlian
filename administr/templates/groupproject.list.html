@@ -1,0 +1,79 @@
+{include file="header.html"}
+<div class="group">
+<div id="rightTop">
+  <p>项目管理</p>
+  <ul class="subnav">
+    <li><span>管理</span></li>
+    <li><a href="index.php?app=groupproject&act=add" class="btn1">新增</a></li>
+  </ul>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+  <form method="get">
+    <div class="left"> 
+	  <ul class="subnav">
+	    <li><!-- {if $status eq 0} --><span>全部项目</span><!-- {else} --><a href="index.php?app=groupproject&status=0" class="btn1">全部项目</a><!-- {/if} --></li>
+	    <li><!-- {if $status eq 2} --><span>正在进行</span><!-- {else} --><a href="index.php?app=groupproject&status=2" class="btn1">正在进行</a><!-- {/if} --></li>
+	    <li><!-- {if $status eq 1} --><span>未开始</span><!-- {else} --><a href="index.php?app=groupproject&status=1" class="btn1">未开始</a><!-- {/if} --></li>
+	    <li><!-- {if $status eq 3} --><span>已结束</span><!-- {else} --><a href="index.php?app=groupproject&status=3" class="btn1">已结束</a><!-- {/if} --></li>
+	  </ul>   
+   		<select name="project_classify">
+   			<option value="0">全部</option>
+   	 		<!-- {foreach from=$category_list item=category} -->
+   	 		<option {if $project_classify eq $category.id} selected{/if} value="{$category.id}">{$category.category}</option>
+   	 		<!-- {/foreach} -->
+    	</select>
+    	<input type="hidden" name="app" value="groupproject" />
+    	<input type="hidden" name="act" value="index" />
+    	<input type="hidden" name="status" value="{$status}" />
+      <input type="submit" value="查询" class="formbtn">
+    </div>
+  </form>
+  </div>
+  <div class="fontr">{if $page_info}{include file=page.top.html}{/if}</div>
+</div>
+<table cellpadding="0" cellspacing="0">
+<colgroup>
+<col width="5%"/>
+<col width="20%"/>
+<col width="5%"/>
+<col width="10%"/>
+<col width="5%"/>
+<col width="5%"/>
+<col width="5%"/>
+<col width="10%"/>
+<col width="5%"/>
+</colgroup>
+<tr>
+<th>ID</th>
+<th style="text-align:left">项目名称</th>
+<th>类别</th>
+<th>日期</th>
+<th>成交</th>
+<th>虚拟购买</th>
+<th>成团数</th>
+<th>价格</th>
+<th>操作</th>
+</tr>
+<!-- {foreach from=$group_project_list item=project} -->
+<tr>
+<td>{$project.id}</td>
+<td style="text-align:left"><strong>[{$project.category}]</strong><a href="#">{$project.title}</a></td>
+<td>{$project.gcategory|default:暂无}</td>
+<td><p>开始：{$project.start_time}</p><p>结束：{$project.finish_time}</p></td>
+<td>{$project.sale}</td>
+<td>{$project.virtual_buy}</td>
+<td>{$project.min_quantity}</td>
+<td>市场价：{$project.cprice|price}&nbsp;&nbsp;&nbsp;&nbsp; 现价：{$project.price|price}</td>
+<td><a href="#">详情</a> <a href="index.php?app=groupproject&act=edit&id={$project.id}">编辑</a> 
+<a href="index.php?app=groupproject&act=del&id={$project.id}">删除</a></td>
+</tr>
+<!-- {foreachelse} -->
+<tr>
+	<td colspan="9">没有项目...</td>
+</tr>
+<!-- {/foreach} -->
+</table>
+<div style="float:right">{if $page_info}{include file=page.bottom.html}{/if}</div>
+</div>
+{include file="footer.html"}

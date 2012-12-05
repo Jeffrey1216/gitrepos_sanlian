@@ -1,0 +1,16 @@
+   <div class="zhuangzhang_top" style="margin-top:0">
+    <ul>
+     <li>会员名称：<em style="font-size:16px;color:#000;font-family:'宋体';font-weight:bold">{$user.user_name}</em></li>
+     <li>注册日期：{$user.time|date:Y-m-d}</li>
+     <li>现金余额：<em style="font-size:16px;color:#ff0001;font-weight:bold"> {$user.money} </em>元</li>
+     <li>PL币余额：<em style="font-size:16px;color:#ff0001;font-weight:bold">{$user.credit}</em> PL</li>
+    </ul> 
+   <ul class="zhuangzhang_top_ul">
+     <li><!-- {if $buyer_stat.pending} --><a href="index.php?add_time_from=&add_time_to=&order_sn=&type=pending&app=buyer_order&act=index">待付款<em style="font-size:14px;color:#ff6000;font-weight:bold">({$buyer_stat.pending})</em></a><!-- {else} -->待付款(0)<!-- {/if} --></li>
+     <li><a href="index.php?add_time_from=&add_time_to=&order_sn=&type=shipped&app=buyer_order&act=index">待确认收货<em>（{$buyer_stat.shipped|default:0}）</em></a></li>
+     <li><a href="index.php?add_time_from=&add_time_to=&order_sn=&type=finished&app=buyer_order&act=index">待评价<em>（{$buyer_stat.finished|default:0}）</em></a></li>
+     <li>退换货<em>(0)</em></li>
+     <li><a href="index.php?app=my_question">咨询留言<em>（{$goods_qa|default:0}）</em></a></li>
+     <li><a href="index.php?app=message&act=newpm">站内信<em style="font-size:14px;color:#ff6000;font-weight:bold">{if $new_message neq 0}({$new_message}){/if}</em></a></li>
+    </ul> 
+   </div>

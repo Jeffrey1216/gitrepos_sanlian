@@ -1,0 +1,60 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=commoncart.js}" charset="utf-8"></script>
+<div class="borderBox">
+	<h3 class="tit"><span>我的购物车</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=commoncart">我的购物车</a></li>
+	</ul>
+	<div class="public_02">
+	<div class="table">
+	<div class="gouwuche2">
+	<form action="{url app=store&id=$store_id}" method="post">
+	    <table  cellSpacing=0 cellPadding=0>
+	  <colgroup>
+	    <col width="10%"/>
+	     <col width="10%"/>
+	      <col width="15%"/>
+	       <col width="10%"/>
+	          <col width="15%"/>
+	      <col width="10%"/>
+	       <col width="12%"/>
+	     </colgroup>
+		<tr class="tr1">
+			<td class="td2">商品名称</td>
+			<!--  <td class="td2">供应商名称</td>-->
+			<td class="td2">属性</td>
+			<td class="td2">单价</td>
+			<td class="td2">数量</td>
+			<td class="td2">小计</td>
+			<td colspan="3" class="td2">操作</td>
+		</tr>
+		<!--{foreach from=$carts.goods item=cart}-->
+		<tr id="cart_item_{$cart.cart_id}">
+			<td class="td1"><div class="gouwuche2_l"><a href="{url app=buy_mallgoods&act=show_goods&id=$cart.goods_id}"><img class="img_50"  src="{$image_url}{$cart.goods_image}" alt=""/></a></div><div class="gouwuche2_r"><p><a href="{url app=buy_mallgoods&act=show_goods&id=$cart.goods_id}">{$cart.goods_name|escape}</a></p></div></td>
+			<td>{$cart.specification}</td>
+			<td>{$cart.price|price}</td>
+			<td class="td_imgs">
+				<img src="{res file=images/subtract.gif"}" onclick="decrease_quantity({$cart.cart_id});" alt="{$lang.decrease}" width="12" height="12" />
+            	<input style="width:50px;" id="input_item_{$cart.cart_id}" value="{$cart.quantity}" orig="{$cart.quantity}" changed="{$cart.quantity}" onkeyup="change_quantity({$cart.cart_id});" class="text1 width3" type="text" />
+            	<img src="{res file=images/adding.gif"}" onclick="add_quantity({$cart.cart_id});" alt="{$lang.increase}" width="12" height="12" />
+            </td>
+			<td><span class="price2" id="item{$cart.cart_id}_subtotal">{$cart.subtotal|price}</span></td>
+			<td colspan="3"><a href="javascript:move_favorite({$cart.cart_id}, {$cart.goods_id});" ><img style="_vertical-align:baseline;" class="image2" src="{res file=images/gouwuche_04.gif}" />加入收藏夹 </a>
+			<a href="javascript:;" onclick="drop_cart_item({$cart.cart_id});"> <img class="image2" src="{res file=images/gouwuche_06.gif}" />删除</a>
+			</td>
+		</tr>
+		<!--{/foreach}-->
+		</table>
+		<ul>
+		<li>商品总金额：<strong class="fontsize1" id="item_amount">{$carts.amount|price}</strong></li>
+		</ul>
+		<ul class="ul2">
+		<li><a href="javascript:history.back();" class="back"><img style="vertical-align:baseline" src="{res file=images/gouwuche_10.gif}" />继续购物</a></li>
+		<li><a style="font-weight:700;" href="{url app=store_order&goods=store_cart}" class="gouwuche_btn">{$lang.next_order_form}</a></li></ul>
+	</form>
+	</div>
+		
+	
+	</div>
+	</div>
+</div>

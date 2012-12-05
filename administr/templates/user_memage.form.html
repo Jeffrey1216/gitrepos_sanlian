@@ -1,0 +1,75 @@
+{include file="header.html"}
+<div id="rightTop" style=" border-bottom:1px solid #61B020;">
+  <ul class="subnav2">
+        <li class="on"><a>会员帐户变动<span></span></a></li>
+    </ul>
+</div>
+<div>
+<form action="index.php?app=user_memage&act=send" method="post" onsubmit="return chkpost(this);"> 
+<table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;" class="data">
+    <tr>
+        <td width="120" class="lefttd">操作帐户：</td>
+        <td class="righttd"><!-- {if $index} -->
+                <b>{$users.user_name}</b>
+                <input type="hidden" name="ids[]" value="{$users.user_id}"/>
+            <!-- {else} -->
+                <!-- {foreach from=$users item=v} -->   
+                    <b>{$v.user_name}</b>
+                    <input type="hidden" name="ids[]" value="{$v.user_id}"/>    
+                <!-- {/foreach} -->
+            <!-- {/if} -->
+        </td>
+    </tr>
+    <tr>
+        <td class="lefttd">变动类型：</td>
+        <td class="righttd">
+            <select id="smstyle" name="type">
+                <option value=''>==请选择类型==</option>
+                {html_options options=$credit_type selected=$credit_type.value}
+            </select>
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="lefttd">变动数目：</td>
+        <td class="righttd">
+            <input type="text" name="credit" style="width:80px"/> 如:120.5
+        </td>
+    </tr>
+    
+    <tr>
+        <td class="lefttd" >变动备注：</td>
+        <td class="righttd">
+            <textarea name="desc" style="height:50px; width:200px;"></textarea>
+        </td>
+    </tr>
+    
+    <tr>
+        <td colspan="2" style="padding-left:110px;" class="righttd">
+            <input type="submit" class="formbtn" value="确认操作" style="margin:10px;"/>
+        </td>
+    </tr>
+</table>
+</form>
+<script type="text/javascript">
+function chkpost(obj){
+	if(obj.type.value==""){
+		alert("请你选择[变动类型],再提交!");
+		obj.type.focus();
+		return false;
+		}
+	if(obj.credit.value==''||isNaN(obj.credit.value)){
+		alert("请输入正确的[变动数目]!");
+		obj.credit.value='';
+		obj.credit.focus();
+		return false;
+		}
+	if(obj.desc.value==""){
+		alert("请你填写[变动备注],再提交!");
+		obj.desc.focus();
+		return false;
+		}
+}
+</script>
+</div>
+{include file="footer.html"}

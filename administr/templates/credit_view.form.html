@@ -1,0 +1,128 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>详请查看</p>
+</div>
+<div class="info">
+  <form method="post" action="">
+    <table class="infoTable">
+   <!-- {if $details.order_id eq '' and $details.verify_id neq 0} -->
+     <tr>
+        <th class="paddingT15">会员名：</th>
+        <td class="paddingT15 wordSpacing5">{$details.user_name}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">真实姓名：</th>
+        <td class="paddingT15 wordSpacing5">{$details.real_name}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动：</th>
+        <td class="paddingT15 wordSpacing5">{$details.credit_change}</td>
+      </tr>
+    
+      <tr>
+        <th class="paddingT15">收入/支出：</th>
+        <td class="paddingT15 wordSpacing5">
+        <!-- { if $details.income_expense eq income} -->收入<!-- {/if} -->
+        <!-- { if $details.income_expense eq expense} -->支出<!-- {/if} -->
+        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动记录：</th>
+        <td class="paddingT15 wordSpacing5">
+        <!-- {if $details.notes eq 1} -->积分返还<!-- {/if} -->
+        <!-- {if $details.notes eq 2} -->积分扣除<!-- {/if} -->
+        <!-- {if $details.notes eq 3} -->取消定单积分还给用户<!-- {/if} -->
+        <!-- {if $details.notes eq 4} -->系统赠送<!-- {/if} -->
+        <!-- {if $details.notes eq 5} -->购买积分<!-- {/if} -->
+        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">操作人：</th>
+        <td class="paddingT15 wordSpacing5">{$details.operator}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">审核人：</th>
+        <td class="paddingT15 wordSpacing5">{$details.verify_name}</td>
+      </tr>
+     <!-- {/if} -->
+ 	 <!-- {if $details.verify_id eq 0 and $details.order_id gt 0} -->
+     	<tr>
+        <th class="paddingT15">会员名：</th>
+        <td class="paddingT15 wordSpacing5">{$details.user_name}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">真实姓名：</th>
+        <td class="paddingT15 wordSpacing5">{$details.real_name}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动：</th>
+        <td class="paddingT15 wordSpacing5">{$details.credit_change}</td>
+      </tr>
+    
+      <tr>
+        <th class="paddingT15">收入/支出：</th>
+        <td class="paddingT15 wordSpacing5">
+        <!-- { if $details.income_expense eq income} -->收入<!-- {/if} -->
+        <!-- { if $details.income_expense eq expense} -->支出<!-- {/if} -->
+        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动记录：</th>
+        <td class="paddingT15 wordSpacing5">
+        	<!-- {if $details.order_type eq onlineorder} -->在线定单<!-- {/if} -->
+    		<!-- {if $details.order_type eq quickorder} -->快捷支付定单<!-- {/if} -->
+    		<!-- {if $details.order_type eq channelbindorder} -->绑定渠道定单<!-- {/if} -->
+    		<!-- {if $details.order_type eq system} -->系统赠送<!-- {/if} -->
+    		<!-- {if $details.order_type eq customer} -->成为客户经理所扣<!-- {/if} -->
+    		<!-- {if $details.order_type eq buycredit} -->购买积分<!-- {/if} -->
+        </td>
+      </tr>
+ 	  <tr>
+        <th class="paddingT15">时间：</th>
+        <td class="paddingT15 wordSpacing5">{$details.operate_time|date}</td>
+      </tr>
+     <!-- {/if} -->
+     <!-- {if $details.verify_id eq 0 and $details.order_id eq 0} -->
+     		<tr>
+        <th class="paddingT15">会员名：</th>
+        <td class="paddingT15 wordSpacing5">{$details.user_name}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">真实姓名：</th>
+        <td class="paddingT15 wordSpacing5">{$details.real_name}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动：</th>
+        <td class="paddingT15 wordSpacing5">{$details.credit_change}</td>
+      </tr>
+    
+      <tr>
+        <th class="paddingT15">收入/支出：</th>
+        <td class="paddingT15 wordSpacing5">
+        <!-- { if $details.income_expense eq income} -->收入<!-- {/if} -->
+        <!-- { if $details.income_expense eq expense} -->支出<!-- {/if} -->
+        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动记录：</th>
+        <td class="paddingT15 wordSpacing5">
+        	<!-- {if $details.order_type eq onlineorder} -->在线定单<!-- {/if} -->
+    		<!-- {if $details.order_type eq quickorder} -->快捷支付定单<!-- {/if} -->
+    		<!-- {if $details.order_type eq channelbindorder} -->绑定渠道定单<!-- {/if} -->
+    		<!-- {if $details.order_type eq system} -->系统赠送<!-- {/if} -->
+    		<!-- {if $details.order_type eq customer} -->成为客户经理所扣<!-- {/if} -->
+    		<!-- {if $details.order_type eq buycredit} -->购买积分<!-- {/if} -->
+        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">时间：</th>
+        <td class="paddingT15 wordSpacing5">{$details.operate_time|date}</td>
+      </tr>
+     <!-- {/if} -->
+       <tr>
+        <td><a href="index.php?app=credit_view&act=index"><input type="button" value="返回"/></a></td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

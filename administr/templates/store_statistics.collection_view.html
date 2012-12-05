@@ -1,0 +1,60 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p><b>订单详情</b></p>
+</div>
+<div class="info">
+    <div class="demand">
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_status}</h1>
+        <ul>
+            <li><b>{$lang.order_sn}:</b>{$order_info.order_sn}</li>
+            <li><b>{$lang.order_status}:</b>{if $order_info.status==11}等待买家付款{elseif $order_info.status==12}等待确认收货{elseif $order_info.status==20}买家已付款{elseif $order_info.status==30}卖家已发货{elseif $order_info.status==40}交易成功{elseif $order_info.status==50}退款中{elseif $order_info.status==60}退款完成{elseif $order_info.status==0}交易取消{/if}</li>
+            <li><b>{$lang.order_amount}:</b> <span class="red_common">{$order_info.order_amount|price}</span></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+      <div class="order_form">
+        <h2>{$lang.consignee_info}</h2>
+        <ul>
+            <li><b>{$lang.consignee}:</b> {$order_info.consignee|escape}</li>
+            <li><b>{$lang.region}:</b> {$order_info.region_name|escape}</li>
+            <li><b>{$lang.zipcode}:</b> {$order_info.zipcode|escape}</li>
+            <li><b>{$lang.phone_tel}:</b> {$order_info.phone_tel|escape}</li>
+            <li><b>{$lang.phone_mob}:</b> {$order_info.phone_mob|escape}</li>
+            <li><b>{$lang.address}:</b> {$order_info.address|escape}</li>
+            <li><b>{$lang.shipping_name}:</b> {$order_info.shipping_name|default:免邮费}</li>       
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="order_form">
+        <h1>订单详情</h1>
+        <h2>{$lang.order_info}</h2>
+        <ul>
+            <li><b>{$lang.buyer_name} :</b> {$order_info.buyer_name|escape}</li>
+            <li><b>卖家店铺 :</b> {$order_info.seller_name|escape}</li>
+            <li><b>{$lang.pay_time}:</b>{$order.pay_time|date:complete}</li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="order_form">
+        <h2>{$lang.goods_info}</h2>
+        <!--{foreach from=$goods_list item=goods}-->
+        <div class="order_info" style="float:left;width:420px">
+            <a href="{$site_url}/index.php?app=goods&amp;goods_id={$goods.goods_id}" target="_blank" class="order_info_pic"><img width="50" height="50" alt="{$lang.goods_pic}" src="{$goods.goods_image}" /></a>
+            <div class="order_info_text"><a href="{$site_url}/index.php?app=goods&amp;goods_id={$goods.goods_id}" target="_blank">{$goods.goods_name|escape}</a><br />{$goods.specification|escape}</div>
+            <p><b>{$lang.price} :</b> <span class="red_common">{$goods.price|price}</span></p>
+            <p><b>{$lang.quantity} :</b> {$goods.quantity}</p>
+            <p><b>规格:</b> {$goods.specification|default:无规格}</p>
+        </div>
+        <!--{/foreach}-->
+        <div class="clear"></div>
+    </div>
+    <!-- {if !$storemanage} -->
+    <div class="printbutton"><input type="button" value="打印预览" onclick="window.open('index.php?app=store_statistics&act=retail_orderprint&id={$order_info.order_id}')"/></div>
+    <!-- {else} -->
+    <div class="printbutton"><input type="button" value="打印预览" onclick="window.open('index.php?app=storemanage_statistics&act=retail_orderprint&id={$order_info.order_id}')"/></div>
+    <!-- {/if} -->
+</div>
+
+{include file="footer.html"}

@@ -1,0 +1,33 @@
+<div class="productlist">
+    <h1 class="proline">
+        <a class="font2" href="index.php?app=mall"></a>
+
+        <div class="h1_right">
+            <a href="index.php?app=search&cate_id=1&area_type=pailamall">手机数码</a><a href="index.php?app=search&cate_id=51&area_type=pailamall">家具家装</a><a href="index.php?app=search&cate_id=90&area_type=pailamall">电脑办公</a>
+            <a href="index.php?app=search&cate_id=124&area_type=pailamall">服饰鞋帽</a><a href="index.php?app=search&cate_id=167&area_type=pailamall">礼品箱包</a>
+            <a href="index.php?app=search&cate_id=192&area_type=pailamall">个护化妆</a><a class="more" href="index.php?app=category&area_type=pailamall"></a>
+        </div>
+    </h1>
+    <div class="pro_border">
+        <div class="pro_left">
+            <div class="ad2">
+               	<!-- {foreach from=$widget_data.images item=image} -->
+					<a class="ad2_02"style="padding-bottom:0px;" href="{$image.url}"><img original="{$image.img}" alt="{$image.title}" title="{$image.title}"/></a>
+			   	<!-- {/foreach} -->
+            </div>
+             </div>
+        <div class="pro_right">
+        	<!-- {foreach from=$widget_data.goods item=good} -->
+        	<div class="border2">
+                    <div class="width_160"><a href="index.php?app=goods&id={$good.goods_id}"><img original="{$good.smimage_url}" alt="{$good.goods_name}" title="{$good.goods_name}"/></a></div>
+                    <div class="border2_height">
+                    <div><a href="index.php?app=goods&id={$good.goods_id}">{$good.goods_name|truncate:20}</a></div>
+                    <div class="paila_delprice">市场价： <span>{$good.price|price}</span></div>
+                    <div class="price_name">售价： <span class="paila_price">{$good.price|price}</span></div>
+                    <div class="price_name">返积分： <span class="paila_price">{$good.price}PL</span></div>
+                    </div>
+            </div>
+            <!-- {/foreach} -->
+    	</div>
+	</div>
+</div>

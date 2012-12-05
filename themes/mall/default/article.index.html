@@ -1,0 +1,79 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=curlocal.html}
+<div class="content">
+    <div class="left notice_left">
+        {include file=article.left.html}
+    </div>
+    <!-- {if $article_info} -->
+    <div class="right">
+        <div class="help_right">
+            <div class="article_con">
+               <div class="help_topcont">
+                <h3 class="help_top2">&gt;{$article_info.title|escape}</h3>
+                <span class="help_top2_r notice_top"><a href="index.php?app=article">返回列表首页</a></span>
+               </div>
+                  <div class="clear"></div>     
+                <div class="default">
+                    <!-- {if $article_info.store_id} -->
+                    {$article_info.content|escape:editor}
+                    <!-- {else} -->
+                    {$article_info.content}
+                    <!-- {/if} -->
+                </div>
+
+                <div class="more_article">
+                    <div>{$lang.pre_article}: <!--{if $pre_article}--><a target="{$pre_article.target}" href="{url app=article&article_id=$pre_article.article_id}">{$pre_article.title|escape}</a> <span>{$pre_article.add_time|date:Y-m-d H:i}</span><!--{else}-->{$lang.no_records}<!--{/if}--></div>
+                    <div>{$lang.next_article}: <!--{if $next_article}--><a target="{$next_article.target}" href="{url app=article&article_id=$next_article.article_id}">{$next_article.title|escape}</a> <span>{$next_article.add_time|date:Y-m-d H:i}</span><!--{else}-->{$lang.no_records}<!--{/if}--></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<!-- {else} -->
+    <div class="right">
+    <div class="help_right">
+     <div class="notice_top">
+      <h3>{$cul.text}</h3>
+     </div>
+     <div class="notice_right_bg">
+	   <form action="" method="post">
+	           <input type="text" class="textbg" name="keyword">
+	           <input type="submit" class="textbg4 quiet" value="搜索">
+	   </form>
+    </div>                
+     <div class="shop_text_list notice_txt_list">            
+            <table cellpadding="0" cellspacing="0">
+            <colgroup>
+            <col width="80%"/>
+            <col width="20%"/>
+            </colgroup>
+                <tr>
+                   <!--  <th class="align1" colspan="2">
+                        <div class="table_title">
+                        </div>
+                        <div class="top_page">
+                            {include file=page.top2.html}
+                        </div>
+                    </th>--> 
+                </tr>
+                <!-- {foreach from=$articles item=article} -->
+                <tr>
+                    <td><a {if $article.link}target="_blank"{/if} href="{url app=article&article_id=$article.article_id&parent_id=$article.cate_id}" class="lebioa">{$article.title|escape}</a></td>
+                    <td class="width9">{$article.add_time|date:Y-m-d H:i}</td>
+                </tr>
+                <!-- {foreachelse} -->
+                <tr>
+                  <td align="center" colspan="2">{$lang.no_records}</td>
+                </tr>
+                <!-- {/foreach} -->
+            </table>
+        </div>
+       </div>
+          <div class="clear"></div>   
+        {include file=page.bottom.html}
+    </div>
+    <!-- {/if} -->
+</div> 
+{include file=footer.html}

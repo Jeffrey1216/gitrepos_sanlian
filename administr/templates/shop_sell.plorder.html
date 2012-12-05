@@ -1,0 +1,98 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#pay_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#pay_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+    <ul class="subnav2">   	
+        <li><a href="index.php?app=shop_sell&act=ready">现金订单<span></span></a></li>
+        <li class="on"><a href="index.php?app=shop_sell&act=pl_order">派啦币订单<span></span></a></li>
+        <li>采购总金额:<font class="price">{$total.gprice_total|price}</font></li>
+        <li>物流总金额:<font class="price">{$total.ship_fee|price}</font></li> 
+        <li>团购员配送PL:<font class="price">{$total.send_pl}PL</font></li>
+        <li>团购员业务提成:<font class="price">{$total.send_money|price}</font></li>    	
+        <li>派啦价总金额:<font class="price">{$total.total|price}</font></li>
+    </ul>
+ </div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">
+                <input type="hidden" name="app" value="shop_sell" />
+                <input type="hidden" name="act" value="pl_order" />
+                查询:<select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                </select><input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                订单类型: <select class="querySelect" name="type">
+                    <option value="">请选择</option>
+                    {html_options options=$type selected=$query.type.value}
+                </select>
+                订单状态: <select class="querySelect" name="status">
+                    <option value="">请选择</option>
+                    {html_options options=$status selected=$query.status}
+                </select>
+                支付时间:<input class="queryInput3" type="text" value="{$query.pay_time_from}" id="pay_time_from" name="pay_time_from" class="pick_date" />至:<input class="queryInput3" type="text" value="{$query.pay_time_to}" id="pay_time_to" name="pay_time_to" class="pick_date" />
+                物流金额:<input class="queryInput3" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+            <a class="left formbtn1" href="index.php?app=shop_sell&act=pl_order">{$lang.cancel_query}</a>
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+        {if $orders}{include file=page.top.html}{/if}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+    
+        <tr class="tatr1">
+           <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+           <td>订单编号</td>
+           <td>会员</td>
+           <td>采购价</td>
+           <td>物流费</td>
+           <td>配送PL</td>
+           <td>业务提成</td>
+           <td>派啦价</td>
+           <td>订单类型</td>
+           <td>订单状态</td>
+           <td>下单时间</td>
+           <td>操作</td>           
+        </tr>
+        <!--{foreach from=$order item=order_info}-->
+        <tr class="tatr2">
+           <td class="firstCell"><input type="checkbox" class="checkitem" value="{$order_info.order_id}"/></td>
+           <td><a href='index.php?app=shop_sell&act=plorder&id={$order_info.order_id}'>{$order_info.order_sn}</a></td>
+		   <td><a href="">{$order_info.buyer_name|escape}</a></td>
+		   <td  style="color:red">{$order_info.stock_price|price}</td>
+		   <td>{$order_info.shipping_fee|price}</td>
+		   <td>{$order_info.send_pl}PL</td>
+		   <td>{$order_info.send_money|price}</td>
+		   <td>{$order_info.goods_amount|price}</td>
+		   <td><!-- {if $order_info.type eq 0} -->线上订单<!-- {else if $order_info.type eq 1} -->线下订单<!-- {/if} --></td>	   
+		   <td>{if $order_info.status==11}等待买家付款{elseif $order_info.status==20}待发货{elseif $order_info.status==30}已发货{elseif $order_info.status==40}交易成功{elseif $order_info.status==50}退款中{elseif $order_info.status==60}退款完成{elseif $order_info.status==0}交易取消{/if}</td>
+		   <td>{$order_info.pay_time|date:complete}</td>
+		   <td><a href='index.php?app=shop_sell&act=plorder_view&id={$order_info.order_id}'>查看</a>|<a onclick="window.open('index.php?app=shop_sell&act=orderprint&id={$order_info.order_id}')">订单打印</a>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="14">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+      <div id="batchAction" class="left paddingT15">
+ 	 <input class="formbtn batchButton" type="button" name="id" value="出纳" presubmit="confirm('您确定收到钱了吗？');" uri="index.php?app=shop_sell&act=cashier&ret_page={$page_info.curr_page}" />
+  </div>
+        <div class="pageLinks">
+        
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

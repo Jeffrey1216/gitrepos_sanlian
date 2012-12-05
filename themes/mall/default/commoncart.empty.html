@@ -1,0 +1,42 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>我的购物车</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=commoncart">我的购物车</a></li>
+	</ul>
+	<div class="public_02">
+	<div class="table">
+<div class="content">
+    <div class="module_common">
+        <div class="step_main">
+            <div class="null_shopping">
+                <h4>{$lang.cart_empty_notice}</h4>               
+                    <a href="index.php?app=buy_mallgoods">{$lang.choice_goods}</a>
+                    <a href="index.php?app=buy_myorders">{$lang.view_orders}</a>
+                </div>
+
+            <!--{if $best_items}-->
+            <h2><b class="best_item" title="{$lang.best_item}"></b></h2>
+            <div class="wrap">
+                <div class="wrap_child">
+                    <ul class="list_pic">
+                        <!--{foreach from=$best_items item=goods}-->
+                        <li>
+                            <p><a href="{url app=goods&goods_id=$goods.goods_id}"><img alt="" src="{$goods.default_image}" width="100" height="100" /></a></p>
+                            <h3><a href="{url app=goods&goods_id=$goods.goods_id}">{$goods.description|escape}</a><span>{$goods.price|price}</span></h3>
+                        </li>
+                        <!--{/foreach}-->
+                    </ul>
+
+                </div>
+            </div>
+            <!--{/if}-->
+
+            <div class="clear"></div>
+
+        </div>
+    </div>
+
+</div>
+</div>
+</div>

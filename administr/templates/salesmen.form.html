@@ -1,0 +1,115 @@
+{include file="header.html"}
+<style type="text/css">
+	.distribution{padding:20px;border-top:1px solid #cccccc;}
+	.distribution ul{border:1px solid #cccccc;}
+	.dis_name,.dis_message{width:1000px;padding-left:50px;height:150px;}
+	.distribution b{padding:10px 0;display:inline-block;width:100%;}
+	.distribution input,.distribution select{margin:10px 5px;height:21px;vertical-align:middle;}
+	.dis_weight{width:1000px;float:left;margin-right:10px;margin-bottom:10px;}
+	.dis_weight_close{background:#F7F7F7;width:280px;float:left;margin-right:50px;margin-bottom:20px;position:relative;}
+	.dis_clear{clear:both;}
+	.dis_center{text-align:center;}
+.table001 tr td{padding:5px;ling-heihgt:25px;}
+</style>
+<script src="{lib file=mlselection.js}" charset="utf-8"></script>
+<script src="{lib file=jquery.plugins/jquery.validate.js}" charset="utf-8"></script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+$(function(){
+  regionInit("region");
+})
+//]]>
+</script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+$(function(){
+  regionInit("regions");
+})
+//]]>
+</script>
+<div id="rightTop">
+  <p>新增业务员</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=salesmen">管理</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" <!-- {if $salesmen.user_id} --> action="index.php?app=salesmen&act=edit"<!-- {else} -->
+  action="index.php?app=salesmen&act=add"<!-- {/if} -->>
+  <!-- {if $salesmen.user_id} -->
+  <input type="hidden" name="id" value="{$salesmen.user_id}"/>
+  <!-- {else} -->
+  <input type="hidden" name="id" value="{$id}" />
+  <!-- {/if} -->
+    <table class="infoTable table001">
+      <tr>         
+        <th class="paddingT15">真实姓名:</th>
+         <td>
+        <!-- {if $salesmen.user_id} -->
+         <input class="infoTableInput2" id="real_name" type="text" name="real_name" value="{$salesmen.real_name|escape}" />
+        <!-- {else} -->
+       <input class="infoTableInput2" id="real_name" type="text" name="real_name" value="{$salesmen.real_name|escape}" />  
+        <!-- {/if} -->
+        </td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> 电话:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="tel" type="text" id="tel" value="{$salesmen.tel_phone}" /><span class="grey"></span></td>
+      </tr>
+      <tr>
+          <th>选择地区:</th>
+          <!-- {if $salesmen.user_id} -->
+          <td>   				
+          <span id="regionName">{$salesmen.region_name}</span>
+		  <span typedef="showRegion"  id="region" style="display:none">
+          <select onchange="regionChange(this,'sel_class')" class="sel_class">
+          <option>{$lang.select_pls}</option>
+          {html_options options=$regions}
+          </select>
+          <input type="hidden" class="mls_id" name="region_ids" id="region_id" value=""/>
+          <input type="hidden" name="region_names" class="mls_names" id="region_name" value=""/>
+          </span>
+          <input type="button" id="editRegion" value="编辑"/>		
+		 </td>
+		 <!-- {else} -->
+		 <td id="region">
+		 <select onchange="regionChange(this,'sel_class')" class="sel_class">
+          <option>{$lang.select_pls}</option>
+          {html_options options=$regions}
+          <input type="text"  value="编辑" />
+          </select>
+          <input type="hidden" class="mls_id" name="region_ids" id="region_id" value=""/>
+          <input type="hidden" name="region_names" class="mls_names" id="region_name" value=""/>
+          </td>
+		 <!-- {/if} -->
+	  </tr>
+      <tr>
+        <th class="paddingT15"> 详细地址:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="address" type="text" id="address" value="{$salesmen.address}" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> 职位:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="post" type="text" id="post" value="{$salesmen.post}" /></td>
+      </tr>
+      <tr>
+        <th></th>
+        <!-- {if $salesmen.user_id} -->
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="编辑" />
+        </td>
+        <!-- {else} -->
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="提交" />
+        <input class="formbtn" type="reset" name="Reset" value="重置" /></td>
+        <!-- {/if} -->
+      </tr>
+    </table>
+  </form>
+</div>
+<<script type="text/javascript">
+$('#editRegion').click(function () {
+	$('span[typedef="showRegion"]').css("display","inline-block");
+	$('#regionName').hide();
+});
+</script>
+{include file="footer.html"}

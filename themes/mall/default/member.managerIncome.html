@@ -1,0 +1,63 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<div class="content">
+    {include file=member.menu.html}
+<div id="right" style="border:1px solid #e2e2e2;margin-left:10px;width:780px;">
+    
+                   
+      
+      	 <h3 style="border-bottom:1px solid #E2E2E2;height:30px;color:#BF1412;line-height:30px;padding-left:10px;font-size:14px;">
+            	 收益查询   
+      </h3>                
+         <div class="overage">               
+       	 <form method="get">
+            <b style="padding-right:20px">团购员收益</b>  <span>时间: </span>
+             <select name="day">
+             	<option value="7" <!-- {if $day eq 7} -->selected<!-- {/if} -->>一周内积分记录</option>
+            	<option value="15" <!-- {if $day eq 15} -->selected<!-- {/if} -->>半个月内积分记录</option>
+              	<option value="30" <!-- {if $day eq 30} -->selected<!-- {/if} -->>一个月内积分记录</option>
+              	<option value="90" <!-- {if $day eq 90} -->selected<!-- {/if} -->>三个月内积分记录</option>
+             	<option value="180" <!-- {if $day eq 180} -->selected<!-- {/if} -->>六个月内积分记录</option>
+             	<option value="-1" <!-- {if $day eq -1} -->selected<!-- {/if} -->>所有记录</option>
+             </select>    
+			 <input type="hidden" name="app" value="member" />       
+			 <input type="hidden" name="act" value="selGains" />                   
+             <input type="submit" value="搜索" class="btn">
+             <span>总收益: {$customerManager_info.gains_total|price} , 未结算收益:{$customerManager_info.gains_now|price}</span>
+         </form>
+         </div>
+         <div class="overagelist">
+	          <table style="margin:10px;width:760px;border:1px solid #ccc;border-top:none;" cellpadding="0" cellspacing="0">
+		          <tr class="tr2">
+			          <th>时间</th>
+			          <th>收支类型</th>
+			          <th>金额(为正值表示收取,为负值表示支出)</th>
+			          <th>冻结积分(为正值表示收取,为负值表示支出)</th>
+			          <th>积分</th>
+			          <th>详细</th>
+		          </tr>
+		          <!-- {foreach from=$customerGains_list item=node} -->
+		          <tr>
+			          <td>{$node.change_time|date:Y-m-d H:i}</td>
+			          <td>{$change_type.$node.change_type}</td>
+			          <td class="fontColor7">{$node.user_money|price}</td>
+			          <td class="fontColor7">{$node.frozen_credit}PL</td>
+			          <td class="fontColor7">{$node.user_credit}PL</td>
+			          <td class="fontColor6"><a href="index.php?app=member&act=selGainsDetail&id={$node.log_id}">查询详细</a></td>
+			      </tr>  
+		          <!-- {foreachelse} -->
+		          <tr>
+		          	  <td colspan="4"> 没有记录 ! </td>
+		          </tr>     
+		          <!-- {/foreach} -->
+	          </table>   
+          </div>  
+        <div class="productlist_footbg">
+            {$page}
+        </div>
+  </div>             
+</div>
+
+{include file=footer.html}

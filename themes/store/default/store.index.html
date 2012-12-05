@@ -1,0 +1,58 @@
+
+{include file=../../mall/default/newothers_top.html}
+{include file=../../mall/default/new_head.html}
+{include file=../../mall/default/menu_select_js.html}
+{include file=service.html}
+<div id="shangcheng">
+	  <div class="shangcheng_page">	  
+	  	 {include file=top.html}	  	 
+	     
+	     {include file=store.left.html}
+	     <!--{if $recommended_goods}-->
+	     
+		 <div class="shangcheng_pr">
+		 
+		     <div class="shangcheng_pr1">
+			      <div class="pr1_head">
+				     <h4>推荐商品</h4>
+				  </div>
+				  <!--{foreach from=$recommended_goods item=rgoods}-->
+				  <div class="scpr_map">
+				    <div class="divwidth">
+				  <div class="divmargin"><a class="width_160" href="index.php?app=goods&id={$rgoods.gs_id}"><img src="{$imdir}{$rgoods.default_image}" /></a></div>
+				 </div>
+				  <ul>
+				  <li class="li_height"><a href="index.php?app=goods&id={$rgoods.gs_id}">{$rgoods.goods_name|escape}</a></li>
+				  <li class="li1">派啦价<span class="paila_delprice">{$rgoods.price|price}</span></li>
+				  <li>赠送：<span class="paila_price">{$rgoods.credit|default:0}</span></li>
+				  </ul>
+				  </div>
+			 	  <!-- {/foreach} -->
+			 </div>
+		 </div>
+		 <!-- {/if} -->
+		 <!-- {if $new_goods} -->
+		  <div class="shangcheng_pr">
+		     <div class="shangcheng_pr1">
+			      <div class="pr1_head">
+				     <h4>热卖商品</h4>
+				  </div>
+				  <!-- {foreach from=$new_goods item=ngoods} -->
+				  <div class="scpr_map">
+				  <div class="divwidth">
+				  <div class="divmargin"><a class="width_160" href="index.php?app=goods&id={$ngoods.gs_id}"><img src="{$imdir}{$ngoods.default_image}" /></a></div>
+				  </div>
+				  <ul>
+				  <li class="li_height" ><a href="index.php?app=goods&id={$ngoods.gs_id}">{$ngoods.goods_name|escape}</a></li>
+				  <li class="li1">市场价<span class="paila_delprice">{$ngoods.price|price}</span></li>
+				  <li>返积分：<span class="paila_price">{$ngoods.credit|default:0}</span></li>
+				  </ul>
+				  </div>
+			 	  <!-- {/foreach} -->
+			 </div>
+		 </div>
+		 <!-- {/if} -->
+		 </div>
+	</div>
+	
+{include file=../../mall/default/footer.html}

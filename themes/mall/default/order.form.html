@@ -1,0 +1,345 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<script type="text/javascript" src="{lib file=quickcart.js}" charset="utf-8"></script>
+<script type="text/javascript">
+                $(function(){
+                   $('#check_coupon').click(function(){
+                       var coupon_sn = $('#coupon_sn').val();
+                       if(coupon_sn == '')
+                       {
+                           return;
+                       }
+                       $.getJSON("index.php?app=order&act=check_coupon", {coupon_sn: coupon_sn, store_id: '{$smarty.get.store_id}'}, function(data){
+                           if(data['retval'])
+                           {
+                               $('.unusable').hide();
+                               var msg = '{$lang.usable}';
+                               var str = price_format(data['retval']['price']);
+                               $('.usable').show().html(msg + str).css("display","block");
+                           }
+                           else
+                           {
+                               $('.usable').hide();
+                               $('.unusable').show().css("display","block");
+                               $('#coupon_sn').val('');
+                           }
+                       });
+                   });
+               });
+                </script>
+<div class="flow_chart">
+    <div class="pos_x1 bg_a2" title="{$lang.shopping_step_one}"></div>
+    <div class="pos_x2 bg_b1" title="{$lang.shopping_step_two}"></div>
+    <div class="pos_x3 bg_c2" title="{$lang.shopping_step_three}"></div>
+</div>
+<div class="content">
+<div style="margin-top:8px"><img src="{res file=images/cart2.jpg}"/></div>
+
+<form method="post" id="order_form">
+<div class="gouwuche">
+{include file="paila_order.shipping.html"}
+<div class="gouwuche_ordermgs">
+<h2>确认订单信息<span>请先选择需要使用PL币的商品</span></h2>
+</div>
+<div class="gouwuche_ordermgs">
+<div class="plbi">您的PL币可用余额为：<span class="red_col">{$member_credit}</span><span class="red_col">PL</span>，你可勾选使用PL币进行商品购买！</div>
+<input type="hidden" id="own_credit" value="{$member_credit}" />
+</div>
+	<div class="content">
+	    <div class="module_common">
+	        <div class="step_main">
+	            <div class="main_add">
+	                <h1><input type="checkbox" id="all_click"/><a href="index.php?app=store&store_id={$goods_info.store_id}" target="_blank">店铺：{$goods_info.store_name}</a></h1>
+					<div class="gouwuche2">
+						  <table style="border-bottom:0px;"  cellSpacing=0 cellPadding=0>
+						   <tbody>
+								<tr class="cartform">
+									<td class="td2">商品名称</td>
+									<td class="td2">单价</td>
+									<td class="td2">数量</td>
+									<td class="td2">赠送积分</td>
+									<td class="td2">小计</td>
+								</tr>
+								<!-- {foreach from=$goods_info.items item=item} -->
+								<tr>
+								<td class="td1">
+								    <input type="checkbox" total_price="{$item.subtotal}" credit="{$item.credit}" class="checkitem" name="cartinfo[]" value="{$item.gs_id}"/>
+									<div class="gouwuche2_l">
+										<a href="index.php?app=goods&id={$item.gs_id}"><img class="img_50"  src="{$item.simage_url}"/></a>
+									</div>
+									<div class="gouwuche2_r">
+										<p>
+											<a href="index.php?app=goods&id={$item.gs_id}">{$item.goods_name}</a>
+										</p>
+										<!-- {if $item.spec_1 || $item.spec_2} -->
+											<p>规格：<span>{$item.spec_1} </span><span>{$item.spec_2}</span></p>
+										<!-- {/if} -->
+									</div>
+								</td>
+								<td><span class="priceFontArial">{$item.price|price}</span></td>
+								<td>{$item.quantity}</td>
+								<td class="red_col">{$item.credit}PL</td>
+								<td class="priceFontArial red_col">{$item.subtotal|price}</td>
+								</tr>
+								<!-- {/foreach} -->
+					            <tr>					
+								<td class="td4" colspan="5" style="text-align:left;border-bottom:1px dotted #ccc;padding-top:10px;">
+									<span>配送方式：</span>
+									<!-- {if $goods_info.store_id eq $store_id} -->
+										<select name="shipping_id" id="shipping_id">
+											<option value="2" shipping_id="2">快递配送</option>
+										</select>
+										<span id="shipping_fee" class="priceFontArial"></span>
+										<input type="checkbox" id="shipp" name="shipp" value="1"/><span style="padding-left:10px;color:red"><b style="color:red">您可以勾选使用PL币冲抵物流费用</b></span>
+									<!-- {else} -->
+										<select name="shipping_id" id="shipping_id">
+											<option value="1" shipping_id="1">到店取货</option>
+										</select>
+										<span id="shipping_fee" class="priceFontArial">&yen0.00</span>
+										<span style="padding-left:5px;color:#666"><b style="color:red">*</b>自行上门到派啦店取货,免配送费用.</span><h1 style="color:red">(取货地址：{$store_info.address})</h1>
+									<!-- {/if} -->	
+																				
+								</td>
+								</tr>
+								<tr>
+									<td class="td3" colspan="5" style="text-align:left;padding-top:10px;">
+										<span>给商家留言：</span>
+										<input type="text"  name="buyer_desc" style="width:300px;height:25px;color:#666;background:#fff;border:1px solid #d5d5d5"/>
+									</td>
+								</tr>
+								<tr><td colspan="5" class="td3" style="text-align:left;padding-top:10px;">
+									    <span>是否需要发票？（税金0%）  <input type="radio" name="need_invoice" value="1" class="selected"/>
+									    <span>&nbsp;&nbsp;是&nbsp;&nbsp;</span>
+									    <Input type="radio"  name="need_invoice" value="0"  class="selectno"/>
+									    <span>&nbsp;&nbsp;否</span>
+									 </span>
+									    <span id="invoice" style="display:none">
+										    &nbsp;&nbsp;&nbsp;&nbsp;<span>请填写发票抬头：</span>
+										    <input style="width:300px;height:25px;color:#666;background:#fff;border:1px solid #d5d5d5" type="text" name="invoice_header" />
+									    </span>
+								    
+							        <!--总获得的积分:--><input type="hidden" name="get_credit" id="get_cre" value="" />
+							      	<!--总使用积分: --><input type="hidden" name="use_credit" id="use_cre" value="0" />
+							      	<!--总使用现金: --><input type="hidden" name="money" id="pay_mon" value="" />
+							
+							    </td></tr>
+						  </tbody> 
+						 </table>
+						 <div class="gouwuche2_1">
+							    <div class="gouwuche2_1l">
+								   <ul>
+								      <li>
+									      <span>订单总价:</span>
+									      <span id="order_amount" class="order_amount"></span><span>(含运费)</span>
+									  </li>
+								      <li>
+								      	<span>您的PL币可用余额:</span>
+								      	<span style="color:#ff1200;font-size:16px;font-weight:bold;">{$member_credit}</span><span>PL，使用</span>
+								      
+								      	<input type="text" disabled id="t_use_credit" value="0" id="useCredit" class="useCredit"/>
+								      	<span>PL</span>
+								      	</li>
+								     								   </ul>
+							    </div>
+								
+							</div>
+							<ul>
+								<li>总获得积分：<span id='get_credit'>{$credit_total}&nbsp;PL</span></li>
+								<li>付款：<span  id='pay_money'></span></li>
+							</ul>
+							<ul class="ul2">
+								<li style="margin-top:15px;" id="astyle"><a href="index.php?app=cart"><img style="position:relative;top:0;" src="{res file=images/gouwuche_10.gif}" />返回购物车</a></li>
+								<li><input type="button" onclick="toSubmit();" class="gouwuche_queren" /></li>
+							</ul>
+						
+					</div>
+				</div>
+			    <div class="clear"></div>
+			</div>
+	    </div>
+	</div>
+</form>
+</div>
+<script type="text/javascript"> 
+function getShippingId() 
+{
+	var shipping_id = parseInt($("#shipping_id option:selected").attr('value'));
+	return shipping_id;
+}
+       $(document).ready(function()
+    		   {    	 
+    	   		   $(".selected").click(function()
+    			   {
+    			   $("#invoice").show(); //点击显示
+    			   });
+    			   $(".selectno").click(function()
+    			   {
+    			   $("#invoice").hide(); //点击隐藏
+    			   });
+    			   $(".selectno").attr("checked",true);      	
+       })
+</script>
+<script type="text/javascript">
+	var amount = {$amount_total}; //总价格不包含快递费用
+	var credit_total = Number(parseFloat({$credit_total}).toFixed(2)); //总赠送的PL
+	var use_credit = parseFloat($('#use_cre').val()); //使用积分数
+	
+<!-- {if $goods_info.store_id eq $store_id} -->
+	var	exmoney = parseFloat({$goods_info.shipmoney});	//商品快递费
+	//$("#shipping_fee").html(price_format(exmoney));	
+<!-- {else} -->
+	var expressmoney = 0.00; //上门取货不需要快递费
+	var	exmoney = expressmoney;	
+	$("#shipping_fee").html(price_format(exmoney));
+<!-- {/if} -->
+	var order_amount = amount + exmoney; //实际价格 = 订单总价格+快递费
+	$("#pay_money").html(price_format(order_amount));
+
+$('.checkitem').click(useCredit);
+function useCredit(e ,obj) {
+	var _self = obj || this;
+	var own_credit = parseFloat($('#own_credit').val()); //个人所有积分
+	var status = $(_self).attr('checked'); //当前就是否选中
+	var credit = Number(parseFloat($(_self).attr('credit')).toFixed(2)); //赠送积分
+	var total_price = parseFloat($(_self).attr('total_price')); //小计价格
+
+	if (status) //选中
+	{
+		//判断积分是否足够
+		if (total_price > own_credit)
+		{
+			alert('您的可用积分不足以支付所选商品金额！');
+			$(_self).attr('checked', false);
+			return;
+		}
+		order_amount -= total_price; 
+		use_credit += total_price;
+		credit_total -= credit;
+		own_credit -= total_price;
+	}
+	else //取消选中
+	{
+		order_amount += total_price;
+		use_credit -= total_price;
+		credit_total += credit;
+		own_credit += total_price;
+	}
+	
+	order_amount = Number(parseFloat(order_amount).toFixed(2));
+	use_credit = Number(parseFloat(use_credit).toFixed(2));
+	credit_total = Number(parseFloat(credit_total).toFixed(2));
+	own_credit = Number(parseFloat(own_credit).toFixed(2));
+
+	//需要支付现金 && 付款
+	$('#get_cre').val(credit_total);
+	$('#use_cre').val(use_credit);
+	$('#pay_mon').val(order_amount.toFixed(2));
+	//显示位置值变更
+	$('#own_credit').val(own_credit);
+	$('#t_use_credit').val(parseFloat(use_credit));
+
+	$('#pay_money').html(price_format(order_amount));
+	$('#get_credit').html(credit_total.toFixed(2) + "&nbsp;PL");
+}
+$('#all_click').click(function () {
+	var own_credit = parseFloat($('#own_credit').val()); //个人所有积分
+	var status = $('#shipp').attr('checked');
+	var _pay_amount = amount - use_credit;
+	if (status)
+	{
+		_pay_amount = amount + parseFloat(exmoney) - use_credit;
+	}
+	//alert(own_credit);
+	if ($(this).attr('checked') && own_credit < _pay_amount)
+	{
+		alert('您的可用积分不足以支付所选商品金额！');
+		$(this).attr('checked', false);
+		return;	
+	}
+	var state = $('#all_click').attr('checked');
+	//$(this).parent("h1").next('.gouwuche2').find('.checkitem').attr('checked',status);
+	$(this).parent("h1").next('.gouwuche2').find('.checkitem').each(function (index) {
+		var s_status = $(this).attr('checked');
+		if(state)
+		{
+			$(this).attr('checked', true);
+		}else
+		{
+			$(this).attr('checked', false);
+		}
+		if (state != s_status)
+		{
+			useCredit(0, this);
+		}	
+	});
+});
+
+$('#shipp').click(function () {
+	var _self = this;
+	var own_credit = parseFloat($('#own_credit').val()); //个人所有积分
+	var status = $(_self).attr('checked'); //当前就是否选中
+
+	var shippmoney  = parseFloat(exmoney); //物流价格
+
+	
+	var total_price = shippmoney //小计总金额
+	if (status) //选中
+	{
+		//判断积分是否足够
+		if (total_price > own_credit)
+		{
+			alert('您的可用积分不足以冲抵物流费用！');
+			$(_self).attr('checked', false);
+			return;
+		}
+		order_amount -= total_price; 
+		use_credit += total_price;
+		own_credit -= total_price;
+	}
+	else //取消选中
+	{
+		order_amount += total_price;
+		use_credit -= total_price;
+		own_credit += total_price;
+	}
+	//需要支付现金 && 付款
+	$('#use_cre').val(use_credit);
+	$('#pay_mon').val(order_amount.toFixed(2));
+	//显示位置值变更
+	$('#own_credit').val(own_credit);
+	$('#t_use_credit').val(parseFloat(use_credit));
+
+	$('#pay_money').html(price_format(order_amount));
+});
+</script>
+<script type="text/javascript">
+function getShippingId() {
+	var shipping_id = $("#shipping_id option:selected").attr('value');
+	return shipping_id;
+}
+function toSubmit(){ 
+    void($('#order_form').submit());
+}           
+</script>
+<script type="text/javascript">
+function decrease_quantity(rec_id){
+    var item = $('#input_item_' + rec_id);
+    var orig = Number(item.val());
+    if(orig > 1){
+        item.val(orig - 1);
+        item.keyup();
+    }
+}
+function add_quantity(rec_id){
+    var item = $('#input_item_' + rec_id);
+    var orig = Number(item.val());
+    item.val(orig + 1);
+    item.keyup();
+};
+  
+</script>
+
+</div>
+{include file="footer.html"}

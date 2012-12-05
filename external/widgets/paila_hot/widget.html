@@ -1,0 +1,68 @@
+	
+	<div class="rcmd_l ancmt">
+				<ul class="rcmd_ttl ancmt_ttl">
+				   <li class="pass pass1 pass2">
+					  派啦热卖
+				   </li>
+				   <li  class="pass">
+					特价商品
+				   </li>
+				   <li  class="pass">
+					  热评商品
+				   </li>
+				   <li  class="pass">
+					  新品上架
+				   </li>
+				</ul>
+				<div class="ancmt_box">
+                    <ul class="rcmd_gds ancmt_ctt" id="rcmd_ctt_show">
+                       	<!-- {foreach from=$widget_data.goods_1 item=goods} -->
+					   <li>
+                          <span class="rcmd_ico"></span>
+                          <a href="index.php?app=goods&id={$goods.gs_id}"><img src="{$image_url}{$goods.smimage_url}" alt="{$goods.goods_name|escape}" /></a> 
+                          <p  class="rcmd_name"><a href="index.php?app=goods&id={$goods.gs_id}">{$goods.goods_name|escape}</a></p>
+                          <p class="rcmd_prc">派啦价：<span>{$goods.price}</span></p>
+                       </li>
+                       <!-- {/foreach} -->
+                    </ul>
+                </div>
+				<div class="ancmt_box">
+                    <ul class="rcmd_gds ancmt_ctt">
+                        <!-- {foreach from=$widget_data.goods_2 item=goods} -->
+					   <li>
+                          <span class="rcmd_ico"></span>
+                          <a href="index.php?app=goods&id={$goods.gs_id}"><img src="{$image_url}{$goods.smimage_url}" alt="{$goods.goods_name|escape}" /></a> 
+                          <p  class="rcmd_name"><a href="index.php?app=goods&id={$goods.gs_id}">{$goods.goods_name|escape}</a></p>
+                          <p class="rcmd_prc">派啦价：<span>{$goods.price}</span></p>
+                       </li>
+                       <!-- {/foreach} -->
+                    </ul>
+                </div>
+				<div class="ancmt_box">
+                    <ul class="rcmd_gds ancmt_ctt">
+                    <!-- {foreach from=$widget_data.goods_3 item=goods} -->	
+                       <li>
+                          <span class="rcmd_ico"></span>
+                          <a href="index.php?app=goods&id={$goods.gs_id}"><img src="{$image_url}{$goods.smimage_url}" alt="{$goods.goods_name|escape}" /></a> 
+                          <p  class="rcmd_name"><a href="index.php?app=goods&id={$goods.gs_id}">{$goods.goods_name|escape}</a></p>
+                          <p class="rcmd_prc">派啦价：<span>{$goods.price}</span></p>
+                       </li>
+					 <!-- {/foreach} -->
+                    </ul>
+                </div>
+				<div class="ancmt_box">
+                    <ul class="rcmd_gds ancmt_ctt">
+                       <!-- {foreach from=$widget_data.goods_4 item=goods} -->	
+					   <li>
+                          <span class="rcmd_ico"></span>
+                          <a href="index.php?app=goods&id={$goods.gs_id}"><img src="{$image_url}{$goods.smimage_url}" alt="{$goods.goods_name|escape}" /></a> 
+                          <p  class="rcmd_name"><a href="index.php?app=goods&id={$goods.gs_id}">{$goods.goods_name|escape}</a></p>
+                          <p class="rcmd_prc">派啦价：<span>{$goods.price}</span></p>
+                       </li>
+                        <!-- {/foreach} -->
+                    </ul>
+                </div>
+			</div>
+	
+
+	

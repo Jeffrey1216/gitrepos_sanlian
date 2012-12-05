@@ -1,0 +1,50 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>品牌托管管理</p>
+  <ul class="subnav">   
+    <li><a class="btn1" href="index.php?app=brandmandate&act=index">审核</a></li>
+    <li><span>管理</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+  <div class="fontr"></div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>客户名称</td>
+      <td>客户类别</td>
+      <td>联系人</td>
+      <td>联系电话</td>
+      <td>公司地址</td>
+      <td>营业规模</td>
+      <td>经营方式</td>
+      <td>目前商品渠道</td>
+      <td>当前状态</td>
+      <td>操作</td>
+    </tr>
+    <!--{foreach from=$supply item=supp}-->
+    <tr class="tatr2">
+      <td>{$supp.supply_name}</td>
+      <td><!-- {if $supp.supply_type eq 1} -->普通会员<!-- {elseif $supp.supply_type eq 2} -->供应商<!-- {elseif $supp.supply_type eq 3} -->店面加盟<!-- {elseif $supp.supply_type eq 4} -->生产厂家<!-- {/if} --></td>
+      <td>{$supp.linkman}</td>
+      <td>{$supp.mobile}</td>
+      <td>{$supp.address}</td>
+      <td>{$supp.scale}</td>
+      <td>{$supp.business_practice}</td>
+      <td>{$supp.marketing_channel}</td>
+      <td>{if $supp.state eq '1'}<span style="color:blue">待审核</span>{/if}{if $supp.state eq '2'}<span style="color:green">审核通过</span>{/if}{if $supp.state eq '3'}<span style="color:red">未通过</span>{/if}</td>
+      <td><a href="index.php?app=brandmandate&act=brand_edit&id={$supp.supply_id}">修改</a></td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有待审核记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

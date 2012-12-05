@@ -1,0 +1,95 @@
+{include file="header.html"}
+<style>
+	#tr1 {display:none;}
+</style>
+<script type="text/javascript">
+	window.onload = function ()
+	{
+		var oPa = document.getElementById('pass');
+		var onPa = document.getElementById('no_pass');
+		var cTr = document.getElementById('tr1');
+		oPa.onclick = function ()
+		{
+			cTr.style.display = 'none';
+		}
+		onPa.onclick = function ()
+		{
+			cTr.style.display = 'inline-block';
+		}
+	}
+</script>
+<div id="rightTop">
+	<p>会员账户变动审核</p>
+	<ul class="subnav">
+		
+	</ul>
+</div>
+<div class="info">
+	<form method="post" action="index.php?app=user_verify&act=verify&id={$verify.id}">
+		<table class="infoTable">
+			<tr>
+				<th class="paddingT15">会员名：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.user_name|escape}</td>
+			</tr>
+			<tr>
+			<!-- {if $verify.credit eq 0} -->
+				<th class="paddingT15">余额变动：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.money|price}</td>
+			<!-- {else} -->
+				<th class="paddingT15">积分变动：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.credit}PL</td>
+			<!-- {/if} -->
+			</tr>
+			<tr>
+				<th class="paddingT15">变更记录：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.notes|escape}</td>
+			</tr>
+			<tr>
+				<th class="paddingT15">操作人：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.operator|escape}</td>
+			</tr>
+			<tr>
+				<th class="paddingT15">备注：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.remark|escape}</td>
+			</tr>
+			<tr>
+				<th class="paddingT15">添加时间：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.add_time|date:complete}</td>
+			</tr>
+			<!-- {if $verify.verify neq 0} -->
+			<tr>
+				<th class="paddingT15">审核状态：</th>
+				<td class="paddingT15 wordSpacing5"><!-- {if $verify.verify eq 1} -->已通过<!-- {elseif $verify.verify eq 2} -->未通过<!-- {/if} --></td>
+			</tr>
+			<tr>
+				<th class="paddingT15">审核人：</th>
+				<td class="paddingT15 wordSpacing5">{$verify.verify_name|escape}</td>
+			</tr>
+			<tr>
+				<th><input type="button" value="打印" onclick="window.open('index.php?app=user_verify&act=finance_print&id={$verify.id}')"/></th>
+				<td><input type="button" value="返回" onclick="location.href='index.php?app=user_verify&verify=1'"/></td>
+			</tr>
+			<!-- {/if} -->
+		</table>
+		<!-- {if $verify.verify eq 0} -->
+		<table>
+		<tr>
+				<th class="paddingT15">审核：
+					<input type="radio" id="pass" name="status" value="1" checked="checked"/>通过
+					<input type="radio" id="no_pass" name="status" value="2"/>未通过
+				</th>
+			</tr>	
+			<tr id="tr1">
+				<td class="paddingT15" style="padding-left:38px;font-weight:700;color:#333">未通过原因：<textarea name="reason"></textarea></td>
+				<th></th>
+			</tr>	
+			<tr>
+				<th><input type="submit" value="提交"/>&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="返回" onclick="location.href='index.php?app=user_verify'"/>
+				</th>
+			</tr>
+		</table>
+		<!-- {/if} -->
+	</form>
+</div>
+{include file="footer.html"}

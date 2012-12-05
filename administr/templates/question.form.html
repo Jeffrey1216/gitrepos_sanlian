@@ -1,0 +1,146 @@
+{include file="header.html"}
+<script type="text/javascript" src="{lib file=../ckeditor/ckeditor.js}"></script>
+<script type="text/javascript">
+
+
+var sn = "{$sn}";
+	var options_num = {$options_num|default:0};
+	var num = options_num;
+	function check(){
+		var ques_input = document.getElementById("ques_input").value;
+		var result=ques_input.match(/^(-|\+)?\d+$/); 	
+		 if(result==null&&ques_input!="") {alert("选项只能是数字!");document.getElementById("ques_input").value="";return false;}
+		 else if(ques_input>100){alert("选项数不能超过100个！");  document.getElementById("ques_input").value="";return false;}
+		else if( ques_input<0){ alert("选项必须大于等于0！");  document.getElementById("ques_input").value="";return false;}
+		else{return true; }
+	}
+	function init() {
+		for(var i = 0 ; i < num ; i++) {	
+			add_part();
+		}
+	}
+	function add_part() {
+		var no = parseInt(options_num);
+		var option_num_span = document.getElementById("option_num_span");
+		var ques_add_box = document.getElementById("ques_add_box");
+		var option_num_form = document.getElementById("option_num");
+		var new_ul = document.createElement("ul");
+		new_ul.className="ques_add_tag";
+		var new_li = document.createElement("li");
+		var new_text = document.createTextNode("选项标号：");
+		var new_li2 = document.createElement("li");
+		var new_text2 = document.createTextNode("选项内容：");
+		var new_btn = document.createElement("input");
+		var new_hid = document.createElement("input");
+		var new_tit = document.createTextNode(no);
+		new_hid.setAttribute("type","hidden");
+		new_hid.setAttribute("name","optionsn" + no);
+		new_hid.setAttribute("value","c_" + sn + "_" + no);
+		new_btn.type="button";
+		new_btn.className="formbtn2";
+		new_btn.value="添加";								
+		new_btn.setAttribute("label",no);
+		new_btn.setAttribute("enctype","add");	
+		var new_input2 = document.createElement("input");
+		new_input2.setAttribute("name","options" + no);
+		new_input2.type="text";
+		new_input2.className="ques_input_width300";
+		//添加节点
+		ques_add_box.appendChild(new_ul);
+		new_ul.appendChild(new_li);
+		new_li.appendChild(new_text);
+		new_li.appendChild(new_tit);
+		new_li.appendChild(new_btn);
+		new_li.appendChild(new_hid);
+		new_ul.appendChild(new_li2);
+		new_li2.appendChild(new_text2);
+		new_li2.appendChild(new_input2);
+		option_num_span.innerHTML = parseInt(option_num_span.innerHTML) + 1; //选项数显示增一
+		options_num++;  // 选项数增一
+		option_num_form.setAttribute("value" , parseInt(option_num_form.getAttribute("value")) + 1);
+	}
+	function subtract_part() {
+		if(options_num > 0) { 
+			var option_num_span = document.getElementById("option_num_span");
+			var ques_add_box = document.getElementById("ques_add_box");
+			var option_num_form = document.getElementById("option_num");
+			var uls = ques_add_box.getElementsByTagName("ul");
+			var lastUl = uls[uls.length - 1];
+			ques_add_box.removeChild(lastUl);
+			option_num_span.innerHTML = parseInt(option_num_span.innerHTML) - 1; //选项数显示减一
+			options_num--; //选项数减一
+			option_num_form.setAttribute("value" , parseInt(option_num_form.getAttribute("value")) - 1);
+		}
+	}
+	function ques_select(){
+		var ques_sel=document.getElementById("question_type").value;
+		var ques_add_count = document.getElementById("ques_add_count");
+		if(ques_sel=="ques_input")
+		{
+			ques_add_count.style.display="none";	
+		}
+		else{
+			ques_add_count.style.display="block";	
+		}	
+	}
+</script>
+<div id="rightTop">
+  <p>题库管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=question&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=question">管理</a></li>
+  </ul>
+</div>
+<form method="post">
+	<div class="ques_box">
+		<h2 >添加题库</h2>
+		<ul class="ques_add_test">
+			<li>题目名称： <p>如果题目中有填空: 则用文本输入框,  名称格式为 q_{$sn}_"x" x为输入框的标号,  第一个为0 , 第二个为1 ,以此类推.. , 除x为其余复制即可. 如第一个为q_{$sn}_0 ..</p>
+			<textarea id="question_content" name="question_content">{$question_info.stem}</textarea></li>
+			<li>题目类别：<input type="radio" name="question_type" <!-- {if $question_info.question_type eq 'basicinfo'} -->checked<!-- {/if} --> value="basicinfo" />基本信息<input type="radio" name="question_type" <!-- {if $question_info.question_type neq 'basicinfo'} -->checked<!-- {/if} --> value="question" />正文题目</li>
+			<li>题目类型：<select  onchange="ques_select()" name="class_id"  id="testtt">
+			<!-- {foreach from=$question_classes item=opts} -->
+				<option value="{$opts.class_id}" <!-- {if $opts.class_id eq $question_info.class_id} -->selected<!-- {/if} -->>{$opts.class_name}</option>
+			<!-- {/foreach} -->
+			</select></li>
+			<li id="ques_add_count">选项数目：
+				<input class="sub_btn" type="button" label="minus" onclick="subtract_part();" />
+				<span id="option_num_span" style="display:inline-block;border:1px solid black;width:50px;text-align:center;">{$options_num|default:0}</span>
+				<input class="add_btn" type="button" label="add" onclick="add_part();" />
+				<b>如果是纯填空题,此项留空即可!</b>
+				<input type="hidden" id="option_num" name="option_num" value="{$options_num|default:0}" />
+				<input type="hidden" id="old_option_num" name="old_option_num" value="{$options_num|default:0}" />
+			</li>
+			
+		</ul>
+		<!-- {if $options_num && $options_num > 0} -->
+		<h2 id="ques_add_tit" style="display:block;">添加选项内容</h2>
+		<!-- {/if} -->
+		<div id="ques_add_box">
+			<!-- {foreach from=$options_info item=opt name=getopt} -->
+			<ul class="ques_add_tag">
+				<li>选项标号：<input type="hidden" name="optionsn{$smarty.foreach.getopt.index}" value="{$opt.option_tab}"><input class="formbtn2" type="button" value="添加" label="0" enctype="add"><!-- {$smarty.foreach.getopt.index} --></li>
+				<li>选项内容：<input class="ques_input_width300" type="text" name="options{$smarty.foreach.getopt.index}" value="{$opt.option_content}"></li>
+			</ul>
+			<!-- {/foreach} -->
+		</div>
+		<div class="clear"></div>
+		<div><input type="hidden" name="sn" value="{$sn}" /></div>
+		<input class="formbtn" style="clear:both;height:21px;font-size:14px;" type="submit" value="提交"/>
+	</div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+
+CKEDITOR.replace('question_content',{toolbar:'Basic'});
+//]]>
+</script>
+{include file="footer.html"}
+<script type="text/javascript">
+$("input[enctype='add']").live('click',function () {
+	var label = $(this).attr("label");
+	var val = $("input[name='options" + label +"']").attr("value");
+	var ipt = "<input type='text' name='o_" + sn + "_" + label + "' />";
+	$("input[name='options" + label + "']").attr("value",val + ipt);
+});
+</script>

@@ -1,0 +1,25 @@
+{include file="header.html"}
+<form action="index.php?app=sendcredit&act=send" method="post" />
+<div style="padding:20px;line-height:30px;">
+<div>
+<strong style="color:#ff6600;padding:10px;">积分变动:</strong><input type="text" name="credit" style="width:80px"/></div>
+<div>
+<strong style="color:#ff6600;padding:10px;">变动积分类型:</strong>
+            <select id="smstype" class="querySelect" name="type">
+          		{html_options options=$credit selected=$credit_select}
+            </select>
+</div>
+<h1><strong style="color:#ff6600;padding:10px;">变动积分会员:</strong>
+<span>
+	<!-- {foreach from=$users item=v} -->
+	<span>
+		{$v.user_name}<input type="hidden" name="ids[]" value="{$v.user_id}" />
+	</span>
+	<!-- {/foreach} -->
+</span>
+</h1>
+<input type="submit" value="确认" style="margin:10px" />
+</div>
+
+</form>
+{include file="footer.html"}

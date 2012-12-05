@@ -1,0 +1,99 @@
+{include file="header.html"}
+<script type="text/javascript">
+    $(function(){
+        $('#pay_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+        $('#pay_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+        $('#finished_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+        $('#finished_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+        $('.tr1,.tr2').mouseover(function(){
+            $(".tr1,.tr2").removeClass('tron');
+            $(this).addClass('tron');
+        }) 
+	
+    });
+</script>
+<div class="tdare">
+    <table cellpadding="1" cellspacing="1" width="100%" class="tblist2">
+        <tr>
+            <td>
+                <ul class="subnav3">   	
+                    <li class='on'><a>{$lang.member_order_summary}<span></span></a></li>
+                </ul>
+            </td>        
+        </tr>
+    </table>
+
+    <table cellpadding="1" cellspacing="1" width="100%" class="tblist">
+        <tr>
+            <td class="sch" style="text-align:left; padding-left:8px;">
+                <div class="fontl">
+                    <form method="get">
+                        <div class="left">
+                            <div class="schinput">
+                                查询条件:<input type="hidden" name="app" value="order_summary" />
+                                <input type="hidden" name="act" value="collection" />
+                                <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                                </select><input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                                <select class="querySelect" name="timeField" >
+                                    {html_options options=$time_search_options selected=$query.get.timeField}
+                                </select>
+
+                                付款时间:<input class="queryInput3" type="text" value="{$query.finished_time_from}" id="finished_time_from" name="finished_time_from" class="pick_date" />
+                                至:<input class="queryInput3" type="text" value="{$query.finished_time_to}" id="finished_time_to" name="finished_time_to" class="pick_date" />
+
+                                &nbsp;&nbsp;&nbsp;<input type="submit" class="formbtn" value="{$lang.query}" /> 
+                            </div>
+                        </div>
+                        <!--{if $filtered}-->
+                        <a class="left formbtn1" href="index.php?app=store_statistics&act=collection">{$lang.cancel_query}</a>
+                        <!--{/if}-->
+                    </form>
+                </div>
+                <div class="fontr">
+                    {if $page_info}{include file=page.top.html}{/if}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="tblist" width="100%" cellspacing="1" cellpadding="0">
+        <tr >
+            <th>{$lang.member_name}</th>
+            <th >{$lang.real_name}</th>
+            <th >{$lang.mobile}</th>
+            <th>{$lang.order_sum}</th>  
+            <th>{$lang.league_price}</th> 
+            <th>{$lang.user_price}</th>
+            <th>{$lang.give_ecredit}</th> 
+            <th>{$lang.member_cate}</th>       
+            <th>{$lang.store_obtain}</th>       
+            <th>{$lang.detail_link}</th>
+        </tr>
+
+        <!--{foreach from=$orders item=order}-->
+        <tr class={cycle values="tr1","tr2"}>
+             <td class="on">{$order.buyer_name|escape}</td>
+             <td>{$order.real_name|escape}</a></td>
+             <td>{$order.mobile|escape}</a></td>
+             <td  style="color:red">{$order.order_count|default:0}</td>
+                 <td><em>{$order.sum_zprice|price}</em></td>
+                 <td><em>{$order.sum_price|price}</em></td>
+                 <td><em>{$order.sum_credit|default:0.00}</span></em>
+                 <td><em>{$order.member_cate|price}</em></td>
+                 <td><em>{$order.member_obtain|price}</em></td>
+                 <td><a target="_blank" href='index.php?app=order_summary&act=member_collection&buyer_id={$order.buyer_id}'>{$lang.detail_link}</a></td>
+             </tr>
+             <!--{foreachelse}-->
+             <tr class="no_data">
+                 <td colspan="14">{$lang.no_data}</td>
+             </tr>
+             <!--{/foreach}-->
+         </table>
+         <div id="dataFuncs">
+             <div class="pageLinks">
+                 {include file=page.bottom.html}
+             </div>
+         </div>
+         <div class="clear"></div>
+        </div>
+        {include file="footer.html"}

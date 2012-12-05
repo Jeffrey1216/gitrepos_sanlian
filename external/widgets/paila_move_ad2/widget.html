@@ -1,0 +1,54 @@
+<div class="ad_05">
+    <ul>
+        <li id="move_btn_1"><img src="data/files/mall/widgetImage/turn_right.jpg" alt=""/></li>
+        <li>
+        	<div id="ad_05_imgs">
+         	<ul>
+         	<!-- {foreach from=$widget_data.images item=image} -->
+	          <li><a href="{$image.url}"><img src="{$image.img}"  alt="{$image.title}" title="{$image.title}"/></a></li>
+	          <li><img src="data/files/mall/widgetImage/line_03.jpg" alt=""/></li>
+	        <!-- {/foreach} -->
+        	</ul>
+        </div>
+       </li>
+        <li id="move_btn_2" ><img src="data/files/mall/widgetImage/turn_left_none.jpg" alt=""/></li>
+    </ul>
+</div>
+<script type="text/javascript">
+var move_ad_flag = true;
+var move_ad_width = 348;
+$("#move_btn_1").click(function () {
+	if(!move_ad_flag) {
+		return;
+	}
+	if($('#move_btn_2 img').attr("src") == "data/files/mall/widgetImage/turn_left_none.jpg") {
+		$('#move_btn_2 img').attr("src","data/files/mall/widgetImage/turn_left.jpg");
+	}
+	if(parseInt($("#ad_05_imgs ul").css("left")) > -1392){
+		move_ad_flag = false;
+		$("#ad_05_imgs ul").animate({left: "-="+move_ad_width},{duration:300,complete:function () {
+			if(parseInt($("#ad_05_imgs ul").css("left")) <= -1392) {
+				$('#move_btn_1 img').attr("src","data/files/mall/widgetImage/turn_right_none.jpg");
+			}
+			move_ad_flag = true;
+		}});
+	}
+});
+$("#move_btn_2").click(function () {
+	if(!move_ad_flag) {
+		return;
+	}
+	if(($('#move_btn_1 img').attr("src")) == "data/files/mall/widgetImage/turn_right_none.jpg") {
+		$('#move_btn_1 img').attr("src","data/files/mall/widgetImage/turn_right.jpg");
+	}
+	if(parseInt($("#ad_05_imgs ul").css("left")) < 0){
+		move_ad_flag = false;
+		$("#ad_05_imgs ul").animate({left: "+="+move_ad_width},{duration:300,complete:function () {
+			if(parseInt($("#ad_05_imgs ul").css("left")) >= 0) {
+				$('#move_btn_2 img').attr("src","data/files/mall/widgetImage/turn_left_none.jpg");
+			}
+			move_ad_flag = true;
+		}});
+	}
+});
+</script>

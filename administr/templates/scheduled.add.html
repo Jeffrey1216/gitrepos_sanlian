@@ -1,0 +1,43 @@
+{include file="header.html"}
+<style type="text/css">
+.dataTable td{text-align:center;} 
+.firstCell{text-align:left;}  
+.dis_tab_span{margin-right:10px;}
+.tdare{border-top:1px solid #cccccc;}
+</style>
+<div id="rightTop">
+  <p>计划任务</p>
+  <ul class="subnav">    
+    <li><a class="btn1" href="index.php?app=scheduled&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=scheduled">管理</a></li>
+  </ul>
+</div>
+<div>
+     <div class="sch_tc">
+          <label>时间周期：</label><input class="sch_tc_box" type="text" value=""/>月<input class="sch_tc_box" type="text" value=""/>日<input class="sch_tc_box" type="text" value=""/>时<input class="sch_tc_box" type="text" value=""/>分<input class="sch_tc_box" type="text" value=""/>秒
+     </div>
+     <div class="sch_tc">
+          <label>数据表名：</label>
+          <select class="sch_dns"></select>   
+     </div>
+     <div class="sch_tc">
+          <label>字&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;段：</label>
+          <select class="sch_dns"></select>   
+     </div>
+     <div class="sch_tc">
+          <label>方&nbsp;&nbsp;法&nbsp;&nbsp;名：</label>
+          <input class="mtdn_box" type="text"/>  
+     </div>
+     <div class="sch_tc">
+          <label>方法描述：</label>
+          <input class="mtdn_box" type="text"/>  
+     </div>
+     <div class="sch_tc">
+          <label>是否开启：</label>
+          <input class="mtdn_open" name="开启否" type="radio"/>是 <input class="mtdn_open" name="开启否" type="radio"/>否
+     </div>
+     <div class="sch_tc">
+          <input class="sch_sub" type="submit" value="提交"><input class="sch_sub" type="submit" value="返回">
+     </div>
+</div>
+{include file="footer.html"}

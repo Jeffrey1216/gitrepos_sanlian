@@ -1,0 +1,73 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<div class="content">
+    <div class="module_common">
+        <h2>我要开店</h2>
+        <div class="wrap">
+            <div class="wrap_child">
+
+                <div class="module_new_shop">
+
+                    <div class="chart">
+                        <div class="pos_x1 bg_a2" title="{$lang.step_1}"></div>                       
+                        <div class="pos_x2 bg_b1" title="{$lang.step_2}"></div>
+                        <div class="pos_x3 bg_c" title="{$lang.step_3}"></div>
+                    </div>
+
+                    <div class="grade_shop">
+						<form action="index.php" method="get">
+						<table>
+                        <!--{foreach from=$sgrades item=sgrade}-->
+                            <tr>
+								<th>
+									<select name="store_type">
+									<option value="0">直营店</option>
+									<option value="1">加盟店</option>
+									</select>
+								</th>
+								<td class="padding1 width5">
+                                    <p>{$lang.goods_limit}: <span class="fontColor1">{$sgrade.goods_limit}</span></p>
+                                    <p>{$lang.space_limit}: <span class="fontColor1">{$sgrade.space_limit}</span></p>
+                                    <p>{$lang.skin_limit}: <span class="fontColor1">{$sgrade.skin_limit}</span></p>
+                                    <p>{$lang.charge}: <span class="fontColor2">{$sgrade.charge}</span></p>
+                                    <p>{$lang.need_confirm}: <span class="fontColor1"><!--{if $sgrade.need_confirm}-->{$lang.yes}<!--{else}-->{$lang.no}<!--{/if}--></span></p>
+                                </td>
+                                <td class="width4">
+                                    <table>
+                                        <tr>
+                                            <td>{$lang.add_use}: </td>
+                                            <td>
+                                            <!--{foreach from=$sgrade.functions item=functions key=k name=v}-->
+                                                <!--{if $domain && $k eq 'subdomain'}-->
+                                                    <span class="fontColor1">{$lang.domain}</span>
+                                                <!--{else}-->
+                                                    <span class="fontColor1">{$lang.$k}</span>
+                                                <!--{/if}-->
+                                                <!--{if !$smarty.foreach.v.last}-->
+                                                    <br />
+                                                <!--{/if}-->
+                                            <!--{/foreach}-->
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="width6 padding2">{$sgrade.description}</td>                                
+                                <td><input type="submit" value="立即开店" class="shop_btn" style="width:130px;"/></td>
+                                <input type="hidden" name="step" value="2"/>
+                                <input type="hidden" name="id" value="{$sgrade.grade_id}"/>
+                               <input type="hidden" name="app" value="apply"/>
+                            </tr>
+                        <!--{/foreach}-->
+                        </table>
+						</form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{include file=footer.html}

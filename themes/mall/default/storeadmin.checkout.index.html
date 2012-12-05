@@ -1,0 +1,79 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox5">
+	<h3 class="tit"><span>本店结算</span></h3>
+		<ul class="tabDiv">
+			<li class="hover"><a href="index.php?app=checkout">本店结算</a></li>		
+	    </ul>
+	<div class="public_02">
+		<div class="module_common"> 
+		  <h3>本店结算一览表</h3>
+		  <div class="line"></div>  
+		  <form action="index.php?app=checkout&act=_get_orders" method="get">
+	 		<input type="hidden" name="app" value="checkout" />
+			<input type="hidden" name="act" value="index" />
+		  	<table class="tabSearch" cellpadding="0" cellspacing="0">	
+				<tr>
+					<td>完成交易时间：<input type="text" class="Wdate" onclick="WdatePicker()" name="starttime" id="starttime"  value="{$smarty.get.starttime}" />
+					—
+					<input type="text" class="Wdate" onclick="WdatePicker()" name="endtime" id="endtime" value="{$smarty.get.endtime}" />
+					<input type="submit" name="submit" class="btn1" value="查询" style="float:none"/></td>
+				</tr>
+			</table>  
+		 </form> 
+		 <div class="cd_statis">
+		 	<h4><b>本次结算统计</b></h4>
+		 	<div class="cd_statistics">
+			 	<span>使用PL总计:</span><span><em>{$totalinfo.usecredit}PL</em></span><br/>
+			 	<span>赠送PL总计:</span><span><em>{$totalinfo.getcredit}PL</em></span><br/>
+			 	<span>现金总计:</span><span><em>{$totalinfo.money}元</em></span><br/>
+			</div>	
+		</div>   
+		 <table width="100%" cellspacing="0" cellpadding="0" class="ordermgt order_details">
+	         <colgroup>
+	             <col width="8%" align="left">
+	             <col width="12%" align="left">           
+	             <col width="8%" align="left">
+	             <col width="8%" align="left">
+	             <col width="12%" align="left">
+	             <col width="7%" align="left"> 
+				 <col width="7%" align="left"> 
+	  			
+	         </colgroup>
+	         <thead>
+	          <tr class="tr1">                
+	              <th>订单编号</th>    
+	              <th>订单时间</th>  
+	              <th>交易状态</th>        
+	              <th>订单金额</th>   
+	              <th>使用P L</th>
+	              <th>获得P L</th>                   
+	              <th>操作</th>    
+	          </tr>
+	         </thead>
+		         <tbody>
+					<!--{foreach from=$orders item=order}-->
+						<tr>              
+							<td><span class="color3">{$order.order_sn}{if $order.extension eq 'groupbuy'}<span class="color8">[{$lang.groupbuy}]</span>{/if}</span></td>             
+							<td>{$order.add_time|date:complete}</td> 
+							<td><span class="color4">{$order.status|modifier:order_status}</span></td>
+							<td>{$order.goods_amount|price} </td>                                               
+							<td><b>{$order.use_credit}</b></td>
+							<td><b>{$order.get_credit}</b></td> 
+							<td>
+								<a style="float:none;display:inline-block" class="btn1" href="index.php?app=seller_order&act=view&order_id={$order.order_id}&type=1">查看详细</a>
+							</td>                     
+						</tr> 
+					<!--{foreachelse}-->
+					<tr><td class="member_no_records" colspan="8">{$lang.no_records}</td></tr>
+					<!--{/foreach}-->                                         
+		       </tbody> 
+		   </table>
+		 	<p class="position2">
+		    	{include file=member.page.bottom.html}
+		 	</p>
+		</div>
+	</div>  
+</div>
+<include file="Admin:tfoot" />
+<script type="text/javascript" src="{lib file=MyDate/WdatePicker.js}"></script>

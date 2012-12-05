@@ -1,0 +1,39 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox">
+	<h3 class="tit"><span>…Ã∆∑œÍœ∏“≥</span></h3>
+	<div class="public_02">
+	<div class="table">
+<div class="level2_right">
+    {include file=storeadmin.buymallgoods.goodsinfo.html}
+    </div>
+
+</div>
+<div class="level3_right_div">
+<ul class="product_tab">
+    <li class="selected">{$lang.goods_detail}</li>
+</ul>
+<div class="option_box">
+    <div style="width:789px;overflow:hidden">{$goods.description|escape:editor}</div>
+</div>
+<!--{if $goods.related_info.count gt 0}-->
+<div class="module_currency">
+    <h2 class="common_title veins1">
+        <div class="ornament1"></div>
+        <div class="ornament2"></div>
+        <span class="ico1"><span class="ico2">{$lang.related_info}</span></span>
+    </h2>
+    <dl class="related_list">
+        <!--{foreach from=$goods.related_info.list item=app_data}-->
+        <!--{if $app_data.data and $app_data.app_type neq 'ECMALL'}-->
+        <dt><a href="{$app_data.app_url}">{$app_data.app_name}</a></dt>
+        <!--{foreach from=$app_data.data item=item}-->
+        <dd>{$item}</dd>
+        <!--{/foreach}-->
+        <!--{/if}-->
+        <!--{/foreach}-->
+    </dl>
+</div>
+<!--{/if}-->
+</div>
+</div>

@@ -1,0 +1,52 @@
+{include file=newothers_top.html}
+<div class="body_bg">  
+ <div class="loginbar green_bg">
+        <div class="loginbar_ctt">
+            <div class="loginbar_l">
+              <a href="index.php">返回派啦网首页</a>
+                 <span>{$visitor.user_name|escape}
+                 <!--{if !$visitor.user_id}-->&nbsp;
+                 <a href="{url app=member&act=login}">登录</a></span> / <span><a href="{url app=member&act=register}">免费注册</a>
+                 <!--{else}-->
+                 [<a href="{url app=member&act=logout}">退出</a>]
+                 <!--{/if}-->
+                 </span>
+            </div>
+            <div class="loginbar_r" style="position:relative;*top:-4px;_top:0;">
+            <div style="left:60px;height:32px;line-height:32px;float:left;position:absolute;z-index:1000;margin-left:0px;">
+           <div id="navss" style="top:0;">
+				<ul>
+					<li class="menu2">
+					<a style="margin-left:8px;_margin-left:4px;padding:0;" href="index.php?app=member">我的派啦</a>
+					</li>
+				 </ul>
+			</div>
+			</div>
+                | <a href="index.php?app=message&act=newpm">站内消息</a>
+                | <a href="index.php?app=download&act=Merchant">派啦店下载</a> 
+                | <a href="{url app=article&act=help}">帮助中心</a>
+                | <a href="http://www.weibo.com/pailawang" class="weibo" target="_blank"></a>
+            </div>
+        </div>
+    </div> 
+    <div class="top_bksbj">
+    <div class="green_main">
+        <div><img src="{res file=images/zt_topbj.jpg}" /></div>
+        <div><img src="{res file=images/zt_imgbj.jpg}" /></div>
+    </div>
+</div>
+ <div class="adf" area="item_prefecture" widget_type="area">
+    <!-- {widgets page=paila_special area=item_prefecture} -->
+</div>
+<div class="adf" area="keep_prefecture" widget_type="area">
+    <!-- {widgets page=paila_special area=keep_prefecture} -->
+</div>
+<div class="adf" area="green_prefecture" widget_type="area">
+    <!-- {widgets page=paila_special area=green_prefecture} -->
+</div>
+<div class="bottom_ys">
+    <div class="bottom_bj">
+        <div class="banquan_bks">Copyright@2010-2011 paila100.com派啦网 All Rights Reserved 赣B2--20110067号<br />客服热线：400-166-1616 公司电话：0791-87576999 传真：0791-87576988</div>
+    </div>
+</div>
+</div>

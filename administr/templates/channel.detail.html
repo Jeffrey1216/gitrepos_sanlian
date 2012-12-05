@@ -1,0 +1,39 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>渠道商，消费信息</p>
+  <ul class="subnav">
+    <li><span>管理</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+	<div class="fontl">
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>金额</td>
+      <td>记录时间</td>
+      <td>详细描述</td>
+      <td>操作类型</td>
+    </tr>
+    <!--{foreach from=$users item=user}-->
+    <tr class="tatr2">
+      <td>{$user.user_money}</td>
+      <td>{$user.change_time|date:Y-m-d H:m}</td>
+      <td>{$user.change_desc}</td>
+      <td>{$user.change_type}</td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有渠道商记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

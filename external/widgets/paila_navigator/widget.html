@@ -1,0 +1,86 @@
+<div class="menu_head" id="menu_head">
+<h2><a href="index.php?app=category&area_type=pailamall">全部商品分类</a></h2>
+<ul id="menu" class="menu" style="border:0">
+<!--{foreach from=$widget_data item=gcategory}-->
+<li>
+    <a href="{url app=search&cate_id=$gcategory.id&area_type=pailamall}">{$gcategory.value}</a>
+
+    <div class="shade"></div>
+    <ul class="submenu">
+        <li>
+            <div class="submenu_left">
+             <!-- {foreach from=$gcategory.children item=child} --> 
+                <div class="sub_left1">
+                    <div class="sub_left1_1" > <a class="sub_a1" href="{url app=search&cate_id=$child.id&area_type=pailamall}"><b>{$child.value}</b></a></div>
+                    <div class="sub_left1_2"><!-- {foreach from=$child.children item=cd} -->
+                    <a class="sub_a2" href="{url app=search&cate_id=$cd.id&area_type=pailamall}">{$cd.value}</a>
+                    <!-- {/foreach} -->
+                    </div>
+                </div>    
+                <!-- {/foreach} -->        
+            </div>    
+            <div class="submenu_right">
+            <div style="width:100%;overflow:hidden;">
+                <div><b>推荐品牌</b></div>
+                <!-- {if $gcategory.brand_info} -->
+                <!-- {foreach from=$gcategory.brand_info item=brand} -->
+                <div><a class="subright_a1" href="index.php?app=search&brand={$brand.brand_name}">{$brand.brand_name}</a></div>
+                <!-- {/foreach} -->
+                <!-- {else} -->
+                <div>暂无推荐品牌</div>
+                <!-- {/if} -->
+            </div>   
+            <div style="width:100%;overflow:hidden;">    
+                <div><b>促销活动</b></div>
+                <!-- {if $gcategory.specialsubject_info} -->
+                <!-- {foreach from=$gcategory.specialsubject_info item=sp} -->
+                <div><a href="{$sp.special_connecting}">{$sp.special_name}</a></div>
+                <!-- {/foreach} -->
+                <!-- {else} -->
+                <div>暂无促销活动</div>
+                <!-- {/if} -->
+            </div>
+            </div>
+        </li>
+    </ul>
+</li>
+<!-- {/foreach} -->
+</ul>
+</div>
+<script type="text/javascript">
+$.fn.extend({
+    /**
+     * add "hoverStyle" class when the mouse over
+     * @param hoverStyle :class name
+     * @return object itself
+     */
+    HS:function(hoverStyle) {
+        //don't register mouse over event if the hoverStyle is null & empty
+        if (hoverStyle != null && hoverStyle != "") {
+            this.hover(function() {
+                $(this).addClass(hoverStyle);
+            }, function() {
+                $(this).removeClass(hoverStyle);
+            });
+        }
+        return this;
+    } ,
+    /**
+     * show menu when the mouse over the top mark
+     * @param id :sub menu container,append sub menu to the specified div then show it
+     */
+    showSubMenuInDiv:function(id) {
+        this.hover(function() {
+            $("#" + id).html($(this).children("ul").clone(true));
+            $(this).append($("#" + id).show());
+        }, function() {
+            $("#" + id).hide();
+        });
+        return this;
+    }
+});
+//作用
+$(function() {
+$("#menu>li").HS("current");
+});
+</script>

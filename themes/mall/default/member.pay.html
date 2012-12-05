@@ -1,0 +1,42 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<div class="content">
+    {include file=member.menu.html}
+<div class="mypaila_right">
+    <div class="usercenter">
+    <form action="" method="post">
+    	<div>
+    		<div>
+    		<span>收款人姓名:</span>
+    		<input type="text" name="user_name"/>
+    		</div>
+    		<div>
+    		<span>收款人账号:</span>
+    		<input type="text" name="user_id"/>
+    		</div>
+    		<div>
+    		<span>金额:</span>
+    		<input type="text" name="price"/>
+    		</div>
+    		<div>
+    		<span>服务费:</span>
+    		<span> PL</span>
+    		<a >收费标准</a>
+    		</div>
+    		<div>
+    		<input type="checkbox" />
+    		<span>校验手机号码</span>
+    		<input type="text">
+    		</div>
+    		<input type="submit" value="提交"/>
+    	</div>
+	</form>
+        <div class="productlist_footbg">
+            {include file=member.page.bottom.html}
+        </div>
+    </div>
+</div>
+</div>
+{include file=footer.html}

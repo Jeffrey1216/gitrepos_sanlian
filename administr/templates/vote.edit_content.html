@@ -1,0 +1,28 @@
+{include file="header.html"}
+<style type="text/css">
+#vote_box{margin:30px;}
+#vote_box .input{height:25px;width:400px;font-size:16px;line-height:25px;}
+#vote_box .short_input{width:50px;text-align:center;}
+.vote_tab td{padding:6px 5px;}
+#vote_box .input_radio{width:10px;margin-left:40px;vertical-align:-7px;}
+#vote_box .add_col{color:#d5238c;cursor:pointer;}
+#vote_box textarea{width:400px;height:150px;max-height:150px;}
+#vote_box .times_width{width:160px;}
+#vote_box .editer_btn{margin:20px;display:inline-block;color:#000;text-align:center;text-decoration:none;line-height:20px;}
+</style>
+<div id="rightTop">
+  <p>投票管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=vote&act=addVote">发起投票</a></li>
+    <li><a class="btn1" href="index.php?app=vote">管理</a></li>    
+  </ul>
+</div>
+<div id="vote_box">	
+	<form id="i_sub" action="index.php?app=vote&act=editContent&cid={$rs.c_id}" method="post" >
+	<table class="vote_tab">
+		<tr><td>投票内容：</td><td><textarea name="content">{$rs.c_content}</textarea></td></tr>	
+		<tr><td></td><td><input type="submit" value="提交" class="formbtn editer_btn" /><input type="button" value="返回" class="formbtn editer_btn" onclick="javascript:history.back()"/></td></tr>		
+	</table>
+	</form>
+ </div> 
+{include file="footer.html"}

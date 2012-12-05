@@ -1,0 +1,203 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<style type="text/css">
+.bgwhite { background: #FFFFFF; }
+</style>
+<script type="text/javascript">
+$(function(){
+    $('#register_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        rules : {
+        	user_name : {
+            byteRange: [3,15,'{$charset}'],
+            remote   : {
+                url :'index.php?app=member&act=check_user&ajax=1',
+                type:'get',
+                data:{
+                    user_name : function(){
+                        return $('#user_name').val();
+                    }
+                },
+                beforeSend:function(){
+                    var _checking = $('#checking_user');
+                    _checking.prev('.field_notice').hide();
+                    _checking.next('label').hide();
+                    $(_checking).show();
+                },
+                complete :function(){
+                    $('#checking_user').hide();
+                }
+	            }
+	        },
+	        mobile : {
+                required : true,
+                number   : true,
+                rangelength : [11,11],
+				remote   : {
+                    url : 'index.php?app=member&act=check_mobile',
+                    type: 'get',
+                    data:{
+                        mobile : function(){
+                            return $('#mobile').val();
+                        }
+                    }
+                }
+            },
+            sms_verify : {
+                required : true,
+                number   : true,
+                rangelength : [6,6]
+            },
+            email : {
+                email    : true
+            },
+            trpwd : {
+                required : true,
+                number   : true,
+                rangelength : [6,6]
+            },
+            trpwd2 : {
+                equalTo:"#trpwd"
+            }
+        },
+        messages : {
+        	user_name : {
+            byteRange: '用户名必须在3-15个字符之间',
+            remote   : '您提供的用户名已存在'
+	        },
+	        mobile : {
+	            required : '必须填写手机号',
+	            number : '这不是一个有效的手机号',
+	            rangelength  : '这不是一个有效的手机号',
+	            remote   : '手机号码已存在'
+	        },
+	        sms_verify : {
+	            required : '必须填写短信校验码',
+	            number   : '短信校验码必须为6位数字',
+	            rangelength  : '短信校验码必须为6位数字'
+	        },
+	        email : {
+	            email    : '这不是一个有效的电子邮箱'
+	        },
+	        trpwd : {
+	            required : '必须填写支付密码',
+	            number   : '支付密码必须为6位数字',
+	            rangelength  : '支付密码必须为6位数字'
+	        },
+	        trpwd2 : {
+	        	equalTo  : '支付密码输入不一致'
+	        }
+        }
+    });
+});
+var wait = 300; //设置秒数(单位秒)
+var secs = 0; //倒计时剩余秒数
+function smsverify(){
+	var mobile = $("#mobile").val();
+	$('#verify').attr('disabled',"true");
+	$.ajax({ 
+      type:"POST",
+      data:"mobile="+mobile,
+      url:"index.php?app=member&act=send_sms_verify",
+      success:function(data){
+        		var d = DialogManager.create('show_error');
+        		d.setWidth(400);
+        		d.setTitle(lang.error);
+				switch (parseInt(data)){
+					case 1:
+						d.setContents('message', {type:'warning', text:'手机号码不能为空！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 2:
+						d.setContents('message', {type:'warning', text:'手机号码输入不正确！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 3:
+						d.setContents('message', {type:'warning', text:'手机号码已存在，请重新输入！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 4:
+						d.setContents('message', {type:'notice', text:'短信验证码已经发送到您的手机上！'});
+						for(var i=0;i<=wait;i++) {
+							 window.setTimeout("sTimer("+i+")",i*1000);
+						}
+						break;
+					case 5:
+						d.setContents('message', {type:'warning', text:'短信验证码发送失败！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 6:
+						d.setContents('message', {type:'warning', text:'对不起，每个手机号每天只能接收5次短信校验码！'});
+						$('#verify').removeAttr("disabled");
+						break;
+				}
+				d.show('center');
+        }
+	});
+}
+//自定义倒计时函数
+function sTimer(num) {
+	 if(num==wait)  {
+		 $('#verify').removeAttr("disabled");
+		 $('#verify').attr('value',"获取效验码");
+	 }else{
+	  	 secs=wait-num;
+	  	 $('#verify').attr('value',secs+"秒");
+	 } 
+}
+</script>
+<style>
+.borline td { padding:10px 0px; }
+.ware_list th { text-align:left; }
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>会员管理</span></h3>
+	<ul class="tabDiv mb10">
+		<li  class="hover"><a href="index.php?app=my_member&act=register">会员注册</a></li>
+	</ul>
+	<form method="post" id="register_form">
+		<div class="information">
+			<div class="info individual">
+			 <table>
+                     <tr>
+                         <th class="width4">{$lang.user_name}: </th>
+                         <td><input type="text" class="text width_normal" id="user_name" name="user_name" /><label class="field_notice">非必填项</label><label id="checking_user" class="checking">{$lang.checking}</label></td>
+                     </tr>
+                     <tr>
+                         <th class="width4">{$lang.mobile}: </th>
+                         <td><input type="text" class="text width_normal" name="mobile" id="mobile" maxlength="11"/></td>
+                     </tr>
+                     <tr>
+                         <th class="width4">{$lang.sms_verify}: </th>
+                         <td><input type="text" class="text width_normal" name="sms_verify" id="sms_verify" maxlength="6" />
+                     		<input type="button"  class="btn1" style="float:none" value="获取效验码" id="verify" onclick="smsverify()"/></td>
+                     </tr>
+                     <tr>
+                         <th class="width4">{$lang.email}: </th>
+                         <td><input type="text" class="text width_normal" name="email" id="email"/><label class="field_notice">非必填项</label></td>
+                     </tr>
+                     <tr>
+                         <th class="width4">支付密码: </th>
+                         <td><input type="password" class="text width_normal" name="trpwd" id="trpwd"/></td>
+                     </tr>
+                     <tr>
+                         <th class="width4">重复密码: </th>
+                         <td><input type="password" class="text width_normal" name="trpwd2" id="trpwd2"/></td>
+                     </tr>
+                     <tr>
+                         <th></th>
+                         <td><input type="submit" class="btn" value="{$lang.submit}" /></td>
+                     </tr>
+             </table>
+           </div>
+       </div>
+    </form>
+</div>
+{include file=storeadmin.footer.html}

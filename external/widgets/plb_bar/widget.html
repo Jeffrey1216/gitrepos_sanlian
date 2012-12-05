@@ -1,0 +1,22 @@
+<div class="photo_box pltd_movead" id="index_slider">
+	<ul>
+		<!-- {foreach from=$widget_data.images item=image} -->
+			<li>
+				<a href="javascript: void(0);">										
+					 <a href="{$image.url}"><img Src="{$image.img}"  title="{$image.title}" alt="{$image.title}"/></a>
+				</a>									
+			</li>
+		<!-- {/foreach} -->											
+	</ul>
+</div>
+<script type="text/javascript">
+Effect.slider({   		//轮播器启动
+	'target': 'index_slider',
+	'showMarkers': true,
+	'showControls': false,
+	'width_allow':false,
+	'autostart':true,
+	'crosswise':false,
+	'trun_text':new Array("1","2","3","4")   //说明文字
+});
+</script>

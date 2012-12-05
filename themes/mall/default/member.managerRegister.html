@@ -1,0 +1,196 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript"><!--
+$(function(){
+    $('#register_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        rules : {
+        	user_name : {
+            byteRange: [3,15,'{$charset}'],
+            remote   : {
+                url :'index.php?app=member&act=check_user&ajax=1',
+                type:'get',
+                data:{
+                    user_name : function(){
+                        return $('#user_name').val();
+                    }
+                },
+                beforeSend:function(){
+                    var _checking = $('#checking_user');
+                    _checking.prev('.field_notice').hide();
+                    _checking.next('label').hide();
+                    $(_checking).show();
+                },
+                complete :function(){
+                    $('#checking_user').hide();
+                }
+	            }
+	        },
+	        user_name : {
+	        	required : true
+	        },
+	        password : {
+                required : true,
+                minlength: 6
+            },
+            password_confirm : {
+                required : true,
+                equalTo  : '#password'
+            },
+	        mobile : {
+                required : true,
+                number   : true,
+                rangelength : [11,11],
+				remote   : {
+                    url : 'index.php?app=member&act=check_mobile',
+                    type: 'get',
+                    data:{
+                        mobile : function(){
+                            return $('#mobile').val();
+                        }
+                    }
+                }
+            },
+            sms_verify : {
+                required : true,
+                number   : true,
+                rangelength : [6,6]
+            },
+            email : {
+                email    : true
+            }
+        },
+        messages : {
+        	user_name : {
+        		required : '用户名必需填写',
+            	byteRange: '用户名必须在3-15个字符之间',
+            	remote   : '您提供的用户名已存在'
+	        },
+	        password  : {
+                required : '{$lang.password_required}',
+                minlength: '{$lang.password_length_limit}'
+            },
+            password_confirm : {
+                required : '{$lang.password_confirm_please}',
+                equalTo  : '{$lang.password_inconsistent}'
+            },
+	        mobile : {
+	            required : '必须填写手机号',
+	            number : '这不是一个有效的手机号',
+	            rangelength  : '这不是一个有效的手机号',
+	            remote   : '手机号码已存在'
+	        },
+	        sms_verify : {
+	            required : '必须填写短信校验码',
+	            number   : '短信校验码必须为6位数字',
+	            rangelength  : '短信校验码必须为6位数字'
+	        },
+	        email : {
+	            email    : '这不是一个有效的电子邮箱'
+	        }
+        }
+    });
+});
+
+</script>
+
+<div class="content">
+    {include file=member.menu.html}
+<div id="manager_info" class="mypaila_right">
+<form method="post" id="register_form">
+	<h3>邀请注册会员</h3>
+	<table>
+		<tr>
+	   	<td> 用户名： </td><td><input type="text" id="user_name" name="user_name"/></td>
+	   </tr> 
+	   	<tr>
+	   	<td> 密码： </td><td><input type="password" name="password" id="password" value="123456"/><span style="margin-left:10px;">初始密码为123456</span></td>
+	   </tr>
+	   	<tr>
+	   	<td> 确认密码： </td><td><input type="password" name="repassword" id="password_confirm" value="123456"/></td>
+	   </tr>  	   		  
+	   <tr>
+	   	<td> 电&nbsp;&nbsp;&nbsp;&nbsp;话：</td><td><input type="text"  name="mobile" id="mobile" maxlength="11" /></td>
+	   </tr>
+	   <tr>
+	   	<td> 邮&nbsp;&nbsp;&nbsp;&nbsp;箱：</td><td><input type="text" name="email" id="email"/></td>
+	   </tr>
+	   <tr>
+	   	<td>校验码：</td>
+	   	<td>
+	   		<input type="text" class="mls_id" name="sms_verify" id="sms_verify" maxlength="6"  />
+            <input type="button"  class="mls_names" id="verify" onclick="smsverify()" value="获取效验码"/>
+           
+	   	</td>
+	   </tr>	  
+	   <tr>	
+	   	<td colspan="2"><input style="height:28px;" class="manager_btn" type="submit" value="确认提交"/></td>
+	   </tr>
+	 </table>    
+</form>
+</div>
+</div>
+<script type="text/javascript">
+var wait = 300; //设置秒数(单位秒)
+var secs = 0; //倒计时剩余秒数
+function smsverify(){
+	var mobile = $("#mobile").val();
+	$('#verify').attr('disabled',"true");
+	$.ajax({ 
+      type:"POST",
+      data:"mobile="+mobile,
+      url:"index.php?app=member&act=send_sms_verify",
+      success:function(data){
+				switch (data){
+					case '1':
+						alert('手机号码不能为空！');
+						$('#verify').removeAttr("disabled");
+						break;
+					case '2':
+						alert('手机号码输入不正确！');
+						$('#verify').removeAttr("disabled");
+						break;
+					case '3':
+						alert('手机号码已存在，请重新输入！');
+						$('#verify').removeAttr("disabled");
+						break;
+					case '4':
+						window.alert('短信验证码已经发送到您的手机上！');
+						for(var i=0;i<=wait;i++) {
+							 window.setTimeout("sTimer("+i+")",i*1000);
+						}
+						break;
+					case '5':
+						alert('短信验证码发送失败！');
+						$('#verify').removeAttr("disabled");
+						break;
+					case '6':
+						alert('对不起，每个手机号每天只能接收5次短信校验码！');
+						$('#verify').removeAttr("disabled");
+						break;
+				}
+        }
+	});
+}
+//自定义倒计时函数
+function sTimer(num) {
+	 if(num==wait)  {
+		 $('#verify').removeAttr("disabled");
+		 $('#verify').attr('value',"获取效验码");
+	 }else{
+	  	 secs=wait-num;
+	  	 $('#verify').attr('value',secs+"秒");
+	 } 
+}
+</script>
+{include file=footer.html}

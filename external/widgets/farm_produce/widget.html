@@ -1,0 +1,76 @@
+		<div class="hot_sale">
+				<div class="hot_ttl">
+				</div>
+				<ul>
+					<li class="hot_sale_l">	
+					</li>
+					<li class="hot_sale_m">
+						<div class="hot_sale_show">
+							<ul>
+						<!-- {foreach from=$widget_data.images item=images} -->
+								<li>
+									<a href="{$images.url}">
+										<img src="{$image_url}{$images.img}" alt="{$images.title}" />
+									</a>
+								</li>
+						<!-- {/foreach} -->		
+							</ul>
+						</div>
+					</li>
+					<li class="hot_sale_r">	
+					</li>
+				</ul>
+			</div>
+			
+<script type="text/javascript">
+$(function(){
+	var page = 1;
+    var i = 4;     //每版放4个图片
+	$(".hot_sale_l").click(function(){           //按向左按钮
+		var hot_sale = $(".hot_sale");
+		var hot_sale_show = $(".hot_sale_show");
+		var hot_width = $(".hot_sale_m").width();
+		var len = hot_sale_show.find("li").length;
+		var page_count = Math.ceil(len / i) ;
+		if(!hot_sale.is(":animated")){
+			if(page == page_count){
+				hot_sale_show.animate({left: '0px'},"slow");
+				page = 1;
+			}else{
+				hot_sale_show.animate({left: '-='+hot_width},"slow");
+				page++;
+			}
+		}
+	});
+	$(".hot_sale_r").click(function(){           //按向左按钮
+		var hot_sale = $(".hot_sale");
+		var hot_sale_show = $(".hot_sale_show");
+		var hot_width = $(".hot_sale_m").width();
+		var len = hot_sale_show.find("li").length;
+		var page_count = Math.ceil(len / i) ;
+		if(!hot_sale.is(":animated")){
+			if(page == 1){
+				hot_sale_show.animate({left: '-='+hot_width*(page_count-1)},"slow");
+				page = page_count;
+			}else{
+				hot_sale_show.animate({left: '+='+hot_width},"slow");
+				page--;
+			}
+		}
+	});
+})
+$(function() {
+$(".hot_sale_l").hover(function() {
+		$(this).addClass("hot_sale_lhover");
+	}, function() {
+		$(this).removeClass("hot_sale_lhover");
+	});
+});
+$(function() {
+	$(".hot_sale_r").hover(function() {
+			$(this).addClass("hot_sale_rhover");
+		}, function() {
+			$(this).removeClass("hot_sale_rhover");
+		});
+	});
+</script>

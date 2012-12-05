@@ -1,0 +1,46 @@
+{include file=agr_index_top1.html}
+{include file=agro_head.html}
+<style type = "text/css">
+.content,.body_box{width:1000px;margin:0 auto;overflow:hidden;}
+.h_box{width:1000px;margin:0 auto;padding-top:10px;*padding-top:5px}
+.l_side{width:195px;float: left;}
+.m_side{width:562px;overflow:hidden;margin-left:10px;float:left;}
+.m_side_top,.m_side_btm{width:562px;overflow:hidden;margin-bottom:10px;}
+.m_side_btm{margin-bottom: o;}
+.r_side,.r_side_top,.r_side_btm{width:224px;overflow:hidden;float:right;}
+.r_side_top,.r_side_btm{float:none;}
+.clear{clear:both;}
+</style>
+<div class="content">
+	<div class="h_box">
+		<div class="l_side" area="agro_navigator" widget_type="area">
+			<!--{widgets page=agroIndex area=agro_navigator}-->
+		</div>
+		<div class="m_side">
+		    <div class="m_side_top" area="agro_rotator" widget_type="area">
+		    <!--{widgets page=agroIndex area=agro_rotator}-->
+		    </div>
+		    <div class="m_side_btm" area="agro_hot_goods" widget_type="area">
+		    <!--{widgets page=agroIndex area=agro_hot_goods}-->
+		    </div>
+		</div>
+		<div class="r_side">
+		    <div class="r_side_top"  area="agro_activity" widget_type="area">
+		       <!--{widgets page=agroIndex area=agro_activity}-->   
+		    </div>
+		</div>
+		<div class="clear"></div>
+	</div>	
+	<div class="body_box" area="agro_toofer" widget_type="area">
+		<!-- {widgets page=agroIndex area=agro_toofer} -->
+	</div>
+	<div class="body_box" area="agro_new_goods" widget_type="area">
+		<!-- {widgets page=agroIndex area=agro_new_goods} -->
+	</div>
+	<div class="body_box" area="agro_bar" widget_type="area">
+		<!-- {widgets page=agroIndex area=agro_bar} -->
+	</div>
+</div>
+{include file=agro_index_bom.html}
+{include file=agro_index_foot.html}
+{include file=footer.html}

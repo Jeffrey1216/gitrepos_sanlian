@@ -1,0 +1,172 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+{include file="curlocal.html"}
+<div class="content">
+<div id="gouwuche">
+    <img src="{res file=images/cart1.jpg}" />
+	<div class="gouwuche1">
+	</div>
+	<!--{foreach from=$carts item=cart key=store_id}-->
+	<div class="gouwuche">
+	<form action="" method="post">
+	    <table  cellSpacing=0 cellPadding=0>
+		<tr>
+	     <th><a href="index.php?app=store&id={$cart.store_id}">店铺：{$cart.store_name}</a></th>
+		 <th>单价</th>
+		 <th>数量</th>
+		 <th>小计</th>
+		 <th>赠送PL</th>
+		 <th>优惠方式</th>
+		 <th>操作</th>
+		</tr>
+		<!--{foreach from=$cart.goods item=goods}-->
+		<tr id="cart_item_{$goods.rec_id}">
+			<td>
+			<div class="fl">
+			<!-- {if $goods.pr_id neq 0} -->
+			<a href="{url app=pr_goods&pr_id=$goods.pr_id}"><img class="img_50"  src="{$goods.simage_url}" alt=""/></a>
+			<!-- {else} -->
+			<a href="{url app=goods&id=$goods.gs_id}"><img class="img_50"  src="{$goods.simage_url}" alt=""/></a>
+			<!-- {/if} -->
+			</div>
+			<div class="fl width11"><p>
+			<!-- {if $goods.pr_id neq 0} -->
+			<a href="{url app=pr_goods&pr_id=$goods.pr_id}">{$goods.goods_name|escape}</a>
+			<!-- {else} -->
+			<a href="{url app=goods&id=$goods.gs_id}">{$goods.goods_name|escape}</a>
+			<!-- {/if} -->		
+			</p>
+			<!-- {if $goods.spec_1 || $goods.spec_2} -->
+			<p>规格：<span>{$goods.spec_1} </span><span>{$goods.spec_2}</span></p>
+			<!-- {/if} -->
+			</div>
+			</td>
+			<td>{$goods.price|price}</td>
+			<td>
+				<img src="{res file=images/subtract.gif"}" onclick="decrease_quantity({$goods.rec_id});" alt="{$lang.decrease}" width="12" height="12" />
+            	<input style="width:50px;" id="input_item_{$goods.rec_id}" value="{$goods.quantity}" orig="{$goods.quantity}" changed="{$goods.quantity}" onkeyup="{if $goods.pr_id neq 0}pr_change_quantity({$store_id}, {$goods.rec_id}, {$goods.pr_id}, this);{else}change_quantity({$store_id}, {$goods.rec_id}, {$goods.spec_id}, this);{/if}" class="text1 width3" type="text" />
+            	<img src="{res file=images/adding.gif"}"onclick="add_quantity({$goods.rec_id});" alt="{$lang.increase}" width="12" height="12" />
+            </td>
+			<td class="red_col"><span class="price2" id="item{$goods.rec_id}_subtotal">{$goods.subtotal|price}</span></td>
+			<td class="red_col" id="item{$goods.rec_id}_credit">{$goods.credit_total|default:0}PL</td>
+		 	<!-- {if $goods.pr_id neq 0} -->			
+			<td><img src="{res file=images/shop_sale.png}" width="43" height="11" alt="店铺促销"/></td>
+			<!-- {else} -->
+			<td>&nbsp;</td>
+			<!-- {/if} -->
+			<td>
+			
+			
+			 <p><a href="javascript:;" onclick="move_favorite({$store_id}, {$goods.rec_id}, {$goods.gs_id});">收藏 </a></p>
+			 <p><a href="javascript:;" onclick="drop_cart_item({$store_id}, {$goods.rec_id});">删除</a></p>
+			</td>
+		</tr>
+		<!--{/foreach}-->
+		</table>
+	  <div class="gouguche_total">
+	   <span class="r"><a style="font-weight:700;" href="{url app=order&goods=cart&store_id=$store_id}" class="gouwuche_buy"></a></span>
+	   <span class="r"><a href="javascript:history.back();" class="back"><img src="{res file=images/gouwuche_10.gif}" />继续购物</a></span>
+	   <span class="r">商品总金额：<strong class="goods_totalcolor" id="cart{$store_id}_amount">{$cart.amount|price}</strong></span>
+	   <span class="r">总获得积分：<span id="cart{$store_id}_credit_total" class="jifen_color">{$cart.credit_total}PL</span></span>
+	  </div>  
+	 </form>
+	</div>
+	<!--{/foreach}-->
+</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+function drop_cart_item(store_id, rec_id){
+    var tr = $('#cart_item_' + rec_id);
+    var amount_span = $('#cart' + store_id + '_amount');
+    var cart_goods_kinds = $('#cart_goods_kinds');
+    $.getJSON('index.php?app=cart&act=drop&rec_id=' + rec_id, function(result){
+        if(result.done){
+          
+            if(result.retval.cart.quantity == 0){
+              return  window.location.reload();    
+            }
+            else{
+            	tr.remove();        
+                amount_span.html(price_format(result.retval.amount));  
+                cart_goods_kinds.html(result.retval.cart.kinds); 
+                window.location.reload();
+            }
+        }
+    });
+}
+function move_favorite(store_id, rec_id, goods_id){
+    var tr = $('#cart_item_' + rec_id);
+    $.getJSON('index.php?app=my_favorite&act=add&type=goods&item_id=' + goods_id, function(result){
+    
+        if(result.done){
+            //drop_cart_item(store_id, rec_id);
+            alert(result.msg);
+        }
+        else{
+            alert(result.msg);
+        }
+
+    });
+}
+function change_quantity(store_id, rec_id, spec_id, input, orig){
+    var subtotal_span = $('#item' + rec_id + '_subtotal');
+    var credit_span = $('#item' + rec_id + '_credit');
+    var amount_span = $('#cart' + store_id + '_amount');
+    var credit_total_span = $("#cart" + store_id + "_credit_total");
+    var _v = input.value;
+    $.getJSON('index.php?app=cart&act=update&spec_id=' + spec_id + '&quantity=' + _v + '&store_id=' + store_id, function(result){
+        if(result.done){
+            
+            $(input).attr('changed', _v);
+            subtotal_span.html(price_format(result.retval.subtotal));
+            credit_span.html(result.retval.credit + "PL");
+            amount_span.html(price_format(result.retval.amount));
+            credit_total_span.html(result.retval.credit_total + "PL");
+        }
+        else{
+           
+            alert(result.msg);
+            $(input).val($(input).attr('changed'));
+        }
+    });
+}
+function pr_change_quantity(store_id, rec_id, pr_id, input, orig){
+    var subtotal_span = $('#item' + rec_id + '_subtotal');
+    var credit_span = $('#item' + rec_id + '_credit');
+    var amount_span = $('#cart' + store_id + '_amount');
+    var credit_total_span = $("#cart" + store_id + "_credit_total");
+    var _v = input.value;
+    $.getJSON('index.php?app=cart&act=pr_update&pr_id=' + pr_id + '&quantity=' + _v + '&store_id=' + store_id, function(result){
+        if(result.done){
+            
+            $(input).attr('changed', _v);
+            subtotal_span.html(price_format(result.retval.subtotal));
+            credit_span.html(result.retval.credit + "PL");
+            amount_span.html(price_format(result.retval.amount));
+            credit_total_span.html(result.retval.credit_total + "PL");
+        }
+        else{
+           
+            alert(result.msg);
+            $(input).val($(input).attr('changed'));
+        }
+    });
+}
+function decrease_quantity(rec_id){
+    var item = $('#input_item_' + rec_id);
+    var orig = Number(item.val());
+    if(orig > 1){
+        item.val(orig - 1);
+        item.keyup();
+    }
+}
+function add_quantity(rec_id){
+    var item = $('#input_item_' + rec_id);
+    var orig = Number(item.val());
+    item.val(orig + 1);
+    item.keyup();
+}
+</script>
+{include file="footer.html"}

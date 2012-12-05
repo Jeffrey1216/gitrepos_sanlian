@@ -1,0 +1,40 @@
+{include file="header.html"}
+<div  class="order_form" style="border:none;margin-top:50px;"> 
+<div class="info">
+  <form method="post" action="index.php?app=audit&act=auditGoods">
+    <table class="infoTable">
+      <!-- {foreach from=$ids item=id} -->
+      <input type="hidden" name="ids[]" value="{$id}" />
+      <!-- {/foreach} -->
+      <tr>
+        <th class="paddingT15">{$lang.audit_con}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="status" value="1" checked="checked" />{$lang.audit_yes}
+            </label>
+            <label>
+            <input type="radio" name="status" value="2" />{$lang.audit_no}
+            </label>
+            <label>
+            <input type="radio" name="status" value="0" />{$lang.no_audit}
+            </label>
+          </p></td>
+      </tr>
+     
+     
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">{$lang.drop_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" /></textarea></td>
+      </tr>
+      
+      <tr>
+        <th></th>
+        <td class="ptb20">
+          <input class="formbtn" type="submit" name="Submit" value="Ìá½»" />
+          <input class="formbtn" type="button" value="·µ»Ø" onclick="history.go(-1)" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

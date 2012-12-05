@@ -1,0 +1,47 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>团购员管理</p>
+  <ul class="subnav">
+  	<!-- {if !$finance} -->
+    <li><a class="btn1" href="index.php?app=channel&act=manager_check">返回</a></li>   
+    <!-- {else} -->
+    <li><a class="btn1" href="index.php?app=verify_last_manager&act=manager_check">返回</a></li>  
+    <!-- {/if} --> 
+    <li><span>直属团购员</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+	<div class="fontl">
+  	</div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+			<th class="width1" align="left">账号</th>
+			<th class="width2" align="left">团购员姓名</th>
+			<th class="width1" align="left">等级</th>
+			<th align="left">地址</th>
+			<th align="left">邀请时间</th>
+    </tr>
+	<!-- {foreach from=$ungroup item=group} -->
+	<tr>
+		<td>{$group.user_name}</td>
+		<td style="padding-left:5px">{$group.real_name}</td>
+		<td>{$group.level_definition}</td>
+		<td class="width3">{$group.region_name}{$group.address}</td>
+		<td style="padding-left:5px">{$group.reg_time|date}</td>
+		<td class="width3"></td>
+	</tr>
+	<!-- {foreachelse} -->
+    <tr class="no_data">
+      <td colspan="10">暂时没有直属团购员记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

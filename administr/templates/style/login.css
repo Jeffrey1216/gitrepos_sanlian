@@ -1,0 +1,19 @@
+@charset "utf-8";
+body {background-color: #f5ffef; background-image: url(images/body02.gif); background-repeat: repeat-x;}
+
+#enter {width: 380px; margin: 220px auto 0; padding-left: 70px; position: relative;}
+.validates {position: absolute; top: 96px; +top: 100px; left: 390px;}
+.text {border: 1px solid #2888cf; background: url(images/input.gif) repeat-x; height: 17px; width: 143px; padding: 1px 0 0 2px; font:12px Arial, "宋体", Verdana, sans-serif; color: #555;}
+.text2 {border: 1px solid #2888cf; background: url(images/input.gif) repeat-x; height: 17px; width: 56px; padding: 1px 0 0 2px; font:12px Arial, "宋体", Verdana, sans-serif; color: #555;}
+table {margin: 14px 0 0 0;}
+td {padding: 0 0 8px 0;}
+.width160 {width: 160px;}
+.validate {position: relative; top: 5px; +top: 3px;}
+th {text-align: left; padding-top: 25px;}
+th input{cursor:pointer}
+.btnEnter {border: 0; width: 63px; height: 23px; background: url(images/enter.gif);}
+.btnBack {border: 0; width: 89px; height: 23px; background: url(images/back.gif); }
+.btnBorget {border: 0; width: 89px; height: 23px; background: url(images/forget.gif);}
+p {color: #999; margin-top: 10px; font-weight: normal;}
+.login_bg{background:url(images/body02_bg.gif) no-repeat scroll 0 0 transparent;width:400px;height:250px;position:relative;bottom:90px;left:-50px;}
+.login_bg table{margin:0 auto;position:absolute;top:105px;left:80px;}

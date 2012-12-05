@@ -1,0 +1,68 @@
+	<div class="agr new">
+			<ul class="agr_ttl new_ttl">
+				<li class="agr_ttl_l new_ttl_l"></li>
+				<li class="agr_ttl_r new_ttl_r">
+					<a href="index.php?app=search" class="more3"></a>
+				</li>
+				<li class="agr_ttl_m">
+					<!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+					<a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+					<!-- {/foreach} -->
+				</li>
+			</ul>
+			<div class="exclt_top">
+				<a style="top: 0px;left: 0px;" href="{$widget_data.images.0.url}">
+					<img height="166px" width="243px" src="{$image_url}{$widget_data.images.0.img}" alt="{$widget_data.images.0.title}" />
+					<div class="mask" style="height: 166px;width: 246px;">
+					</div>
+				</a>
+				<a style="top: 0;left: 246px;" href="{$widget_data.images.1.url}">
+					<img height="166px" width="243px" src="{$image_url}{$widget_data.images.1.img}" alt="{$widget_data.images.1.title}" />
+					<div style="height: 166px;width: 255px;" class="mask">
+					</div>
+				</a>
+				<a style="top: 0;right: 254px;" href="{$widget_data.images.2.url}">
+					<img height="166" width="243px" src="{$image_url}{$widget_data.images.2.img}" alt="{$widget_data.images.2.title}" />
+					<div style="height: 166px;width: 250px;" class="mask">
+					</div>
+				</a>
+				<a style="top: 0px;right: 3px;" href="{$widget_data.images.3.url}">
+					<img height="166px" width="243px" src="{$image_url}{$widget_data.images.3.img}" alt="{$widget_data.images.3.title}" />
+					<div style="height: 166px;width: 265px;left:-1px" class="mask">
+					</div>
+				</a>
+				
+				<a style="top: 167px;left: 0px;" href="{$widget_data.images.4.url}">
+					<img height="166" width="243" src="{$image_url}{$widget_data.images.4.img}" alt="{$widget_data.images.4.title}" />
+					<div style="height: 166px;width: 246px;top:-1px" class="mask">
+					</div>
+				</a>
+				<a style="top: 167px;left: 246px;" href="{$widget_data.images.5.url}">
+					<img height="166" width="243" src="{$image_url}{$widget_data.images.5.img}" alt="{$widget_data.images.5.title}" />
+					<div style="height: 166px;width: 255px;top:-1px" class="mask">
+					</div>
+				</a>
+				<a style="top: 167px;right: 254px;" href="{$widget_data.images.6.url}">
+					<img height="166px" width="243" src="{$image_url}{$widget_data.images.6.img}" alt="{$widget_data.images.7.title}" />
+					<div style="height: 166px;width: 250px;top:-1px" class="mask">
+					</div>
+				</a>
+				<a style="top: 167px;right: 3px;" href="{$widget_data.images.7.url}">
+					<img height="166px" width="243px" src="{$image_url}{$widget_data.images.7.img}" alt="{$widget_data.images.7.title}" />
+					<div style="height: 166px;width: 248px;top:-1px;left:-1px" class="mask">
+					</div>
+				</a>
+			</div>
+			<ul class="rcmd_gds agr_gds exclt_gds goods_padding">
+			<!-- {foreach from=$widget_data.goods item=goods} -->
+				<li>
+					<span class="rcmd_ico">ÀÕ{$goods.credit}PL</span>
+					<a href="index.php?app=goods&id={$goods.gs_id}" class="agr_gds_img"><img src="{$image_url}{$goods.smimage_url}" alt="{$goods.goods_name|escape}" /></a> 
+					<p  class="rcmd_name"><a href="index.php?app=goods&id={$goods.gs_id}">{$goods.goods_name|escape}</a></p>
+					<p class="rcmd_prc">≈…¿≤º€£∫<span>{$goods.price}</span></p>
+				</li>
+			<!-- {/foreach} -->
+			</ul>
+		</div>
+		
+		

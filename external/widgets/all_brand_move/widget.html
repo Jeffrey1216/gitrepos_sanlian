@@ -1,0 +1,75 @@
+<div class="productlist">
+    <h1 class="proline">
+        <a class="font3"></a>
+
+    </h1>
+    <div>
+        <div class="brand" style="width:996px;">
+            <div class="move_image move_image2">
+                <span class="to_left"></span>
+                <span href="#" class="to_right"></span>
+
+                <div class="v_content">
+                	<div class="v_content_image">
+	                	<div class="v_content_list">
+	                    <ul style="overflow:hidden;">
+	                    <!--{foreach from=$widget_data item=brand}-->
+	                        <li><a href="{url app=search&brand=$brand.brand_name|escape:url}"><img original="{$brand.brand_logo}" alt="{$brand.brand_name|escape}" title="{$brand.brand_name|escape}"/></a></li>
+	                    <!--{/foreach}-->
+	                    </ul>
+	                  	</div>
+	                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+    var page = 1;
+    var i = 10; //每版放10个图片
+    var n = 1; //每次移动1个
+    //向后 按钮
+    $("span.to_left").click(function(){    //绑定click事件
+	   var $parent = $(this).parents("div.productlist");//根据当前点击元素获取到父元素
+		 var $v_show = $parent.find("div.v_content_list"); //寻找到“视频内容展示区域”
+		 var $v_content = $parent.find("div.v_content_image"); //寻找到“视频内容展示区域”外围的DIV元素
+		 var v_width = $v_content.width()/(i/n) ;
+		 var len = $v_show.find("li").length;
+		 var page_count = (Math.ceil((len - i) / n))+1;   //只要不是整数，就往大的方向取最小的整数
+		 if( !$v_show.is(":animated") ){    //判断“视频内容展示区域”是否正在处于动画
+			  if( page == page_count ){  //已经到最后一个版面了,如果再向后，必须跳转到第一个版面。
+				$v_show.animate({ left : '0px'}, "slow"); //通过改变left值，跳转到第一个版面
+				page = 1;
+				}else{
+				$v_show.animate({ left : '-='+v_width }, "slow");  //通过改变left值，达到每次换一个版面
+				page++;
+			 }
+		 }
+		 $parent.find("span").eq((page-1)).addClass("current").siblings().removeClass("current");
+   });
+    //往前 按钮
+    $("span.to_right").click(function(){
+    	//alert("fuck");
+	   var $parent = $(this).parents("div.productlist");//根据当前点击元素获取到父元素
+		 var $v_show = $parent.find("div.v_content_list"); //寻找到“视频内容展示区域”
+		 var $v_content = $parent.find("div.v_content_image"); //寻找到“视频内容展示区域”外围的DIV元素
+		 var v_width = $v_content.width()/(i/n);
+		 var len = $v_show.find("li").length;
+		 var page_count = (Math.ceil((len - i) / n)) + 1;   //只要不是整数，就往大的方向取最小的整数
+		 if( !$v_show.is(":animated") ){    //判断“视频内容展示区域”是否正在处于动画
+		 	 if( page == 1 ){  //已经到第一个版面了,如果再向前，必须跳转到最后一个版面。
+				$v_show.animate({ left : '-='+v_width*(page_count-1) }, "slow");
+				page = page_count;
+			}else{
+				$v_show.animate({ left : '+='+v_width }, "slow");
+				page--;
+			}
+		}
+		$parent.find("span").eq((page-1)).addClass("current").siblings().removeClass("current");
+    });
+});
+
+
+</script>

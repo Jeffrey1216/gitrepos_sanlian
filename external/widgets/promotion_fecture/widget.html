@@ -1,0 +1,17 @@
+		<div class="prmt">
+			<ul class="prmt_ttl">
+				<li class="prmt_ttl_l"></li>
+				<li class="prmt_ttl_r">
+					
+				</li>
+			</ul>
+			<ul class="prmt_ad">
+			<!-- {foreach from=$widget_data.images item=images} -->
+				<li class="prmt_ad_mg">
+					<a href="{$images.url}">
+						<img src="{$image_url}{$images.img}" alt="{$images.title}" width="196" height="300"/>
+					</a>
+				</li>
+			<!-- {/foreach} -->
+			</ul>
+		</div>

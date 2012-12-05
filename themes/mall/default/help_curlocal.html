@@ -1,0 +1,14 @@
+<div id="new_keyword" class="agr_map">
+<div class="keyword">
+    <div class="keyword1"></div>
+    <div class="keyword2"></div>
+    <span>{$lang.curlocal}:</span>
+    <!--{foreach from=$_curlocal item=lnk}-->
+    <!--{if $lnk.url}-->
+    {$lnk.text|escape} &gt;
+    <!--{else}-->
+    {$lnk.text|escape}
+    <!--{/if}-->
+    <!--{/foreach}-->
+</div>
+</div>

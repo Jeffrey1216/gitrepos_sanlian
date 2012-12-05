@@ -1,0 +1,50 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<div class="content">
+    {include file=member.menu.html}
+	<div id="right">
+	{include file=member.subtop.html}
+	<ul class="tab">
+     <li class="active">会员转账</li>
+    </ul>
+    <div class="wrap" style="padding:15px 0 0 0">
+	<form method="post" action="index.php?app=member&act=carry" id="recom_form">
+	<table style="width:630px;margin:0px auto;color:#000">
+	   	<tr>
+		   	<td>
+		   		<div style="float:left;margin-left:70px;padding:5px 0px;*padding-left:20px;font-size:14px">转账类型：</div>
+		   		<select name="ca_type"  class="text" style="height:25px">
+		   			<option value="1">余额转账</option>
+		   		</select>
+		   	</td>	
+	   	</tr>
+	   	<tr>
+		   	<td>
+		   		<div style="float:left;padding:5px 0; font-size:14px">会员名称或手机号码：</div><input type="text" name="user_num" AUTOCOMPLETE="off" class="text width_normal" style="height:15px"><span>&nbsp;&nbsp;&nbsp;&nbsp;<em style="color:red">*</em>&nbsp;&nbsp;&nbsp;( 收款人在派啦网的会员名称或手机号码 )</span>
+		   	</td>	
+	   	</tr>
+	   	<tr>
+		   	<td>
+		   		<div style="float:left;margin-left:70px;padding:5px 0;padding:5px 0;*padding:5px 0 0 8px;*padding-left:0px; font-size:14px">付款金额：</div>
+		   		<input name="money" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" AUTOCOMPLETE="off"  class="text width_normal" style="height:15px"><span>&nbsp;&nbsp;&nbsp;&nbsp;<em style="color:red">*</em></span>
+		   	</td>	
+	   	</tr>
+	   	<tr>
+		   	<td>
+		   		<div style="float:left;margin-left:70px;padding:5px 0;*padding:25px 0 0 8px;*padding-top:5px;*padding-left:0px;  font-size:14px">支付密码：</div> <input type="password" name="paypassword" id="ppwd" class="text width_normal" style="height:15px"><span>&nbsp;&nbsp;&nbsp;&nbsp;<em style="color:red">*</em><a href="index.php?app=member&act=passwordpayment" style="color:#1562a4;display:inline;font-size:12px;font-weight:normal">忘记支付密码？</a></span>
+		   	</td>	
+	   	</tr>
+	   <tr>
+	   	<td>
+	   	<input type="hidden" name="user_id" value="{$user_id}"/>
+	   	<input type="submit"  value="" class="mypaila_btn_images" />
+	   	</td>
+	   </tr>
+	 </table> 
+	 </form>   
+ </div>
+</div>
+</div>
+{include file=footer.html}

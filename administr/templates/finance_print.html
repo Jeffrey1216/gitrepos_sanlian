@@ -1,0 +1,41 @@
+{include file="header.html"}
+<style media="print">
+	.noprint {
+		display:none;
+}
+</style>
+<OBJECT id="WebBrowser" height="0" width="0" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>
+<div class="print">
+<div class="tablearea">
+<table cellpadding="0" cellspacing="0" class="table01">
+<tr>
+<td class="td_l"><img src="http://www.paila100.com/administr/templates/style/images/listlogo.jpg"/></td>
+</tr>
+<tr>
+<td>三联融创投资有限公司充值凭条</td>
+</tr>
+<tr>
+<td>会&nbsp;&nbsp;员&nbsp;&nbsp;名：{$verify.user_name|escape}</td>
+</tr>
+<tr>
+<td>余额变动：{$verify.money|price}</td>
+</tr>
+<tr>
+<td>变动记录：{$verify.notes|escape}</td>
+</tr>
+<tr>
+<td>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：{$verify.remark|escape}</td>
+</tr>
+<tr>
+<td>添加时间：{$verify.add_time|date:complete}</td>
+</tr>
+<tr>
+<td>审核状态：<!-- {if $verify.verify eq 1} -->已通过<!-- {elseif $verify.verify eq 2} -->未通过<!-- {/if} --></td>
+</tr>
+</table>
+</div>
+<div style="text-align:center">
+<span class="noprint" >
+<input type="button" value="打印" onclick="javascript:window.print()">
+</span></div>
+</div>

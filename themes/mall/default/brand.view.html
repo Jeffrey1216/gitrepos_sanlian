@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset=gbk" />
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="{new_res file=css/pp_index.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{new_res file=js/jquery.js}"></script>
+<script type="text/javascript" src="{new_res file=js/photo.js}"></script>
+
+
+<title>品牌托管--首页</title>
+</head>
+<body class="view_bg">
+<div class="view_bg">
+    <div class="index_header_ctt">
+        <div class="index_loginbar_ctt">
+            <div class="index_logunbar_l">
+                <a href="index.php?app=brand_mandate">返回品牌托管</a>
+                <span style="padding:0 5px;">{$visitor.user_name|escape}
+                <!--{if !$visitor.user_id}-->&nbsp;
+			          请先 [ <a href="{url app=member&act=login}">登录</a> ] 或 [ <a href="{url app=member&act=register}">注册</a> ]
+			    <!--{else}--> 
+			    [<a href="{url app=member&act=logout}">退出</a>]
+			    <!--{/if}-->	
+				</span>			
+            </div>
+            <ul class="index_loginbar_r">
+               <li>
+                  <a href="index.php?app=member">我的派啦</a><span>|</span>
+               </li>
+               <li>
+                  <a href="index.php?app=download&act=Merchant">派啦店下载</a><span>|</span>
+               </li>
+               <li>
+                  <a href="index.php?app=download&act=Channel">渠道商下载</a><span>|</span>
+               </li>
+               <li>
+                  <a href="index.php?app=default&act=map">派啦店分布图</a><span>|</span>
+               </li>
+               <li>
+                  <a href="index.php?app=article&act=brand&article_id=75">帮助中心</a>
+               </li>
+            </ul>
+        </div>       
+    </div>
+</div>
+<div class="qxsh_back">
+
+    <div class="qxsh_title">
+       <div class="qxsh_headbg">
+       <div class="font">{$supply_info.supply_name}</div></div>       
+    </div>
+    <div class="content">
+
+        <div class="qxsh_num">
+            <div class="qxsh_num_title">
+                <h3>{$supply_info.supply_name}</h3>
+            </div>
+            <div class="qxsh_num_content">
+                <div class="qxsh_num_logo">
+                    <img width="271" height="203" src="{$supply_info.supply_logo}" class="qxsh_logo" alt="{$supply_info.supply_name}" />
+                </div>
+                <ul class="qxsh_num_ctct">
+                   <li><h3>{$supply_info.supply_name}</h3></li>
+                   <li>联系人：{$supply_info.linkman}</li>
+                   <li>供应商类型：<!-- {if $supply_info.supply_type eq 1} -->普通会员<!-- {elseif  $supply_info.supply_type eq 2}-->供应商<!-- {elseif  $supply_info.supply_type eq 3}-->店面加盟<!-- {elseif  $supply_info.supply_type eq 4}-->生产厂家<!-- {/if} --></li>
+                   <li>电话：{$supply_info.mobile}</li>
+                   <li>地址：{$supply_info.address}</li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="qxsh_det">
+            <div class="qxsh_det_title">
+                <h3>店铺详情</h3>
+            </div>
+
+            <div class="qxsh_det_content">               
+                <div class="qxsh_det_intr">
+                <h3>公司简介：</h3>
+                    {$supply_info.company_info}
+                </div>
+            </div>
+        </div>
+
+        <div class="qxsh_pct">
+            <div class="qxsh_det_title">
+                <h3>图片展示</h3>
+            </div>
+            <div class="qxsh_pct_content">
+                <div class="move_image move_image3">
+					<span id="paila_to_left" class="to_left2 to_left_none"></span>
+					<span id="paila_to_right" class="to_right2"></span>
+					<div class="v_content">
+					<div class="v_content_list">
+						<ul id="moveUl">
+						<!-- {foreach from=$supply item=supply_in} -->
+							<li style="width:280px;">
+							<img width="220" height="220" src="{$supply_in.goods_image}"/>
+							</li>
+						<!-- {/foreach} -->
+						</ul>
+					</div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	var page=1;
+	var i=3
+	$("#paila_to_right").click(function(){
+		var v_width=$(".v_content").width();
+		var len=$(".v_content_list ul").find("li").length;
+		var page_content=Math.ceil(len/i);
+		if(!$(".v_content_list").is(":animated")){
+		if(page==page_content){
+			$(".v_content_list").animate({left:'0px'},"slow");
+			page=1;
+		}else{
+			$(".v_content_list").animate({left:'-='+v_width},"slow");
+			page++;
+		}
+		};
+	});
+	$("#paila_to_left").click(function(){
+		var v_width=$(".v_content").width();
+		var len=$(".v_content_list ul").find("li").length;
+		var page_content=Math.ceil(len/i);
+		if(!$(".v_content_list").is(":animated")){
+		if(page==1){
+			$(".v_content_list").animate({left:'-='+v_width*(page_content-1)},"slow");
+			page=page_content;
+		}else{
+			$(".v_content_list").animate({left:'+='+v_width},"slow");
+			page--;
+		}
+		};
+	});
+})
+</script>

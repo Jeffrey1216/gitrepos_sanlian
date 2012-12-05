@@ -1,0 +1,58 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>转账记录</p>
+  <ul class="subnav">
+    <li><span>管理</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+	<div class="fontl">
+
+    <form method="get">
+       <div class="left">
+          <span>用户名：</span>
+          <span class="two_grade"><input class="queryInput" name="user_name" type="text" value=""></span> 
+          <select id="smstype" class="querySelect" name="type">
+          	<option value="all" selected>全部类型</option>
+          	<option value="42">余额转账</option>
+          	<option value="43">PL币转账</option>
+          </select> 
+          <input type="hidden" name="app" value="channel"/>
+          <input type="hidden" name="act" value="transfer_accounts"/>
+          <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>用户名</td>
+      <td>转账金额</td>
+      <td>转账PL币</td>
+      <td>记录时间</td>
+      <td>详细描述</td>
+      <td>操作类型</td>
+    </tr>
+    <!--{foreach from=$users item=user}-->
+    <tr class="tatr2">
+      <td>{$user.user_name}</td>
+      <td>{$user.user_money}</td>
+      <td>{$user.user_credit}</td>
+      <td>{$user.change_time|date:Y-m-d H:m}</td>
+      <td>{$user.change_desc}</td>
+      <td>{$user.change_type}</td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有渠道商记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

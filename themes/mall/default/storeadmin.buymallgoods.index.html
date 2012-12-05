@@ -1,0 +1,127 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<div class="borderBox">
+	<h3 class="tit"><span>派啦专柜商品</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=buy_mallgoods">派啦专柜商品</a></li>
+	</ul>
+	<div title="查看我的购物车" class="eject_btn_two"><b class="ico12"><a href="index.php?app=commoncart">查看我的购物车</a></b></div>
+	<div class="public_02">	
+	<div class="table" style=" padding-top:5px;">
+	 <table id="addgoods" cellpadding="0" cellspacing="0">
+				<colgroup>
+                <col width="27%" />
+                <col width="10%" />
+                <col width="12%" />       
+                <col width="12%" />         
+                <col width="12%" />
+                <col width="12%" />         
+ 				<col width="9%" /> 
+				<col width="6%" />     
+                </colgroup>
+                <form id="mallgoods" method="get" style="margin:0; padding:0;">
+                    <tr>
+                    <td colspan="8">
+                    <table width="100%" style="margin-top:0">
+                    	<tr><td>
+                            <div style="clear:both; display:block">
+                            商品分类：<span id="gcategory">
+                                <select onchange="all_gcategoryChange('gcategory', this);" class="querySelect">
+                                <option>{$lang.select_pls}</option>
+                                {html_options options=$gcategories}
+                                </select>
+                                <input type="hidden" name="cate_id" value="0" class="mls_id" /> 
+                                <input type="hidden" name="cate_name" value="0" class="mls_name" /> 
+                                <input type="hidden" name="cate_name" value="0" class="mls_names" />
+                            	</span>
+                            	<input type="hidden" name="app" value="buy_mallgoods">  
+                            </div>   
+                            <div style="clear:both; display:block"> 
+                             商品价格：           
+                        		<select name='price'>
+                                <option value="0">选择商品价格区间</option>   
+                                <option value="1" <!--{if $smarty.get.price==1}-->selected<!--{/if}-->>5元以下</option>
+                                <option value="2" <!--{if $smarty.get.price==2}-->selected<!--{/if}-->>5元-10元</option>
+                                <option value="3" <!--{if $smarty.get.price==3}-->selected<!--{/if}-->>10元-20元</option>
+                                <option value="4" <!--{if $smarty.get.price==4}-->selected<!--{/if}-->>20元-30元</option>
+                                <option value="5" <!--{if $smarty.get.price==5}-->selected<!--{/if}-->>30元-40元</option>
+                                <option value="6" <!--{if $smarty.get.price==6}-->selected<!--{/if}-->>40元-50元</option>
+                                <option value="7" <!--{if $smarty.get.price==7}-->selected<!--{/if}-->>50元-60元</option>
+                                <option value="8" <!--{if $smarty.get.price==8}-->selected<!--{/if}-->>60元-70元</option>
+                                <option value="9" <!--{if $smarty.get.price==9}-->selected<!--{/if}-->>70元-80元</option>
+                                <option value="10" <!--{if $smarty.get.price==10}-->selected<!--{/if}-->>80元-90元</option>   
+                                <option value="11" <!--{if $smarty.get.price==11}-->selected<!--{/if}-->>90元-100元</option>  
+                                <option value="12" <!--{if $smarty.get.price==12}-->selected<!--{/if}-->>100元-200元</option>  
+                                <option value="13" <!--{if $smarty.get.price==13}-->selected<!--{/if}-->>200元以上</option>                             
+                                </select>
+              
+                                &nbsp;&nbsp;&nbsp;&nbsp;关键字/商品编码
+                                <input type="text" name="keyword" value="{$smarty.get.keyword}"/>
+                            		<input type="submit" class="btn" value="搜索" />
+                                    <!--<input type="checkbox" id="all" class="checkall" style="vertical-align:middle;margin-right:5px;"/><span class="all"><label for="all">全选</label></span> <input type="button" class="btn1" value="加入购物车" style="float:none"/>-->
+                              </div>       
+                        </td>
+                        
+                        </tr>
+                    </table>
+          
+                     </td>
+                    </tr>        
+                    </form>           
+                    <tr class="gray">                
+			            <th style="padding-left:20px;">商品信息</th>
+                        <th class="cursor_pointer"><span>商品分类</span></th>
+                      	<th class="cursor_pointer"><span>商品零售价</span></th>                   
+                        <th class="cursor_pointer"><span>专柜进货价</span></th>
+                        <th class="cursor_pointer" style="padding-left:15px;" colspan="5"><span>操作</span></th>                                                           
+                    </tr>  
+                    <!--{foreach from=$goods_list item=rs}-->                 
+                    <tr>
+                        <td>
+                        <!--<input type="checkbox" class="checkitem" value="" style="float:left;vertical-align:middle;margin:3px;"/>  -->
+                        <div class="pro"><a href="index.php?app=buy_mallgoods&act=show_goods&id={$rs.goods_id}"><img width="50px" height="50px" src="{$rs.simage_url}"/></a></div>
+                        <div style="float:left;margin-left:5px">
+                        <div class="cursor_pointer">
+                        <span><a href="index.php?app=buy_mallgoods&act=show_goods&id={$rs.goods_id}">{$rs.goods_name}</a></span>                     
+                        </div>
+                        </div>
+                        </td>   
+                        <td>{$rs.cate_name}</td>                  
+						<td>{$rs.price}</td>
+						<td>{$rs.zprice}</td>                                      
+                        <td colspan="5">
+                       <a href="index.php?app=buy_mallgoods&act=show_goods&id={$rs.goods_id}" class="btn1">查看详情</a>
+                    	 <a dialog_width="600" uri="index.php?app=buy_mallgoods&act=addForm&goods_id={$rs.goods_id}" dialog_title="加入购物车" dialog_id="addCart" ectype="dialogAddCart" class="btn1">加入购物车</a>
+                       </td>               
+                    </tr> 
+                 <!--{foreachelse}-->
+                    <tr>
+                        <td class="align2 member_no_records padding6" colspan="8">{$lang.no_records}</td>
+                    </tr>
+            	<!--{/foreach}-->
+                 <tr>
+				<td colspan="8">
+					<div class="page">
+                                {$page}
+                    </div>
+			    </td>
+			    </tr>
+                </table>
+	</div>
+	</div>
+</div>
+<script type="text/javascript" src="{lib file=mlselection.js}" charset="utf-8"></script>
+<script type="text/javascript">
+var iptObj;
+$('a[ectype="dialogAddCart"]').click(function(){
+	iptObj = this;
+    var id = $(this).attr('dialog_id');
+    var title = $(this).attr('dialog_title') ? $(this).attr('dialog_title') : '';
+    var url = $(this).attr('uri');
+    var width = $(this).attr('dialog_width');
+    ajax_form(id, title, url, width);
+    return false;
+});
+
+</script>

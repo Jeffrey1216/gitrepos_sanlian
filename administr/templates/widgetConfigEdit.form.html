@@ -1,0 +1,68 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p><strong>编辑挂件信息</strong><span style="float:right;"><a href="index.php?app=widget&act=clear_widget_base&widget_name={$widget_name}&pics_num={$pics_num}&goods_num={$goods_num}">清空挂件信息</a></span></p>
+</div>
+
+<div class="info">
+    <form method="post" enctype="multipart/form-data">
+        <table class="infoTable">
+            <tr>
+                <th class="paddingT15">
+                    <label for="widget_contents">图片信息:</label></th>
+                <td class="paddingT15 wordSpacing5">
+                    <!-- {foreach from=$widget_data.images item=pic} -->
+                    	上传图片:<input type="file" name="pics[]" /><img width="20px" height="10px" src="{$site_url}/{$pic.img}"/>&nbsp;&nbsp;
+                    	图片指向地址:<input type="text" name="urls[]" value="{$pic.url}"/>
+                    	图片标题信息:<input type="text" name="title[]" value="{$pic.title}"/>
+    <!--       	选择大分类:<select name="cate_id[]">
+                    		<option value="na">--请选择所属商品大分类--</option>
+                    	<!-- {foreach from=$gcategory_list item=gcategory } -->
+                    		<option {if $pic.cate_id eq $gcategory.cate_id} selected{/if} value="{$gcategory.cate_id}">{$gcategory.cate_name}</option>
+                    	<!-- {/foreach} -->
+                    	</select>{$pic.cate_id} 
+                    	-->           
+                    	<br/>
+                    <!-- {/foreach} -->
+                </td>
+            </tr>
+            <!-- {if $goods_num > 0} -->
+            <tr>
+                <th class="paddingT15">
+                    <label for="widget_contents">商品信息:</label></th>
+                <td class="paddingT15 wordSpacing5">
+                    <!-- {foreach from=$widget_data.goods item=good name=sel} -->
+						选择商品ID:<input type="text" name="gs_id[]" label="{$smarty.foreach.sel.iteration}" value="{$good.gs_id}" dialog_width="600" uri="index.php?app=widget&act=search&label={$smarty.foreach.sel.iteration}&widget_name={$widget_name}&pics_num={$pics_num}&goods_num={$goods_num}" dialog_title="选择" dialog_id="sel_goods" ectype="dialogSearch"/>点击搜索商品&nbsp;&nbsp;
+						商品附加图片:	<select name="subjoin_img[]">
+										<option value="#">无附加图片</option>
+										<option {if $good.subjoin_img eq 'data/files/mall/widgetImage/hot.jpg' } selected {/if} value="data/files/mall/widgetImage/hot.jpg">热卖</option>
+										<option {if $good.subjoin_img eq 'data/files/mall/widgetImage/new.gif' } selected {/if} value="data/files/mall/widgetImage/new.gif">新品</option>
+									</select><br/>
+                    <!-- {/foreach} -->
+                </td>
+            </tr>
+            <!-- {/if} -->
+            <tr>
+                <th></th>
+                <td class="ptb20">
+                    <input class="formbtn" type="submit" value="{$lang.submit}" />
+                    <input class="formbtn" type="button" onclick="window.history.go(-1)" value="{$lang.return}" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+var iptObj;
+$('input[ectype="dialogSearch"]').click(function(){
+	iptObj = this;
+    var id = $(this).attr('dialog_id');
+    var title = $(this).attr('dialog_title') ? $(this).attr('dialog_title') : '';
+    var url = $(this).attr('uri');
+    var width = $(this).attr('dialog_width');
+    ajax_form(id, title, url, width);
+    return false;
+});
+
+
+</script>
+{include file="footer.html"}

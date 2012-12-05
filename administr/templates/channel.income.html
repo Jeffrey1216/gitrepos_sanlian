@@ -1,0 +1,64 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>渠道商收益管理</p>
+  <ul class="subnav">
+    <!--li><a class="btn1" href="index.php?app=channel&act=add">{$lang.add}</a></li>
+    <li><span>管理</span></li-->
+  </ul>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+    <form method="get">
+       <div class="left">
+          <input type="hidden" name="app" value="channel" />
+          <input type="hidden" name="act" value="income" />
+		  姓名:<input class="queryInput" type="text" name="name" value="" />
+          手机号:<input class="queryInput" type="text" name="mobile" value="" />
+          <input type="submit" class="formbtn" value="查询" />
+      </div>
+          </form>
+  </div> 
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>渠道商姓名</td>
+      <td>手机号</td>
+      <td>等级</td>
+      <td>所属区域</td>
+      <td>推荐商户</td>
+      <td>推荐收益</td>
+      <td>推荐方式</td>
+      <td>推荐时间</td>
+      <td>结算方式</td>
+      <td>结算时间</td>
+      <td>收益状态</td>
+    </tr>
+    <!--{foreach from=$users item=user}-->
+    <tr class="tatr2">
+      <td>{$user.name} （<!--{if $user.gender eq 0}-->先生<!--{elseif $user.gender eq 1}-->女士<!--{/if}-->）</td>
+      <td>{$user.mobile}</td>
+      <td>{$user.level_name}</td>
+      <td>{$user.area_name}</td>
+      <td>{$user.channel_name}</td>
+      <td>{$user.income}</td>
+      <td>{if $user.type eq 0}直接{else}间接{/if}</td>
+      <td>{$user.recomtime|date}</td>
+      <td>{if $user.closetime}{if $user.type eq 0}银行结算{else}人工结算{/if}{/if}</td>
+      <td>{if $user.closetime}{$user.closetime|date}{/if}</td>
+      <td class="handler"><!--{if $user.status eq 0}-->未结算 [<a href="index.php?app=channel&act=incomeset&id={$user.id}">结算</a>]<!--{else}-->已结算 [<a href="index.php?app=channel&act=incomeset&id={$user.id}">详情</a>]<!--{/if}--> 
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有渠道商收益记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

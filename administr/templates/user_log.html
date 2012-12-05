@@ -1,0 +1,85 @@
+{include file="header.html"}
+<script type="text/javascript">
+	$(function(){
+		$('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+		$('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+	});
+</script>
+<div id="rightTop">
+  <ul class="subnav2">
+        <li>用户名:<b style="font-size:13px; color:#00f">{$member.user_name}</b></li>
+        <li>余额:<font class="price">{$member.money|price}</font></li>
+        <li>冻结余额:<font class="price">{$member.frozen_money|price}</font></li>
+        <li>PL币:<font class="price">{$member.credit}PL</font></li>
+        <li>冻结PL币:<font class="price">{$member.frozen_credit}PL</font></li>
+    </ul>
+</div>
+
+<div class="mrightTop">
+  <div class="fontl">
+    <form method="get">
+       <div class="left">
+       <input type="hidden" name="app" value="user_memage" />
+       <input type="hidden" name="act" value="details" />
+       <input type="hidden" name="id" value="{$id}" />
+                 状态:
+       <select name="change_type">
+       		<option value=0>请选择...</option>
+       		<option value="amount">统计收益</option>
+       		<!-- {html_options options=$change_type selected=$smarty.get.change_type} -->	
+       </select>
+                起始时间:<input class="queryInput3" type="text" value="{$smarty.get.add_time_from}" id="add_time_from" name="add_time_from" />
+                至:<input class="queryInput3" type="text" value="{$smarty.get.add_time_to}" id="add_time_to" name="add_time_to" />
+       <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+    </form>
+  </div>
+
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>PL币</td>
+      <td>冻结PL币</td>
+      <td>余额</td>
+      <td>冻结余额</td>
+      <td><span ectype="order_by" fieldname="reg_time">操作时间</span></td>
+      <td><span ectype="order_by" fieldname="last_login">操作描述</span></td>
+      <td>订单号</td>
+      <td>操作类型</td>	
+    </tr>
+	<tr class="tatr2">
+      <td class="amount_new">统计：{$user_count.amount_user_credit}PL</td>
+      <td class="amount_new">统计：{$user_count.amount_frozen_credit}PL</td>
+      <td class="amount_new">统计：{$user_count.amount_user_money|price}</td>
+      <td class="amount_new">统计：{$user_count.amount_frozen_money|price}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+<!-- {foreach from=$users item=user} -->
+    <tr class="tatr2">
+      <td>{$user.user_credit}PL</td>
+      <td>{$user.frozen_credit}PL</td>
+      <td>{$user.user_money|price}</td>
+      <td>{$user.frozen_money|price}</td>
+      <td>{$user.change_time|date:Y-m-d H:i:s}</td>
+      <td>{$user.change_desc}</td>
+      <td>{$user.order_id}</td>
+      <td>{$user.change_type}</td>
+    </tr>
+<!-- {foreachelse} -->
+    <tr class="no_data">
+      <td colspan="10">{$lang.no_data}</td>
+    </tr>
+<!-- {/foreach} -->
+  </table>
+
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

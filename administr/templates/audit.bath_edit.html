@@ -1,0 +1,30 @@
+{include file="header.html"}
+<div class="info">
+  <form method="post">
+    <table class="infoTable">   
+      <tr>
+        <th class="paddingT15">{$lang.audit_con}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="status" value="1" checked="checked" />{$lang.audit_yes}
+            </label>
+            <label>
+            <input type="radio" name="status" value="2" />{$lang.audit_no}
+            </label>
+          </p></td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">{$lang.drop_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" /></textarea></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20">
+          <input class="formbtn" type="submit" name="Submit" value="Ìá½»" />
+          <input class="formbtn" type="button" value="·µ»Ø" onclick="history.go(-1)" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

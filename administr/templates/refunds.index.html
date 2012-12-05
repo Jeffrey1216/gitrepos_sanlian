@@ -1,0 +1,79 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+    <ul class="subnav2">
+        <li class="on"><a href="index.php?app=refunds">商城退货订单<span></span></a></li>
+    </ul>
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">
+                <input type="hidden" name="app" value="refunds" />
+                <input type="hidden" name="act" value="index" />
+                订单号：<input class="queryInput" type="text" name="order_sn" value="{$query.order_sn|escape}" />
+      订单类型：        <select class="querySelect" name="order_type">
+                    <option value="">请选择..</option>
+                    {html_options options=$order_type selected=$query.order_type.value}
+                </select>
+                      审核状态：<select name="verify_type">
+      				<option value="">请选择..</option>
+      				{html_options options=$verify_type selected=$query.verify_type.value}
+      		</select>
+               订单状态：<select name="type">
+               	<option value="">请选择..</option>
+               		{html_options options=$type selected = $query.type.value}
+               </select>	
+                退货时间:<input class="queryInput3" type="text" value="{$query.refund_time_from}" id="add_time_from" name="refund_time_from" class="pick_date" />
+                至:<input class="queryInput3" type="text" value="{$query.refund_time_to}" id="add_time_to" name="refund_time_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+            <a class="left formbtn1" href="index.php?app=refunds">{$lang.cancel_query}</a>
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+        {include file=page.top.html}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <tr class="tatr1">
+			<td>订单号</td>
+			<td>订单类型</td>
+			<td>买家</td>
+			<td>订单状态</td>
+			<td>审核状态</td>
+			<td>退货时间</td>
+			<td>操作</td>
+        </tr>
+        <!--{foreach from=$order_info item=order}-->
+        <tr class="tatr2">
+         	<td><a href="index.php?app=refunds&act=verify&id={$order.order_id}&type=1">{$order.order_sn}</a></td>
+			<td><!-- {if $order.type eq 0} -->线上订单<!-- {else} -->线下订单<!-- {/if} --></td>
+			<td>{$order.buyer_name|escape}</td>
+			<td><!-- {if $order.status eq 50} -->退货中...<!-- {else} -->退货完成<!-- {/if} --></td>
+			<td><!-- {if $order.op_status eq 0} -->未操作<!-- {elseif $order.op_status eq 1} -->物流已审核，等财务审核<!--{else}-->物流未通过<!-- {/if} --></td>
+			<td>{$order.refund_time|date:complete}</td>
+			<td><!-- {if $order.op_status eq 0} --><a href="index.php?app=refunds&act=verify&id={$order.order_id}">审核</a><!-- {elseif $order.op_status eq 1} -->已通过<!-- {else} -->未通过<!-- {/if} --></td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="7">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

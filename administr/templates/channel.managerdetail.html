@@ -1,0 +1,82 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>团购员管理</p>
+  <ul class="subnav">
+    <!-- {if !$finance} -->
+    <li><a class="btn1" href="index.php?app=channel&act=manager">审核</a></li>    
+    <li><a class="btn1" href="index.php?app=channel&act=manager_check">管理</a></li>
+    <!-- {else} -->
+    <li><a class="btn1" href="index.php?app=verify_last_manager">审核</a></li>    
+    <li><a class="btn1" href="index.php?app=verify_last_manager&act=manager_check">管理</a></li>  
+    <!-- {/if} --> 
+  </ul>
+</div>
+<divclass="mrightTop"></div>
+<div class="tdare">
+<form method="post">
+  <table cellspacing="0" cellspacing="0">
+   	<tr>
+   		<td>用户名:</td>
+   		<td>{$customerManager_info.user_name}</td>
+   	</tr>
+   	<tr>
+   		<td>真实姓名:</td>
+   		<td>{$customerManager_info.real_name}</td>
+   	</tr>
+   	<tr>
+   		<td>总业绩:</td>
+   		<td>{$customerManager_info.outstanding_achievement_total}</td>
+   	</tr>
+   	<tr>
+   		<td>总收益:</td>
+   		<td>{$customerManager_info.gains_total}</td>
+   	</tr>
+   	<tr>
+   		<td>等级:</td>
+   		<td>
+   			<select name="customer_level">
+   				<option>请选择</option>
+   				<!-- {foreach from=$levels item=l} -->
+   				<option {if $customerManager_info.customer_level eq $l.level_id}selected{/if} value={$l.level_id}>{$l.level_definition}</option>
+   				<!-- {/foreach} -->
+   			</select>
+   		</td>
+   	</tr>
+   	<tr>
+   		<td>性别:</td>
+   		<td>{$customerManager_info.sex}</td>
+   	</tr>
+   	<tr>
+   		<td>身份证号:</td>
+   		<td>{$customerManager_info.identity_num}</td>
+   	</tr>
+   	<tr>
+   		<td>身份证图:</td>
+   		<td><img src="{$site_url}/{$customerManager_info.identity_card}" style="width:50px;height:50px;" /></td>
+   	</tr>
+   	<tr>
+   		<td>电话:</td>
+   		<td>{$customerManager_info.tel_phone}</td>
+   	</tr>
+   	<tr>
+   		<td>电子邮箱:</td>
+   		<td>{$customerManager_info.email}</td>
+   	</tr>
+   	<tr>
+   		<td>地址:</td>
+   		<td>{$customerManager_info.region_name} &nbsp;&nbsp;&nbsp;&nbsp;{$customerManager_info.address}</td>
+   	</tr>
+   	<tr>
+   		<td>成为团购员时间:</td>
+   		<td>{$customerManager_info.reg_time|date:Y-m-d H:m:s}</td>
+   	</tr>
+   <tr><td>&nbsp;</td><td><input type="submit" value="提交" style="clear:both;height:21px;" class="formbtn"></td></tr>           
+  </table>
+</form>  
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+{include file="footer.html"}

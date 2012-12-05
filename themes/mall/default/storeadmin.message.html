@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk"/>
+<style type="text/css">
+	body{ padding:0px; margin:0px;}
+	.zise{ color:#AD1F6C;}
+	.msgBox{ width:445px; height:230px; position:absolute; top:50%; left:50%; margin:-115px 0 0 -222px; background:url({res file=images/tipBg.jpg})}
+		.msgBox p{ font-size:14px; font-weight:bold; margin:75px 0; text-align:center; color:#272727;}
+	.centerTab{margin:75px auto 0; line-height:24px; font-size:14px; font-weight:bold; text-align:center;}
+	.fRed{ color:#e30000;}
+	.fRed a{ color:#e30000;}
+	.fRed a:hover{ color:#e30000;}
+	.fGray{ color:#4D4D4D;}
+	.fGreen{ color:#468804;}
+</style>
+
+</head>
+<body>
+	<div class="msgBox">
+				<table class="centerTab">
+					<tr>
+						<td>{$message}</td>
+					</tr>
+    {if $err_file}
+	<tr>
+						<td><span class="fRed">Error File: <b>{$err_file}</b> at <b>{$err_line}</b> line.</span></td>
+					</tr>
+    {/if}
+    {if $redirect}
+	<tr>
+						<td>{$lang.auto_redirect}</td>
+	</tr>
+    {/if}
+    {foreach from=$links item=item}
+    <tr>
+    	<td><a href="{$item.href}" class="forward">{$item.text}</a></td>
+	</tr>	
+    {/foreach}
+	</table>
+</div>
+{if $redirect}
+<script type="text/javascript">
+<!--
+window.setTimeout("{$redirect}", 5000);
+//-->
+</script>
+{/if}
+</body>
+</html>

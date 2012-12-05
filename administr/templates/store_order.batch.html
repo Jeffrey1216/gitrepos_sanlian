@@ -1,0 +1,47 @@
+{include file="header.html"}
+<div  class="order_form" style="border:none;margin-top:50px;">  
+ 
+        <h1>订单信息</h1>
+        <div style="margin-left:50px;">
+        <ul> 
+          <li>
+          	<b>订单编号：</b>
+          	<span>{$orinfo.order_sn}</span>
+          </li>
+          </ul>
+         </div>
+	   
+  <div class="clear"></div>
+</div>
+
+
+<div class="info">
+  <form method="post">
+    <table class="infoTable">
+     	<tr>
+        	<th class="paddingT15"> <label for="ship_no">订单总价:</label></th>
+        	<td>
+        	{$orinfo.order_amount|price}
+        	</td>
+      </tr>
+      <tr>
+        	<th class="paddingT15"> <label for="invoice_no">物流费用:</label></th>
+        	<td>
+          	{$orinfo.shipping_fee|price}
+        	</td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> <label for="ship_reason">修改后的物流费用:</label></th>
+        <td class="paddingT15 wordSpacing5"><input type="text" name="shipping_fee" value=""/></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20">
+          <input class="formbtn" type="submit" name="Submit" value="提交" />
+          <input class="formbtn" type="button" value="返回" onclick="history.go(-1)" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

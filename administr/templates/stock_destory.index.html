@@ -1,0 +1,81 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#pay_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#pay_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+<p>销毁审核</p>
+  <ul class="subnav">
+    <li><!-- {if $stock.stock_status eq 1} --><span>待审核</span><!-- {else} --><a class="btn1" href="index.php?app=stock_destory&status=1">待审核</a><!-- {/if} --></li>
+    <li><!-- {if $stock.stock_status eq 2} --><span>已通过</span><!-- {else} --><a class="btn1" href="index.php?app=stock_destory&status=2">已通过</a><!-- {/if} --></li>
+    <li><!-- {if $stock.stock_status eq 3} --><span>未通过</span><!-- {else} --><a class="btn1" href="index.php?app=stock_destory&status=3">未通过</a><!-- {/if} --></li>
+  </ul>
+</div>
+<div class="mrightTop">
+ <div class="fontl">
+    <form method="get">
+       <div class="left">
+          <input type="hidden" name="app" value="stock_destory" />
+          <input type="hidden" name="act" value="index" />
+          商品：<input class="queryInput3" type="text" name="goods_name" value="{$query.goods_name|escape}"/>
+          店铺:<input class="queryInput3" type="text"  name="store_name" value="{$query.store_name|escape}"/>
+        添加时间:<input class="queryInput3" type="text" value="{$query.add_time_from}" id="pay_time_from" name="add_time_from" class="pick_date" />
+        至 <input class="queryInput3" type="text" value="{$query.add_time_to}" id="pay_time_to" name="add_time_to" class="pick_date" />
+          <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <form method=get>
+  <table width="100%" cellspacing="0" class="dataTable">
+
+    <tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+      <td>商品</td>
+      <td>店铺</td>
+      <td>销毁数量</td>
+      <td>销毁原因</td>
+      <td>添加时间</td>
+      <td>审核状态</td>
+      <td class="handler">{$lang.handler}</td>
+    </tr>
+	<!-- {foreach from=$stock_info item=stock} -->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" value="{$stock.stock_id}" /></td>
+      <td><img src="{$image}{$stock.simage_url}"/>{$stock.goods_name|escape}</td>
+      <td>{$stock.store_name|escape}</td>
+      <td>{$stock.quantity|escape}</td>
+      <td>{$stock.stock_reason|escape}</td>
+      <td>{$stock.add_time|date:complete}</td>
+      <td><!-- {if $stock.stock_status eq 1} -->待审核<!-- {elseif $stock.stock_status eq 2} -->已通过<!-- {else} -->未通过<!-- {/if} --></td>
+      <td class="handler">
+      <!-- {if $stock.stock_status eq 1} -->
+      <a href="index.php?app=stock_destory&act=view&amp;id={$stock.stock_id}&verify=1">审核</a> 
+      <!-- {else} -->
+      <a href="index.php?app=stock_destory&act=view&id={$stock.stock_id}">查看</a>
+      <!-- {/if} -->
+      </td>
+    </tr>
+    <!-- {foreachelse} -->
+    <tr class="no_data">
+      <td colspan="8">{$lang.no_data}</td>
+    </tr>
+    <!-- {/foreach} -->
+  </table>
+  </form>
+  <div id="dataFuncs">
+   
+  <!-- {if $stock.stock_status eq 1} -->
+   <!-- <div id="batchAction" class="left paddingT15"> &nbsp;&nbsp;
+      <input class="formbtn batchButton" type="button" value="批量审核" name="id" uri="index.php?app=stock_destory&act=verify" />
+    </div> -->
+  <!-- {/if} -->
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"} 

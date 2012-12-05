@@ -1,0 +1,25 @@
+<div class="l">
+	<div class ="photo_box trun_banner" id="index_slider_3">			
+		<ul>
+		 <!-- {foreach from=$widget_data.images item=image} -->
+			<li>
+				<a href="{$image.url}">						
+					<img  src="{$image_url}{$image.img}" alt="{$image.title}" />
+				</a>					
+			</li>
+		<!-- {/foreach} -->
+	</ul>
+	</div>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+Effect.slider({   		//ÂÖ²¥Æ÷Æô¶¯
+	'target': 'index_slider_3',
+	'showMarkers': true,
+	'showControls': false,
+	'width_allow':false,
+	'autostart':true,
+	'crosswise':true,
+	'trun_text':new Array("1","2","3","4","5")
+});
+</script>

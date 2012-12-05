@@ -1,0 +1,84 @@
+
+	<div class="dtl_rcmd_ttl dtl_cmt_ttl">
+	   <span class="dtl_rcmd_clct dtl_cmt_ml">
+	      	  销售记录
+	   </span>
+	</div>
+	<div class="dtl_cmt_sco dtl_rcd">
+		<div class="dtl_rcd_inf"> 
+		{$data.goods.goods_name}&nbsp;&nbsp;价格：<span>{$data.goods.price|price}</span>&nbsp;&nbsp;配送PL币：<span>{$data.goods.credit}PL</span><br/>
+		累计销售<span><strong>{if !$data.goods.sales}0{else}{$data.goods.sales}{/if}</strong></span>件
+		</div>
+	</div>
+	<div class="dtl_rcd_ctt">
+		<table cellpadding="0" cellspacing="0">
+			<tr class="dtl_rcd_ctt_th">
+			   <th width="20%">买家</th>
+			   <th width="30%">商品名称</th>
+			   <th width="10%">价格</th>
+			   <th width="10%">购买数量</th>
+			   <th width="20%">成交时间</th>
+			   <th width="10%">状态</th>
+			</tr>
+			<!-- {foreach from=$sales_list item=sales} -->
+			<tr>
+			   <td id="dtl_rcd_name">{if $sales.anonymous}***{else}{$sales.buyer_name|escape}{/if}</td>
+			   <td><a href="index.php?app=goods&id={$sales.goods_id}">{$sales.goods_name}</a><br/>{$sales.spc_1}</td>
+			   <td>{$sales.price}</td>
+			   <td>{$sales.sales}</td>
+			   <td>{$sales.status}</td>
+			</tr>
+			<!-- {foreachelse} -->
+			<tr>
+				<td>
+				{$lang.no_records}
+				</td>
+			</tr>
+			<!-- {/foreach} -->	
+		
+			<!-- 分页 -->
+		<!--  				
+		                 <tr class="dtl_rcd_flip">
+		                    <td colspan="6">
+		                       <ul>
+		                          <li class="dtl_flip_Prev">
+		                             上一页
+		                          </li>
+		                          <li class="dtl_flip_page">
+		                             1
+		                          </li>
+		                          <li class="dtl_flip_page">
+		                             2
+		                          </li>
+		                          <li class="dtl_flip_page">
+		                             3
+		                          </li>
+		                          <li class="dtl_flip_page">
+		                             4
+		                          </li>
+		                          <li>
+		                             ...
+		                          </li>
+		                          <li class="dtl_flip_page">
+		                             19
+		                          </li>
+		                          <li class="dtl_flip_page">
+		                             20
+		                          </li>
+		                          <li class="dtl_flip_Prev">
+		                             下一页
+		                          </li>
+		                          <li class="dtl_flip_total">
+		                             共1/20页
+		                          </li>
+		                       </ul>
+		                    </td>
+		                 </tr>
+		        -->  
+		          <tr class="dtl_rcd_flip">
+						<td>		           
+		          			{include file=page.bottom.html}
+		          		</td>
+		          </tr>  
+		 </table>      
+	</div>

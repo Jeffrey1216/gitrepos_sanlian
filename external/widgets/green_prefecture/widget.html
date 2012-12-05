@@ -1,0 +1,17 @@
+    <div class="bank_mar">
+        <div><img src="/paila100/themes/mall/default/styles/default/images/lvse_dh.jpg" /></div>
+        <div class="bank_bigbj">
+        <!-- {foreach from=$widget_data.goods_info item=goods_info} -->
+            <div class="bank_psisi_bks fd paisi_mar">
+                <div class="xiaobk_bjwith">
+                    <span><a href="index.php?app=goods&id={$goods_info.gs_id}" target="_blank"><img src="{$goods_info.smimage_url}" /></a></span>
+                    <span><a href="index.php?app=goods&id={$goods_info.gs_id}" target="_blank">{$goods_info.goods_name}</a></span>
+                </div>
+                <div class="daoh_bjhuse">
+                    <span class="fd"><font>{$goods_info.price}</font></span>
+                    <span class="fb small_butmar"><a href="index.php?app=goods&id={$goods_info.gs_id}"><img src="/paila100/themes/mall/default/styles/default/images/qiangg_butsmll.jpg" /></a></span>
+                </div>                
+            </div>
+           <!-- {/foreach} -->
+        </div>
+    </div>

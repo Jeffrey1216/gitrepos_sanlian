@@ -1,0 +1,87 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+$(function(){
+    // multi-select mall_gcategory
+    $('#gcategory').length>0 && gcategoryInit("gcategory");
+});
+</script>
+<div id="rightTop">
+    <ul class="subnav"> 
+    	<li><a class="btn1" target="_blank" href="{url app=OutputExcel&output=true&page=$page_info.curr_page&cate_id=$cate_id}">导出</a></li>  	
+    </ul>
+ </div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+            <div class="left">
+                <input type="hidden" name="app" value="OutputExcel"/>
+             	商品分类:
+          <div id="gcategory" style="display:inline;">
+            <input type="hidden" name="cate_id" value="0" class="mls_id" />
+            <select class="querySelect">
+              <option>{$lang.select_pls}</option>
+              {html_options options=$gcategories}
+            </select>
+          </div>
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+        </form>
+    </div>
+    <div class="fontr">
+        {include file=page.top.html}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+    
+        <tr class="tatr1">
+           <td>类别</td>
+           <td>商品名称</td>
+           <td>销售名称</td>
+           <td>单位</td>
+           <td>规格</td>
+           <td>商品条码</td>
+           <td>供应价</td>
+           <td>派啦价</td>
+           <td>利润</td> 
+           <td>赠送PL</td> 
+           <td>供应商名称</td>
+           <td>供应商地址</td>
+           <td>供应商联系人</td>
+           <td>供应商联系方式</td>                   
+        </tr>
+        <!--{foreach from=$goods item=good}-->
+        <tr class="tatr2">
+           <td>{$good.cate_name}</td>
+           <td>{$good.goods_name}</td>
+           <td>{$good.buy_name}</td>
+           <td>{$good.unit}</td>
+           <td>{$good.spec_1}|{$good.spec_2}</td>
+           <td>{$good.commodity_code}</td>
+           <td>{$good.gprice}</td>
+           <td>{$good.price}</td>
+           <td>{$good.profit}</td>
+           <td>{$good.credit}</td> 
+           <td>{$good.supply_name}</td> 
+           <td>{$good.address}</td>
+           <td>{$good.linkman}</td>
+           <td>{$good.mobile}</td>  
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="14">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

@@ -1,0 +1,19 @@
+<div class="leftBox">
+     <h2 class="help_head">°ïÖúÖÐÐÄ</h2>
+
+     <div class="leftMenu">
+         <ul>
+         	<!-- {foreach from=$acategories item=acategory} -->
+            <li><a href="{url app=article&act=help&cate_id=$acategory.cate_id&parent_id=$acategory.parent_id}" class="menuOn" id="cate_{$acategory}" onclick="changeMenu(this.id);"
+                 onmousemove="titHover(this.id)" onmouseout="titOut(this.id)">{$acategory.cate_name|escape}</a>
+              <ul class="sideMenu{if $acategory.cate_id neq $cate_id_now}{if $acategory.cate_id neq $parent_id } hide {/if} {/if}" id="jytj_show">
+              <!-- {foreach from=$acategory.child item=childs} -->
+                  <li><a href="{url app=article&act=help&cate_id=$childs.cate_id&parent_id=$childs.parent_id}" cateId="{$childs.article_id}" class="sideOn {if $childs.cate_id eq $cate_id_now} onHover{/if}" onclick="sideMenu(this)">{$childs.cate_name}</a></li>
+              <!-- {/foreach} -->
+              </ul>
+               
+           </li>
+           <!-- {/foreach} -->
+        </ul>
+    </div>
+</div>

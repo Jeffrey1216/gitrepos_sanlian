@@ -1,0 +1,85 @@
+<link type = "text/css" href = "{new_res file=css/agr_all.css}" rel="stylesheet"/>
+<div id="cd_header">
+    <div class="loginbar">
+        <div class="loginbar_ctt">
+            <div class="loginbar_l" style="margin-left:0px">
+                 欢迎来到派啦网！ <span>{$visitor.user_name|escape}
+                 <!--{if !$visitor.user_id}-->&nbsp;
+                 <a href="{url app=member&act=login}">登录</a></span> / <span><a href="{url app=member&act=register}">免费注册</a>
+                 <!--{else}-->
+                 [<a href="{url app=member&act=logout}">退出</a>]
+                 <!--{/if}-->
+                 </span>
+            </div>
+            <div class="loginbar_r" style="position:relative;*top:-4px;_top:0;">
+            <div style="left:60px;height:32px;line-height:32px;float:left;position:absolute;z-index:1000;margin-left:0px;">
+          			</div>
+                  <a href="index.php">商城首页</a>
+                | <a href="index.php?app=member">我的派啦</a>
+                | <a href="index.php?app=message&act=newpm">站内消息</a>
+		| <a class="favorite" href="index.php?app=my_favorite">收藏夹</a>
+                | <a href="index.php?app=download&act=Merchant">派啦店下载</a> 
+                | <a href="{url app=article&act=help}">帮助中心</a>
+                | <a href="http://www.weibo.com/pailawang" class="weibo" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+    <div class="cd_logo">
+    	<div class="cd_logo_img">
+    		<div class="cd_img">
+    			<img src="{new_res file=images/cd_dianzhao01.gif}" width="322" height="142"/>
+    		</div>
+    		<div class="cd_phone">
+    			<span class="yellow_col">{$store.store_name}</span>
+    			<span class="white_col"> 全国加盟连锁<em> | </em>服务热线：<em>400-166-1616</em></span>
+    		</div>
+    	</div>
+    </div>
+    <div class="cd_search">
+    	<div class="cd_search_ctt">
+    		<!-- {if $pr_in eq '-1'} -->
+    		<div class="cd_back">
+    			<a href="index.php?app=promotion_index"><img src="{new_res file=images/cd_back_07.gif}" alt="返回首页" /></a>
+    		</div>
+    		<!-- {else} -->
+    		<div class="cd_back">
+    			<a href="index.php?app=store_league&act=view&id={$store_id}" class="store_back" alt="返回店铺首页">返回店铺首页</a>
+    		</div>
+    		<!-- {/if} -->
+    		<form method="get" id="search_form" action="index.php">
+    		<div class="cd_serch_box">
+    			<!-- {if $smarty.get.goods_name==''} -->
+    			<input type="text"  class="cd_serch_box0" name="keyword"  type="text" onclick="if (this.value=='请输入关键字') this.value=''"  onfocus="this.select()" onblur="if (this.value =='') this.value='请输入关键字'" value="请输入关键字" />
+    			<!-- {else} -->
+    			<input type="text"  class="cd_serch_box0" name="keyword" value="{$smarty.get.goods_name}" type="text" />
+				<!-- {/if} -->
+				<input type="hidden" typedef="app" name="app" value="store_league"/>
+				<input type="hidden" typedef="act" name="act" value="view"/>
+				<input type="hidden" name="use" value="1" />
+				<input type="hidden" name="id" value="{$store_id}" />
+    			<input type="button" class="cd_serch_box1" typedef="shop" value="搜店内" name="搜索" />
+    			<input type="button" class="cd_serch_box1" typedef="mall" value="搜商城" name="搜索" />
+    		</div>
+    		</form>
+    		<div class="cd_car">
+	    		<div class="notice_ctt_r">
+	                <a href="{url app=cart}"><p>我的购车有 <span>{$cart_goods_kinds}</span> 件</p>
+	                <input class="notice_bn" onclick="window.location.href='{url app=cart}'" type="button" value="" /></a>
+	            </div>
+            </div>
+    	</div>
+    </div>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+$('input[typedef="mall"]').click(function () {
+	$("input[typedef='app']").val('search');
+	$("input[typedef='act']").val('index');
+	$('#search_form').submit();
+});
+$('input[typedef="shop"]').click(function () {
+	$("input[typedef='app']").val('store_league');
+	$("input[typedef='act']").val('view');
+	$('#search_form').submit();
+});
+</script>

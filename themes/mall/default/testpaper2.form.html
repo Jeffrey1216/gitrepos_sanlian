@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/ xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>大转轮活动-派啦网，零销商业大革命派啦模式，创造服务中国10亿人的购买力资产平台</title>
+    <meta name="description" content="派啦网,PMB模式"/>
+    <meta name="keywords" content="派啦网 派啦商城 PMB模式"/>
+    <meta name="author" content="www.paila100.com"/>
+    <link href="{res file=topics/paisong/css/zhuanpan.css}" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript"  src="{lib file=jquery.js}"></script>
+	<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+	<style type="text/css">
+	h3 p {
+		display:inline-block;	
+	}
+	</style>
+</head>
+<body>
+<div class="tstp2_head">
+    <div class="loginbar">
+       <div class="loginbar_ctt">
+           <div class="loginbar_l">
+                <a href="index.php">回到派啦网首页</a> <span>{$visitor.user_name|escape}
+                <!--{if !$visitor.user_id}-->&nbsp;
+                <a href="{url app=member&act=login}">登录</a></span> / <span><a href="{url app=member&act=register}">免费注册</a>
+                <!--{else}-->
+                [<a href="{url app=member&act=logout}">退出</a>]
+                <!--{/if}-->
+                </span>
+           </div>
+           <div class="loginbar_r" style="position:relative;*top:-4px;_top:0;">
+			<a href="index.php?app=member">我的派啦</a>
+               | <a href="index.php?app=download&act=Merchant">派啦店下载</a> 
+               | <a href="index.php?app=download&act=Channel">渠道商下载</a>  
+               | <a href="{url app=article&act=help&article_id=11}">帮助中心</a>
+               | <a href="http://www.weibo.com/pailawang" class="weibo"></a>
+           </div>
+       </div>
+    </div>
+    <div class="tstp2_ttl">
+    	<img src="{res file=topics/paisong/images/tstp2_ttl_03.jpg}" alt="派啦网新版调查" />
+    </div>
+</div>
+<div class="tstp2">
+	<div class="content1">
+	    <div class="main">
+	        <div class="text">
+	            <div class="line">
+	                <div class="textright">
+	                	{$paper.tpi_notice}
+	                </div>
+	            </div>
+				<form method="post">
+				<div class="text_02">
+					<h4>问卷内容</h4>	
+					<p><span>温馨提示：</span>请您认真阅读以下的描述，并根据您的实际情况回答问卷并提交，您的意见将会是我们最宝贵的财富。</p>
+					<ol>
+						<!-- {foreach from=$paper.paper_question_info name=paper item=v} -->
+							<li>
+								<h3>{$smarty.foreach.paper.iteration}&nbsp;&nbsp;.&nbsp;&nbsp;{$v.stem}</h3>
+								<!-- {if $v.class_id eq 1} -->
+									<!-- {foreach from=$v.options item=_v} -->
+									<span><input type="radio" name="c_{$_v.sn}" value="{$_v.option_tab}"/>{$_v.option_content}</span>
+									<!-- {/foreach} -->
+								<!-- {/if} -->
+								<!-- {if $v.class_id eq 2} -->
+									<!-- {foreach from=$v.options item=_v} -->
+									<span><input type="checkbox" name="c_{$_v.sn}[]" value="{$_v.option_tab}"/>{$_v.option_content}</span>
+									<!-- {/foreach} -->
+								<!-- {/if} -->
+							</li>
+						<!-- {/foreach} -->
+						<div class="clear">
+						</div>
+											
+						<li>
+							<input type="hidden" name="tpi_id" value="{$paper.tpi_id}" />
+							<input type="submit" value="提交问卷"class="suvery_btn test2_btn" onclick="checkform()"/>
+						</li>
+						
+						
+					</ol>				
+				</div>
+				</form>
+	        </div>
+	    </div>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+var SITE_URL = "{$SITE_URL}";
+function regionChange(obj,sn,num)
+{
+    // 删除后面的select
+    $(obj).nextAll("select").remove();
+
+    // 计算当前选中到id和拼起来的name
+    var selects = $(obj).siblings("select").andSelf();
+    var id = 0;
+    var names = new Array();
+    for (i = 0; i < selects.length; i++)
+    {
+        sel = selects[i];
+        if (sel.value > 0)
+        {
+            id = sel.value;
+            name = sel.options[sel.selectedIndex].text;
+            names.push(name);
+        }
+    }
+    $(".a_"+sn+"_"+num).val(id);
+	var str = "regionChange(this,'" + sn + "',"+num+")";
+    // ajax请求下级地区
+    if (obj.value > 0)
+    {
+        var _self = obj;
+        var url = SITE_URL + '/index.php?app=mlselection&type=region';
+        $.getJSON(url, {'pid':obj.value}, function(data){
+            if (data.done)
+            {
+                if (data.retval.length > 0)
+                {
+                    $("<select onchange="+ str +"><option>请选择...</option></select>").change(regionChange).insertAfter(_self);
+                    var data  = data.retval;
+                    for (i = 0; i < data.length; i++)
+                    {
+                        $(_self).next("select").append("<option value='" + data[i].region_id + "'>" + data[i].region_name + "</option>");
+                    }
+                }
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+    }
+}
+</script>

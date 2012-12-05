@@ -1,0 +1,48 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>团购员收益管理</p>
+  <ul class="subnav">
+    <li><span>提现</span></li>    
+    <li><a class="btn1" href="index.php?app=channel&act=managerCash">管理</a></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>用户名</td>
+      <td>真实姓名</td>            
+      <td>提现方式</td>
+      <td>开户行</td>
+      <td>开户名</td>
+      <td>提现账号</td>
+      <td>提现金额</td>     
+      <td>时间</td>   
+      <td>操作</td>  
+    </tr>
+    <!--{foreach from=$customerWithdrawAsk_list item=node}-->
+    <tr class="tatr2">
+      <td>{$node.user_name}</td>
+      <td>{$node.real_name}</td>
+      <td>{$node.draw_type_content}</td>
+      <td>{$node.draw_bank}</td>
+      <td>{$node.draw_name}</td>
+      <td>{$node.draw_accounts}</td>
+      <td>{$node.withdraw_amount|price}</td>
+      <td>{$node.withdraw_time|data}</td>
+      <td><a href="#">操作</a></td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="9">暂时没有记录！</td>
+    </tr>    
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

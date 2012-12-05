@@ -1,0 +1,45 @@
+ <div class="plm_house">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>4F</span>∑˛ Œ–¨√±
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+                <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=124">∏¸∂‡ >></a>
+               </li>
+            </ul>
+            <div class="plb_house_ctt">
+            <!-- {foreach from=$widget_data.image_u item=i} -->
+                <div class="plb_house_ad">
+                    <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /></a>
+                </div> 
+                <!-- {/foreach} -->
+                <ul class="plb_cosm_gds">
+                <!-- {foreach from=$widget_data.goods_l item=goods} -->
+                   <li class="plb_cosm_gds1">
+                      <span class="plb_hot plb_get3">ÀÕ{$goods.credit}PL</span>
+                      <a class="plm_food_gds_img" href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.dimage_url}" alt="{$goods.goods_name|truncate:20}" /></a>
+                      <p class="plm_food_gds_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></p>
+                      <p class="plm_food_gds_prc">≈…¿≤º€£∫<span>{$goods.price}</span></p>
+                   </li>
+               <!-- {/foreach} -->
+                </ul>
+                <!-- {foreach from=$widget_data.image_d item=i} -->
+                <div class="plb_house_ad">
+                    <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /></a>
+                </div> 
+                <!-- {/foreach} -->
+                <ul class="plb_cosm_gds">
+                <!-- {foreach from=$widget_data.goods_r item=goods} -->
+                   <li class="plb_cosm_gds1">
+                      <span class="plb_hot plb_get4">ÀÕ{$goods.credit}PL</span>
+                      <a class="plm_food_gds_img" href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.dimage_url}" alt="{$goods.goods_name|truncate:20}" /></a>
+                      <p class="plm_food_gds_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></p>
+                      <p class="plm_food_gds_prc">≈…¿≤º€£∫<span>{$goods.price}</span></p>
+                   </li>
+              <!-- {/foreach} -->
+                </ul>
+            </div>
+        </div>

@@ -1,0 +1,46 @@
+<div style="padding-top:10px">
+    <div style="margin:10px 0;border-bottom:1px solid #ccc;"><img src="{res file=images/des1_07.jpg}"/></div>
+    <table cellpadding="0" cellspacing="0" class="table_01 table_02">
+        <!--<colgroup>-->
+        <!--<col width="25%;"/>-->
+        <!--<col width="50%"/>-->
+        <!--<col width="25%"/>-->
+        <!--</colgroup>-->
+        <thead>
+        <th>买家</th>
+        <th>商品名称</th>
+        <th>价格</th>
+        <th>购买数量</th>
+        <th>成交时间</th>
+        <th>状态</th>
+        </thead>
+        <tbody>
+        <!--{foreach from=$sales_list item=sales}-->
+        <tr>
+            <td>{if $sales.anonymous}***{else}{$sales.buyer_name|escape}{/if}</td>
+            <td>
+                <div>{$sales.goods_name}</div>
+                <div>{$sales.specification}</div>
+            </td>
+            <td class="paila_price">{$sales.price|price}</td>
+            <td>{$sales.quantity} <span class="fontColor5">{if $sales.specification}{$lang.left_bracket}{$sales.specification|escape}{$lang.right_bracket}{/if}</span></td>
+            <td>{$sales.add_time|date}</td>
+            <td>{$sales.order_status}</td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr>
+            <td colspan="6">{$lang.no_records}</td>
+        </tr>
+        <!--{/foreach}-->
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="6">
+                <div class="productlist_footbg">
+                    {include file=page.bottom.html}
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>

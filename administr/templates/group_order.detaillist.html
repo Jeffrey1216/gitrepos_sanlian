@@ -1,0 +1,82 @@
+{include file="header.html"}
+<style media="print">
+	.noprint {
+		display:none;
+}
+</style>
+<OBJECT id="WebBrowser" height="0" width="0" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>
+<div class="print">
+<div class="tablearea">
+<table cellpadding="0" cellspacing="0" class="table01">
+<tr>
+<td class="td_l"><img src="http://192.168.0.45/paila/admin/templates/style/images/listlogo.jpg"/></td>
+<td class="td_r">
+<div>地&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 址：江西省南昌市昌北经济技术开发区双港西大街528号北大科技园B座1-2楼</div>
+<div>客服热线：400-166-1616</div>
+<div>传  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  真：0791-86106509</div></td>
+</tr>
+<tr><td colspan="5"><div class="line"></div></td></tr>
+<tr>
+<td colspan="2" class="title">派啦网零售商品清单</td>
+</tr>
+<tr>
+<td>订&nbsp;&nbsp;单&nbsp;&nbsp;编&nbsp;号：{$groinfo.order_sn|default:未填写}</td>
+<td>下&nbsp;单&nbsp;时&nbsp;&nbsp;间：{$groinfo.add_time|date:complete|default:未填写}</td>
+</tr>
+<tr>
+<td>买&nbsp;家&nbsp;名&nbsp;&nbsp;称：{$groinfo.buyer_name|default:未填写}</td>
+<td>卖&nbsp;家&nbsp;名&nbsp;&nbsp;称：{$groinfo.seller_name|default:未填写}</td>
+</tr>
+<tr>
+<td>收货人姓名：{$groinfo.consignee|default:未填写}</td>
+<td>收货人电话：{$groinfo.phone_tel|default:未填写}</td>
+<td>收货人手机：{$groinfo.phone_mob|default:未填写}</td>
+</tr>
+<tr>
+<td>地&nbsp;区&nbsp;邮&nbsp;&nbsp;编：{$groinfo.zipcode|default:未填写}</td>
+<td>收&nbsp;货&nbsp;地&nbsp;&nbsp;址：{$groinfo.region_name} {$groinfo.address}</td>
+</tr>
+<tr>
+<td colspan="2">配&nbsp;送&nbsp;&nbsp;方&nbsp;&nbsp;式：{$groinfo.ship_name|default:未填写}</td>
+</tr>
+</table>
+
+<table cellpadding="0" cellspacing="0" class="table02">
+<colgroup>
+<col width="10px"/>
+<col width="300px"/>
+<col width="30px"/>
+<col width="30px"/>
+<col width="20px"/>
+</colgroup>
+<tr><td>序号</td>
+<td>商品名称</td>
+<td>数量</td>
+<td>单价</td>
+<td>总金额</td>
+</tr>
+
+<tr><td>1</td>
+<td>{$groinfo.title|default:未填写}</td>
+<td>{$groinfo.quantity|default:未填写}</td>
+<td>{$groinfo.discount|price|default:未填写}</td>
+<td>{$groinfo.order_amount|price|default:未填写}</td>
+</tr>
+
+<tr>
+<td colspan="4">&nbsp;</td>
+<td>总计：{$groinfo.order_amount|price|default:未填写}</td>
+</tr>
+<tr>
+<td colspan="5">实付款：{$groinfo.order_amount|price|default:未填写}</td>
+</tr>
+</table>
+</div>
+<div style="text-align:center">
+<span class="noprint" >
+<input onclick="document.all.WebBrowser.ExecWB(6,1)" type="button" value="打印"> 
+<input onclick="document.all.WebBrowser.ExecWB(6,6)" type="button" value="直接打印">
+<input onclick="document.all.WebBrowser.ExecWB(8,1)" type="button" value="页面设置">
+<input onclick="document.all.WebBrowser.ExecWB(7,1)" type="button" value="打印预览">
+</span></div>
+</div>

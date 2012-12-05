@@ -1,0 +1,122 @@
+{include file="header.html"}
+<script type="text/javascript" src="{lib file=../ckeditor/ckeditor.js}"></script>
+
+<div class="groupadd">
+<div id="rightTop">
+ <ul class="subnav">
+    <li><a href="index.php?app=groupproject" class="btn1">返回管理</a></li>
+    <li><span>新增</span></li>
+  </ul>
+  </div>
+<h3>1、基本信息</h3>
+<form method="post" enctype="multipart/form-data">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td><label>项目类型：</label>
+	<select name="project_classify">
+	<!-- {foreach from=$category_list item=category} -->
+		<option {if $project.category_id eq $category.id}selected{/if} value="{$category.id}">{$category.category}</option>
+	<!-- {/foreach} -->	
+	</select>
+	<select name="goods_classify">
+		<option value="0">请选择商品分类</option>
+	<!-- {foreach from=$gcategory_list item=gcategory} -->
+		<option {if $project.gcategory_id eq $gcategory.id}selected{/if} value="{$gcategory.id}">{$gcategory.category}</option>
+	<!-- {/foreach} -->
+	</select>
+</td>
+</tr>
+<tr><td><label>项目名称:</label><input type="text" name="title" value="{$project.title}" class="text01" style="width:320px" /><b>*显示当前产品标题</b></td></tr>
+<tr><td><label>市场价：</label><input type="text" name="cprice" value="{$project.cprice}" class="text01"/>
+<label>派啦价：</label><input type="text" name="price" value="{$project.price}" class="text01"/>
+<label>虚拟购买：</label><input type="text" name="virtual_buy" value="{$project.virtual_buy|default:10}" class="text01"/></td>
+</tr>
+<tr><td><label>列表图：</label><input type="file" name="image_list" size="30"><img width="20px" height="20px" src="{$project.image_list}"/><b>*预览所有秒杀或团购列表时的缩略图</b></td></tr>
+<tr><td><label>商品展示图：</label><input type="file" name="image_show" size="30"><img width="20px" height="20px" src="{$project.image_show}"/><b>*显示产品大图，双引号上方</b></td></tr>
+<tr><td><label>侧栏图：</label><input type="file" name="image_other" size="30"><img width="20px" height="20px" src="{$project.image_other}"/><b>*显示推荐产品图片，例如其他团购或秒杀预告图片</b></td></tr>
+<tr><td><label>成团最少数量：</label><input type="text" name="min_quantity" value="{$project.min_quantity|default:10}" class="text01"/>
+<label>最大数量：</label><input type="text" name="max_quantity" value="{$project.max_quantity|default:10000}" class="text01"/>
+<label>限制购买数：</label><input type="text" name="astrict_num" value="{$project.astrict_num|default:1}" class="text01"/>
+<label>最少购买数：</label><input type="text" name="min_buy_num" value="{$project.min_buy_num|default:1}" class="text01"/></td>
+</tr>
+<tr><td><label>开始时间：</label><input type="text" name="start_time" value="{$project.start_time}" onClick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" id="start_time" class="text01"/>
+<label>结束时间：</label><input type="text" name="finish_time" value="{$project.finish_time}" onClick="WdatePicker({startDate:'%y-%M-01 00:00:00',dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})" class="text01"/></td></tr>
+<tr><td><label>允许退款：</label><label><input name="allows_refund" {if $project.allows_refund eq 1}checked{/if} value="1" type="radio"/>是</label><label><input name="allows_refund" {if $project.allows_refund neq 1}checked{/if} value="0" type="radio"/>否</label></td></tr>
+<tr><td><label>温馨提示：</label><textarea name="warm_prompt" id="warm_prompt">{$project.warm_prompt}</textarea><b>*显示在产品大图下双引号里的内容</b></td></tr>
+<tr><td><label>排序：</label><input type="text" name="sort" value="{$project.sort|default:255}" class="text01"/></td></tr>
+</table>
+<h3>2、商品信息</h3>
+<table cellpadding="0" cellspacing="0">
+<tr><td><label>商户:</label>
+	<select name="store_id">
+	<!-- {foreach from=$store_list item=store} -->
+		<option {if $project.store_id eq $store.store_id}selected{/if} value="{$store.store_id}">{$store.store_name}</option>
+	<!-- {/foreach} -->
+	</select></td></tr>
+	<tr><td><label>商品名称：</label><input type="text" class="text01" name="goods_name" value="{$project.goods_name}"/></td></tr>
+<tr><td><label>商品规格：</label>
+<input type="button" id="addspec" value="添加商品规格" /></td></tr>
+<tr><td><label>本单简介：</label><textarea name="introduction" id="introduction">{$project.introduction}</textarea><b>*显示本单详情下面的内容</b></td></tr>
+<tr>
+<td style="padding-left:195px;">
+<div id="specs">  
+	<!-- {foreach from=$group_project_specname_list item=v} -->
+	<div class="spec">
+		<select name="specname[]">
+		{foreach from=$specname_list item=specname} 
+			<option {if $v.specname_id eq $specname.id}selected{/if} value="{$specname.id}">{$specname.spec_name}</option>
+		{/foreach} 
+		</select>
+		<div class="specvalue" style="background-color:#bdf88d;border-color:#ccc;">
+			<span>
+			<!-- {foreach from=$v.spec item=_v} -->
+				<label>					
+					<input type='checkbox' {if $_v.have eq 1}checked{/if} name='spec_value[]' value="{$_v.id}" />{$_v.spec_value}
+				</label>
+			<!-- {/foreach} -->
+			</span>
+		</div>
+	</div>	
+	<!-- {/foreach} -->	
+</div>
+</td>
+</tr>
+<tr><td id="grounpadd"><label>商品详情：</label><b>*产品描述，团购产品图片&lt;750px，秒杀产品图片&lt;1000px</b>
+<textarea name="goods_desc" id="goods_desc">{$project.goods_desc}</textarea>
+</td></tr>
+<tr><td><label>推广词：</label><textarea name="promotion" id="promotion">{$project.promotion}</textarea></td></tr>
+<tr><td><label>&nbsp;</label><input type="submit" value="提交" class="formbtn"></td></tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+var SITE_URL = "{$SITE_URL}";
+$("select[name='specname[]']").live('change',function() {
+	var specname_id = parseInt($(this).children("option:selected").attr('value'));
+	var url = SITE_URL + "/index.php?app=groupproject&act=getSpec" ;
+	var obj = this;
+	$.getJSON(url,{'specname_id':specname_id},function (data) {
+		if(data.done) {
+			$(obj).nextAll("div[class='specvalue']").empty();
+			$(obj).nextAll("div[class='specvalue']").css("backgroundColor","#bdf88d");
+			$(obj).nextAll("div[class='specvalue']").css("borderColor","#ccc");
+			for(var i in data.retval) {
+				$(obj).nextAll("div[class='specvalue']").append("<span><label><input type='checkbox' name='spec_value[]' value=" + data.retval[i].id + " />" + data.retval[i].spec_value + "</label></span>");
+			}
+		} else {
+			alert(data.msg);
+		}
+	});
+});
+
+$("#addspec").click(function() {
+	$("#specs").append("<div class='spec'><select name='specname[]'><!-- {foreach from=$specname_list item=specname} --><option value='{$specname.id}'>{$specname.spec_name}</option><!-- {/foreach} --></select><div class='specvalue'></div></div><!-- 商品规格值 --></div>");
+});
+</script>
+<script type="text/javascript">
+//<![CDATA[
+CKEDITOR.replace('goods_desc',{toolbar:'Full',width:1000,height:600});
+//]]>
+</script>
+<script type="text/javascript" src="{lib file=../My97DatePicker/WdatePicker.js}"></script>
+{include file="footer.html"}

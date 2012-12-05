@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>派啦网-许愿墙</title>
+    <meta name="description" content="派啦网,PMB模式"/>
+    <meta name="keywords" content="派啦网 派啦商城 PMB模式"/>
+    <meta name="author" content="www.paila100.com"/>
+ <link href="{res file=topics/vow_wall/css/wish_wall.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+</head>
+
+<body>
+
+<div class="wish_h_bg">
+</div>
+<div class="wish_bg">
+	<div class="wish_content">
+		<div class="wish_t">
+		<a  class="btn1"  href="index.php?app=vowwall&act=index">查看全部</a>
+		<form method="get">
+		<div style="float:left;">
+			<input  class="wish_send" type="button" value="发布祝福"/> 
+			<select id="vowwall" class="wish_select"  name="opt">
+			<option {if $opt eq 0}selected{/if} value="0">按纸条号码</option>
+			<option {if $opt eq 1}selected{/if} value="1">按用户名</option>
+			</select>
+			<span class="two_grade" {if $opt eq 1}style='display:none;'{/if} id='opt0'>
+            <input style="vertical-align:3px\0;" class="wish_input" name="vow_id" type="text"  value="{$vow_id}"/>
+          </span>
+          <span class="two_grade" id='opt1' {if $opt neq 1}style='display:none;'{/if}>
+            <input class="wish_input" name='user_name' type="text" value="{$user_name}"/>
+          </span>
+           <input type="hidden" name="app" value="vowwall"/>
+          <input type="hidden" name="act" value="index"/>
+          <input type="submit" class="wish_search" name="Submit" value="" />
+          </div>
+         </form>
+	         <div class="paisong_menu" ><a style="padding:0 10px;text-decoration:none" href="index.php">返回首页</a>|<span style="padding:0 10px;">{$visitor.user_name|escape}
+	    	<!--{if !$visitor.user_id}-->&nbsp;请先 [ <a style="padding:0;" href="{url app=member&act=login}">登录</a> ] 或 [ <a style="padding:0;" href="{url app=member&act=register}">注册</a> ]
+			<!--{else}--> [<a style="padding:0;" href="{url app=member&act=logout}">退出</a>]<!--{/if}--></span>	
+			</div>
+		</div>
+		<div class="wish_l">
+		</div>
+		
+		<div class="wish_r" id="wish_r" onselectstart="javascript:return false;" >
+			<div class="wish_wall_glim"></div>
+			<div class="wish_wall_child"></div>
+		<!-- {foreach from=$vowinfo item=vow} -->
+			<div  class="wish_box wish_box_{$vow.class}">
+				<div class="wish_box_move">
+				</div>
+				<div class="wish_box_close">
+				</div>
+				
+				<ul class="wish_box_tit wish_box_tit_{$vow.class}">
+				</ul>
+				
+				<div class="wish_num_box">第【<span class="wish_num">{$vow.vow_id}</span>】号<span>{$vow.add_time}</span></div>
+				<div class="wish_page">
+					{$vow.content}
+				</div>
+				<div class="wish_name">
+				{$vow.user_name}&nbsp;&nbsp;
+				</div>
+				
+			</div>
+		<!--{foreachelse}-->
+			<script type="text/javascript">alert("没有找到符合条件的愿望！");</script>     		   		
+   		<!-- {/foreach} --> 
+		</div>		
+   
+	</div>
+</div>
+<div id="wish_window_bg">
+</div>
+
+<form method="post" action="index.php">
+<div class="wish_window">
+			<div class="wish_close"></div>
+			<div name='color_class' class="wish_color wish_window_red"></div>
+			<div name='color_class' class="wish_color wish_window_blue"></div>
+			<div name='color_class' class="wish_color wish_window_green"></div>
+			<div name='color_class' class="wish_color wish_window_yellow"></div>
+			<textarea class="wish_textarea" name="content"></textarea><br/>
+			<input type="hidden" name="app" value="vowwall"/>
+			<input type="hidden" name="act" value="add"/>
+			<input type="hidden" name="color_name" value=""/>
+			<input class="wish_window_sub" type="submit" name="Submit" value=""/><input class="wish_window_reset" type="button" value=""/>
+</div>
+</form>
+
+<script type="text/javascript">
+$(function(){
+var movesite =0;
+var f=10;    //显示层
+var k =0;
+var wish_box2 = $(".wish_box_tit");
+var wish_box = $(".wish_box");
+wish_box.each(function(k){    //随机摆放
+var randomtop = parseInt(600*Math.random());
+var randomleft = parseInt(600*Math.random());
+ $(this).css("top",randomtop);
+  $(this).css("left",randomleft);
+})
+wish_box.click(function(){			//设置为最高层
+	$(this).css("z-index",f++)
+})
+
+wish_box.mousedown(function(){			//按下去拖动
+	movesite=1;
+	$(this).attr("id","wish_hover");
+	$(this).children(".wish_box_tit").addClass("background_hide");	
+	$("#wish_hover").mousemove(function(ev){
+		if(movesite==1){
+		ev= ev || window.event; 
+		var mousePos = mouseCoords(ev); 
+		//alert(ev.pageX); 
+		var left = document.body.clientWidth/2 - $("#wish_r").width()/2+103 + wish_box.width()/2;
+		var top = document.body.clientHeight/2 - $("#wish_r").height()/2+ wish_box.height()/2;
+		$("#wish_hover").css("top",mousePos.y-top+"px").css("z-index",f++); 
+		$("#wish_hover").css("left",mousePos.x-left+"px");
+		}
+	}) 	
+})
+$("body").mouseup(function(ev){			//鼠标松开复位
+	
+	movesite=0;
+	$(this).find(".wish_box_tit").removeClass("background_hide");
+	ev= ev || window.event; 
+	var mousePos = mouseCoords(ev); 
+	//alert(ev.pageX); 
+	var left = document.body.clientWidth/2 - $("#wish_r").width()/2+103 + wish_box.width()/2;
+	var top = document.body.clientHeight/2 - $("#wish_r").height()/2+ wish_box.height()/2;
+	$("#wish_hover").css("top",mousePos.y-top+"px").css("z-index",f++); 
+	$("#wish_hover").css("left",mousePos.x-left+"px");
+	$(this).find(".wish_box").attr("id","");
+});
+$(".wish_box_close").click(function(){   //关闭
+$(this).parent(".wish_box").hide();
+})
+})
+function mouseCoords(ev) 			//获取鼠标偏移
+{ 
+if(ev.pageX || ev.pageY){ 
+return {x:ev.pageX, y:ev.pageY}; 
+} 
+return { 
+x:ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+y:ev.clientY + document.body.scrollTop - document.body.clientTop 
+}; 
+} 
+
+
+var count = {$count};
+var user_id= {$user_id};
+$(function(){
+$(".wish_send").click(function(){    //显示发送窗口
+	if(user_id == 0) {
+		alert("请您登录以后再发布愿望！");
+		return;
+	}else{
+	if(count >= 3) {
+		alert("对不起，您的许愿次数已经用完！");
+		return;
+	}	
+	$(".wish_window").show();
+	$("#wish_window_bg").addClass("wish_window_bg");
+	$("body").addClass("wish_lock");
+	$("html").addClass("wish_lock");
+	var window_left = document.body.clientWidth/2 - $(".wish_window").width()/2;
+	var window_top = document.body.clientHeight/2 - $(".wish_window").height()/2;
+	$(".wish_window").css("left",window_left).css("top",window_top);
+	}
+})
+$(".wish_close").click(function(){   //关闭窗口
+	$(".wish_textarea").val("");
+	$(".wish_window").hide();
+	$("#wish_window_bg").removeClass("wish_window_bg");
+	$("body").removeClass("wish_lock");
+	$("html").removeClass("wish_lock");
+})
+$(".wish_window_reset").click(function(){
+$(".wish_textarea").val("");
+})
+$(".wish_color").click(function(){   //选择信纸
+	$(".wish_color").css("border","2px solid #b51e15")
+	$(this).css("border","2px solid #fff");
+	var class_name = $(this).attr('class');
+    var class_array = class_name.split(' ');
+    var color_val = class_array[1].split('_');
+    $("input[name='color_name']").val(color_val[2]);
+})
+})
+$(function(){
+	$("#vowwall").change(function(){
+        var val = $('#vowwall').val();
+        $('.two_grade').hide();
+        $('#opt'+val).show();
+	})
+})
+$(function(){
+	$(".wish_window_sub").click(function(){
+		if($(".wish_textarea").val()==""){alert("祝福内容不能为空!");return false
+		} else if($(".wish_textarea").val()!=""){
+			alert("发表成功，您的祝福正在审核中...");
+			return true;
+		}
+	})
+});
+$(function () {
+	$('.wish_window_red').click();
+});
+</script>
+</body>
+</html>

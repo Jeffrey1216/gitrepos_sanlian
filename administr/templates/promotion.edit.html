@@ -1,0 +1,139 @@
+{include file="header.html"}
+<script type="text/javascript" src="{lib file=MyDate/WdatePicker.js}"></script>
+<div class="borderBox">
+	<div class="public_02">
+	    <div id="rightTop">
+	    <p>促销编辑</p>
+         <ul class="subnav">
+           <li><a href="index.php?app=promotion" class="btn1">管理</a></li>
+           <li><span>新增</span></li>
+         </ul>
+        </div>
+		<div class="table">
+			<form id="goods_form" method="post" enctype="multipart/form-data">
+				<table style="margin:15px">
+					<tr>                                            
+	            		<td class="paddingT15"><span>商品名：{$pr.goods_name}</span>
+	            		</td>
+					</tr>
+					<tr>                                            
+	            		<td class="paddingT15"><span>原派啦价：{$pr.price}</span>
+	            		</td>
+					</tr>
+					<tr>                                            
+	            		<td class="paddingT15"><span>原赠送积分数：{$pr.credit}</span>
+	            		</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销价：{$pr.pr_price}</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销赠送PL：{$pr.pr_credit}</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销数量：{$pr.pr_stock}</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>虚拟销售数量：</span>
+						<input type="text" name="virtual_stock" value="{$pr.virtual_log}" style="margin-left:15px"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销品名：</span>
+						<input type="text" name="pr_name" value="{$pr.pr_name}" style="margin-left:15px"/>
+						</td>
+					</tr>
+					<tr>
+						<td id="img"><span>促销图片：</span>
+						<span><img src="{$site_url}/{$pr.pr_img}"/></span>
+						<input type="hidden" name="pr_img" value="{$pr.pr_img}" style="margin-left:15px"/>
+						<input type="button" id="editimg" value="编辑"/>
+						</td>
+					</tr>
+					<tr id="pr_img" style="display:none">
+						<td>
+							<span>
+							<strong>促销图片：</strong>
+								<input type="file" name="file" ectype="change_store_logo" />
+							</span>
+						</td>
+						
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销排序：</span>
+						<input type="text" name="pr_sort" value="{$pr.pr_sort}" style="margin-left:15px"/>
+						</td>
+					</tr>
+					<tr>
+						<td id="time">促销时间:{$pr.pr_addtime|date:Y-m-d}—{$pr.pr_endtime|date:Y-m-d}
+							<input type="button" id="edittime" value="编辑"/>
+						</td>
+					</tr>
+					<tr id="newtime" style="display:none">
+						<td class="paddingT15">促销时间：<input type="text" class="Wdate" onclick="WdatePicker()" name="starttime" id="starttime"  value="{$smarty.get.starttime}" />
+						—
+						<input type="text" class="Wdate" onclick="WdatePicker()" name="endtime" id="endtime" value="{$smarty.get.endtime}" />
+						</td>
+					</tr>
+					<tr><td>
+					<span><strong>是否包邮：</strong>
+					<label><input type="radio" name="pr_art" value="0" {if $pr.pr_art eq 0}checked{/if}/>否</label>
+					<label><input type="radio" name="pr_art" value="1" {if $pr.pr_art eq 1}checked{/if}/>是</label>
+					</span>
+					</td></tr>
+					<tr>
+						<td class="paddingT15"><span>促销店铺：{$pr.store_name}
+						</span>
+						</td>
+					</tr>
+					<!-- {if $pr.spec_name_1} -->
+					<tr>
+						<td>规格信息</td>
+					</tr>
+					<tr>
+						<td>
+							<span>{$pr.spec_name_1}:{$pr.spec_1}</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>{$pr.spec_name_2}:{$pr.spec_2}</span>
+						</td>
+					</tr>
+					<!-- {/if} -->
+					<tr>                                           
+						<th colspan="4">
+							<div class="select_div"> 
+								<input type="hidden" name="app" value="promotion" />
+								<input type="hidden" name="act" value="edit" />
+								<input type="hidden" name="pr_id" value="{$pr.promotion_id}" />  						 
+								<input type="submit" class="formbtn" value="提交" />	
+								<a href="{url app=promotion}" class="formbtn">返回</a>     
+							</div>
+						</th>      
+					</tr> 
+				</table>    
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$("#edittime").click(function(){
+	$("#time").css("display",'none');
+	$("#newtime").css("display",'block');
+});
+$("#editimg").click(function(){
+	$("#img").css("display",'none');
+	$("#pr_img").css("display",'block');
+});
+function add_uploadedfile(file_data)
+{
+    var newImg = '<tr id="' + file_data.file_id + '" class="tatr2"><input type="hidden" name="file_id[]" value="' + file_data.file_id + '" /><td><img width="40px" height="40px" src="' + SITE_URL + '/' + file_data.file_path + '" /></td><td>' + file_data.file_name + '</td><td><a href="javascript:insert_editor(\'' + file_data.file_name + '\', \'' + file_data.file_path + '\');">{$lang.insert_editor}</a> | <a href="javascript:drop_uploadedfile(' + file_data.file_id + ');">{$lang.drop}</a></td></tr>';
+    $('#thumbnails').prepend(newImg);
+}
+</script>
+
+{include file="footer.html"}

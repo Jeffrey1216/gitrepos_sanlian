@@ -1,0 +1,84 @@
+<style type="text/css">
+.slt{width:80px;vertical-align: middle;margin-right:5px;}
+table{font-size:12px;}
+</style>
+{include file="header.html"}
+<div id="rightTop">
+    <ul class="subnav">
+        <li><span>管理</span></li>
+    </ul>
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+            <div class="left">
+                <input type="hidden" name="app" value="credit" />
+                <input type="hidden" name="act" value="credit" />
+                <input type="hidden" name="wait_verify" value="">
+                PL币数量:
+                <input class="queryInput" type="text" name="credit_num" value="{$credit_num}" />
+                                          发布者:
+                <input class="queryInput" type="text" name="user_name" value="{$user_name}">
+                                           交易周期：
+                <select class="slt" name="cycle">
+                	<option {if $cycle eq 0}selected{/if} value="0">所有记录</option>
+                	<option {if $cycle eq 3}selected{/if} value="3">3天</option>
+                	<option {if $cycle eq 7}selected{/if} value="7">7天</option>
+                	<option {if $cycle eq 10}selected{/if} value="10">10天</option>
+                	<option {if $cycle eq 15}selected{/if} value="15">15天</option>
+                </select>
+                                           出售状态：
+                <select class="slt" name="type">
+                	<option {if $type eq 0}selected{/if} value="0">所有记录</option>
+                	<option {if $type eq 2}selected{/if} value="2">出售</option>
+                	<option {if $type eq 1}selected{/if} value="1">急售</option>
+                	<option {if $type eq 3}selected{/if} value="3">已售出</option>
+                	<option {if $type eq 4}selected{/if} value="4">已过期</option>
+                </select>
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+      <span>
+              </span></form>
+    </div>
+    <div class="fontr">
+        
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+    
+        <tr class="tatr1">
+            <td>出售数量</td>
+            <td>派啦价</td>
+            <td>发布者</td>
+            <td>发布信息</td>
+            <td>发布状态</td>
+            <td>交易周期</td>
+            <td>发布时间</td>
+            <td class="handler">操作</td>
+        </tr>
+        <!-- {foreach from=$credit_goods_info item=credit} -->
+        <tr class="tatr2">
+            <td>{$credit.credit_num}PL</td>
+            <td>{$credit.price|price}</td>
+            <td>{$credit.user_name}</td>  
+            <td>{$credit.info}</td>
+            <td><!-- {if $credit.type eq 0} -->出售<!-- {elseif $credit.type eq 1}-->急售<!-- {elseif $credit.type eq 3}-->已售出<!-- {elseif $credit.type eq 4}-->已过期<!-- {/if} --></td>
+            <td>{$credit.cycle}天</td>
+            <td>{$credit.time}</td>
+            <td>查看</td>
+        </tr>
+     <!-- {foreachelse} -->
+        <tr class="no_data">
+            <td colspan="7">没有符合条件的信息！</td>
+        </tr>
+     <!-- {/foreach} -->
+    </table>
+     <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

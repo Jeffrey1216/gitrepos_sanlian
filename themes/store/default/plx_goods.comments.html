@@ -1,0 +1,119 @@
+{include file=storeindex_top.html}
+{include file=../../mall/default/new_head.html}
+{include file=../../mall/default/menu_select_js.html}
+<body>
+    
+	
+	<!--     头部      END       -->
+    <div class="content dtl_content">
+        <ul class="Visit_position">
+           <li class="Visit_position_l">
+           </li>
+                 <li class="Visit_position_m">
+            <!-- {foreach from=$data.cur_local item=cur name=curlocal} -->
+            <!-- {if $smarty.foreach.curlocal.last} -->
+             <a href="{$cur.url}">{$cur.text}</a>
+            <!-- {else} -->
+            <a href="{$cur.url}">{$cur.text}</a>&nbsp>
+            <!-- {/if} -->
+            <!-- {/foreach} -->
+          </li>
+           <li class="Visit_position_r">
+           </li>
+        </ul>
+        <div class="dtl_level2bg">
+	        <div class="dtl_showpro">
+	            <div class="dtl_showpro_l">
+	             {include file=agro_goodsinfo.html}
+	            </div>  
+	        </div>
+    	</div>
+        <div class="dtl_intr">
+        <div class="dtl_rcmd_ttl">
+            <span class="dtl_rcmd_cbnt">
+      			 <a href="{url app=goods&id=$goods.gs_id}#module">{$lang.goods_detail}</a>
+            </span>
+ 
+            <span class="dtl_rcmd_clct">
+				<a href="{url app=goods&act=comments&id=$goods.gs_id}#module">{$lang.goods_comment}</a>
+            </span>
+ 
+            <span class="dtl_rcmd_cbnt">
+                 <a href="{url app=goods&act=saleslog&id=$goods.gs_id}#module">{$lang.sales_log}</a>
+            </span><span class="dtl_rcmd_cbnt">
+				 <a href="{url app=goods&act=qa&id=$goods.gs_id}#module">{$lang.qa}</a>
+            </span>
+       
+            <ul class="dtl_share">
+                 <li class="dtl_share_l">分享到：</li>
+              
+                 <li class="dtl_share_tx">
+                 </li>
+    
+                 <li class="dtl_share_sian">
+                 </li>
+                 <li class="dtl_share_sohu">
+                 </li>
+                 <li class="dtl_share_db">
+                 </li>
+                 <li class="dtl_share_qzone">
+                 </li>
+            </ul>
+        </div>
+  	<div class="dtl_intr_ctt">
+           <div class="dtl_intr_ctt_l">
+              <div class="dtl_cmt">
+                {include file=agro_comments.html}
+              </div>
+           	</div>
+           <div class="dtl_rcmd2">
+                <div class="dtl_rcmd2_ttl">
+                    <h4>派啦网给您推荐</h4>
+                </div>
+                <!-- 推荐循环 -->
+               	<!-- {foreach from=$goods_statistics_info item=good name=statis } -->
+                <div class="dtl_rcmd2_gds">
+                    <a class="plm_gds_img" href="index.php?app=goods&id={$good.gs_id}"><img class="img_160" src="{$good.smimage_url}" alt="暂无" /></a>
+                    <p><a href="index.php?app=goods&id={$good.gs_id}">{$good.goods_name}</a></p>
+                    <span>售价：<strong>{$good.price}</strong></span>
+                    <span>配送派啦币：<strong>{$good.credit}PL</strong></span>
+                </div>
+                <div class="dtl_rcmd2_line">
+                </div>
+            	<!-- 推荐循环尾 -->	
+            	<!-- {/foreach} -->
+            </div>
+           <div class="clear"></div>                      		
+        </div>
+        
+    </div>
+    </div>
+   {include file=../../mall/default/footer.html}
+<div id="goTopBtn" style="bottom:0"><a href="javascript:void(0);" id="top"><div class="backtop"></div> </a></div>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+	$("#goTopBtn").hide();
+	
+ $(function () {
+	 $(window).scroll(function(){
+		 if (parseInt($(window).scrollTop()) > 100){
+			 $("#goTopBtn").fadeIn(800);
+		 }else{
+			 $("#goTopBtn").fadeOut(800);
+		 }
+	});
+ });
+ $('#top').click(function(){$('html,body').animate({scrollTop: '0px'}, 800);return false;});
+ });
+$(function(){
+	$(".backtop").mouseover(function(){
+	$(".backtop").addClass("backtop_s") ;
+	});
+	$(".backtop").mouseout(function(){
+	$(".backtop").removeClass("backtop_s") ;
+	});	
+});
+</script>
+</body>
+</html>

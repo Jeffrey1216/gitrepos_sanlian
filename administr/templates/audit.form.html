@@ -1,0 +1,119 @@
+{include file="header.html"}
+<div  class="order_form" style="border:none;margin-top:50px;">   
+        <h1>商品信息</h1>
+        <div style="margin-left:50px;">
+          <b>商品图片:</b><a href="{$site_url}/index.php?app=goods&xx=2&id={$goods_info.goods_id}" target="_blank"><img style="width:220px;height:220px;overflow:hidden;vertical-align:top;border:1px solid #9c9c9c;" src="{$goods_info.mimage_url}"/></a>
+        </div>
+        <div style="margin-left:50px;">
+        <ul> 
+          <li>
+          	<b>产品编号：</b>
+          	<span>{$goods_info.goods_number}</span>	
+          </li>
+          <li>
+          	<b>分类名：</b>
+          	<span>{$goods_info.cate_name}</span>
+          </li>
+          <li>
+          	<b>商品名：</b>
+          	<span>{$goods_info.goods_name}</span>
+          </li>
+          <li>
+          	<b>品牌名：</b>
+          	<span>{$goods_info.brand}</span>
+          </li>
+          <li>
+          	<b>供应商名称:</b>
+          	<span>{$goods_info.supply_name|escape}</span>
+          </li>
+          <li>
+          	<b>联系方式：</b>
+          	<span>{$goods_info.mobile}</span>
+          </li>
+          <li>
+          	<b>地址：</b>
+          	<span>{$goods_info.address|escape}</span>
+          </li>
+          </ul>
+         </div>
+	   <h1>规格信息</h1>
+	   <!-- {foreach from=$goods_info.spec item=s} -->
+	   <div style="margin-left:50px;border:1px solid #BBDBF1;padding:15px 12px;width:200px;color:#444444;float:left;">
+       <ul >
+	      <li style="float:none;">
+	      	<b>赠送积分：</b>
+	      	<span>{$s.credit}PL</span>	
+	      </li>
+		  <li style="float:none;">
+		  	<b>颜色：</b>
+		  	<span>{$s.spec_1}</span>
+		  </li>
+		  <li style="float:none;">
+		  	<b>尺寸：</b>
+		  	<span>{$s.spec_2}</span>
+		  </li>
+		   <li style="float:none;">
+		  	<b>重量：</b>
+		  	<span>{$s.weight}kg</span>	
+		  </li>
+		  <li style="float:none;">
+		  	<b>派啦价：</b>
+		  	<span>{$s.price|price}</span>	
+		  </li>
+		  <li style="float:none;">
+		  	<b>采购价：</b>
+		  	<span>{$s.gprice|price}</span>	
+		  </li>
+		  <li>
+          	<b>产品编号：</b>
+          	<span>{$s.commodity_code}</span>	
+          </li>
+	   </ul>
+	   </div>
+	   <!-- {/foreach} -->
+  <div class="clear"></div>
+</div>
+<div class="info">
+  <form method="post">
+    <table class="infoTable">   
+<!-- {if $goods_info.status eq 0} -->         
+      <tr>
+        <th class="paddingT15">{$lang.audit_con}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="status" value="1" checked="checked" />{$lang.audit_yes}
+            </label>
+            <label>
+            <input type="radio" name="status" value="2" />{$lang.audit_no}
+            </label>
+          </p></td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">{$lang.drop_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" /></textarea></td>
+      </tr>
+<!-- {else} -->
+	  <tr>
+        <th class="paddingT15">{$lang.audit_con}:</th>
+        <td class="paddingT15 wordSpacing5"><!-- {if $goods_info.status eq 1} -->已通过<!-- {else} -->未通过<!-- {/if} --></td>
+        <!-- {if $goods_info.status eq 2} -->
+        	<td class="paddingT15">未通过原因:</td>
+        	<td class="paddingT15 wordSpacing5">{$goods_info.reason|escape}</td>
+        <!-- {/if} -->
+      </tr>
+<!-- {/if} -->
+      <tr>
+        <th></th>
+        <td class="ptb20">
+        <!-- {if $goods_info.status eq 0} -->
+          <input class="formbtn" type="submit" name="Submit" value="提交" />
+          <input class="formbtn" type="button" value="返回" onclick="history.go(-1)" />
+        <!-- {else} -->
+            <input class="formbtn" type="button" value="返回" onclick="history.go(-1)" />
+        <!-- {/if} -->
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

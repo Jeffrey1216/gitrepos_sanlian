@@ -1,0 +1,32 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox">
+	<h3 class="tit"><span>我的订单</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=checkoutpaila&act=quickcheckoutview&order_id=33">我的订单详情</a></li>
+	</ul>
+		<ul class="quick_heads">
+			<li style="padding:0;" class="quick_li_w">时间:<span>{$quick_order_view.finished_time|date:Y-m-d H:i}</span></li>
+			<li style="padding:0;" class="quick_li_w">购买人:<span>{$quick_order_view.buyer_name}</span></li>
+			<li style="padding:0;" class="quick_li_w">商铺名:<span>{$quick_order_view.store_name}</span></li>
+		</ul>
+	<!-- {if $quick_order_view} -->
+	<div class="quick_cashier">
+		<h3>派啦商城</h3>
+		<h4>单号:<span>{$quick_order_view.order_sn}</span></h4>
+		<table>
+		<tr><th>货号</th><th class="width_200">品名</th><th>数量</th><th>单价</th></tr>
+		<!-- {foreach from=$quick_goods item=goods} -->
+		<tr><td>{$goods.goods_id}</td><td>{$goods.goods_name}</td><td>{$goods.quantity}</td><td>{$goods.price}</td></tr>
+		<!-- {/foreach} -->
+		</table>
+	</div>
+	<!-- {/if} -->
+	<div class="quick_line">
+	</div>
+	<div class="quick_bottom">
+		<input type="button" value="确定" onclick="window.location.href='index.php?app=checkoutpaila&act=quickCheckOutPaila'"/>
+	</div>
+	
+	
+</div>

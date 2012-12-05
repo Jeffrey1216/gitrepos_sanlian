@@ -1,0 +1,50 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=MyDate/WdatePicker.js}"></script>
+<div class="borderBox">
+	<h3 class="tit"><span>会员管理</span></h3>
+	<ul class="tabDiv mb10">
+		<li  class="hover"><a href="index.php?app=assistMembers">会员协助</a></li>
+	</ul>
+	<form action="index.php?app=assistMembers" method="get">
+		<table class="tabSearch" cellpadding="0" cellspacing="0">
+			<tr><input type="hidden" name="app" value="assistMembers">
+					<input type="hidden" name="act" value="index">
+			<td>手机号码：<input type="text" class="input100" name="mobile" id="mobile" value="{$smarty.get.mobile}"/></td>
+			<td><input type="submit" name="submit" class="btn1" value="查询" style="float:none"/></td>
+			</tr>	
+		</table>
+	<table class="tabList" cellpadding="0" cellspacing="0">
+		<tbody class="trBg">
+			<tr>
+				<th>会员账号</th>
+				<th>会员手机号</th>
+				<th>会员归属地</th>
+				<th>注册时间</th>
+				<th>操作</th>
+			</tr>
+			<!--{foreach from=$member_list item=rs}-->
+			<tr>
+					<td>{$rs.user_name}</td>
+					<td>{$rs.mobile}</td>
+					<td>{$rs.mobilearea}</td>
+					<td>{$rs.reg_time|date:Y-m-d H:i:s}</td>
+					<td><a href="index.php?app=assistMembers&act=set_trader_password&id={$rs.user_id}">找回支付密码</a></td>
+			</tr>
+			<!--{foreachelse}-->
+                    <tr>
+                        <td class="align2 member_no_records padding6" colspan="4">{$lang.no_records}</td>
+                    </tr>
+            <!--{/foreach}-->
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="4">
+					<div class="page">
+                                {$page}
+                    </div>
+			    </td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+{include file=storeadmin.footer.html}

@@ -1,0 +1,17 @@
+<div class="dtl_rcmd2">
+	<div class="dtl_rcmd2_ttl">
+	    <h4>派啦网给您推荐</h4>
+	</div>
+	<!-- 推荐循环 -->
+	<!-- {foreach from=$goods_statistics_info item=good name=statis } -->
+		<div class="dtl_rcmd2_gds">
+		    <a class="plm_gds_img" href="index.php?app=goods&id={$good.goods_id}"><img class="img_160" src="{$good.simage_url}" alt="暂无" /></a>
+		    <p><a href="index.php?app=goods&id={$good.goods_id}">{$good.goods_name}</a></p>
+		    <span>售价：<strong>{$good.price}</strong></span>
+		    <span>配送派啦币：<strong>{$good.credit}PL</strong></span>
+		</div>
+		<div class="dtl_rcmd2_line">
+		</div>
+	<!-- 推荐循环尾 -->	
+	<!-- {/foreach} -->
+</div>

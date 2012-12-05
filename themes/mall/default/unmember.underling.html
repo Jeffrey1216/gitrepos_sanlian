@@ -1,0 +1,50 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+
+<div class="content">
+    {include file=member.menu.html}
+<div id="manager_info" class="mypaila_right">
+<h3>下属会员</h3>
+ <div class="manager_invent">
+	 	<a class="manager_btn" href="index.php?app=member&act=invitgroup">邀请团购员</a> <br/>
+	 	<a class="manager_btn" href="index.php?app=member&act=selGains">查看收益</a> <br/>
+	 	<!--<a class="manager_btn" href="index.php?app=member&act=withdraw">申请提现</a>-->
+		<a class="manager_btn" href="index.php?app=member&act=autotrophy">产品购买</a><br/>
+		<a class="manager_btn" href="index.php?app=member&act=uninvitgroup">下属团购员</a> <br/>
+		<a class="manager_btn" href="index.php?app=member&act=unmember">直属会员</a>
+	 </div>
+	 <div class="manager_line"></div>
+<div class="manager_l" >
+	<!-- {if $ungroup} -->
+	<table id="tab_info">
+		<tr>
+			<th class="width1" align="left">账号</th>
+			<th class="width2" align="left">会员姓名</th>
+			<th class="width1" align="left">手机号</th>
+			<th class="width2" align="left">电子邮箱</th>
+			<th align="left">邀请时间</th>
+		</tr>
+		<!-- {foreach from=$ungroup item=group} -->
+		<tr>
+			<td>{$group.user_name}</td>
+			<td style="padding-left:10px">{$group.real_name}</td>
+			<td style="padding-right:20px">{$group.mobile}</td>
+			<td style="padding-right:20px">{$group.email}</td>
+			<td style="padding-left:10px">{$group.reg_time|date}</td>
+		</tr>
+		<!-- {/foreach} -->
+	</table>
+	<!-- {else} -->
+	<div>亲，没有下属会员哦！要努力哦！</div>
+	<!-- {/if} -->
+</div>
+<div class="order_form_page">
+     <div class="page">
+         {include file=member.page.bottom.html}
+     </div>
+</div>
+</div>
+
+{include file=footer.html}

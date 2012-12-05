@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/ xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>欢乐大派送-派啦网，零销商业大革命派啦模式，创造服务中国10亿人的购买力资产平台</title>
+    <meta name="description" content="派啦网,PMB模式"/>
+    <meta name="keywords" content="派啦网 派啦商城 PMB模式"/>
+    <meta name="author" content="www.paila100.com"/>
+    <link href="{res file=topics/paisong/css/zhuanpan.css}" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+	<script type="text/javascript">	
+		function myBrowser(){
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+		var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
+		var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera ; //判断是否IE浏览器
+		var isFF = userAgent.indexOf("Firefox") > -1 ; //判断是否Firefox浏览器
+		var isSafari = userAgent.indexOf("Safari") > -1 ; //判断是否Safari浏览器
+		
+		if(isIE){
+		   var IE5 = IE55 = IE6 = IE7 = IE8 = false;
+		   var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+		   reIE.test(userAgent);
+		   var fIEVersion = parseFloat(RegExp["$1"]);
+		
+		   IE55 = fIEVersion == 5.5 ;
+		   IE6 = fIEVersion == 6.0 ;
+		   IE7 = fIEVersion == 7.0 ;
+		   IE8 = fIEVersion == 8.0 ;
+		
+		   if(IE55){ return "IE55"; }
+		   if(IE6){ return "IE6"; }
+		   if(IE7){ return "IE7"; }
+		   if(IE8){ return "IE8"; }
+		}//isIE end
+		
+		if(isFF){ return "FF"; }
+		if(isOpera){ return "Opera"; }
+		
+		}//myBrowser() end
+		function  checks(){
+			if(myBrowser()=="IE6"||myBrowser()=="IE55"){addmistake();}else{document.getElementById("body").style.display="block";document.getElementById("body").className="body";app();}
+		}
+		function addmistake(){
+			var bodys = document.getElementById("body");
+			bodys.innerHTML="";
+			bodys.style.background="#fff";
+			bodys.style.display="block";
+			bodys.innerHTML="<div class=\"ie6box\"><p class=\"ie6_p\">对不起，您的浏览器版本过低！</p><p>您可以：立即<a href=\"http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie-8\">升级浏览器</a>或者<a href=\"index.php\">浏览其它页面</a></p></div>";
+		}
+	</script>
+	<!--{if $visitor.user_id}-->
+	<script type="text/javascript">
+	$(function(){
+		$("#invents").click(function(){
+			$("#note2").fadeIn("slow");			
+		})
+	})
+	$(function(){
+		$("#fadeouts").click(function(){
+			$("#note2").fadeOut("slow");			
+		})
+	})
+	</script>   		
+	<!--{/if}-->
+</head>
+<body id="body" class="bodys"onload=checks();>
+<div>
+    <div class="content1">
+    <div class="paisong_menu">欢迎来到派啦网！<span style="padding-right:5px;color:#505050">{$visitor.user_name|escape}
+    	<!--{if !$visitor.user_id}-->&nbsp;请先 [ <a style="padding:0;" href="{url app=member&act=login}">登录</a> ] 或 [ <a style="padding:0;" href="{url app=member&act=register}">注册</a> ]
+		<!--{else}--> [<a style="padding:0;" href="{url app=member&act=logout}">退出</a>]<!--{/if}--></span>	
+		<a href="index.php">首页</a>|<a href="index.php?app=mall">派啦商城</a>|<a href="index.php?app=download">下载中心</a>|<a href="index.php?app=article&act=help&article_id=11">帮助中心</a></div>  	        	
+        <div style="width:1300px;height:660px;margin:0 auto;">
+            <div class="top_bg">				
+					<ul class="goods_box2">						
+						<li class="zl_jt">
+						</li>
+						<li class="zl_btn1">
+							<a href="index.php?app=mother">
+				母亲节<span>特惠</span>
+			</a>
+						</li>
+						<li class="zl_jt">
+						</li>
+						<li class="zl_btn1">
+						<a href="index.php?app=special">
+				五一<br/>
+				放价
+			</a>
+						</li>
+					</ul>
+					<ul class="goods_l_box">
+						<li>咨询电话：0791-87612651</li>
+						<li>第一期活动时间：2011年12月01日-12月31日</li>
+					</ul>
+			</div>
+        </div>
+        <div class="center">
+            <div class="center_left">
+                <div class="number"><span id="act_num">{$activity.act_num}人</span></div>
+                <div class="flash">
+                    <CENTER><EMBED  src="{res file=topics/paisong/flash/newweb.swf}" width="570px" height="570px" type="application/x-shockwave-flash" wmode="transparent" quality="high"></CENTER>
+               </div>
+            </div>
+            <div class="center_right">
+            <!--{if !$visitor.user_id}-->
+                <div class="height01"><a class="zhuce" href="index.php?app=member&act=register"></a>
+                    <a class="denglu" href="index.php?app=member&act=login"></a>
+                </div>
+            <!--{else}-->
+            <div id="note1" class="note">
+						<span>亲爱的 <b>{$visitor.user_name|escape}</b> ，你还有<strong><span style="display:inline" id="awardnum">{$awardnum}</span></strong>次抽奖机会</span>
+					<span>再次获得抽奖机会</span>
+						<span class="sharebtn">
+							<a id="invents" href="javascript:void(0)">邀请好友</a>
+								   <a href="index.php?app=testpaper"target="_blank">参与问卷</a>
+								   <a href="index.php?app=topics&act=getchance" target="_blank">购买机会</a>
+						</span>
+					</div>
+					
+					<div id="note2" class="note">
+						<input type="text" value="{$site_url}/index.php?app=member&act=register&invitecode={$invitecode}" id="span_copy"/><input class="button_invent" type="button" value="复制" onclick="test()">
+						<input class="button_invent" type="button" id="fadeouts" value="返回"/>
+						<p class="note_p">复制你的唯一链接发送给你的好友，你将得到一次抽奖机会哦！</p>
+					</div>
+			<!--{/if}-->
+                
+                <div class="info">
+						<div  class="info_top"></div>
+						<div id="demo" style="height:390px;overflow:hidden;" >
+						<ul id="demo1" >
+							<!--{foreach from=$awardinfo item=rs}-->
+							<li><span class="width_01">{$rs.username}</span><span class="width_02">{$rs.prize_name}</span><span
+									class="width_03">{$rs.add_time|date:Y-m-d}</span></li>
+						    <!--{foreachelse}-->
+		                    <li><span>暂无获奖动态</span></li>
+		            	<!--{/foreach}-->
+						</ul>
+						<ul id="demo2"></ul>
+					</div>	
+					</div>
+            </div>
+        </div>
+        <div class="decript">
+            <div class="title_bg_top">
+                <h3>欢乐大转轮</h3>
+            </div>
+            <div class="title_bg_center">
+<span>在此五一劳动节之际，江西三联融创投资有限公司现在推出“繁花似锦五月天，免费注册赢大奖！”的派啦活动，注册/登陆有礼并可马上
+抽奖！邀请好友越多，中奖机会越高！更有IPAD、网球拍等众多好礼等你来拿，具体详见奖品清单。</span>
+            </div>
+            <div class="title_bg_foot">
+            </div>
+        </div>
+        <div class="decript  height02">
+            <div class="title_bg_top">
+                <h3>奖品设置</h3>
+            </div>
+            <div class="title_bg_center">
+                <ul>
+                    <li class="li">1. 特等奖：1名，价值5000元的苹果IPAD2</li>
+                    <li class="li">2. 一等奖：①1名，价值3600元的铭珠舫珠宝（吊坠，钻戒）；<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ②1名，价值3600元的茗如玉精品井冈白茶</li>                 
+                    <li class="li">3. 二等奖：5名，价值1380元的世纪科技丝幕花洒</li>
+                    <li class="li">4. 三等奖：10名，价值330元的赣岭野生山茶油礼盒</li>
+                    <li class="li">5. 四等奖：50名，价值148元的九天绿A派营养膳食</li>
+                    <li class="li">6. 五等奖：500名，10元派啦积分</li>
+                    <li class="li">7. 六等奖：1000名，5元派啦积分</li>
+                </ul>
+                <div class="pro"></div>
+            </div>
+            <div class="title_bg_foot">
+            </div>
+        </div>
+        <div class="decript height03">
+            <div>
+                      <h2>活动规则如下：</h2>
+                <ul>
+                    <li>1、活动时间：2012年4月28日到2012年5月13日。</li>
+                    <li>2、抽奖机会获得方式：
+                    <ul>
+                        <li>1）每位新注册会员拥有一次抽奖机会；</li>
+                        <li>2）每邀请一位好友注册成为派啦会员，均可再获得一次抽奖机会，以此类推；</li>
+                        <li>3）每笔成功支付的订单，不论金额，均可获得一次抽奖机会。</li>
+                        <li>备注说明：</li>
+                        <li>A．派啦商城积分不可提现。</li>
+						<li>B．所抽取的奖品我们会通过物流快递免费派送到您家，抽取的PL币会自动保存到您的账号，可用于派啦商城购买商品。</li>
+						<li>C．最终的获奖结果以获奖页面所刊登的结果为准，派啦网对本次活动保留最终解释权。</li>
+						<li>5、更多活动详情请致电派啦网服务热线：400-166-1616</li>
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+       <div class="gift"></div>
+        </div>
+            <div class="decript">
+                <div class="foot">
+                <div>公司名称：江西三联融创投资有限公司   地址：江西省南昌市广场南路205号（恒茂国际中心A座1011室）            </div>
+                    <div>咨询热线：400-166-1616 公司电话：0791-88633928 传真：0791-86106509</div>
+                    <div>Copyright@2010-2011 www.paila100.com派啦网 All Rights Reserved    备案号：赣B2--20110067  </div>
+                                  </div>
+            </div>
+            </div>
+</div>
+<script style="text/javascript" src="{res file=topics/paisong/js/scholl_h.js}"></script>
+<!--{if $visitor.user_id}-->
+<script type="text/javascript">
+function p(txt){
+if(window.clipboardData){
+window.clipboardData.clearData();
+window.clipboardData.setData("Text", txt + "");
+}else if(navigator.userAgent.indexOf("Opera") != -1){
+window.location = txt;
+}else if (window.netscape){
+try {
+netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+} catch (e) {
+alert("被浏览器拒绝！\n您可以在浏览器地址栏输入'about:config'并回车\n然后将'signed.applets.codebase_principal_support'设置为'true'");
+}
+var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+if (!clip){return;}
+var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+if (!trans){return;}
+trans.addDataFlavor('text/unicode');
+var str = new Object();
+var len = new Object();
+str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+var copytext = txt;
+str.data = copytext;
+trans.setTransferData("text/unicode",str,copytext.length * 2);
+var clipid = Components.interfaces.nsIClipboard;
+if (!clip){return false;}
+clip.setData(trans,null,clipid.kGlobalClipboard);
+}
+}
+
+function test(){
+//直接调用p(txt)就行了
+p(document.getElementById("span_copy").value);
+alert("复制成功");
+}
+//更新获奖机会和抽奖总人数
+function updatenum(num){
+	var awardnum = document.getElementById("awardnum");
+	var act_num = document.getElementById("act_num");
+	var numbers = parseInt(act_num.innerHTML);
+	awardnum.innerHTML = parseInt(num-1);
+	act_num.innerHTML = parseInt(numbers+1);
+}
+</script> 
+
+
+<!--{/if}-->
+</body>
+</html>

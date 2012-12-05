@@ -1,0 +1,73 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $('#gcategory').length>0 && gcategoryInit("gcategory");
+});
+//]]>
+</script>
+<div id="rightTop">
+  <ul class="subnav">
+    <li><a href="index.php?app=consult" style="text-decoration:none;"><span>咨询管理</span></a></li>
+  </ul>
+</div>
+<div class="mrightTop info">
+  <div class="fontl">
+    <form method="get" id="search_form">
+      <div class="left">
+      <input type="hidden" name="app" value="consult" />
+	  {$lang.goods_name}:
+      <input class="queryInput" type="text" name="goods_name" value="{$smarty.get.goods_name|escape}" />
+      咨询人:
+      <input class="queryInput" type="text" name="name" value="{$smarty.get.name|escape}" />
+  咨询时间:<input class="queryInput3" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+   至:<input class="queryInput3" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+          <input type="submit"  id="search" class="formbtn" value="{$lang.query}" />
+      </div>
+      <!--{if $smarty.get.cate_id or $query.goods_name  or $query.brand}-->
+      <a class="left formbtn1" href="index.php?app=service<!--{if $query.closed}-->&amp;closed={$query.closed}<!--{/if}-->">{$lang.cancel_query}</a>
+      <!--{/if}-->
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+      <td width="30%"><span ectype="order_by" fieldname="goods_name">{$lang.goods_name}</span></td>
+      <td>咨询人</td>
+      <td>咨询时间</td>
+      <td>咨询内容</td>
+      <td>{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$goods_info item=goods}-->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" value="{$goods.ques_id}"/></td>
+      <td><img src="{$imgurl}{$goods.smimage_url}" />{$goods.item_name|escape}</td>
+      <td><!-- {if $goods.user_name eq ''} -->游客<!-- {else} -->{$goods.user_name|escape}<!-- {/if} --></td>
+      <td>{$goods.time_post|date:complete}</td>
+      <td><span ectype="inline_edit" fieldname="question_content" fieldid="{$goods.ques_id}" required="1" class="editable" title="{$lang.editable}">{$goods.question_content|escape}</span></td>
+      <td>
+      	<a href="index.php?app=consult&amp;act=drop&id={$goods.ques_id}">删除</a>
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="8">{$lang.no_data}</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+    <div id="batchAction" class="left paddingT15">
+ 	 <input class="formbtn batchButton" type="button" name="id" value="批量删除" uri="index.php?app=consult&act=bath_edit&ret_page={$page_info.curr_page}"/>
+  </div>
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+  <div class="clear"></div>
+</div>
+{include file="footer.html"}

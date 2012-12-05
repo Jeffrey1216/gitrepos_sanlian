@@ -1,0 +1,84 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>团购员收益管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel&act=managerIncome">提现</a></li>    
+    <li><a class="btn1" href="index.php?app=channel&act=managerCash">管理</a></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="info">
+ <h3 style="border-bottom:1px solid #E2E2E2;height:30px;color:#BF1412;line-height:30px;padding-left:10px;font-size:14px;">
+            	 收益详情
+     	 </h3> 
+  <form name="form" method="post" action="">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">被推荐人信息:</th>
+        <td class="paddingT15 wordSpacing5">用户名：{$info.user_name2} ， 真是姓名：{$info.real_name2} ，等级：{$info.level_definition2}</td>        
+      </tr>      
+      <tr>
+        <th class="paddingT15">推荐人信息:</th>
+        <td class="paddingT15 wordSpacing5">用户名：{$info.user_name1} ， 真是姓名：{$info.real_name1} ，等级：{$info.level_definition1}</td>
+      </tr>
+       <tr>
+        <th class="paddingT15">本人信息:</th>
+        <td class="paddingT15 wordSpacing5">用户名：{$info.user_name3}，真实姓名：{$info.real_name3} ，等级：{$info.level_definition3}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">本人收益级别:</th>
+        <td class="paddingT15 wordSpacing5"><!-- {if $info.recom_yidle eq 1} -->第一级推荐收益<!-- {elseif $info.recom_yidle eq 2} -->第二级推荐收益<!-- {elseif $info.recom_yidle eq 3} -->第三级推荐收益<!-- {elseif $info.recom_yidle eq 4} -->第四级推荐收益<!-- {elseif $info.recom_yidle eq 5} -->第五级推荐收益<!-- {/if} --></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">时间：</th>
+        <td class="paddingT15 wordSpacing5">{$info.gains_time|date}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">收支类型：</th>
+        <td class="paddingT15 wordSpacing5"><!-- {if $info.gains_type eq 0} -->直接消费收益<!-- {elseif $info.gains_type eq 1} -->间接消费收益<!-- {elseif $info.gains_type eq 2} -->会员消费收益<!-- {elseif $info.gains_type eq 3} -->提现<!-- {else} -->其他<!-- {/if} --></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">金额：</th>
+        <td class="paddingT15">{$info.gains_amount}</td>
+      </tr>
+    </table>
+  </form>
+  <!-- {if $info.draw_type neq 0} -->
+   <h3 style="border-bottom:1px solid #E2E2E2;height:30px;color:#BF1412;line-height:30px;padding-left:10px;font-size:14px;">
+            	提现明细
+     	 </h3> 
+     	   <form name="form" method="post" action="">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">开户银行:</th>
+        <td class="paddingT15 wordSpacing5">{$info.draw_bank}</td>        
+      </tr>      
+      <tr>
+        <th class="paddingT15">开户名:</th>
+        <td class="paddingT15 wordSpacing5">{$info.draw_name}</td>
+      </tr>
+       <tr>
+        <th class="paddingT15">开户账号:</th>
+        <td class="paddingT15 wordSpacing5">{$info.draw_accounts}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">交易流水号:</th>
+        <td class="paddingT15 wordSpacing5">{$info.trace_code}</td>
+      </tr>
+
+
+      
+    </table>
+  </form>
+  <!-- {/if} -->
+  <table>
+        <tr>
+        <th></th>
+        <td class="ptb20"><input onclick="javascript:history.back()" class="formbtn" type="button" name="Submit" value="返回" />
+        				<input type="hidden" name="id" value="{$user.id}"/></td>
+      </tr>
+     </table>
+</div>
+{include file="footer.html"}

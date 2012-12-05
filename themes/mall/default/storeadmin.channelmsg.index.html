@@ -1,0 +1,53 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>渠道信息</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="#">渠道商概况</a></li>
+	</ul>
+	<div class="information">	
+		<h3>渠道商基本信息</h3>         
+	  	<table width="70%">
+	   		<colgroup> 	
+	       		<col width="26%"/>
+	       		<col width="44%"/>
+	  		</colgroup>
+	  		 <tbody>         
+		         <tr><th align="right">手机号：</th><td>{$user.mobile}</td></tr>
+		         <tr><th align="right">电子邮箱：</th><td>{$user.email}</td></tr>
+		         <tr><th align="right">真实姓名：</th><td>{$user.name} （{if $user.gender eq 0}先生{elseif $user.gender eq 1}女士{/if}）</td></tr>
+		         <tr><th align="right">公司名称：</th><td>{if $user.company}{$user.company}{else}暂无{/if}</td></tr>
+		         <tr><th align="right">公司地址：</th><td>{if $user.address}{$user.address}{else}暂无{/if}</td></tr>
+		         <tr><th align="right">身份证号码：</th><td>{$user.identity}</td></tr>
+		         <tr><th align="right">营业执照/组织机构代码证号码：</th><td>{if $user.companynum}{$user.companynum}{else}暂无{/if}</td></tr>
+		       	 <tr><th align="right">等级：</th><td><!--{if $user.level eq 1}-->经营中心 <!--{elseif $user.level eq 2}-->服务中心<!--{elseif $user.level eq 3}-->派啦加盟店<!--{elseif $user.level eq 4}-->派啦渠道商<!--{elseif $user.level eq 5}-->派啦渠道商（内部）<!--{/if}--> （{$user.area_name}）</td></tr>
+		         <tr><th align="right">身份证复印件：</th><td>{if $user.identitypic}<a href="{$site_url}/{$user.identitypic}" target="_blank"><img src="{$site_url}/{$user.identitypic}" width="100" height="100" /></a>{else}暂无{/if}</td></tr>
+		         <tr><th align="right">公司营业执照/组织机构代码证：</th><td>{if $user.companypic}<a href="{$site_url}/{$user.companypic}" target="_blank"><img src="{$site_url}/{$user.companypic}" alt="" width="100" height="100" /></a>{else}暂无{/if}</td></tr>
+	         </tbody>
+	 	 </table>
+	     <h3>渠道商账户概况</h3>	                       
+	     <div class="zhgk2">	   
+		   <div class="channelmsg"> 
+		      <div class="channelmsg_left">
+		         <img src="templates/style/images/zhgk9.jpg">
+		      </div>
+		      <div class="channelmsg_right">
+		          <div class="channelmsg_right1">	         
+			          <div class="font1">您好，<span>{$user.channel_name}</span> <span><!--{if $user.gender eq 0}-->先生<!--{/if}--><!--{if $user.gender eq 1}-->女士<!--{/if}--></span>，欢迎使用“我的派啦”管理系统！</div>
+			          <div>您的身份：<span><!--{if $user.level eq 1}-->经营中心 <!--{elseif $user.level eq 2}-->服务中心<!--{elseif $user.level eq 3}-->派啦加盟店<!--{elseif $user.level eq 4}-->派啦渠道商<!--{elseif $user.level eq 5}-->派啦渠道商（内部）<!--{/if}--></span> （{$user.area_name}）</div>
+			          <div>返利总积分：<span>{$user.point}</span>(PL)  
+				          <div>渠道商年费：<span>{$fee.fee}</span>元</div>	    
+				          <div>到期时间：<span><!--{if $user.exp_time}-->{$user.exp_time|date}<!--{/if}--></span></div>	       	                    
+		      	 	  </div>
+		       	  </div>
+			       <div class="channelmsg_right2">   
+			          <ul>
+				           <li>推广号：<span>{$user.sn}</span></li>
+				           <li>会员消费返利收益率：<span>{$fee.return_rate}</span>%</li>
+				    	   <li>推荐渠道商收益率：<span>{$fee.recom_rate}</span>%</li>   	
+			          </ul>
+			       </div>	      	  	          	      	     
+		   		</div>
+			</div>
+		</div>
+	</div>
+</div>

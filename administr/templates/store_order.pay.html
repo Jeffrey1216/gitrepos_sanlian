@@ -1,0 +1,28 @@
+{include file="header.html"}
+<style type="text/css">
+.order_pay{margin:30px;}
+.order_pay input{margin:20px 10px 20px 0;}
+.order_page{width:800px;height:270px;border:1px solid #cccccc;margin-top:30px;padding:10px;}
+</style>
+<div class="order_pay">
+汇款信息：<br/><div class="order_page">{$store_info.pay_message}</div>
+<form onsubmit="return show_confirm()" method="post">
+<input type="submit" value="确认收到货款"/><input type="button" value="返回"/>
+</form>
+</div>
+<script type="text/javascript">
+function show_confirm()
+{
+var r=confirm("确认收到货款？");
+if (r==true)
+  {
+  return true;
+  }
+else
+  {
+  return false;
+  }
+}
+</script>
+
+

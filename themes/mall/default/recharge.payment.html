@@ -1,0 +1,44 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>确认支付订单</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=shopadmin&act=recharge">确认订单金额及支付方式</a></li>
+	</ul>
+		<div class="public_02">
+<div id="zhifu">
+<form action="index.php?app=shopadmin&act=goto_pay&order_id={$order.order_id}" method="POST" id="goto_pay" target="_blank">
+<h3>支付货款</h3>
+	   <div class="zhifu6">
+	   <p><span>恭喜</span>，订单<span>{$order.order_sn}</span>已生成！</p>
+	   <p>请选择银行支付，支付成功, 充值完成</p>
+	   </div>
+	   <h3>订单信息</h3>
+	   <div class="zhifu7">
+	   <ul>
+	   <li>收款方：派啦网</li>
+	   <li>类型：店铺充值</li>
+	   <li>金额：<span>{$order.balance|price}</span></li>
+	   </ul>
+	   </div>
+	   <h3>选择网上银行或平台支付<span>您需要先拥有一张已开通网上支付功能的银行卡。</span></h3>
+	   <div class="zhifu8">	    
+	   <!--{if $payments.online}-->
+	   <h6>点击以下平台支付:</h6>
+	   <div class="zhifu8_1">
+	   	  <!--{foreach from=$payments.online item=payment}-->
+          <div style="float:left;margin:10px;">
+              <span class="radio"><input id="payment_{$payment.payment_code}" type="radio" name="payment_id" value="{$payment.payment_id}" /></span>
+              <span class="logo"><label for="payment_{$payment.payment_code}"><img src="{$site_url}/includes/payments/{$payment.payment_code}/logo.gif" alt="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" title="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" width="125" height="47" /></label></span>
+              <span class="explain">{$payment.payment_desc|escape}</span>
+          </div>
+		  <!--{/foreach}-->
+	   </div>
+	   </div>
+	   <!--{/if}-->
+<ul class="zhifu5">
+   <li ><a style="color:#fff;" href="javascript: $('#goto_pay').submit(); window.location.href='index.php?app=shopadmin&act=recharge';" class="gouwuche_btn">{$lang.confirm_pay}</a></li>
+	<li style="margin:25px 25px 25px 0;"><a href="javascript:history.back(-1);"><img src="{res file=images/gouwuche_10.gif}" />返回上一步</a></li>
+	</ul>	
+</form>
+</div>
+</div>

@@ -1,0 +1,121 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#pay_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#pay_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+    <ul class="subnav2"> 	
+        <li class="on"><a>店铺进货单<span></span></a></li>
+        <!-- {if !$storemanage} -->
+        <li><a href="index.php?app=store_statistics&act=collection&store_type=0">直营店零售单<span></span></a></li>
+        <li><a href="index.php?app=store_statistics&act=collection&store_type=1">加盟店零售单<span></span></a></li>       
+        <li>采购总金额：<font class="price">{$total.gprice_total|price}</font></li>
+        <!-- {else} -->
+        <li><a href="index.php?app=storemanage_statistics&act=collection&store_type=0">直营店零售单<span></span></a></li>
+        <li><a href="index.php?app=storemanage_statistics&act=collection&store_type=1">加盟店零售单<span></span></a></li> 
+        <!-- {/if} -->
+        <li>批发总金额：<font class="price">{$total.zprice_total|price}</font></li>
+        <li>物流总金额：<font class="price">{$total.ship_fee|price}</font></li>     	
+        <!--<li>派啦价总金额:{$total.total|price}</li>-->
+    </ul>
+ </div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">查询:
+             <!-- {if !$storemanage} -->
+                <input type="hidden" name="app" value="store_statistics" />
+             <!-- {else} -->
+             	<input type="hidden" name="app" value="storemanage_statistics" />
+             <!-- {/if} -->
+                <input type="hidden" name="act" value="sell" />
+                <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                </select><input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                店铺类型:<select class="querySelect" name="store_type">
+                    <option value="">请选择</option>
+                    {html_options options=$store_type selected=$query.store_type.value}
+                </select>
+             	&nbsp;&nbsp;订单类型:<select class="querySelect" name="status">
+                     {html_options options=$status selected=$query.status}
+                </select>
+                支付时间:<input class="queryInput3" type="text" value="{$query.pay_time_from}" id="pay_time_from" name="pay_time_from" class="pick_date" />
+                至:<input class="queryInput3" type="text" value="{$query.pay_time_to}" id="pay_time_to" name="pay_time_to" class="pick_date" />
+                物流金额:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+             <!-- {if !$storemanage} -->
+                <a class="left formbtn1" href="index.php?app=store_statistics&act=sell">{$lang.cancel_query}</a>
+             <!-- {else} -->
+             	<a class="left formbtn1" href="index.php?app=storemanage_statistics&act=sell">{$lang.cancel_query}</a>
+             <!-- {/if} -->    
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+        {if $orders}{include file=page.top.html}{/if}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+    
+        <tr class="tatr1">
+           <td>订单编号</td>
+           <td>店铺名</td>
+           <td>直/加</td>
+           <!-- {if !$storemanage} -->
+           <td>采购价</td>
+           <!-- {/if} --> 
+           <td>批发价</td>
+           <td>物流费</td>
+           <td>实付金额</td>
+           <td>欠款</td>
+           <td>支付方式</td>
+           <td>订单状态</td>
+           <td>完成时间</td>
+           <td>操作</td>           
+        </tr>
+
+        <!--{foreach from=$goods item=goods_info}-->
+        <tr class="tatr2">
+           <td><a href='index.php?app=store_statistics&act=view&id={$goods_info.order_id}'>{$goods_info.order_sn}</a></td>
+		   <td>{$goods_info.store_name|escape}</td>
+		   <td><!-- {if $goods_info.store_type eq 0} -->直营店<!-- {elseif $goods_info.store_type eq 1} -->加盟店<!--{/if}-->
+           </td>
+           <!-- {if !$storemanage} -->
+           <td style="color:red">{$goods_info.stock_price|price}</td>
+           <!-- {/if} -->          
+		   <td>{$goods_info.user_price|price}</td>
+		   <td>{$goods_info.shipping_fee|price}</td>
+		   <td>{$goods_info.pay_amount|price}</td>	   
+		   <td>{$goods_info.arrears_amount|price}</td>		   
+		   <td>{$goods_info.payment_name}</td>
+		   <td><!-- {if $goods_info.status eq 20} -->已付款,待发货<!-- {elseif $goods_info.status eq 30} -->已付款,已发货<!-- {elseif $goods_info.status eq 40} -->交易成功<!-- {/if} --></td>
+		   <td>{$goods_info.finished_time|date:Y-m-d H:i:s}</td>
+		   <td>
+		   <!-- {if !$storemanage} -->
+		   <a href='index.php?app=store_statistics&act=view&id={$goods_info.order_id}'>查看</a>|
+		   <a onclick="window.open('index.php?app=store_statistics&act=orderprint&id={$goods_info.order_id}')">订单打印</a>
+           <!-- {else} -->
+           <a href='index.php?app=storemanage_statistics&act=view&id={$goods_info.order_id}'>查看</a>|
+		   <a onclick="window.open('index.php?app=storemanage_statistics&act=orderprint&id={$goods_info.order_id}')">订单打印</a>
+           <!-- {/if} -->		   
+		   </td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="15">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

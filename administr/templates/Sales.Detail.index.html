@@ -1,0 +1,149 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+	$('#time_from').datepicker({dateFormat: 'yy-mm-dd'});
+	$('#time_to').datepicker({dateFormat: 'yy-mm-dd'});
+	$('.tr1,.tr2').mouseover(function(){
+			$(".tr1,.tr2").removeClass('tron');
+			$(this).addClass('tron');
+		})
+	$("input[name='schmore']").click(function(){
+		if($(this).attr("checked")=="checked"){
+			$("#schmore").css("display","block");
+			}
+		else{
+			$("#schmore").css("display","none");
+			};
+	 });
+	 
+	 $("td.userinfo").mousemove(function(){
+		 	$(this).find("span").css('left',$(this).width()-5).show();
+		 }).mouseout(function(){
+			$(this).find("span").hide(); 
+		});
+			
+});
+</script>
+<div class="tdare">
+    <table cellpadding="1" cellspacing="1" width="100%" class="tblist2">
+        <tr>
+        	<td>
+                <ul class="subnav3">   	
+                    <li {if $stype eq -1}class='on'{/if}><a href="index.php?app=salesdetail">{$lang.detail_all}<span></span></a></li>
+                    <li {if $stype eq 0}class='on'{/if}><a href="index.php?app=salesdetail&store_type=0">{$lang.detail_direct}<span></span></a></li>
+                    <li {if $stype eq 1}class='on'{/if}><a href="index.php?app=salesdetail&store_type=1">{$lang.detail_join}<span></span></a></li>
+                </ul>
+        	</td>        
+        </tr>
+    </table>
+    <table cellpadding="1" cellspacing="1" width="100%" class="tblist">
+        <tr>
+        	<td class="sch" style="text-align:left; padding-left:8px;">
+                <form method="get">
+                    <div class="schinput">
+                    <input type="hidden" name="app" value="salesdetail" />
+                    <input type="hidden" name="store_type" value="{$stype}" />  
+                    查询：<select name="otype">
+                    <!-- {html_options options=$o_type selected=$smarty.get.otype} -->
+                    </select>&nbsp;
+                    <select name="ufield">
+                    <!-- {html_options options=$user_fields selected=$smarty.get.ufield} -->
+                    </select><input style="margin-left:-1px;text-indent:2px;" class="queryInput" type="text" name="userkey" value="{$smarty.get.userkey|escape}" />
+                    
+                    <select name="gfield">
+                    <!-- {html_options options=$good_fields selected=$smarty.get.gfield} -->
+                    </select><input class="queryInput" style="margin-left:-1px;text-indent:2px;" type="text" name="goodkey" value="{$smarty.get.goodkey|escape}" />
+
+                    <select name="otime">
+                    <!-- {html_options options=$order_fields selected=$smarty.get.otime} -->
+                    </select><input style="margin-left:-1px; margin-right:0;text-indent:2px;" class="queryInput3" type="text" value="{$smarty.get.time_from}" id="time_from" name="time_from"/>
+                    至<input class="queryInput3" type="text" value="{$smarty.get.time_to}" id="time_to" name="time_to"/>
+                    排序方式:
+                    <select name="order_type">
+                    	<!-- {html_options options=$ordertype selected=$smarty.get.order_type} -->
+                    </select>
+                    <!--<label><input type="checkbox" name="schmore" {if $smarty.get.schmore eq 1} checked="checked"{/if}  value="1"/>高级搜索</label>-->
+                    <input type="submit" class="formbtn" value="{$lang.query}" />
+                    </div>
+                    <div class="schinput" id="schmore" {if $smarty.get.schmore eq ''}style="display:none"{/if}>
+                       
+                    </div>
+            </form>
+        	</td> 
+          {if $page_info.next_link}
+              <td class="sch" valign="top">
+              {include file=page.top.html}
+              </td>
+          {/if}                     
+        </tr>
+    </table>
+    
+    <table width="100%" cellpadding="0" cellspacing="1" class="tblist">
+    	<!--{if $goods_list}--> 
+        <tr>
+           <th>商品编号</th>
+           <th>商品名称</th>
+           <th>商品规格</th>
+           <th>订单编号</th>
+           <th>方式</th>
+           <th>{if $smarty.get.ufield}{$user_fields[$smarty.get.ufield]}{else}帐户名{/if}</th>
+           <th class="date">{if $smarty.get.otime}{$order_fields[$smarty.get.otime]}{else}付款时间{/if}</th>
+           <th>批发价</th>
+           <th>派啦价</th>
+           <th>数量</th>
+           <th>总价</th>
+           <th>PL币</th>
+           <th>提成</th>
+           <th>利润</th>                  
+        </tr>
+        <!--{foreach from=$goods_list item=good}-->
+        <tr class={cycle values="tr1","tr2"}>
+        	<td class="no">{$good.commodity_code}</td>
+            <td><span><a href="../../index.php?app=goods&id={$good.goods_id}" target="_blank" title="{$good.goods_name}">{$good.goods_name|truncate:30}</a></span></td>
+            <td>{$good.specification}</td>
+            <td><a href="index.php?app=store_statistics&act=collection_view&id={$good.order_id}" target="_blank" title="查看订单详情">{$good.order_sn}</a></td>
+            <td class="userinfo"><div style="z-index:1000">
+            {if $good.type eq 0}
+            	<font class="red">线上订单</font>
+            {else}
+            	<font class="blue">线下订单</font>
+            {/if}
+            <span><i>◇</i><p><b>店铺ID</b>：{$good.seller_id}<br>
+<b>店铺名</b>：<a href="../../index.php?app=store_league&act=view&id={$good.seller_id}" target="_blank">{$good.seller_name}</a></p></span>
+            </div>
+            </td>
+            <td class="userinfo"><div>&nbsp;{$good.userinfo}<span><i>◇</i>
+            <p><b>会员帐号</b>：{$good.buyer_name}<br>
+                {if $good.consignee}<b>收货姓名</b>：{$good.consignee}<br>{/if}
+                {if $good.phone_mob}<b>手机号码</b>：{$good.phone_mob}<br>{/if}
+                {if $good.phone_tel}<b>电话号码</b>：{$good.phone_tel}<br>{/if}
+                {if $good.address}<b>收货地址</b>：{$good.address}{/if}
+			</p></span></div>
+            </td>
+            <td>{$good.showtime|date:Y-m-d H:i}</td>
+            <td><em>{$good.zprice|price}</em></td>
+            <td><em>{$good.price|price}</em></td>
+            <td class="quantity">{$good.quantity}</em></td>
+            <td><em>{$good.amount|price}</em></td>
+            <td><em>{$good.credit}</em></td>
+            <td><em>{$good.tichen}</em></td>
+            <td><em class="profit">{$good.profit}</em></td>           
+        </tr>
+        <!--{/foreach}-->
+         {if $page_info}
+            <tr>
+                <td colspan="14" class="pagetd">
+                {include file=page.bottom.html}
+                </td>
+            </tr>
+            {/if}
+        <!--{else}-->
+        <tr class="no_data">
+            <td colspan="14">{$lang.no_data}</td>
+        </tr>
+        <!--{/if}-->
+    </table>
+    
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

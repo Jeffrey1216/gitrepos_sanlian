@@ -1,0 +1,127 @@
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    regionInit("region");
+    $('#card_form').validate({
+        /*errorPlacement: function(error, element){
+            var _message_box = $(element).parent().find('.field_message');
+            _message_box.find('.field_notice').hide();
+            _message_box.append(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },*/
+        errorLabelContainer: $('#warning'),
+        invalidHandler: function(form, validator) {
+           var errors = validator.numberOfInvalids();
+           if(errors)
+           {
+               $('#warning').show();
+           }
+           else
+           {
+               $('#warning').hide();
+           }
+        },
+        onkeyup : false,
+        rules : {
+            consignee : {
+                required : true
+            },
+            region_id : {
+                required : true,
+                min   : 1
+            },
+            address   : {
+                required : true
+            },
+            CardNumber : {
+                required : check_phone,
+                minlength:16,
+                checkTel:true
+            },
+            phone_mob : {
+                required : check_phone,
+                minlength:6,
+                digits : true
+            }
+        },
+        messages : {
+            consignee : {
+                required : '{$lang.consignee_required}. '
+            },
+            region_id : {
+                required : '{$lang.region_required}. ',
+                min  : '{$lang.region_required}. '
+            },
+            address   : {
+                required : '{$lang.address_required}. '
+            },
+            CardNumber : {
+                required : '{$lang.card_number_error}. ',
+                minlength: '{$lang.card_number_error}. ',
+                checkTel: '{$lang.card_number_error}. '
+            },
+            phone_mob : {
+                required : '{$lang.phone_required}. ',
+                minlength: '{$lang.phone_mob_error}. ',
+                digits : '{$lang.phone_mob_error}. '
+            }
+        },
+        groups:{
+            phone:'phone_tel phone_mob'
+        }
+    });
+});
+function check_phone(){
+    return ($('[name="CardNumber"]').val() == '' && $('[name="phone_mob"]').val() == '');
+}
+function hide_error(){
+    $('#region').find('.error').hide();
+}
+//]]>
+</script>
+<ul class="tab">
+   
+</ul>
+<div class="eject_con">
+<div class="add">
+    <div id="warning"></div>
+    <form method="post" style="background:#ffffff;" action="index.php?app=member_card&act={$act}&card_id={$memberCardInfo.id}" id="card_form" target="iframe_post">
+    <ul>
+	    <!--{if !$memberCardInfo.needVerify}-->
+        <li>
+		<h3>{$lang.RealName}: <input type="hidden" name="card_id" value="{$memberCardInfo.id}" id="card_id" class="field_notice" ></h3>
+            <p><input type="text" class="text width_normal" name="RealName" value="{$memberCardInfo.RealName|escape}"/><label class="field_message"><span class="field_notice"></span></label></p>
+        </li>
+        <li>
+            <h3>{$lang.BankName}: </h3>
+            <p><input type="text" class="text width_normal" name="BankName" value="{$memberCardInfo.BankName|escape}"/><label class="field_message"><span class="field_notice"></span></label></p>
+        </li>
+        <li>
+            <h3>{$lang.memberCardList}: </h3>
+            <p><input type="text" class="text width_normal" name="CardNumber" value="{$memberCardInfo.CardNumber|escape}" /><label class="field_message"><span class="field_notice"></span></label></p>
+        </li>
+	<!--{else}-->
+	 <li>
+		<h3>{$lang.RealName}: <input type="hidden" name="card_id" value="{$memberCardInfo.id}" id="card_id" class="field_notice" ></h3>
+            <p>{$memberCardInfo.RealName|escape}</p>
+        </li>
+        <li>
+            <h3>{$lang.BankName}: </h3>
+            <p>{$memberCardInfo.BankName|escape}</p>
+        </li>
+        <li>
+            <h3>{$lang.memberCardList}: </h3>
+            <p>{$memberCardInfo.CardNumber|escape}</p>
+        </li>
+        <li>
+            <h3>{$lang.Verify}:</h3>
+            <p><input type="text" class="text width_normal" name="Verify" value="{$memberCardInfo.Verify}"/></p>
+        </li>
+	<!--{/if}-->
+    </ul>
+    <div class="submit"><input type="submit" class="btn" value="<!--{if $memberCardInfo.id}-->{$lang.edit_address}<!--{else}-->{$lang.add_address}<!--{/if}-->" /></div>
+    </form>
+</div>
+</div>

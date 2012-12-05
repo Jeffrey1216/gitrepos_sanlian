@@ -1,0 +1,247 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<script src="{lib file=mlselection.js}" charset="utf-8"></script>
+<style type="text/css">
+.d_inline{display:inline;}
+</style>
+<div class="content">
+    {include file=member.menu.html}
+	<div id="manager_info" class="mypaila_right">
+	            {include file=member.submenu.html}
+	<div style="border:0" class="myPaila-content r">			
+                <div class="module_new_shop">
+
+                    <div class="info_shop">
+                        <form method="post" enctype="multipart/form-data" id="apply_form">
+                        <table>
+                            <tr>
+                                <th>店铺类型: </th>
+                                <td class="width7">
+                                	<select name="store_type">
+									<option value="0" selected>直营店</option>
+									<option value="1">加盟店</option>
+									</select>
+								</td>
+                                <td class="padding3"><span class="fontColor3">*</span> <span class="field_notice">开店类型，默认为直营店</span></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.owner_name}: </th>
+                                <td class="width7"><input type="text" class="text width7" name="owner_name" id="owner_name"value="{$store.owner_name|escape}"/></td>
+                                <td class="padding3"><span class="fontColor3">*</span> <span class="field_notice">{$lang.note_for_owner_name}</span></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.owner_card}: </th>
+                                <td><input type="text" class="text width7" id="owner_card"name="owner_card"/ value="{$store.owner_card|escape}"></td>
+                                <td class="padding3"> <span class="field_notice">{$lang.note_for_owner_card}</span></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.store_name}: </th>
+                                <td><input type="text" class="text width7" name="store_name" id="store_name" value="{$store.store_name|escape}"/></td>
+                                <td class="padding3"><span class="fontColor3">*</span> <span class="field_notice">{$lang.note_for_store_name}</span></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.region}: </th>
+                                <td>
+                                <div class="select_add" id="region" style="width:500px;border:1px solide red;">
+                                    <input type="hidden" name="region_id" value="{$store.region_id}" class="mls_id" />
+                                    <input type="hidden" name="region_name" value="{$store.region_name}" class="mls_names" />
+                                    {if $store.region_name}
+                                    <span>{$store.region_name|escape}</span>
+                                    <input type="button" value="{$lang.edit}" class="edit_region" />
+                                    {/if}
+                                    <select class="d_inline"{if $store.region_name} style="display:none;"{/if}>
+                                    <option value="0">{$lang.select_pls}</option>
+                                    <!-- {html_options options=$regions} -->
+                                    </select>
+                                </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.address}: </th>
+                                <td><input type="text" class="text width7" id="address" name="address" value="{$store.address|escape}"/></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>推荐人手机号:</th>
+                                <td><input type="text" class="text width7" id="tel_phone" name="tel_phone"/></td>
+                                <td></td>
+                            </tr>                           
+                            <tr>
+                                <th>{$lang.zipcode}: </th>
+                                <td><input type="text" class="text width7" id="zipcode"name="zipcode" value="{$store.zipcode|escape}"/></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.tel}: </th>
+                                <td>
+                                    <input type="text" class="text width7" name="tel"  value="{$store.tel|escape}"/>
+                                </td>
+                                <td class="padding3"><span class="fontColor3">*</span> <span class="field_notice">{$lang.input_tel}</span></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.upload_image}: </th>
+                                <td><input type="file" name="image_1" />
+                                {if $store.image_1}<p style="display:inline;"><a href="{$site_url}/{$store.image_1}" target="_blank">{$lang.view}</a></p>{/if}
+                                </td>
+                                <td class="padding3"><span class="field_notice">{$lang.note_for_image}</span></td>
+                            </tr>
+                            <tr>
+                                <th>{$lang.upload_permit}: </th>
+                                <td><input type="file" name="image_2" />
+                                {if $store.image_2}<p style="display:inline;"><a href="{$site_url}/{$store.image_2}" target="_blank">{$lang.view}</a></p>{/if}
+                                </td>
+                                <td class="padding3"><span class="field_notice">{$lang.note_for_image}</span></td>
+                            </tr>
+                            <tr>
+                                <th>您已选择: </th>
+                                <td>
+                                <!-- {foreach from=$gcate_info item=gcate} -->
+                                <span>
+                                {$gcate.cate_name}
+                                <input type="hidden" name="cod_cates[]" value="{$gcate.cate_id}"/>
+                                </span><br/>
+                                <!-- {/foreach} -->
+                                </td>
+                                <td class="padding3"><span class="field_notice">您已经选择的店铺所卖商品的类型</span></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><p class="padding4"><input type="checkbox"{if $store} checked="checked"{/if} name="notice" value="1" id="warning" /> <label for="warning">{$lang.notice}</label></p></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><div class="store_kaidian_btn"><input type="submit" class="btn" value="" /></div></td>
+                            </tr>
+                        </table>
+                        </form>
+                    </div>
+
+                </div>
+	   </div>
+	</div>
+</div>
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+	regionInit("region");
+	jQuery.validator.addMethod("idchinese",function(value, element){
+		var tel=/^[\u4e00-\u9fa5]+$/;	
+		return this.optional(element)|| (tel.test(value));},"请正确输入您的中文名");
+		
+	jQuery.validator.addMethod("idcard",function(value, element){
+		var tel=/(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
+		return this.optional(element)|| (tel.test(value));},"请正确输入您的身份证号码");
+	jQuery.validator.addMethod("checkTel",function(value, element){
+		var tel= /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(16[0-9]{1}))+\d{8})$/;
+		return this.optional(element)|| (tel.test(value));},"请正确输入您的手机");
+		
+		
+
+ 	jQuery.validator.addMethod("isZipCode", function(value, element) {     
+    												 var tel = /^[0-9]{6}$/;       
+    	return this.optional(element) || (tel.	test(value)); }, "请正确填写您的邮政编码");  
+
+    $("#apply_form").validate({
+        errorPlacement: function(error, element){
+            var error_td = element.parents('td').next('td');
+            error_td.find('.field_notice').hide();
+            error_td.find('.fontColor3').hide();
+            error_td.append(error);
+        },
+        success: function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        onkeyup: false,
+		 rules:
+		{
+			tel_phone:{
+                checkTel:true
+				},
+			owner_card :
+			{
+				required:true,
+				idcard:true,
+				remote :{
+					url:'index.php?app=apply&act=check_owner_card',
+					type : 'get',
+					//dataType: 'json', 
+					data:{key:   function(){return $('#owner_card').val();}}}
+			},
+            owner_name: 
+			{
+                required: true,
+				idchinese:true
+            },
+            store_name: 
+			{
+                required: true,/*
+               remote : {
+					url:'index.php?app=apply&act=check_storename',
+					type : 'get',
+					//dataType: 'json', 
+					data:{key:   function(){return $('#store_name').val();}}},*/
+                maxlength: 20
+            },
+            tel: 
+			{
+                required: true
+            },
+			tel_phone:{
+                checkTel:true
+				},
+            image_1: 
+			{
+                accept: "jpg|jpeg|png|gif"
+            },
+            image_2: 
+			{
+                accept: "jpg|jpeg|png|gif"
+            },
+            image_3: 
+			{
+                accept: "jpg|jpeg|png|gif"
+            },
+            notice: 
+			{
+                required : true
+            }
+        },
+        messages: 
+		{
+			owner_card:{
+				required:"请输入身份证号码",
+				idcard:"请正确输入身份证号码1",
+				remote:"这个身份证已注册"
+				},
+            owner_name: {
+                required: '{$lang.input_owner_name}',
+				idchinese:"请正确输入名字"
+            },
+            store_name: {
+                required: '{$lang.input_store_name}',
+                remote: '{$lang.name_exist}',
+                maxlength: '{$lang.note_for_store_name}'
+            },
+            tel: {
+                required: '{$lang.input_tel}'
+            },
+            image_1: {
+                accept: '{$lang.select_valid_image}'
+            },
+            image_2: {
+                accept: '{$lang.select_valid_image}'
+            },
+            image_3: {
+                accept: '{$lang.select_valid_image}'
+            },
+            notice: {
+                required: '{$lang.check_notice}'
+            }
+        }      
+    });
+});
+//]]>
+</script>
+{include file=footer.html}	

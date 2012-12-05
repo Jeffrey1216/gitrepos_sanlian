@@ -1,0 +1,206 @@
+{include file="header.html"}
+<div id="rightTop">
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=brandmandate&act=brand_index">管理</a></li>
+        <li><span>新增</span></li>
+    </ul>
+</div>
+
+<div class="info">
+    <form method="post" enctype="multipart/form-data">
+	<table class="brandform">
+		<tr>
+		<th colspan="2">客户基本信息</th></tr>
+		<tr>
+		<td><label>客户名称：</label><input type="text" class="text001" name="supply_name" value="{$supply.user_name}"/></td>
+		<td><label>客户类别：</label>
+			<select name="supply_type" class="catelist">
+				<option {if $supply.supply_type eq 1}selected{/if} value="1">普通会员</option>
+				<option {if $supply.supply_type eq 2}selected{/if} value="2">供应商</option>
+				<option {if $supply.supply_type eq 3}selected{/if} value="3">店面加盟</option>
+				<option {if $supply.supply_type eq 4}selected{/if} value="4">生产厂家</option>
+			</select>		
+		</td>
+	
+		</tr>
+	 <tr><td colspan="2"><label>公司LOGO：</label><input type="file" name="supply_logo"/> <b style="color:#ff0000">*</b>建议图片大小为160*160</td></tr>
+		<tr>
+		<td><label>联系人：</label><input type="text" class="text001" name="linkman" value="{$supply.linkman}"/></td>
+		<td><label>联系电话：</label><input type="text" class="text001" name="mobile"  value="{$supply.mobile}"/></td>
+		</tr>
+		<tr>
+		<td colspan="2"><label>客户企业简介：</label><textarea class="text002" name="company_info">{$supply.company_info}</textarea></td>
+		</tr>
+		<tr>
+		<td colspan="2"><label>公司地址：</label><input type="text" class="text001" name="address" style="width:250px;" value="{$supply.address}"/></td>
+		</tr>
+		<tr>
+		<td><label>营业规模：</label><input type="text" class="text001" name="scale"  value="{$supply.scale}"/></td>
+		<td><label>经营方式：</label><input type="text" class="text001" name="business_practice" value="{$supply.business_practice}"/></td>
+		</tr>
+		<tr>	
+		<td colspan="2">
+		<label>提供公司的相关材料：</label>
+		<ul id="demo4">
+		</ul>
+		</td>
+		</tr>
+		<tr>
+		<!-- {foreach from=$supply.info_array item=info} -->
+		<td colspan="2"><img width="200" height="200" src="{$info.img_url}"/><input type="file" name="info[]"/></td>
+		<!-- {/foreach} -->
+		</tr>
+		<tr>
+		<td><label>目前商品销售渠道：</label><input type="text" class="text001" name="marketing_channel" value="{$supply.marketing_channel}"/></td>
+		<td><label>年销售量：</label><input type="text" class="text001" name="annual_sales" value="{$supply.annual_sales}"/></td>
+		</tr>
+		<tr>
+		<th colspan="2">客户需求</th>
+		</tr>
+		<tr>
+		<td colspan="2"><label>渠道需求：</label><textarea class="text002" name="channel">{$supply.channel}</textarea></td>		
+		</tr>
+		<tr>
+		<td colspan="2"><label>品牌需求：</label><textarea class="text002" name="brand_demand">{$supply.brand_demand}</textarea>	</td>	
+		</tr>
+		<tr>
+		<td colspan="2"><label>公司形象需求：</label><textarea class="text002" name="company_demand">{$supply.company_demand}</textarea>	</td>	
+		</tr>
+		<tr>
+		<td colspan="2"><label>区域合作需求：</label><textarea class="text002" name="cooperation_demand">{$supply.cooperation_demand}</textarea>	</td>	
+		</tr>
+		<tr>
+		<th colspan="2">表单</th>
+		</tr>
+		<tr>
+		</tr>
+		<tr><td colspan="2" style="color:#aaaaaa"><input type="file" name="upfile">&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:#ff0000">*</b>请上传您已填好的的供应商品明细表		
+		</table>
+		<div style="border-top:2px solid #FF6800;margin:0 5px;"></div>
+		<div style="text-align:center;margin:10px 0;">
+		<input type="hidden" name="app" value="brandmandate"/>
+		<input type="hidden" name="act" value="brand_edit_no"/>		
+		<input type="submit" value="提交" class="upsub" name="Submit"/>
+		</div>
+    </form>
+</div>
+<script type="text/javascript">
+
+$(function(){
+	 $("#demo4").easyinsert({
+	  name: ["info[]"],
+	  type: ["file"]
+	 });
+	});
+	
+	;(function($){
+	 $.fn.extend({
+	  "easyinsert": function(o){
+	   o = $.extend({
+	    //触发器
+	    clicker: null,//根据class（或id）选择，默认.next()获取
+	    //父标签
+	    wrap: "li",
+	    name: "i-text",
+	    type: "text",
+	    value: "",
+	    maxlength: 20,
+	    className: "i-text",
+	    //新增上限值
+	    toplimit: 0,//0表示不限制
+	    //初始化值，二维数组
+	    initValue: null//用于修改某资料时显示已有的数据
+	   }, o || {});
+	   var oo = {
+	    remove: "<a href=\"#nogo\" class=\"remove\">移除</a>",
+	    error1: "参数配置错误，数组的长度不一致，请检查。",
+	    error2: "参数配置错误，每组初始化值都必须是数组，请检查。"
+	   }
+	   //容器
+	   var $container = $(this);
+	   var allowed = true;
+	   //把属性拼成数组（这步不知道是否可以优化？）
+	   var arrCfg = new Array(o.name, o.type, o.value, o.maxlength, o.className);
+	   //arr ==> [name, type, value, maxlength, className]
+	   var arr = new Array();
+	   $.each(arrCfg, function(i, n){
+	    if ( $.isArray(n) ) {
+	     arr[i] = n;
+	    } else {
+	     arr[i] = new Array();
+	     if ( i === 0 ) {
+	      arr[0].push(n);
+	     }else{
+	      //补全各属性数组（根据name数组长度）
+	      $.each(arr[0], function() {
+	       arr[i].push(n);
+	      });
+	     }
+	    }
+	   });
+	   if ( allowed ) {
+	    //获取触发器
+	    var $Clicker = !o.clicker ? $container.next() : $(o.clicker);
+	    $Clicker.bind("click", function() {
+	     //未添加前的组数
+	     var len = $container.children(o.wrap).length;
+	     //定义一个变量，判断是否已经达到上限
+	     var isMax = o.toplimit === 0 ? false : (len < o.toplimit ? false : true);
+	     if ( !isMax ) {//没有达到上限才允许添加
+	      var $Item = $("<"+ o.wrap +">").appendTo( $container );
+	      $.each(arr[0], function(i) {
+	       switch ( arr[1][i] ) {
+	        case "select"://下拉框
+	         var option = "";
+	         $.each(arr[2][i], function(i, n) {
+	          option += "<option value='"+ n +"'>"+ i +"</option>";
+	         });
+	         $("<select>", {
+	          name: arr[0][i],
+	          className: arr[4][i]
+	         }).append( option ).appendTo( $Item );
+	         break;
+	        case "custom"://自定义内容，支持html
+	         $Item.append( arr[2][i] );
+	         break;
+	        default://默认是input
+	         $("<input>", {//jQuery1.4新增方法
+	          name: arr[0][i],
+	          type: arr[1][i],
+	          value: arr[2][i],
+	          maxlength: arr[3][i],
+	          className: arr[4][i]
+	         }).appendTo( $Item );
+	       }
+	      });
+	      $Item = $container.children(o.wrap);
+	      //新组数
+	      len = $Item.length;
+	      if ( len > 1 ) {
+	       $Item.last().append(oo.remove);
+	       if ( len === 2 ) {//超过一组时，为第一组添加“移除”按钮
+	        $Item.first().append(oo.remove);
+	       }
+	      }
+	      $Item.find(".remove").click(function(){
+	       //移除本组
+	       $(this).parent().remove();
+	       //统计剩下的组数
+	       len = $container.children(o.wrap).length;
+	       if ( len === 1 ) {//只剩一个的时候，把“移除”按钮干掉
+	        $container.find(".remove").remove();
+	       }
+	       //取消“移除”按钮的默认动作
+	       return false;
+	      });
+	     }
+	     //取消触发器的默认动作
+	     return false;
+	    });
+	    //初始化
+	   }
+	  }
+	 });
+	})(jQuery);
+</script>
+{include file="footer.html"}

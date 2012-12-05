@@ -1,0 +1,160 @@
+{include file="header.html"}
+<script type="text/javascript">
+function selectarea(level){
+	var leng = getAreaLen();
+	if (level <= leng)
+	{
+		var parent_id = $("#area_id"+(level-1)).val();
+		$.ajax({ 
+	      type:"POST",
+	      data:"parent_id="+parent_id+"&level="+level,
+	      url:"index.php?app=channel&act=selectarea",
+	      success:function(data){
+				$("#areaspan"+level).html(data);
+				var area = $("#area_id1").find("option:selected").text() + $("#area_id2").find("option:selected").text();
+				$("#area_name").attr("value",area);
+	        }
+		});
+	}
+}
+function changlevel(){
+	var leng = getAreaLen();
+	
+	var selSpan = $("#area").children("span");
+	
+	for (var i = 0 ; i < selSpan.length ; i++)
+	{
+		if ($(selSpan[i]).attr('level') > leng) 
+		{
+			$("#areaspan" + $(selSpan[i]).attr('level')).empty();
+		}
+	}
+}
+function getAreaLen()
+{
+	return $('#level').children(':selected').attr('leng');
+}
+
+function getParent()
+{
+	return $('#level').children(':selected').attr('parent_level');
+}
+
+function checkfee(){
+	var level = $('#level').val();
+	var area_id2 = $('#area_id2').val();
+	var area_id3 = $('#area_id3').val();
+	if(level==1){
+		var area_id = area_id2;
+	}else{
+		var area_id = area_id3;
+	}
+	if(level && area_id){
+		$.ajax({ 
+	      type:"POST",
+	      data:"level="+level+"&area_id="+area_id,
+	      url:"index.php?app=channel&act=checkfee",
+	      success:function(data){
+				$("#fee").val(data);
+			}
+		});
+	}
+}
+</script>
+<div id="rightTop">
+  <p>渠道商管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel">审核</a></li>
+    <li><span>{$lang.add}</a></span>
+    <li><a class="btn1" href="index.php?app=channel&act=channellist">管理</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form name="form" method="post" enctype="multipart/form-data" action="">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">登录帐号：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="username" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">密码：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="password" type="password"/></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">重复密码：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="repassword" type="password"/></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">手机号：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="mobile" type="text" id="mobile" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">电子邮箱：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableFile2" name="email" type="text" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">真实姓名：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" name="name" type="text" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">性别：</th>
+        <td class="paddingT15 wordSpacing5"><select name="gender" ><option value="0">男</option><option value="1">女</option></select></td>
+      </tr>
+	  <tr>
+        <th class="paddingT15">公司名称：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableFile2" type="text" name="company"/></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">公司地址：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableFile2" type="text" name="address" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">身份证号码：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableFile2" type="text" name="identity" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">营业执照/<br/>组织机构代码证号码：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="companynum" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">渠道商等级：</th>
+        <td class="paddingT15 wordSpacing5"><select id="level" name="level" onchange="changlevel();">
+        	<!-- {foreach from=$channellevel_list item=node} -->
+      	  		<option leng="{$node.area_level}" parent_level="{$node.parent_level}" value="{$node.id}">{$node.level_name}</option>
+      	  	<!-- {/foreach} -->
+      	  	  </select></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">所属区域:</th>
+        <td id="area" class="paddingT15 wordSpacing5"><select name="area_id1" id="area_id1" onchange="selectarea(2);">
+              <option value="">{$lang.select_pls}</option>
+              <!--{foreach from=$area item=k name=v}-->
+              <option value="{$k.region_id}">{$k.region_name}</option>
+              <!--{/foreach}-->
+            </select>
+            <span id="areaspan2" level="2"></span>
+            <span id="areaspan3" level="3"></span>
+            <span id="areaspan4" level="4"></span>
+            <input type="hidden" id="area_name" name="area_name" value=""/></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">年费:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" id="fee" name="fee" value="点击查询年费" readonly onclick="checkfee();" onblur="this.value='点击查询年费';"/>元/年</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">身份证复印件：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableFile2" type="file" name="identitypic"/></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">公司营业执照/<br/>组织机构代码证：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableFile2" type="file" name="companypic"/></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+          <input class="formbtn" type="reset" name="Reset" value="{$lang.reset}" /></td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

@@ -1,0 +1,158 @@
+{include file="header.html"}
+<script src="{lib file=mlselection.js}" charset="utf-8"></script>
+<script src="{lib file=jquery.plugins/jquery.validate.js}" charset="utf-8"></script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+$(function(){
+  regionInit("region");
+})
+//]]>
+</script>
+<div id="rightTop">
+  <p>派发</p>
+  <!--<ul class="subnav">
+    <li><a class="btn1" href="#">管理</a></li>
+    <li>
+     <a class="btn1" href="#"><span>新增</span></a>
+    </li>
+  </ul>
+   -->
+</div>
+<div class="info">
+ <form method="post" enctype="" id="user_form" action="index.php?app=allocate&act=add&order_id={$b.order_id}">
+    <h2>订单信息</h2>
+    <table class="infotable02" cellpadding="0" cellspacing="0">
+<thead>
+    <tr>
+    <th colspan="2">订单号:<span>{$orderinfoi.order_sn}</span></th>
+    <th colspan="2">订单状态:<span>{$orderinfoi.status}</span></th>
+    <th colspan="2">分派状态:<span>{if $orderinfoi.assign_store_id}{$lang.yes}{else}{$lang.no}{/if}</span></th>
+    </tr>
+</thead>
+<tbody>
+<tr>
+<td>商品名称</td>
+<td>价格</td>
+<td>数量</td>
+  <td colspan="2">&nbsp;</td>
+</tr>
+<!-- {foreach from=$orderinfo item=orderinfoi} -->
+<tr>
+<td>{$orderinfoi.goods_name}</td>
+<td>{$orderinfoi.price}</td>
+<td>{$orderinfoi.quantity}</td>
+  <td colspan="2">&nbsp;</td>
+</tr>
+<!-- {/foreach} -->
+<tr>
+<td colspan="2">订单时间：{$orderinfoi.add_time|date:complete}</td>
+<td colspan="2">订单总价：<span>{$orderinfoi.goods_amount}</span></td>
+<td colspan="2">寄货地址：{$orderinfoi.region_name}</td>
+</tr>
+</tbody>
+    </table>
+    <h2>分派信息</h2>
+    <table class="infoTable">
+    <tr><th>选择店铺地址</th><td>
+    <div class="select_radio"><input type="radio" checked="true" name="radio_s" label="1" />自动选择 <input type="radio"name="radio_s" label="2" />手动选择</div>
+    <div class="select_add" id="region" style="display:none;" style="width:500px;border:1px solide red;">
+         <input type="hidden" name="region_id" value="{$store.region_id}" class="mls_id" />
+         <input type="hidden" name="region_name" value="{$store.region_name}" class="mls_names" />
+         <select class="d_inline" name="regionss[]" >
+         <option >{$lang.select_pls}</option>
+         
+          {html_options options=$regions}
+     
+         </select>
+         <input type="button" value="搜索" id="searchStore" />
+         </div>
+    </td></tr>
+      <tr>
+        <th class="paddingT15"> 选择分派店铺
+        </th>
+        <td class="paddingT15 wordSpacing5">
+        <div id="container">
+        
+       
+ 
+        <select name="store_id" id="selStore">
+        <option value="0">--请选择店铺--</option>
+        <!-- {foreach from=$store_info item=store} -->
+           <option typedef="bottle" value={$store.store_id}>{$store.store_name}</option>
+           <!-- {/foreach} -->
+        </select>
+         </div>
+        </td>
+      </tr>
+      <tr>
+        <th>添加人</th>
+        <td class="paddingT15">
+          <input class="infoTableInput2" type="text" name="allname" value="" />        </td>
+      </tr>
+      <tr>
+        <th>添加时间</th>
+        <td class="paddingT15">
+          <input class="infoTableInput2" type="text" name="alltime" value="" />        </td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="提交" />
+          <input class="formbtn" type="reset" value="重置" name="Reset"/>        </td>
+      </tr>
+    </table>
+    
+    </form>
+    </div>
+    {include file="footer.html"}
+    <script type="text/javascript">
+    var order_id = {$order_id|default:0};
+   	$('#searchStore').click(function () {
+    	var url = SITE_URL + '/administr/index.php?app=allocate&act=searchStore';
+    	$.getJSON(url, {'order_id':order_id, 'region_id':parseInt($('input[class="mls_id"]').attr('value'))}, function(data){
+	        if (data.done)
+	        {
+	        	chearOption();
+	        	for(var i = 0 ; i < data.retval.store_info.length ; i++) {
+	        		$('select[name="store_id"]').append("<option value='" + data.retval.store_info[i]['store_id'] + "'>" + data.retval.store_info[i]['store_name'] + "</option>");
+	        	}
+	        }
+	        else
+	        {
+	            alert(data.msg);
+	        }
+        });
+    });
+    $("input[name='radio_s']").click(function() {
+    	if($(this).attr('label') == '1') {
+    		var url = SITE_URL + '/administr/index.php?app=allocate&act=searchStore';
+        	$.getJSON(url, {'order_id':order_id}, function(data){
+    	        if (data.done)
+    	        {
+    	        	chearOption();
+    	        	for(var i = 0 ; i < data.retval.store_info.length ; i++) {
+    	        		$('select[name="store_id"]').append("<option value='" + data.retval.store_info[i]['store_id'] + "'>" + data.retval.store_info[i]['store_name'] + "</option>");
+    	        	}
+    	        }
+    	        else
+    	        {
+    	            alert(data.msg);
+    	        }
+            });
+    		$('#region').css("display","none");
+    	} else if($(this).attr('label') == '2') {
+    		chearOption();
+    		$('#region').css("display","block");
+    	}
+    });
+    function chearOption() {
+    	var select = document.getElementById("selStore");
+    	var opts = select.childNodes;
+    	var n = 0 ;
+    	for(var i = opts.length-1 ; i > 0  ; i--) {
+    		if(opts[i].nodeType == 1 && opts[i].getAttribute("value") != 0) {
+    			select.removeChild(opts[i]);
+    		}
+    	}
+    }
+    </script>

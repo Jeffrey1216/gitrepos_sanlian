@@ -1,0 +1,12 @@
+<?php
+return array(
+	'name'			=>		'test',
+	'display_name'	=>		'²âÊÔHTML',
+	'author'		=>		'bottle',
+	'website'		=>		'http://localhost/paila',
+	'version'		=>		'1.0',
+	'desc'			=>		'²âÊÔÓÃµÄ¹Ò¼þ',
+	'configurable'	=>		true
+);
+
+?>

@@ -1,0 +1,77 @@
+<div id="ad">
+        <div class="moveContainer">
+        	<div class="movePic">
+        	<ul>
+        	<!-- {foreach from=$widget_data.images item=image} -->
+            <li><A Href="{$image.url}"><Img class="pic" Src="{$image.img}"  title="{$image.title}" alt="{$image.title}"/></A></li>
+            <!-- {/foreach} -->
+            </ul>
+          </div>
+        </div>
+        <ul class="num">
+        <!-- {foreach from=$widget_data.images item=image name=move_img} -->
+            <li label="{$smarty.foreach.move_img.iteration}"><a href="{$image.url}">{$image.title}</a></li>
+        <!-- {/foreach} -->
+        </ul>
+</div>
+
+<script type="text/javascript">
+var page = 1; //初始化,为第一页
+var pageWidth = 540; // 默认图片宽度
+var moveSite = 0;
+var flag = true;
+var checkPage = 1;
+var t ; //定时器
+var direction = 0; //方向
+$(document).ready(function () {nextPage();});
+$(".num li").mouseover(function () {
+	if(!flag) {
+		return;
+	}
+	window.clearInterval(t);
+	$(".num li").css("backgroundColor","#000");
+	$(this).css("backgroundColor","#bf1412");
+	flag = false;
+	if($(this).attr("label")) {
+		checkPage = parseInt($(this).attr("label"));
+	}
+	moveSite = -(checkPage - page) * pageWidth + moveSite;
+	$(this).attr("");
+	$(".moveContainer .movePic").animate(
+	{left:moveSite},{duration:300,complete:function () {page = checkPage;flag = true;if(direction == 0){if(checkPage == 4){previousPage();direction = 1;}else{nextPage();}}else{if(checkPage == 1){nextPage();direction = 0;}else{previousPage();}}}}
+	);	
+});
+function nextPage() {
+	window.clearInterval(t);
+	t = window.setInterval(function () {
+		if(!flag) {
+			return;
+		}
+		$(".num li").css("backgroundColor","#000");
+		$($(".num li")[checkPage]).css("backgroundColor","#bf1412");
+		checkPage++;
+		flag = false;
+		moveSite = -(checkPage - page) * pageWidth + moveSite;
+		$(".moveContainer .movePic").animate(
+			{left:moveSite},{duration:300,complete:function () {page = checkPage;flag = true;if(checkPage == 4) {previousPage();direction = 1;}}}
+		);
+	},3000);
+}
+function previousPage() {
+	window.clearInterval(t);
+	t = window.setInterval(function () {
+		if(!flag) {
+			return;
+		}
+		
+		$(".num li").css("backgroundColor","#000");
+		$($(".num li")[checkPage-2]).css("backgroundColor","#bf1412");
+		checkPage--;
+		flag = false;
+		moveSite = -(checkPage - page) * pageWidth + moveSite;
+		$(".moveContainer .movePic").animate(
+			{left:moveSite},{duration:300,complete:function () {page = checkPage;flag = true;if(checkPage == 1) {nextPage();direction = 0;}}}
+		);	
+	},3000);
+}
+</script>

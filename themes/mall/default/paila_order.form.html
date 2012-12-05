@@ -1,0 +1,201 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=other_top.html}
+<div class="flow_chart">
+    <img src="{res file=images/gouwuche_11.gif}" />
+</div>
+<form method="post" id="order_form">
+<div class="content">
+    <div class="module_common">
+        <div class="step_main">
+            <div class="main_add">
+                {include file="paila_order.shipping.html"}
+                <h1>订单信息</h1>
+				<div class="gouwuche2">
+				<form>
+				  <table style="border-bottom:0px;"  cellSpacing=0 cellPadding=0>
+					<tr class="tr1">
+					<td class="td2">商品名称</td>
+					<td  class="td2">单价</td>
+					<td class="td2">数量</td>
+					<td class="td2">赠送积分</td>
+					<td class="td2">小计</td>
+					</tr>
+					<!-- {foreach from=$goods_info.items item=item} -->
+					<tr>
+					<td class="td1"><div class="gouwuche2_l"><a href="index.php?app=goods&id={$item.goods_id}"><img class="img_50"  src="{$item.simage_url}" /></a></div><div class="gouwuche2_r"><p><a href="index.php?app=goods&id={$item.goods_id}">{$item.goods_name}</a></p></div></td>
+					<td>{$item.price|price}</td>
+					<td>{$item.quantity}</td>
+					<td>{$item.credit}PL</td>
+					<td>{$item.subtotal|price}</td>
+					</tr>
+					<!-- {/foreach} -->
+		            <tr>
+					<td class="td3" colspan="2">给卖家的附言：<input class="input2" type="text" /></td>
+					<!-- {if $goods_info.store_id eq 2 or $goods_info.store_id eq 3 or $goods_info.store_id eq 4} -->
+					<td class="td4" colspan="2">配送方式：<select name="shipping_id" id="shipping_id">												
+														<option shipping_id="2" value="2">快递 配送费用我们将使用最方便的快递进行发货</option>
+													</select>
+												</td>
+					<td><span id="shipping_fee">&yen0.00</span></td>
+					<!-- {else} -->
+					<td class="td4" colspan="2">配送方式：<select name="shipping_id" id="shipping_id">
+														<option shipping_id="1" value="1">到店取货 配送费用自行上门(到各派啦店)取货，不须要配送费用.</option>
+													</select>
+												</td>
+					<td><span id="shipping_fee">&yen0.00</span></td>
+					<!-- {/if} -->
+					</tr>
+					</table>
+					<div class="gouwuche2_1">
+					    <div class="gouwuche2_1l">
+						   <ul>
+						      <li>订单总价：<span id="order_amount"></span>&nbsp;&nbsp;&nbsp;&nbsp; 您共有<span>{$member_credit}PL</span></li>
+						      <li><input type="radio" checked="true" class="payType" name="payType" id="giveMoney" value="1"/>您选择使用现金：<span id="pay_cash"></span></li>
+						      <li><input type="radio" class="payType" id="giveCredit" name="payType" value="2"/>您选择使用积分：<span id="pay_credit">￥749</span><span>PL</span></li>
+						      <li><input type="radio"  class="payType" id="giveCreditCash" name="payType" value="3" />您选择使用现金+积分：<span id="pay_cash_href"></span><span>&nbsp;+&nbsp;</span><span id="pay_credit_cash"></span><span>PL</span></li>
+						   </ul>
+					    </div>
+						<div class="gouwuche2_1r">
+						 
+						      <p>是否需要发票？（税金0%）&nbsp;&nbsp;<Input type="radio" name="need_invoice" value="1"/>&nbsp;&nbsp;是&nbsp;&nbsp;<Input type="radio"  name="need_invoice" value="0"/>&nbsp;&nbsp;否<br/>
+						      
+						     发票抬头：<input style="width:180px;height:20px;" type="text" name="invoice_header" /></p>
+						      	<!-- 总获得的积分: --><input type="hidden" id="get_credit" name="get_credit" value="{$goods_info.credit_total}" />
+						   	
+					    </div>
+					</div>
+					<ul>
+					<li>总获得积分：<span id="get_total_credit">{$goods_info.credit_total}PL</span></li>
+					<li>商品总金额：<span>{$goods_info.amount|price}<span></li>
+					</ul>
+					<ul class="ul2">
+					<li style="margin-top:15px;"><a style="color:#666666;" href="index.php?app=cart"><img style="position:relative;top:0;" src="{res file=images/gouwuche_10.gif}" />返回购物车</a></li>
+					<li><input type="button" onclick="toSubmit();" class="gouwuche_btn" value="下单完成并支付" /></li></ul>
+				</form>
+				</div>
+		            </div>
+		            
+		            <div class="clear"></div>
+		        </div>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+function getShippingId() {
+	var shipping_id = $("#shipping_id option:selected").attr('value');
+	return shipping_id;
+}
+           function toSubmit(){ 
+               if(!checkPay())
+               {
+               	return;
+               };
+               void($('#order_form').submit());
+            }
+           <!--
+           // 设置支付总价格. (三种方式,可用积分, 可用 现金, 可用现金加积分) 
+           function paytype() {
+           	DialogManager.create();
+               var pay_cash = $('#pay_cash');
+               var pay_credit = $('#pay_credit');
+               var pay_credit_cash = $("#pay_credit_cash");
+               var lack_credit_all = $('#lack_credit_all');
+               var pay_cash_href = $('#pay_cash_href');
+               //alert(price_format(total_amount));
+               pay_cash.html(price_format(total_amount)); //设置付现金方式的金额
+               pay_credit.html(price_format(Number(total_amount)-Number(goods_amount))+" + "+ goods_amount)// 设置付积分方式的积分
+               //判断积分是否够全额支付
+               if(Number(member_credit) < Number(goods_amount)) {
+					//如果不足够
+					//alert('sdf');
+					
+					$('#displayLackCreditAll').css('display','inline-block');
+					$('#lack_credit_all').html(Number(goods_amount)-Number(member_credit));
+               }
+               pay_credit_cash.html((Number(goods_amount)/2)); //设置积分和现金各一半的支付方式
+               pay_cash_href.html(price_format((Number(goods_amount)/2)+(Number(total_amount)-Number(goods_amount))));
+               //判断积分是否够支付一半
+               if(Number(member_credit) < Number(goods_amount)/2) {
+	//如果不足够
+	$('#displayLackCredit').css('display','inline-block');
+	$('#lack_credit').html(Number(goods_amount)/2-Number(member_credit));
+               }
+           	//alert(total_amount);
+           	//alert(member_credit);
+           }
+           
+           function checkPay() {
+        	   
+               var payTypes = $('.payType');
+               var lack_credit = "{$lang.lack_credit}";
+               var credit = "{$lang.credit}";
+               for(var i = 0 ; i < payTypes.length ; i++ ) {
+	if(payTypes[i].checked == true) {
+		//alert(payTypes[i].value);
+		switch(payTypes[i].value) {
+			case '1':
+					error_pay = '';
+					return true;
+				;break;
+			case '2':
+				if(Number(member_credit) < Number(goods_amount)) {
+					var error_pay = lack_credit + (Number(goods_amount)-Number(member_credit)).toString() + credit;
+					createError(error_pay);
+					return false;
+				}
+				return true;
+				;break;
+			case '3':
+				if(Number(member_credit) < Number(goods_amount)/2) {
+					//如果不足够
+					var error_pay = lack_credit + (Number(goods_amount)/2-Number(member_credit)).toString() + credit;
+					createError(error_pay);
+					return false;
+                   }
+				return true;
+				;break;
+			default : error_pay = 'Error!';
+		}
+	}
+               }
+var lack_credit = "{$lang.lack_credit}";
+var credit = "{$lang.credit}";
+
+
+           }
+           function createError(errorText) {
+           	var d = DialogManager.create('show_error');
+           	d.setWidth(400);
+           	d.setTitle("{$lang.not_select}");
+           	d.setContents("message",{type:'warning',text:errorText});
+           	d.show('center');
+           }
+           /*function changeCredit(v) {
+           	
+           	
+           }*/
+/* payType 选择,改变数值 */
+$("input[name='payType']").click(function () {
+	var get_credit = {$goods_info.credit_total|default:0};
+    var get_credit_element = $('#get_credit');
+    var get_total_credit = $('#get_total_credit');
+	switch(parseInt($(this).attr('value'))) {
+	case 1:
+		get_credit_element.attr('value',get_credit);
+		get_total_credit.html(get_credit + "PL");
+		break;
+	case 2:
+		get_credit_element.attr('value',0);
+		get_total_credit.html(0 + "PL");
+		break;
+	case 3:
+		get_credit_element.attr('value',parseFloat(get_credit)/2);
+	    get_total_credit.html(parseFloat(get_credit)/2 + "PL");
+	    break;
+	}
+});
+
+           --></script>
+{include file="footer.html"}

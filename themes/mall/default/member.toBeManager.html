@@ -1,0 +1,224 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	jQuery.validator.addMethod("idchinese",function(value, element){
+		var tel=/^[\u4e00-\u9fa5]+$/;	
+		return this.optional(element)|| (tel.test(value));},"请正确输入您的中文名");
+	/*	
+	jQuery.validator.addMethod("reidname1",function(value, element){
+		$.get("index.php?app=member&act=check_manager_exit",{'user_name':$("#user_name")})},"这个已经注册为团购员");
+	*/	
+	jQuery.validator.addMethod("idcard",function(value, element){
+		var tel=/(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
+		return this.optional(element)|| (tel.test(value));},"请正确输入您的身份证号码");
+    $('#register_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        rules : {
+        	user_name : {
+	        	required : true,
+            byteRange: [3,15,'{$charset}']
+        /*,
+            remote   : {
+                url :'index.php?app=member&act=check_user_exit',
+                type:'get',
+                data:{
+                    'user_name' : function(){
+                        return $('#user_name').val();
+                    }
+                },
+                beforeSend:function(){
+                    var _checking = $('#checking_user');
+                    _checking.prev('.field_notice').hide();
+                    _checking.next('label').hide();
+                    $(_checking).show();
+                },
+                complete :function(){
+                    $('#checking_user').hide();
+                }
+	            }*/
+	        },
+	       // user_name : {
+				//reidname1:true,
+	       // },
+	        real_name : {
+	        	required : true,
+				idchinese:true,
+		    },
+		    identity_num : {
+		    	required : true,
+				idcard :true
+		    },
+		    identity_card : {
+		    	required : true,		    	              
+		    },
+            verify : {
+                required : true,
+                number   : true,
+                rangelength : [6,6]
+            },
+            email : {
+                email    : true
+            }
+        },
+        messages : {
+        	user_name : {
+        		required : '用户名必需填写',
+            	byteRange: '用户名必须在3-15个字符之间',
+            	remote   : '您提供的用户名不可申请',
+				//reidname1:"已经是团购员"
+	        },	
+	        real_name : {
+	        	required : '请填写真实姓名',
+				idchinese:"请输入中文名字",
+		    },
+		    identity_num : {
+	        	required : '请填写身份证号',
+				iscard:"请填写身份证号"	,
+		    },  
+		    identity_card : {
+	        	required : '请上传身份证图片',	        	
+		    },      
+	        verify : {
+	            required : '必须填写短信校验码',
+	            number   : '短信校验码必须为6位数字',
+	            rangelength  : '短信校验码必须为6位数字'
+	        },
+	        email : {
+	            email    : '这不是一个有效的电子邮箱'
+	        }
+        }
+    });
+});
+
+</script>
+<div class="content">
+    {include file=member.menu.html}
+<div id="manager_info" class="mypaila_right">
+<form method="post" enctype="multipart/form-data" id="register_form">
+	<h3>成为团购员</h3>
+	<table>
+		<tr>
+	   	<td> 用户名:</td><td><input type="text" id="user_name" name="user_name" readonly="readonly" value="{$user_name}"/></td>
+	   </tr>
+	   <tr>
+	   	<td> 真实姓名:</td><td><input id="real_name" type="text" name="real_name"/></td>
+	   </tr>    
+	   	<td> 性别:</td><td><label>男:&nbsp;&nbsp;<input class="radio_h" checked="true"  value="男" type="radio" name="sex"/></label><label>
+	   		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	   			女:&nbsp;&nbsp;<input class="radio_h" value="女" type="radio" name="sex"/></label></td>
+	   </tr>
+	   <tr>
+	   	<td> 身份证号:</td><td><input type="text" id="identity_num" name="identity_num"/></td>
+	   </tr>
+	   <tr>
+	   	<td> 身份证图:</td><td><input id="identity_card" type="file" name="identity_card"/></td>
+	   </tr>
+	   <tr>
+	   	<td> 验证手机号:</td><td><span id="mobile" style="margin-right:80px;">***********</span>请使用该手机号接收验证码</td>
+	   </tr>
+	   <tr>
+	   	<td> 效验码:</td><td><input  type="text" name="verify" /><input type="button" id="verify" onclick="smsverify()" value="获取验证码"/></td>
+	   </tr>
+	   <tr>
+	   	<td> 邮箱:</td><td><input id="email" type="text" name="email" readonly="readonly" value="{$user_email}"/></td>
+	   </tr>
+	   <tr>
+	   	<td> 地址:</td>
+	   	<td>
+	   		<input type="hidden" name="region_id" id="region_id" class="mls_id" />
+            <input type="hidden" name="region_name" class="mls_names" />
+            <div id="region">
+		   		<select onchange="hide_error();">
+	            	<option>{$lang.select_pls}</option>
+	            	{html_options options=$regions}
+	          	</select>
+          	</div>
+	   	</td>
+	   </tr>
+	   <tr>
+	   	<td> 详细地址:</td><td><input style="width:300px;" type="text" name="address"/></td>
+	   </tr>
+	   <tr>
+	   	<td><input style="height:28px;" class="manager_btn" type="submit" value="确认成为团购员"/></td>
+	   </tr>
+	 </table>    
+</form>
+</div>
+</div>
+{include file=footer.html}
+<script type="text/javascript">
+$(function() {
+	regionInit("region");
+});
+function hide_error(){
+    $('#region').find('.error').hide();
+}
+var wait = 300; //设置秒数(单位秒)
+var secs = 0; //倒计时剩余秒数
+function smsverify(){
+	var user_name = $("#user_name").val();
+	if (!user_name)
+	{
+		alert('请填写您所邀请用户的用户名!');
+		return;
+	}
+	$('#verify').attr('disabled',"true");
+	$.ajax({ 
+      type:"POST",
+      data:"user_name="+user_name,
+      dataType:'json',
+      url:"index.php?app=member&act=sendManagerVerify",
+      success:function(data){
+      		var d = DialogManager.create('show_error');
+      		d.setWidth(400);
+      		d.setTitle('错误:');
+      		if (data.done)
+      		{
+      			d.setContents('message', {type:'notice', text:data.msg});
+				for(var i=0;i<=wait;i++) {
+					 window.setTimeout("sTimer("+i+")",i*1000);
+				}
+      		} else {
+      			d.setContents('message',{type:'warning', text:data.msg});
+      			$('#verify').removeAttr('disabled');
+      		}
+			d.show('center');
+        }
+	});
+}
+//自定义倒计时函数
+function sTimer(num) {
+	 if(num==wait)  {
+		 $('#verify').removeAttr("disabled");
+		 $('#verify').attr('value',"获取效验码");
+	 }else{
+	  	 secs=wait-num;
+	  	 $('#verify').attr('value',secs+"秒");
+	 } 
+}
+$('#real_name').blur(function () {
+	var url = SITE_URL + '/index.php?app=member&act=getUserMobile';
+	$.getJSON(
+		url,
+		{'username':$('#user_name').val()},
+		function (data) {
+			if (data.done)
+			{
+
+				$('#mobile').html(data.retval);
+			}
+		}
+	);
+});
+</script>

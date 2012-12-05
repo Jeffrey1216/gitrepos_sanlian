@@ -1,0 +1,106 @@
+<div class="l">
+	<a href="index.php?app=search&cate_id=361" class="menu_tbg">
+	</a>
+	<ul class="menu_box">
+		<!--  主菜单循环块 start  -->
+	<!--{foreach from=$widget_data item=gcategory}-->
+		<li class="menu_li_node">				
+			<a href="{url app=search&cate_id=}{$gcategory.id}&mall_type=1" class="agro_menu_tit"><span class="l">{$gcategory.value}</span><span class="r">></span></a>
+			<div class="line"></div>
+			<div style="display:none" class="bottom_line"></div>
+			<ul class = "sub_menu">
+			<!-- {foreach from=$gcategory.children item=child} -->
+				<li><a href="{url app=search&cate_id=}{$child.id}&mall_type=1""><strong class="red_col">{$child.value}</strong></a>			
+				<!-- {foreach from=$child.children item=cd} -->
+					<!-- <div style="display:none" class="bottom_line"></div> -->
+						<a href="{url app=search&cate_id=}{$cd.id}&mall_type=1">{$cd.value}</a>
+				<!-- {/foreach} -->	
+				</li>					
+			<!-- {/foreach} -->
+			</ul>
+			<ul class="menu_list">
+			<!-- {foreach from=$gcategory.class item=child} -->
+				<li><a href="index.php?app=search&cate_id={$child.id}&mall_type=1">{$child.value}</a></li>	
+			<!-- {/foreach} -->		
+			</ul>
+		</li>
+	<!-- {/foreach} --> 
+		<!-- 主菜单循环块 ENd -->
+	</ul>
+	<div class="menu_bbg">
+	</div>
+</div>
+<script type = "text/javascript">            //主菜单	
+	function getByClass(my_class)
+	{
+		var class_arr = new Array();
+		var j =0;
+		for(var i =0 ; i<document.getElementsByTagName("*").length ; i++)
+		{
+			if(document.getElementsByTagName("*")[i].className == my_class)
+			{
+				class_arr[j] = document.getElementsByTagName("*")[i];
+				j++ ;				
+			}
+		}
+		return class_arr;
+	}			
+	var menu_li_node = getByClass("menu_li_node");
+	var userAgent = navigator.userAgent; 		//取得浏览器的userAgent字符串
+	var isOpera = userAgent.indexOf("Opera") > -1; 		//判断是否Opera浏览器
+	var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera ; 		//判断是否IE浏览器
+	var body_height;  		//获取文档可见高度
+	var scr_top;  		//获取滚动条
+	for(var i = 0 ;i<menu_li_node.length;i++)
+	{		
+		menu_li_node[i].onmouseover = function()
+		{								
+			this.getElementsByTagName("ul")[0].style.display="block";
+			this.id = "cur_hover";
+			this.getElementsByTagName("div")[0].style.display = "block";
+			if(isIE)
+			{
+				var IE6 = false;
+				var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+				reIE.test(userAgent);
+				var fIEVersion = parseFloat(RegExp["$1"]);							  
+				IE6 = fIEVersion == 6.0 ;									
+				scr_top = document.documentElement.scrollTop;
+				if(IE6)  //IE6的HACK
+				{
+					body_height = document.documentElement.clientHeight+2;
+				}
+				else
+				{
+					body_height = document.documentElement.clientHeight;
+				}
+			}
+			else
+			{
+				body_height = document.body.clientHeight;
+				scr_top = document.body.scrollTop;
+			}
+			var menu_height =this.offsetTop - scr_top;  //距离顶部的距离
+			var bootom_height = body_height - menu_height - this.getElementsByTagName("ul")[0].offsetHeight;	 		//距离底部的距离	
+			var menu_bottom = body_height - menu_height - this.offsetHeight;  //菜单距离底部距离
+			this.getElementsByTagName("ul")[0].style.top = -20+"px";									
+			if(bootom_height<0)
+			{
+				if(menu_bottom<0)
+				{
+					
+					this.getElementsByTagName("div")[1].style.display = "block";						
+					this.getElementsByTagName("div")[1].style.top = this.offsetHeight + menu_bottom-4 + "px";
+				}					
+				//this.getElementsByTagName("ul")[0].style.top = bootom_height-2 + "px";					
+			}				
+		}
+		menu_li_node[i].onmouseout = function()
+		{				
+			this.id = "";
+			this.getElementsByTagName("ul")[0].style.display="none";			
+			this.getElementsByTagName("div")[0].style.display ="none";	
+			this.getElementsByTagName("div")[1].style.display = "none";
+		}		
+	}	
+</script>

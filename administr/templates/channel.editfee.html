@@ -1,0 +1,44 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>运营数据管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel&act=fee">新增</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=feelist">管理</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form name="form" method="post" action="">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">渠道商等级：</th>
+        <td class="paddingT15 wordSpacing5"><!--{if $user.level eq 1}-->经营中心 <!--{elseif $user.level eq 2}-->服务中心<!--{elseif $user.level eq 3}-->派啦加盟店<!--{elseif $user.level eq 4}-->派啦渠道商<!--{elseif $user.level eq 5}-->派啦渠道商(内部)<!--{/if}--></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">所属区域:</th>
+        <td class="paddingT15 wordSpacing5"><!--{$user.area_name}--></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">加盟年费:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="fee" value="{$user.fee}"/>元/年</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">会员消费返利收益率：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="return_rate" value="{$user.return_rate}"/>%</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">推荐渠道商收益率：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="recom_rate" value="{$user.recom_rate}"/>%</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">一次性赠送积分：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" value="{$user.grant_credit}" type="text" name="grant_credit"/></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+        				<input type="hidden" name="id" value="{$user.id}"/></td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

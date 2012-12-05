@@ -1,0 +1,22 @@
+<div class="photo_box" id="index_slider">
+		<ul>
+				<!-- {foreach from=$widget_data.images item=image} -->
+				<li><a href="{$image.url}"><img src="{$image_url}{$image.img}" /></a></li>
+				<!-- {/foreach} -->
+		</ul>
+		</div>
+		
+
+<script type="text/javascript">  
+Effect.slider({   		//轮播器启动
+	'target': 'index_slider',    //选择器
+	'showMarkers': true,   //显示文字说明
+	'showControls': false,  //左移右移控制
+	'width_allow':true,  //计算说明文字宽度
+	'autostart':true,   //自动
+	'crosswise':true,   //方向
+	'trun_text':new Array(
+		"1","2","3","4","5"
+	)   //说明文字
+});
+</script>

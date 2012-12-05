@@ -1,0 +1,139 @@
+{include file=supplyadmin.member.header.html}
+<script type="text/javascript">
+$(function(){
+    var t = new EditableTable($('#my_goods'));
+//    $('#truncate').click(function(){
+//        var goods_ids = '{$goods_ids}';
+//        if(goods_ids && confirm('{sprintf lang=truncate_confirm var1=page_info.item_count}')){
+//            $('#my_goods_form').append('<input type="hidden" name="act" value="truncate" />');
+//            $('#my_goods_form').append('<input type="hidden" name="goods_ids" value="' + goods_ids + '" />');
+//            $('#my_goods_form').submit();
+//            return false;
+//        }
+//    });
+});
+</script>
+<script type="text/javascript">
+//弹出审核未通过的原因
+function reason(r){
+	var d = DialogManager.create('show_error');
+	d.setWidth(400);
+	d.setTitle(lang.error);
+	d.setContents('message', {type:'warning', text:r});
+	d.show();
+}
+</script>
+<style>
+.member_no_records {border-top: 0px !important;}
+.table td{ padding-left: 5px; }
+.table .ware_text { width: 155px; }
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>品牌商城</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=supplyadmin&act=supply_mygoods">商品列表</a></li>
+	</ul>              
+            <div class="public_02">
+			<div class="table">
+                <table id="my_goods" server="{$site_url}/index.php?app=my_goods&amp;act=ajax_col" >
+				<colgroup>
+                <col width="2%"/>
+                <col width="10%"/>
+                <col width="6%"/>             
+                <col width="4%"/>
+                <col width="5%"/>
+                <col width="4%"/>
+                <col width="10%"/>              
+                <col width="9%"/>
+                </colgroup>
+                    <tr class="line_bold">
+                        <th><input type="checkbox" id="all" class="checkall"/></th>
+                        <th style="text-align:left;">
+                            <span class="all"><label for="all">{$lang.checkall}</label></span>
+               			     <a href="javascript:void(0);" class="edit_02" ectype="batchbutton" uri="index.php?app=my_goods&act=batch_edit" name="id">{$lang.edit}</a> 
+                            <a href="javascript:void(0);" class="del_02" ectype="batchbutton" uri="index.php?app=my_goods&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')">{$lang.drop}</a>
+                        </th>
+                        <th colspan="5">
+                            <div class="select_div">
+                            <form id="my_goods_form" method="get">
+                            <!--{if $filtered}-->
+                            <a class="detlink" style="float:right" href="{url app=my_goods}">{$lang.cancel_query}</a>
+                            <!--{/if}-->
+                            <input type="hidden" name="app" value="my_goods">
+                            <select name='sgcate_id'>
+                                <option value="0">分类</option>                               
+                            </select>
+                            <select name="character">
+                                <option value="0">商品状态</option>                                
+ 							</select>                           
+                            <input type="text" class="text_normal" name="keyword" value="{$smarty.get.keyword|escape}"/>
+                            <input type="submit" class="btn" value="搜索" />
+                            </form>
+                            </div>
+                        </th>
+                    </tr>
+            
+                    <tr class="gray"  ectype="table_header">                       
+						<th>&nbsp;</th>					
+                        <th>商品信息</th>
+                      	<th class="cursor_pointer" coltype="editable" column="cprice" checker="check_number" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">市场价</span></th>                   
+                        <th class="cursor_pointer" coltype="editable" column="price" checker="check_number" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">售价</span></th>
+                        <th class="cursor_pointer" coltype="editable" column="credit" checker="check_number" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">赠送CC</span></th>
+                        <th class="cursor_pointer" coltype="editable" column="stock" checker="check_pint" inputwidth="50px" title="{$lang.sort_order}"><span ectype="order_by">库存</span> <span ectype="order_by">推荐</span> <span ectype="order_by">禁售</span></th>
+                       <th style="padding-left:20px;">操作</th>
+                    </tr>
+                                
+                    <tr class="line">
+                        <td style="text-align:center"><input type="checkbox" class="checkitem" value="{$goods.goods_id}"/></td>
+                        <td>
+                        <div class="cursor_pointer"  style="float:left;"><img src="themes\mall\new\styles\default\images\supplier\userimg.png" width="50" height="50"/></div>
+                        <div style="float:left">
+                        <div column="cate_id" title="{$lang.sort_order}">
+                        <span ectype="order_by"  class="descr_02 cursor_pointer">{$lang.gcategory}</span>  
+                        <span class="descr_01 cursor_pointer">{$goods.cate_name|nl2}</span>
+                        </div>
+                        <div coltype="editable" column="brand" checker="check_required" inputwidth="55px" title="{$lang.sort_order}"  class="cursor_pointer">                        
+                        <span ectype="order_by"  class="descr_02">{$lang.brand}</span> 
+                        <span class="descr_01" ectype="editobj">{$goods.brand|escape}</span></div>                                           
+                        <p coltype="editable" column="goods_name" checker="check_required" inputwidth="90%" title="{$lang.sort_order}"  class="cursor_pointer">
+                        <span ectype="order_by" class="descr_02">{$lang.goods_name}</span>
+                        <span class="descr_01" ectype="editobj">{$goods.goods_name|escape}</span></p>
+                        </div>
+                        </td>                     
+						<td><span>&nbsp;</span></td>                       
+                        <td><!--{if $goods.spec_qty}--><span ectype="dialog" dialog_width="430" uri="index.php?app=my_goods&amp;act=spec_edit&amp;id={$goods.goods_id}" dialog_id="my_goods_spec_edit" class="cursor_pointer"><!--{else}--><span class="color2"><!--{/if}-->{$goods.price}</span></td>
+                      
+                        <td><!--{if $goods.spec_qty}--><span ectype="dialog" dialog_width="430" uri="index.php?app=my_goods&amp;act=spec_edit&amp;id={$goods.goods_id}" dialog_id="my_goods_spec_edit" class="cursor_pointer"><!--{else}--><span class="color2" ectype="editobj"><!--{/if}-->{$goods.stock}</span></td>
+                        <td>
+                        <span ectype="editobj" <!--{if $goods.if_show}-->class="right_ico" status="on"<!--{else}-->class="wrong_ico" stauts="off"<!--{/if}-->></span>
+                        <span ectype="editobj" <!--{if $goods.recommended}-->class="right_ico" status="on"<!--{else}-->class="wrong_ico" stauts="off"<!--{/if}-->></span>
+                        <span <!--{if $goods.closed}-->class="no_ico"<!--{else}-->class="no_ico_disable"<!--{/if}-->></span>
+                        </td>                                      
+                        <td>
+                        <div><a href="{url app=my_goods&act=edit&id=$goods.goods_id}" class="edit">{$lang.edit}</a>
+                       	<a  href="javascirpt:;" ectype="dialog" dialog_id="export_ubbcode" dialog_title="{$lang.export_ubbcode}" dialog_width="380" uri="{url app=my_goods&act=export_ubbcode&id=$goods.goods_id}" class="export">导出UBB</a>
+						<a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=my_goods&amp;act=drop&id={$goods.goods_id}');" class="delete">{$lang.drop}</a>
+						<a href="index.php?app=supplyadmin&act=supply_mygoodsview" style="float:none;display:inline-block" class="btn1">查看详情</a></div>
+						</td>
+                    </tr>
+                                                    
+                    <tr>
+                        <th><input type="checkbox" id="all2" class="checkall"/></th>
+                        <th colspan="6">
+                            <p class="position1">
+                                <span class="all"><label for="all2">{$lang.checkall}</label></span>
+                                <a href="javascript:void(0);" class="edit_02" ectype="batchbutton" uri="index.php?app=my_goods&amp;act=batch_edit&ret_page={$page_info.curr_page}" name="id">{$lang.edit}</a>
+                                <a href="javascript:void(0);" class="del_02" uri="index.php?app=my_goods&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')" ectype="batchbutton">{$lang.drop}</a>
+                            </p>
+                            <p class="position2">
+                                {include file=member.page.bottom.html}
+                            </p>
+                        </th>
+                    </tr>
+                 
+                </table>
+            </div>        
+        </div>
+</div>
+
+{include file=storeadmin.footer.html}

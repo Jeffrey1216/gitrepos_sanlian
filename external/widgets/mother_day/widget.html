@@ -1,0 +1,279 @@
+<link type="text/css" rel="stylesheet" href="themes/mall/new/styles/default/topics/seckill_groupbuy/css/seckill_groupbuy.css" />
+ 		<div class ="mmgrp_ad">
+ 			<div class="mmgrp_btn">
+ 			</div>
+	 	</div>	 
+	 	<!--情人节头部 END-->
+<div class="bulk_ctt">
+<!--  原来的
+    <div class="bulk_banner">
+        <div class="bulk_wishbtn">
+            <a href="index.php?app=vowwall"><img src="{res file=topics/seckill_groupbuy/images/wishbtn0.gif}" alt="点击许愿" /></a>
+        </div>      
+    </div> 
+ -->
+	<div class="wygrp_ntc mmgrp_ntc">
+		<div class="wygrp_ntc_btn1">
+			<a href="index.php?app=store_league&act=view&id=728">
+				财大<br/>
+				派啦
+			</a>
+		</div>
+		<div class="wygrp_ntc_btn1 wygrp_ntc_btn2">
+			<a href="index.php?app=special">
+				五一<br/>
+				放价
+			</a>
+		</div>
+	</div>
+    <div class="bulk_main">
+        <div class="bulk_main_back">
+            <ul class="bulk_main_gds">
+               <div class="bulk_main_sort">
+                   <p>服饰家居</p>
+               </div>
+               <!-- {foreach from=$widget_data.goods.0 item=list} -->
+               <li class="bulk_main_gds1">
+                  <div class="bulk_main_gds1_name">
+                      <a class="bulk_main_gds1_a" href="index.php?app=goods&id={$list.goods_id}">
+                      <span>{$list.goods_name}</span>
+                      <p title="{$list.warm_prompt|truncate:24}">{$list.warm_prompt|truncate:24}</p>
+                      </a>
+                      <div class="bulk_main_gds1_img">
+                          <a href="index.php?app=goods&id={$list.goods_id}"><img src="{$list.mimage_url}" alt="{$list.goods_name}" /></a>
+                      </div>
+                  </div>
+                  <ul class="bulk_main_gds1_prc">
+                     <li class="bulk_prc_l">
+                        {$list.price|price}
+                     </li> 
+                     <li class="bulk_prc_r"style="float:right;margin:15px 20px 0 0 ;">
+                        <a href="index.php?app=goods&id={$list.goods_id}"><img src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/buy_ioc2.jpg" alt="参团" /></a>
+                     </li>
+                  </ul>
+                  <ul class="bulk_main_gds_dsct">
+                     <li class="bulk_dsct_l">
+                        原价<br/>
+                        <p>{$list.cprice|price}</p>
+                     </li>
+                     <li class="bulk_dsct_m">
+                        折扣<br/>
+                        <p>{$list.rebate}折</p>
+                     </li>
+                     <li class="bulk_dsct_r">
+                        节省<br/>
+                        <p>{$list.save|price}	</p>
+                     </li>
+                  </ul>
+               </li>
+               <!-- {/foreach} -->
+              
+            </ul>
+            <ul class="bulk_main_gds">
+               <div class="bulk_main_sort">
+                   <p>个护化妆</p>
+               </div>
+               <!-- {foreach from=$widget_data.goods.1 item=list} -->
+               <li class="bulk_main_gds1">
+                  <div class="bulk_main_gds1_name">
+                      <a class="bulk_main_gds1_a" href="index.php?app=group_project&act=goodsshow&id={$list.goods_id}">
+                      <span>{$list.goods_name}</span>
+                      <p title="{$list.warm_prompt|truncate:24}">{$list.warm_prompt|truncate:24}</p>
+                      </a>
+                      <div class="bulk_main_gds1_img">
+                          <a href="index.php?app=group_project&act=goodsshow&id={$list.goods_id}"><img src="{$list.mimage_url}" alt="{$list.goods_name}" /></a>
+                      </div>
+                  </div>
+                  <ul class="bulk_main_gds1_prc">
+                     <li class="bulk_prc_l">
+                        {$list.price|price}
+                     </li> 
+                     <li class="bulk_prc_r"style="float:right;margin:15px 20px 0 0 ;">
+                        <a href="index.php?app=goods&id={$list.goods_id}"><img src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/buy_ioc2.jpg" alt="团购" /></a>
+                     </li>
+                  </ul>
+                  <ul class="bulk_main_gds_dsct">
+                     <li class="bulk_dsct_l">
+                        原价<br/>
+                        <p>{$list.cprice|price}</p>
+                     </li>
+                     <li class="bulk_dsct_m">
+                        折扣<br/>
+                        <p>{$list.rebate}折</p>
+                     </li>
+                     <li class="bulk_dsct_r">
+                        节省<br/>
+                        <p>{$list.save|price}</p>
+                     </li>
+                  </ul>
+               </li>
+               <!-- {/foreach} -->
+              
+            </ul>
+            <ul class="bulk_main_gds">
+               <div class="bulk_main_sort">
+                   <p>食品饮料</p>
+               </div>
+               <!-- {foreach from=$widget_data.goods.2 item=list} -->
+               <li class="bulk_main_gds1">
+                  <div class="bulk_main_gds1_name">
+                      <a class="bulk_main_gds1_a" href="index.php?app=group_project&act=goodsshow&id={$list.id}">
+                      <span>{$list.goods_name}</span>
+                      <p title="{$list.warm_prompt|truncate:24}">{$list.warm_prompt|truncate:24}</p>
+                      </a>
+                      <div class="bulk_main_gds1_img">
+                          <a href="index.php?app=goods&id={$list.goods_id}"><img src="{$list.mimage_url}" alt="{$list.goods_name}" /></a>
+                      </div>
+                  </div>
+                  <ul class="bulk_main_gds1_prc">
+                     <li class="bulk_prc_l">
+                        {$list.price|price}
+                     </li> 
+                     <li class="bulk_prc_r" style="float:right;margin:15px 20px 0 0 ;">
+                        <a href="index.php?app=goods&id={$list.goods_id}"><img src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/buy_ioc2.jpg" alt="团购" /></a>
+                     </li>
+                  </ul>
+                  <ul class="bulk_main_gds_dsct">
+                     <li class="bulk_dsct_l">
+                        原价<br/>
+                        <p>{$list.cprice|price}</p>
+                     </li>
+                     <li class="bulk_dsct_m">
+                        折扣<br/>
+                        <p>{$list.rebate}折</p>
+                     </li>
+                     <li class="bulk_dsct_r">
+                        节省<br/>
+                        <p>{$list.save|price}</p>
+                     </li>
+                  </ul>
+               </li>
+               <!-- {/foreach} -->
+              
+            </ul>
+            <ul class="bulk_main_gds">
+               <div class="bulk_main_sort">
+                   <p>钟表首饰</p>
+               </div>
+               <!-- {foreach from=$widget_data.goods.3 item=list} -->
+               <li class="bulk_main_gds1">
+                  <div class="bulk_main_gds1_name">
+                      <a class="bulk_main_gds1_a" href="index.php?app=group_project&act=goodsshow&id={$list.id}">
+                      <span>{$list.goods_name}</span>
+                      <p title="{$list.warm_prompt|truncate:24}">{$list.warm_prompt|truncate:24}</p>
+                      </a>
+                      <div class="bulk_main_gds1_img">
+                          <a href="index.php?app=goods&id={$list.goods_id}"><img src="{$list.mimage_url}" alt="{$list.goods_name}" /></a>
+                      </div>
+                  </div>
+                  <ul class="bulk_main_gds1_prc">
+                     <li class="bulk_prc_l">
+                        {$list.price|price}
+                     </li> 
+                     <li class="bulk_prc_r"style="float:right;margin:15px 20px 0 0;">
+                        <a href="index.php?app=goods&id={$list.goods_id}"><img src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/buy_ioc2.jpg" alt="团购" /></a>
+                     </li>
+                  </ul>
+                  <ul class="bulk_main_gds_dsct">
+                     <li class="bulk_dsct_l">
+                        原价<br/>
+                        <p>{$list.cprice|price}</p>
+                     </li>
+                     <li class="bulk_dsct_m">
+                        折扣<br/>
+                        <p>{$list.rebate}折</p>
+                     </li>
+                     <li class="bulk_dsct_r">
+                        节省<br/>
+                        <p>{$list.save|price}</p>
+                     </li>
+                  </ul>
+               </li>
+               <!-- {/foreach} -->
+              
+            </ul>
+            <ul class="bulk_main_gds">
+               <div class="bulk_main_sort">
+                   <p>家具家装</p>
+               </div>
+               <!-- {foreach from=$widget_data.goods.4 item=list} -->
+               <li class="bulk_main_gds1">
+                  <div class="bulk_main_gds1_name">
+                      <a class="bulk_main_gds1_a" href="index.php?app=goods&id={$list.goods_id}">
+                      <span>{$list.goods_name}</span>
+                      <p title="{$list.warm_prompt|truncate:24}">{$list.warm_prompt|truncate:24}</p>
+                      </a>
+                      <div class="bulk_main_gds1_img">
+                          <a href="index.php?app=goods&id={$list.goods_id}"><img src="{$list.mimage_url}" alt="{$list.goods_name}" /></a>
+                      </div>
+                  </div>
+                  <ul class="bulk_main_gds1_prc">
+                     <li class="bulk_prc_l">
+                        {$list.price|price}
+                     </li> 
+                     <li class="bulk_prc_r" style="float:right;margin:15px 20px 0 0 ;">
+                        <a href="index.php?app=group_project&act=goodsshow&id={$list.id}"><img src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/buy_ioc2.jpg" alt="团购" /></a>
+                     </li>
+                  </ul>
+                  <ul class="bulk_main_gds_dsct">
+                     <li class="bulk_dsct_l">
+                        原价<br/>
+                        <p>{$list.cprice|price}</p>
+                     </li>
+                     <li class="bulk_dsct_m">
+                        折扣<br/>
+                        <p>{$list.rebate}折</p>
+                     </li>
+                     <li class="bulk_dsct_r">
+                        节省<br/>
+                        <p>{$list.save|price}</p>
+                     </li>
+                  </ul>
+               </li>
+               <!-- {/foreach} -->
+               
+               </ul>
+            <ul class="bulk_main_gds">
+               <div class="bulk_main_sort">
+                   <p>其他类</p>
+               </div>
+               <!-- {foreach from=$widget_data.goods.5 item=list} -->
+               <li class="bulk_main_gds1">
+                  <div class="bulk_main_gds1_name">
+                      <a class="bulk_main_gds1_a" href="index.php?app=goods&id={$list.goods_id}">
+                     <span>{$list.goods_name}</span>
+                      <p title="{$list.warm_prompt|truncate:24}">{$list.warm_prompt|truncate:24}</p>
+                      </a>
+                      <div class="bulk_main_gds1_img">
+                          <a href="index.php?app=goods&id={$list.goods_id}"><img src="{$list.mimage_url}" alt="{$list.goods_name}" /></a>
+                      </div>
+                  </div>
+                  <ul class="bulk_main_gds1_prc">
+                     <li class="bulk_prc_l">
+                        {$list.price|price}
+                     </li> 
+                     <li class="bulk_prc_r" style="float:right;margin:15px 20px 0 0 ;">
+                        <a href="index.php?app=goods&id={$list.goods_id}"><img src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/buy_ioc2.jpg" alt="团购" /></a>
+                     </li>
+                  </ul>
+                  <ul class="bulk_main_gds_dsct">
+                     <li class="bulk_dsct_l">
+                        原价<br/>
+                        <p>{$list.cprice|price}</p>
+                     </li>
+                     <li class="bulk_dsct_m">
+                        折扣<br/>
+                        <p>{$list.rebate}折</p>
+                     </li>
+                     <li class="bulk_dsct_r">
+                        节省<br/>
+                        <p>{$list.save|price}</p>
+                     </li>
+                  </ul>
+               </li>
+               <!-- {/foreach} -->
+               
+            </ul>
+        </div>
+    </div>
+</div>

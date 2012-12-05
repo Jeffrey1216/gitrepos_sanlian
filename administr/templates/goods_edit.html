@@ -1,0 +1,59 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>商品修改基本功能</p>
+</div>
+<div class="borderBox">
+<form action="index.php?app=supply&act=goods_edit" method="post" id="form" onsubmit="return formit()">
+	<div class="updateinfo" style="margin:0px 15px">
+                 <table cellspacing="0" class="dataTable">
+                     <tr class="tatr2">
+                         <th class="width4">商品ID:</th>
+                         <td><span>{$goods_one.goods_id}</span></td>
+                     </tr>
+                     <tr class="tatr2">
+                         <th class="width4">商品名: </th>
+                        <td><input type="text" name="goods_name" id="goods_name" value="{$goods_one.goods_name}" class="text width_normal input"></td>
+                     </tr>
+                     <tr class="tatr1">
+                         <th class="width4">商品编号: </th>
+                         <td><input type="text" name="commodity_code" id="commodity_code" value="{$goods_one.commodity_code}" class="text width_normal input"></td>
+                     </tr>
+                     <tr>
+                      <td colspan="2">
+                        <div class="left paddingT15">
+                         <input type="hidden" name="goods_id" value="{$goods_one.goods_id}"/>
+                         <input type="hidden" name="supply_id" value="{$supply_id}"/>
+                         <input type="submit" value="修&nbsp;&nbsp;改" class="formbtn batchButton" style="display:inline-block;text-align:center;line-height:20px;text-decoration:none;margin:8px 8px 15px 8px"/>
+                         <input type="button"  onclick="history.go(-1)"  value="返&nbsp;&nbsp;回" class="formbtn batchButton" style="display:inline-block;text-align:center;line-height:20px;text-decoration:none;margin:8px 8px 15px 8px"/>
+                        </div>
+                      </td>
+                     </tr>
+                </table>
+                
+     </div>
+     
+</form>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">
+function formit(){
+	var goods_name = $("#goods_name").val();
+	var commodity_code = $("#commodity_code").val();
+	if(goods_name == ""){
+		alert('商品名不能为空');
+		return false;
+	}
+	if(commodity_code == ""){
+		alert('商品编号不能为空');
+		return false;
+	}
+	if(commodity_code.replace(/[^\x00-\xff]/gi,'pi').length < 6)
+	{
+		alert("商品编号至少需要输入6位");
+		return false;
+	} 
+	return true;	
+}
+
+</script>
+

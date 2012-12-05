@@ -1,0 +1,123 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<div class="borderBox">
+	<h3 class="tit"><span>快捷支付</span></h3>
+	<ul class="tabDiv mb10">
+		<li><a href="index.php?app=kjzf&act=quick_brand_index">品牌商城，快捷支付</a></li>
+		<!-- {if $is_paila_store eq 1} -->
+		<li class="hover"><a href="index.php?app=kjzf">派啦商城，快捷支付</a></li>
+		<!-- {/if} -->
+	</ul>
+	<div title="查看我的购物车" class="eject_btn_two eject_pos1"><b class="ico12"><a href="index.php?app=quickCart">查看我的购物车</a></b></div>
+	<div class="public_02">	
+	<div class="table">
+	 <table id="addgoods" cellpadding="0" cellspacing="0">
+<colgroup>
+                <col width="40%"/>
+                <col width="20%"/>
+                <col width="20%"/>       
+               <col width="20%"/>         
+                                       
+                </colgroup>
+                <form id="my_goods_form" method="get">
+                    <tr class="line_bold">
+                        <th>
+						
+                            <select name='cate_id' id="selCate">
+                                <option value="0">选择商品分类</option>   
+                                <!-- {foreach from=$gcategory_list item=cate} -->
+                                <option value="{$cate.cate_id}" <!-- {if $cate_id eq $cate.cate_id} --> selected<!-- {/if} -->>{$cate.cate_name}</option>
+                                <!-- {/foreach} -->                         
+                            </select> 
+                         </th>  
+                            <th>   
+                              <select name='priceRegion' id="priceRegion">
+                                <option>选择价格区间</option>   
+                                <!-- {foreach from=$priceRegion item=region} -->
+                                <option value="{$region.key}" <!-- {if $priceReg eq $region.key} --> selected<!-- {/if} -->>{$region.value}</option>
+                                <!-- {/foreach} -->                            
+                            </select>  </th>                                                
+  							<th colspan="2">
+                           		 <div class="select_div"style="width:auto;"> 
+                           		 
+                           		 			<input type="hidden" name="app" value="kjzf" />
+                           		 			<input type="hidden" name="act" value="index" />                          
+                        					 <input type="text" id="keyword" name="keyword" value="请输入搜索关键字!"/>
+                            				<input type="submit" class="btn" value="搜索" />
+                            		
+                            	</div>
+                      		  </th>
+                     
+                    </tr>     
+                    </form>              
+                    <tr class="gray">                
+			                       <th style="padding-left:30px;">商品信息</th>
+                      	<th class="cursor_pointer"><span>所属分类</span></th>                   
+                        <th class="cursor_pointer"><span>售价</span></th>
+                        <th class="cursor_pointer" style="padding-left:15px;"><span>操作</span></th>                                       
+                    </tr>   
+                    <!-- {foreach from=$goods_list item=goods} -->                
+                    <tr>
+                        <td>
+                        <div style="float:left;"><a href="index.php?app=buy_mallgoods&act=show_goods&id={$goods.goods_id}" target="_blank"><img alt="{$goods.goods_name}" title="{$goods.goods_name}"  style="height:50px;height:50px;overflow:hidden;" src="{$goods.simage_url}"/></a></div>
+                        <div style="float:left;width:180px;padding-top:10px;">
+                        <div class="cursor_pointer">
+                       <span><a href="index.php?app=buy_mallgoods&act=show_goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></span>                     
+                        </div>
+                        </div>
+                        </td>                    
+						<td>{$goods.cate_name}</td>                       
+                        <td>                       
+                        <div><span class="color4">{$goods.price|price}</span></div>
+                        </td>                                    
+                        <td colspan="2">
+                       <a href="index.php?app=buy_mallgoods&act=show_goods&id={$goods.goods_id}" class="btn1">查看详情</a>
+                       <a dialog_width="600" uri="index.php?app=kjzf&act=addToCart&area_type=pailamall&goods_id={$goods.goods_id}" dialog_title="加入购物车" dialog_id="addToCart" ectype="addToCart" class="btn1">加入购物车</a>
+                       </td>               
+                    </tr>  
+                    <!-- {foreachelse} -->
+                    <tr><td colspan="4"><p class="position2" style="text-align:center;font-size:16px;"><b>没有该商品.</b></p></td></tr>
+                    <!-- {/foreach} -->                           
+                 <tr>                                      
+                        <th colspan="4">
+                         <p class="position2">
+                                <div class="page">
+    								{$page}
+   								</div>
+                            </p>
+                            </th>
+                    </tr> 
+                </table>
+	</div>
+	</div>
+</div>
+<script type="text/javascript">
+$("#selCate").change(function(){
+	$("#my_goods_form").submit();
+});
+$("#priceRegion").change(function(){
+	$("#my_goods_form").submit();
+});
+$("#keyword").focus(function() {
+	if($("#keyword").val() == '' || $("#keyword").val() == '请输入搜索关键字!') {
+		$("#keyword").val("");
+	}
+});
+$("#keyword").blur(function() {
+	if($("#keyword").val() == '') {
+		$("#keyword").val("请输入搜索关键字!");
+	}
+});
+var iptObj;
+$('a[ectype="addToCart"]').click(function(){
+	iptObj = this;
+    var id = $(this).attr('dialog_id');
+    var title = $(this).attr('dialog_title') ? $(this).attr('dialog_title') : '';
+    var url = $(this).attr('uri');
+    var width = $(this).attr('dialog_width');
+    ajax_form(id, title, url, width);
+    return false;
+});
+
+</script>

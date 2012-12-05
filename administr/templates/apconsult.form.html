@@ -1,0 +1,97 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $('#share_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('right').text('OK!');
+        },
+        rules : {
+            title : {
+                required : true,
+                maxlength: 100
+            },
+            link  : {
+                required : true
+            },
+            logo  : {
+                accept : 'png|jpe?g|gif'
+            },
+            sort_order : {
+                number   : true
+            }
+        },
+        messages : {
+            title : {
+                required : '{$lang.title_required}',
+                maxlength: '{$lang.title_maxlength_error}'
+            },
+            link  : {
+                required : '{$lang.link_required}'
+            },
+            logo  : {
+                accept   : '{$lang.logo_accept_error}'
+            },
+            sort_order  : {
+                number   : '{$lang.number_only}'
+            }
+        }
+    });
+});
+//]]>
+</script>
+<div id="rightTop">
+    <p>商户咨询</p>
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=apconsult">{$lang.manage}</a></li>
+        {if $share.share_id}
+        <li><a class="btn1" href="index.php?app=share&amp;act=add">{$lang.add}</a></li>
+       
+        {/if}
+    </ul>
+</div>
+
+<div class="info">
+    <form method="post" enctype="multipart/form-data" id="share_form">
+        <table class="infoTable">
+            <tr>
+                <th class="paddingT15">
+                    {$lang.title}:</th>
+                <td class="paddingT15 wordSpacing5">
+                   {$partner}
+                </td>
+            </tr>
+       
+            {if $share.logo}
+            <tr>
+                <th class="paddingT15">
+                </th>
+                <td class="paddingT15 wordSpacing5">
+                <img src="{$share.logo}?{$random_number}" class="makesmall" max_width="16" max_height="16" />
+                </td>
+            </tr>
+            {/if}
+            <tr>
+                <th class="paddingT15">
+                                 内容回复:</th>
+                <td class="paddingT15 wordSpacing5">
+                    <textarea class="infoTableInput" id="link" type="text" name="content">{$share.link|escape}</textarea><br />
+                </td>
+            </tr>
+          
+        
+        <tr>
+            <th></th>
+            <td class="ptb20">
+                <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+                <input class="formbtn" type="reset" name="Submit2" value="{$lang.reset}" />
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+{include file="footer.html"}

@@ -1,0 +1,53 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<div class="content">
+   {include file=member.menu.html}
+<div class="right">
+<div id="zhifu" class="zhifu_center">
+{include file=member.subtop.html}
+<ul class="tab" style="margin-top:10px">
+       <li class="active">快捷充值</li>
+</ul>
+<form action="index.php?app=voucher_center&act=goto_pay&order_id={$order.order_id}" target="_blank" method="POST" id="goto_pay"  class="wrap" style="height:500px;padding-top:15px">
+	   <div class="zhifu7">
+	   <ul>
+	   <li>收款方：派啦网</li>
+	   <li>类型：充值</li>
+	   <li>金额：<span>{$order.balance|price}</span></li>
+	   </ul>
+	   </div>
+	  
+	   <div class="zhifu8">	 
+	    <h3>选择网上银行或平台支付<span>您需要先拥有一张已开通网上支付功能的银行卡。</span></h3>   
+	   <!--{if $payments.online}-->
+	   <h6>请点击以下平台支付:<a href="#this">查看支付说明&gt;&gt;</a></h6>
+	   <div class="zhifu8_1">
+	   	  <!--{foreach from=$payments.online item=payment}-->
+          <div style="float:left;margin:10px;">
+              <span class="radio"><input id="payment_{$payment.payment_code}" type="radio" name="payment_id" value="{$payment.payment_id}" /></span>
+              <span class="logo"><label for="payment_{$payment.payment_code}"><img src="{$site_url}/includes/payments/{$payment.payment_code}/logo.gif" alt="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" title="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" width="125" height="47" /></label></span>
+              <span class="explain">{$payment.payment_desc|escape}</span>
+          </div>
+		  <!--{/foreach}-->
+	   </div>
+	   </div>
+	   <!--{/if}-->
+  <ul class=" zhifu5" style=" margin-left:25px;float:left">
+   <li><a style="color:#fff;" href="javascript: $('#goto_pay').submit();window.location.href='index.php?app=voucher_center';" class="gouwuche_btn"></a></li>
+	<li style="margin:20px 25px 25px 0;"><a href="index.php?app=voucher_center"><img src="{res file=images/gouwuche_10.gif}" />返回上一步</a></li>
+  </ul>
+  <div class="clear"></div>
+  <div class="mypaila_bottom">
+   <span style="color:#4ea51a">温馨提示：</span>
+   <p>1、充值的金额将立即进入您的派啦现金余额账户。</p>
+   <p>2、派啦充值中心暂只支持支付宝平台充值。</p>
+  </div>
+</form>
+
+</div>
+
+</div>
+</div>
+{include file=footer.html}

@@ -1,0 +1,58 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p><b>订单详情</b></p>
+</div>
+<div class="orderform">
+<h1>订单详情</h1>
+<div>
+<ul>
+<li><b>状态：</b><span><b>{if $groinfo.status eq 11}待付款{elseif $groinfo.status eq 20}待发货{elseif $groinfo.status eq 30}已发货{elseif $groinfo.status eq 40}已完成{elseif $groinfo.status eq 0}已取消{/if}</b></span></li>
+<li><b>订单编号：</b><span>{$groinfo.order_sn|default:未填写}</span></li>
+<li><b>下单时间：</b><span>{$groinfo.add_time|date:complete|default:未填写}</span></li>
+</ul>
+<h1>买家信息</h1>
+<ul>
+<li><b>用户名：</b><span>{$groinfo.buyer_name|default:未填写}</span></li>
+<li><b>收件人：</b><span>{$groinfo.consignee|default:未填写}</span></li>
+<li><b>电话号码：</b><span>{$groinfo.phone_tel|default:未填写}</span></li>
+<li><b>所在地区：</b><span>{$groinfo.region_name|default:未填写}</span></li>
+<li><b>地区邮编：</b><span>{$groinfo.zipcode|default:未填写}</span></li>
+<li><b>手机号码：</b><span>{$groinfo.phone_mob|default:未填写}</span></li>
+<li><b>发货地址：</b><span>{$groinfo.address|default:未填写}</span></li>
+</ul>
+</div>
+<div>
+</div>
+<h1>订单信息</h1>
+<ul>
+<li><b>项目名称：</b><span>{$groinfo.title|default:未填写}</span></li>
+<li><b>商品总价：</b><span><b>{$groinfo.goods_amount|price|default:未填写}</b></span></li>
+<li><b>数量：</b><span>{$groinfo.quantity|default:未填写}</span></li>
+<li><b>折扣价：</b><span><b>{$groinfo.discount|price|default:未填写}</b></span></li>
+<li><b>订单总价：</b><span><b>{$groinfo.order_amount|price|default:未填写}</b></span></li>
+<li><b>支付方式：</b><span>{$groinfo.payment_name|default:未填写}</span></li>
+<li><b>支付编码：</b><span>{$groinfo.payment_code|default:未填写}</span></li>
+<li><b>支付时间：</b><span>{$groinfo.pay_time|date:complete|default:未填写}</span></li>
+<li><b>发货时间：</b><span>{$groinfo.ship_time|default:未填写}</span></li>
+<li><b>发票号：</b><span>{$groinfo.Invoice_no|default:未填写}</span></li>
+<li><b>配送方式：</b><span>{$groinfo.ship_name|default:未填写}</span></li>
+<li><b>物流单号：</b><span>{$groinfo.ship_no|default:未填写}</span></li>
+</ul>
+<!-- {if $status eq 50 or $status eq 60} -->
+<h1>退款信息</h1>
+<ul>
+<li><b>退款人：</b><span><b>{$groinfo.operator|default:未填写}</b></span></li>
+<li><b>退款时间：</b><span><b>{$groinfo.log_time|date:complete|default:未填写}</b></span></li>
+<li><b>退款原因：</b><span>{$groinfo.refund_cause|default:未填写}</span></li>
+</ul>
+<!-- {/if} -->
+</div>
+<form method="post" action="index.php"/>
+<div style="padding:10px 20px 10px;">
+<input type="hidden" name="app" value="grouporder"/>
+<input type="hidden" name="act" value="index"/>
+<input type="submit" name="submit" value="返回订单页"/>
+<input type="button" value="打印" onclick="window.open('index.php?app=grouporder&act=orderprint&order_id={$groinfo.order_id}');" />
+</div>
+</form>
+{include file="footer.html"}

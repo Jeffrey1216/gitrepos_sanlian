@@ -1,0 +1,52 @@
+<div class="goods_box">
+	<div class="goods_tit_box">
+		<div class="goods_tit agr_send">
+		</div>	
+		<a class="agr_more" href="index.php?app=search">更多>></a>		
+		<div class="r">	
+		<!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+            <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+        <!-- {/foreach} -->
+		</div>
+	</div>
+
+	<div class="photo_box charts" id="index_slider">
+		<div class="charts_tit">
+			
+		</div>
+		<!--排行榜轮播器start-->
+		<div class="agr_photos">
+			<ul>
+			<!-- {foreach from=$widget_data.sales item=slae} -->
+				<li>
+					<div><a href="index.php?app=goods&id={$slae.gs_id}"><img class="img_160"src="{$image_url}{$slae.smimage_url}"/></a></div>
+					<div class="h_2"><a href="index.php?app=goods&id={$slae.gs_id}">{$slae.goods_name|truncate:50}</a></div>
+					<div>派啦价:<span class="red_col">{$slae.price}</span></div>					
+				</li>
+			<!-- {/foreach} -->
+			</ul>
+		</div>
+		<!--排行榜轮播器end-->
+	</div>
+	<!--精品推荐产品 START -->
+	<!-- {foreach from=$widget_data.goods item=good} -->
+	<ul class="goods_160">
+			<li><a href="index.php?app=goods&id={$good.gs_id}"><img class="img_160"src="{$image_url}{$good.smimage_url}"/></a></li>
+			<li class="h_2"><a href="index.php?app=goods&id={$good.gs_id}">{$good.goods_name|truncate:16}</a></li>
+			<li>派啦价:<span class="red_col">{$good.price|price}</span></li>
+	</ul>
+	<!-- {/foreach} -->
+	<!--精品推荐产品 END -->
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+Effect.slider({   		//轮播器启动
+	'target': 'index_slider',
+	'showMarkers': true,
+	'showControls': true,
+	'width_allow':false,
+	'autostart':true,
+	'crosswise':true
+});
+
+</script>

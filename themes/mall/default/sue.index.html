@@ -1,0 +1,36 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+
+<div class="info">
+	<div class="sue">
+    	<strong>我的投诉</strong><br />
+        <div class="s">如果您对我们的商品或者服务有不满之处，请在此提交投诉，我们会尽快给予答复或处理！谢谢！</div>
+    </div>
+  <form method="post">
+    <table class="infoTable">
+     <tr>
+        <td height="30" colspan="5" align="left" valign="middle" bgcolor="#fdefd6" class="paddingT15" ><strong>提交我的投诉</strong></td>
+     </tr>
+     <tr>
+     	<td height="60" align="left" valign="middle" class="paddingT15" ><label for="ship_no" class="st">您的订单:</label></td>
+     	<td height="60" align="left" valign="middle" class="paddingT15" >{$order_info.order_sn}</td>
+     	<td width="100" height="60" align="left" valign="middle" class="paddingT15" >&nbsp;&nbsp;&nbsp;&nbsp;投诉类型:</td>
+     	<td width="614" align="left" valign="middle" class="paddingT15" ><select name="data">{html_options options=$data select=$data.value}</select></td>
+     </tr>
+      <tr>
+        <td width="93" height="50" align="left" valign="top" class="paddingT15"> <label for="ship_reason" class="st">投诉原因:</label></td>
+        <td height="50" colspan="4" align="left" class="paddingT15"><textarea id="drop_reason" name="ship_reason" /></textarea></td>
+      </tr>
+      <tr>
+        <td height="50" class="ptb20">&nbsp;</td>
+        <td width="171" height="50" class="ptb20">
+          <input class="formbtn" type="submit" name="Submit" value="提交" />
+          <input class="back" type="button" value="返回" onclick="window.location='index.php?app=buyer_order'"/>
+        </td>
+       	<td height="50" colspan="2"></td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

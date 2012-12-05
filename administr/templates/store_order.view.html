@@ -1,0 +1,134 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p><b>店铺进货{$lang.order_detail}</b></p>
+</div>
+<div class="info">
+    <div class="demand">
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_status}</h1>
+        <ul>
+            <li><b>订单编号：</b>{$order.order_sn}</li>
+            <li><b>{$lang.order_status}：</b>{if $order.status==11}等待店铺付款{elseif $order.status==20}店铺已付款{elseif $order.status==30}商城已发货{elseif $order.status==40}交易成功{elseif $order.status==50}退款中{elseif $order.status==60}退款完成{elseif $order.status==0}交易取消{/if}</li>
+            <li><b>{$lang.order_amount}：</b> <span class="red_common">{$order.order_amount|price}</span> （含物流费：{$order.shipping_fee|price}）</li>
+            <!--{if $order.pay_amount}-->
+            <li><b>实付总额：</b> <span class="red_common">{$order.pay_amount|price}</span> （欠款金额：{$order.arrears_amount|price}）</li>
+            <!-- {/if} -->
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_detail}</h1>
+        <h2>{$lang.order_info}</h2>
+        <ul>
+            <li><b>{$lang.buyer_name}名称：</b> {$order_detail.store_info.store_name}</li>
+            <li><b>{$lang.seller_name}：</b> 派啦网</li>
+            <!--{if $order.payment_code}-->
+            <li><b>{$lang.payment_name}：</b> {$order.payment_name|escape}</li>
+            <!--{/if}-->
+            <!--{if $order.pay_message}-->
+            <li><b>{$lang.pay_message}：</b> {$order.pay_message|escape}</li>
+            <!--{/if}-->
+            <li><b>{$lang.add_time}：</b> {$order.add_time|date:complete}</li>
+            <!--{if $order.pay_time}-->
+            <li><b>{$lang.pay_time}：</b> {$order.pay_time|date:complete}</li>
+            <!--{/if}-->
+            <!--{if $order.finished_time}-->
+            <li><b>{$lang.finished_time}：</b> {$order.finished_time|date:complete}</li>
+            <!--{/if}-->
+            <!--{if $order.postscript}-->
+            <li><b>{$lang.postscript}：</b> {$order.postscript|escape}</li>
+            <!--{/if}-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+
+    <div class="order_form">
+        <h2>{$lang.consignee_info}</h2>
+        <ul>
+            <li><b>{$lang.consignee}：</b> {$order_detail.order_extm.consignee|escape}</li>
+            <li><b>{$lang.region}：</b> {$order_detail.order_extm.region_name|escape}</li>
+            <li><b>{$lang.zipcode}：</b> {$order_detail.order_extm.zipcode|escape}</li>
+            <li><b>{$lang.phone_tel}：</b> {$order_detail.order_extm.phone_tel|escape}</li>
+            <li><b>{$lang.phone_mob}：</b> {$order_detail.order_extm.phone_mob|escape}</li>
+            <li><b>{$lang.address}：</b> {$order_detail.order_extm.address|escape}</li>
+            <li><b>{$lang.shipping_name}：</b> 快递配送</li>
+            <!--{if $order.ship_time}-->
+            <li><b>{$lang.ship_time}：</b> {$order.ship_time|date:complete}</li>
+            <!--{/if}-->
+            <!-- {if $order.ship_no} -->
+            <li><b>物流单号：</b> {$order.ship_no|escape}</li>
+            <!--{/if}-->
+            <!--{if $order.invoice_no}-->
+            <li><b>{$lang.invoice_no}：</b> {$order.invoice_no|escape}</li>
+            <!--{/if}-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!-- {if $order.status eq 50 or $order.status eq 60} -->
+     <div class="order_form">
+        <h2>退款信息</h2>
+        <ul>
+            <li><b>退款人:</b> {$order.refund_name|default:未填写}</li>
+            <li><b>退款时间:</b> {$ordera.refund_time|default:未填写}</li>
+            <li><b>退款理由:</b> {$order.refund_cause|default:未填写}</li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!-- {/if} -->
+    <div class="order_form">
+        <h2>{$lang.goods_info}</h2>
+        <!--{foreach from=$order_detail.goods_list item=goods}-->
+        <div class="order_info" class="order_info" style="float:left;width:420px">
+            <a href="{$site_url}/index.php?app=goods&amp;xx=2&amp;id={$goods.goods_id}" target="_blank" class="order_info_pic"><img width="50" height="50" alt="{$lang.goods_pic}" src="{$image_url}{$goods.goods_image}" /></a>
+            <div class="order_info_text"><a href="{$site_url}/index.php?app=goods&amp;xx=2&amp;id={$goods.goods_id}" target="_blank">{$goods.goods_name|escape}</a><br />{$goods.specification|escape}</div>
+            <p><b>{$lang.price} :</b> <span class="red_common">{$goods.price|price}</span></p>
+            <p><b>{$lang.quantity} :</b> {$goods.quantity}</p>
+            <p><b>规格:</b> {$goods.specification|default:无规格}</p>
+        </div>
+        <!--{/foreach}-->
+        <div class="clear"></div>
+    </div>
+    
+    <!-- {if $order.remark} -->
+    <div class="order_form">
+    <h2>财务备注信息</h2>
+            	<p><textarea name="remark" disabled>{$order.remark}</textarea></p>
+            <div class="clear"></div>
+    </div>
+    <!-- {/if} -->
+    	
+    <!-- {if $app eq "store_order"} -->
+    	<div class="printbutton"><input type="button" value="打印订单" onclick="window.open('index.php?app=store_order&act=orderprint&id={$order.order_id}')"/></div>
+    <!-- {elseif $app eq "store_order_manage"} -->
+        <!-- {if $order.op_status eq 1 && $order.status eq 11} -->
+        <form method="post" action="index.php?app=store_order_manage&act=audit_store_order">
+    	<div class="order_form">
+    	<h2>审核订单信息</h2>
+            	<p><b>订单总金额：</b> <span class="red_common">{$order.order_amount|price}</span> </p>
+            	
+            	<p><b>订单欠款金额：</b> <input name="qiankuan_amount" type="text" value="0"/>元</p>
+            <input type="submit" value="审核提交" onclick='return confirm("确认提交")' />
+            <input name="order_id" type="hidden" value="{$order.order_id}"/>
+            <div class="clear"></div>
+    	</div>
+    	</form>
+    	<!-- {/if} -->
+    <!-- {elseif $app eq "store_statistics"} -->
+        <!-- {if $order.op_status eq 2 && $order.status eq 20} -->
+        <form method="post" action="index.php?app=store_statistics&act=audit_store_order">
+    	<div class="order_form">
+    	<h2>审核订单信息</h2>
+            	<p><b>财务备注信息：</b> <textarea name="remark"></textarea></p>
+            <input type="submit" value="审核提交" onclick='return confirm("确认提交")' />
+            <input name="order_id" type="hidden" value="{$order.order_id}"/>
+            <div class="clear"></div>
+    	</div>
+    	</form>
+    	<!-- {/if} -->
+    <!-- {elseif $app eq "store_statistics"} -->
+    
+    <!-- {/if} -->
+</div>
+
+{include file="footer.html"}

@@ -1,0 +1,238 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+<link type = "text/css" href = "{new_res file=css/public.css}" rel="stylesheet"/>
+<link type = "text/css" href = "{new_res file=css/agr_all.css}" rel="stylesheet"/>
+<script type="text/javascript" src = "{new_res file=js/jquery.js}"></script>
+<script type="text/javascript" src = "{new_res file=js/photo.js}"></script>
+	<!--     头部      END       -->
+
+	<div class="agr_map" id="new_keyword">
+	{include file=curlocal.html}
+	</div>
+	<div class="channel_content" style="overflow:hidden">
+		<div class="l channel_left">
+			<div class="channel_lmenu pl_channel">
+				<h3>{$gcategory_info.cate_name}{$agr}</h3>
+				<!-- {foreach from=$goods_sort item=goods_so} -->
+				<h4>{$goods_so.cate_name}<span class="channel_lico"></span></h4>
+				<ul style="display:none;">
+					<!-- {foreach from=$goods_so.0 item=goods} -->
+					<li><a href="{url app=search&cate_id=}{$goods.cate_id}">{$goods.cate_name}</a></li>
+					<!-- {/foreach} -->
+				</ul>
+				<!-- {/foreach} -->
+			</div>
+			<div class="channel_lbox pl_channel_1box">
+				<h3>一周销售排行榜</h3>
+				<!-- {foreach from=$sales_info item=rows name=statis} -->
+				<ul class="channel_charts">
+				   <!-- {if $smarty.foreach.statis.first} -->
+					<li id="channel_charts_hover">
+						<strong>{$smarty.foreach.statis.iteration}</strong>
+						<div style="display:block;margin-left:5px\9;" class="channel_charts_img l">
+							<a href="index.php?app=goods&id={$rows.gs_id}"><img src="{$rows.simage_url}" class="img_60"/></a>
+						</div>						
+						<a class="channel_charts_a" style="width:113px;" href="index.php?app=goods&id={$rows.gs_id}">{$rows.goods_name|truncate:20}</a>
+						<span style="display:block;color:red;" class="red_col_2">{$rows.price}</span>
+						
+					</li>	
+					<!-- {else} -->
+					<li>
+						<strong>{$smarty.foreach.statis.iteration}</strong>
+						<div style="display:none;margin-left:5px\9;" class="channel_charts_img l">
+							<a href="index.php?app=goods&id={$rows.gs_id}"><img src="{$rows.simage_url}" class="img_60"/></a>
+						</div>						
+						<a class="channel_charts_a" style="width:113px;" href="index.php?app=goods&id={$rows.gs_id}">{$rows.goods_name|truncate:20}</a>
+						<span style="display:none;color:red;" class="red_col_2">{$rows.price}</span>
+						
+					</li>
+					<!-- {/if} -->			
+				</ul>
+				<!-- {/foreach} -->
+			</div>
+			
+			<div class="channel_lbox pl_channel_1box">
+				<h3>热评商品</h3>
+				<ul class="channel_hots">
+				<!-- {foreach from=$comments_info item=cmd} -->
+					<li>						
+						<div class="channel_charts_img l">
+							<a href="index.php?app=goods&id={$cmd.gs_id}"><img src="{$cmd.smimage_url}" class="img_60"/></a>
+						</div>
+						<a class="channel_charts_a" href="index.php?app=goods&id={$cmd.gs_id}">{$cmd.comment|truncate:20}</a>
+						<span class="blue_col">{$cmd.memName}</span>
+					</li>
+				 <!-- {foreachelse} -->
+			        <li class="float_l">
+			            <div>暂无评论!</div>
+			        </li>
+        		<!-- {/foreach} -->
+				</ul>
+			</div>
+			<form method="get">
+			<div class="channel_lbox pl_channel_1box">
+				<h3>最近浏览记录<a href="index.php?app=goods&act=truncateHistory&id={}" class="channel_clear">清空</a></h3>
+				<ul class="channel_hots">
+				<!-- {foreach from=$list item=rows} -->
+					<li>						
+						<div class="channel_charts_img l">
+							<a href="{url app=goods&id=}{$rows.gs_id}"><img src="{$rows.simage_url}" class="img_60"/></a>
+						</div>
+						<a class="channel_charts_a" href="{url app=goods&id=}{$rows.gs_id}">{$rows.goods_name}</a>
+						<span class="red_col">{$rows.price|price}</span>
+					</li>
+					<!-- {/foreach} -->
+				</ul>
+			</div>
+			</form>
+		</div>
+		<div class="r channel_right">
+			<div class="channel_rhot">
+				<div class="photo_box channel_r_turn" id="channel_r_top">
+				<div class="channel_hotico">
+				</div>
+				<ul>
+                 <!-- {foreach from=$recommend_infos item=hot_goods} -->
+	                <li>
+	                <!-- {foreach from=$hot_goods item=hot} -->
+						<div class="goods_80 channel_hotgoods">
+							<div class="l mr_10">
+								<a href="{url app=goods&id=}{$hot.gs_id}">
+									<img class="img_80" src="{$IMAGE_URL}{$hot.dimage_url}"/>
+								</a>
+							</div>
+							<div class="l">
+								<p><a href="{url app=goods&id=}{$hot.gs_id}"">{$hot.goods_name}</a> </p>						
+								<p>售价：<span class="red_col">{$hot.price|price}</span></p>
+								<p>返积分：<span class="red_col">{$hot.credit}PL</span></p>							
+							</div>
+						</div>
+						<!-- {/foreach} -->
+                	</li>
+                	<!-- {/foreach} -->
+                </ul>
+                </div>				
+			</div>
+			<div class="channel_sift">
+				<ul class="pl_channel_sift_tit">						
+                    <li class="{if !$area_type}pl_channel_sift_tit1{else}pl_channel_sift_tit2{/if}"><h3><a href="{$search_index}&area_type=">全部商品</a></h3></li>
+                    <!--<li class="{if $area_type eq 'pailamall'}pl_channel_sift_tit1{else}pl_channel_sift_tit2{/if}"><h3><a href="{$search_index}&area_type=pailamall">促销专区</a></h3></li>  -->
+				</ul>
+				<ul class="channel_sift_list">	
+					<!-- {if $stats.by_brand} -->
+					<li>
+						<strong class="black_col ml_10">品牌区间：</strong>
+						<a class="channel_sift_hover" href="{$search_index}&page=1&brand=">不限</a>
+						<!--{foreach from=$stats.by_brand item=row}-->
+						<a class="channel_sift_hover" href="{$search_index}&page=1&brand={$row.brand}">{$row.brand|escape}</a>
+						<!-- {/foreach} -->
+					</li>
+					<!-- {/if} -->
+					<!-- {if $stats.by_price} -->
+					<li>
+						<strong class="black_col ml_10">价格区间：</strong>
+						<a class="channel_sift_hover" href="{$search_index}&page=1&price=">不限</a>
+						<!--{foreach from=$stats.by_price item=price}-->
+						<a class="channel_sift_hover" href="{$search_index}&page=1&price={if $price.max eq ''}1500{else}{$price.min|escape}-{$price.max|escape}{/if}">{if $price.max eq ''}1500以上{else}{$price.min|price}-{$price.max|price}{/if}</a>
+						<!-- {/foreach} -->
+					</li>
+					<!-- {/if} -->
+					<!-- {if $stats.by_credit} -->
+					<li>
+						<strong class="black_col ml_10">赠送PL币：</strong>
+						<a class="channel_sift_hover" href="{$search_index}&page=1&credit=">不限</a>
+						<!--{foreach from=$stats.by_credit item=credit}-->
+						<a class="channel_sift_hover" href="{$search_index}&page=1&credit={if $credit.max eq ''}50{else}{$credit.min|escape}-{$credit.max|escape}{/if}">{if $credit.max eq ''}50PL以上{else}{$credit.min|escape}PL-{$credit.max|escape}PL{/if}</a>
+						<!-- {/foreach} -->
+					</li>
+					<!-- {/if} -->				
+				</ul>					
+			</div>
+			<!-- {if $stats.total_count != 0} -->
+			<div class="channel_goods_tit">
+				
+				<strong style="float:left;light-height:35px;line-height:35px">排&nbsp;&nbsp;&nbsp;序：</strong>
+				<div style="float:left;" class="channel_paixu_a">
+				<a class="on" href="{$search_index}&order=sales desc">{$orders.sales desc}</a>
+				<a class="channel_langbtn" href="{$search_index}&order=add_time desc">{$orders.add_time desc}</a>
+				<a class="channel_langbtn" href="{$search_index}&order=price desc">{$orders.price desc}</a>
+				<a class="channel_langbtn" href="{$search_index}&order=price asc">{$orders.price asc}</a>			
+				</div>
+				<div class="top_page">{include file=page.top.html}</div>
+			</div>
+			<!-- {/if} -->
+			<div class="channel_goods">
+						<!-- {if $goods_list} -->
+						<!--{foreach from=$goods_list item=goods}-->
+							<ul class="goods_160">
+							<!-- {if $goods.sales > 0} -->
+									<li class="pl_channel_goods_hot"></li>
+									<li><a href="index.php?app=goods&id={$goods.gs_id}"><img class="img_160"src="{$goods.smimage_url}"/></a></li>
+									<li class="h_2"><a href="index.php?app=goods&id={$goods.gs_id}&mall_type=1">{$goods.goods_name}</a></li>
+									<li>派啦价:<span class="red_col">{$goods.price|price}</span></li>
+							<!-- {else} -->		
+									<li><a href="index.php?app=goods&id={$goods.gs_id}"><img class="img_160"src="{$goods.smimage_url}"/></a></li>
+									<li class="h_2"><a href="index.php?app=goods&id={$goods.gs_id}">{$goods.goods_name}</a></li>
+									<li>派啦价:<span class="red_col">{$goods.price|price}</span></li>
+						   <!-- {/if} -->
+						   </ul>
+					<!--{/foreach}-->
+				    <!-- {else} -->
+						<div><p>没有搜索到您需要的商品</p></div>
+				    <!-- {/if} -->
+				
+				<div class="clear"></div>
+			</div>
+    			{include file=page.bottom.html}			
+		</div>
+	</div>
+
+<script type="text/javascript">
+	$(function(){   
+		var tit_height = $(".channel_lmenu").children("h3")  
+		var h3_btn = $(".channel_lmenu").children("h4");
+		var ul_sub = $(".channel_lmenu").children("ul");	
+		var box_height = $(".channel_lmenu");
+		var add_ico = $(".channel_lico");
+		sel_menu(h3_btn,ul_sub,box_height,tit_height,add_ico);
+	})
+	function sel_menu(i_btn,sub_menu,i_height,other_height,i_ico)   //伸缩菜单
+	{
+		i_btn.each(function(i){		
+			i_height.css("height",i_btn.length*i_btn.height()+sub_menu.height()+other_height.height())
+			$(this).click(function(){
+				sub_menu.not(sub_menu.eq(i)).slideUp();	
+				$(".channel_sub").removeClass("channel_sub");
+				if(sub_menu.eq(i).css("display")=="none")
+				{
+					i_ico.eq(i).addClass("channel_sub");
+				}				
+				sub_menu.eq(i).slideToggle();												
+			})
+		})
+	}
+	$(function(){     //排行榜放大镜
+		$(".channel_charts").children("li").each(function(i){
+		$(this).mouseover(function(){
+			$("#channel_charts_hover").attr("id","");
+			$(".channel_charts").find(".channel_charts_img").css("display","none");
+			$(".channel_charts").find(".red_col2").css("display","none");
+			$(this).attr("id","channel_charts_hover");
+			$(".channel_charts_img").eq(i).css("display","block");
+			$(".red_col2").eq(i).css("display","block");
+			$(".red_col_2").css("display","none");
+			$(this).find(".red_col_2").css("display", "inline");
+			})
+		});
+	})
+Effect.slider({   		//轮播器启动
+	'target': 'channel_r_top',    //选择器
+	'showMarkers': false,   //显示文字说明
+	'showControls': false,  //左移右移控制
+	'width_allow':false,  //计算说明文字宽度
+	'autostart':true,   //自动
+	'crosswise':true   //方向
+    });	
+</script>
+{include file=footer.html}

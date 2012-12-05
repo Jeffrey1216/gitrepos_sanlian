@@ -1,0 +1,101 @@
+{include file="header.html"}
+<style>
+.text_bank{
+	color:red;
+	margin-left:8px;
+	margin-right:8px;
+}
+</style>
+<div id="rightTop">
+  <p>团购员管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel&act=manager">审核</a></li>    
+    <li><a class="btn1" href="index.php?app=channel&act=manager_check">管理</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" id="table_info">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">用户名：</th>
+        <td class="paddingT15 wordSpacing5">{$info.user_name} </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">真实姓名：</th>
+        <td class="paddingT15 wordSpacing5">{$info.real_name} </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">性别：</th>
+        <td class="paddingT15 wordSpacing5">{$info.sex}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">手机号：</th>
+        <td class="paddingT15 wordSpacing5">{$info.tel_phone}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">电子邮箱：</th>
+        <td class="paddingT15 wordSpacing5">{$info.email}</td>
+      </tr>     
+      <tr>
+        <th class="paddingT15">身份证号码：</th>
+        <td class="paddingT15 wordSpacing5">{$info.identity_num}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">地址：</th>
+        <td class="paddingT15 wordSpacing5">{$info.region_name}  {$info.address}</td>
+      </tr>      
+      <tr>
+        <th class="paddingT15">身份证复印件：</th>
+        <td class="paddingT15 wordSpacing5">{if $info.identity_card}<a href="{$site_url}/{$info.identity_card}" target="_blank"><img src="{$site_url}/{$info.identity_card}" width="100" height="100" /></a>{else}暂无{/if}</td>
+      </tr>          
+	  <tr>
+          <th class="paddingT15">推荐人选项：</th>
+          <td>用户名: {$info.recom_user_name|default:无} ,
+          	     真实姓名 : {if $info.recom_real_name eq ''}无{else}{$info.recom_real_name}{/if} , 
+          	     手机号 : {$info.mobile} ,
+          	     等级 : <!-- {if $info.recom_level eq 1} -->初级团购员<!-- {elseif $info.recom_level eq 2} -->中级团购员<!-- {elseif $info.recom_level eq 3} -->高级团购员<!-- {elseif $info.recom_level eq 4} -->顶级团购员<!-- {/if} -->
+          </td>
+      </tr>
+      <tr>
+        <th class="paddingT15">提现银行卡信息：</th>
+		 <td>
+		 	<b>开户银行：</b><span class="text_bank">	 	
+		 	{if $info.bank_name eq "ABC"}
+		 	中国农业银行
+		 	{elseif $info.bank_name eq "ICBC"}
+		 	中国工商银行
+		 	{elseif $info.bank_name eq "BC"}
+		 	中国银行
+		 	{elseif $info.bank_name eq "CCB"}
+		 	中国建设银行
+		 	{/if}
+		 	</span>
+		 	<b>银行账号：</b><span class="text_bank">{$info.card_number}</span>
+		 </td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20">
+        	<input class="formbtn" type="submit" id="agree" value="同意"/>
+          	<input class="formbtn" type="submit" id="reject" value="拒绝"/>
+          	<input type="hidden" name="submit" id="submit"/>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+<<script type="text/javascript">
+var amount = {$amount.all_amount|default:0};
+var achievement = {$achievement|default:0};
+$('#agree').click(
+		function (){
+			$("#submit").val('1');
+			return confirm("该会员的消费业绩是："+amount+"，公司规定消费是："+achievement+"，您确定您需要继续操作。");
+		});
+$('#reject').click(
+		function (){
+			$("#submit").val('0');
+			return confirm("您确定要拒绝此次操作！");
+		});
+</script>
+{include file="footer.html"} 

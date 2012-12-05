@@ -1,0 +1,200 @@
+{include file=other_top.html}
+{include file=new_head.html}
+
+
+{include file=curlocal.html}
+<div style="width:1000px;overflow:hidden;margin:0 auto;">
+<div class="level2_left">
+    <h2 class="first_li"><a href="index.php?app=search&cate_id={$gcategory_info.cate_id}">{$gcategory_info.cate_name}</a></h2>
+    <ul class="level2_left_01">
+      <!--{foreach from=$categories item=category name=fe_category}-->
+      <!-- {if $smarty.foreach.fe_category.iteration le 10} -->
+      <li><a href="index.php?app=search&cate_id={$category.cate_id}" id="{$category.cate_id}">{$category.cate_name|escape}<span>({$category.count})</span></a></li>
+      <!-- {else} -->
+      <li style="display:none"><a href="index.php?app=search&cate_id={$category.cate_id}" id="{$category.cate_id}">{$category.cate_name|escape}</a></li>
+      <!-- {/if} -->
+      <!--{/foreach}-->
+    </ul>
+    
+    <div class="guajian_1">
+    <h2 class="first_li">热门评论</h2>
+    <ul class="pingjia">
+    	<!-- {foreach from=$comments_info item=cmd} -->
+        <li class="float_l">
+            <div class="review"><strong>{$cmd.comment|truncate:20}</strong></div>
+            <div class="width_50"><a alt="{$cmd.goods_name|truncate:20}" href="index.php?app=goods&id={$cmd.goods_id}"><img src="{$cmd.smimage_url}"/></a></div>
+            <div class="f1_font">
+                <div><a href="index.php?app=goods&id={$cmd.goods_id}">{$cmd.goods_name|truncate:20}</a></div>
+                <div>市场价：<span class="paila_price">{$cmd.price|price}</span></div>
+                <div>会员价：<span class="paila_price">{$cmd.price|price}</span></div>
+                <div>会员名：<a class="astyle_01" href="index.php?app=goods&id={$cmd.goods_id}">{$cmd.memName}</a></div>
+            </div>
+        </li>
+        <!-- {foreachelse} -->
+        <li class="float_l">
+            <div>暂无评论!</div>
+        </li>
+        <!-- {/foreach} -->
+        <li><a class="category" href="#" style="text-align:right">更多  <strong>&gt;&gt;</strong></a></li>
+    </ul>
+    </div>
+    
+    <h2 class="first_li">更多推荐</h2>
+    <ul class="tuijian">
+    	<!-- {foreach from=$recommend_infos item=rec} -->
+        <li class="li_nodes">
+            <div class="width_160"><a href="index.php?app=goods&id={$rec.goods_id}"><img width="160px" height="160px" alt="{$rec.goods_name}" title="{$rec.goods_name}" src="{$rec.smimage_url}"/></a></div>
+            <div>
+                <div><a href="index.php?app=goods&id={$rec.goods_id}">{$rec.goods_name|truncate:20}</a></div>
+                <div>售价：<span class="paila_price">{$rec.price|price}</span></div>
+                <!--<div>会员价：<span class="paila_price">￥99</span></div>
+            --></div>
+        </li>
+       	<!-- {/foreach} -->
+         <li><a class="category" href="#" style="text-align:right">更多  <strong>&gt;&gt;</strong></a></li>
+    </ul>
+	</div>
+    <!--挂件块 -->
+    <div class="guajian_1" area="top_img" widget_type="area" ><!-- 挂件DIV -->
+    	<!--{widgets page=search area=top_img}-->
+	</div>
+<!-- 挂件块 -->
+<div class="level2_right">
+
+<div style="width:780px;overflow:hidden;margin-bottom:10px;" area="sales" widget_type="area"><!-- 挂件DIV2 -->
+<!--{widgets page=search area=sales}-->
+</div>
+
+
+<!-- 条件块 -->
+<div class="module_filter">
+
+    <div class="module_filter_line">
+        <ul class="module_filter_nav" ectype="ul_filter">
+            <!--{foreach from=$filters item=filter}-->
+            <li class="normal" ectype="li_filter">
+                <span class="txt">{$filter.name}: {$filter.value}</span>
+                <span class="ico"><img src="{res file=images/delete.gif}" title="{$filter.key}" /></span>
+            </li>
+            <!--{/foreach}-->
+            <!-- {if !$filters.brand} -->
+            <li class="normal" ectype="dropdown_filter_title" ecvalue="brand">
+                <span class="txt">{$lang.brand}: <a href="javascript:void(0);">{$lang.select_pls}</a></span>
+                <span class="ico"><img src="{res file=images/down.gif}" /></span>
+            </li>
+            <!-- {/if} -->
+            <li class="normal" ectype="dropdown_filter_title" ecvalue="price">
+                <span class="txt">{$lang.price}: <a href="javascript:void(0);">{$lang.select_pls}</a></span>
+                <span class="ico"><img src="{res file=images/down.gif}" /></span>
+            </li>
+            <!-- {if !$filters.region_id} -->
+            <li class="normal" ectype="dropdown_filter_title" ecvalue="region">
+                <span class="txt">{$lang.region}: <a href="javascript:void(0);">{$lang.select_pls}</a></span>
+                <span class="ico"><img src="{res file=images/down.gif}" /></span>
+            </li>
+            <!-- {/if} -->
+        </ul>
+
+        <!-- {if !$filters.brand} -->
+        <div class="contain_list" ectype="dropdown_filter_content" ecvalue="brand" style="display:none">
+            <ul ectype="ul_brand">
+                <!--{foreach from=$brands item=row}-->
+                <li><a href="javascript:void(0);" title="{$row.brand}" id="{$row.brand|escape:url}">{$row.brand|escape} ({$row.count})</a></li>
+                <!--{/foreach}-->
+            </ul>
+        </div>
+        <!-- {/if} -->
+        <div class="contain_list" ectype="dropdown_filter_content" ecvalue="price" style="display:none">
+            <ul ectype="ul_price">
+                <!--{foreach from=$price_intervals item=row}-->
+                <li><a href="javascript:void(0);" title="{$row.min} - {$row.max}">{$row.min|price} - {$row.max|price} ({$row.count})</a></li>
+                <!--{/foreach}-->
+            </ul>
+        </div>
+        <!-- {if !$filters.region_id} -->
+        <div class="contain_list" ectype="dropdown_filter_content" ecvalue="region" style="display:none">
+            <ul ectype="ul_region">
+                <!--{foreach from=$regions item=row}-->
+                <li><a href="javascript:void(0);" id="{$row.region_id}" title="{$row.region_name|escape}">{$row.region_name|escape} ({$row.count})</a></li>
+                <!--{/foreach}-->
+            </ul>
+        </div>
+        <!-- {/if} -->
+    </div>
+</div>
+<!-- 条件块结束 -->
+<div class="shop_con_list">
+<h2>
+    <div class="h2_wrap">
+        <div class="table_title">
+            <p class="title">显示:</p>
+ <p class="squares_ico" ectype="display_mode" ecvalue="squares" title="{$lang.display_by_item}"></p>
+            <p class="list_ico" ectype="display_mode" ecvalue="list" title="{$lang.display_by_list}"></p>          
+
+            <p class="line_ico"></p>
+
+            <p class="title">排序:</p>
+
+            <p><select ectype="order_by">{html_options options=$orders selected=$smarty.get.order}</select></p><!-- 选择排序 -->
+        </div>
+        <div class="top_page">{include file=page.top.html}</div>
+    </div>
+</h2>
+
+<div ectype="current_display_mode" class="squares">
+<!-- {if $goods_list} -->
+<ul class="list_pic">
+<!--{foreach from=$goods_list item=goods}-->
+<!-- {if $goods.area_type eq 'pailamall'} -->
+<li class="li_nodes_2">
+    <div class="pai_position">
+        <div class="divmargin"><a href="index.php?app=goods&id={$goods.goods_id}&area_type={$goods.area_type}"><img alt="{$goods.goods_name}" src="{$goods.smimage_url}"/> </a></div>
+          <div class="pai"></div>
+    </div>
+    <div class="name">
+        <div class="goods_height"><a href="index.php?app=goods&id={$goods.goods_id}&area_type={$goods.area_type}">{$goods.goods_name}</a></div>
+        <div>派啦价：<span class="paila_price" href="index.php?app=goods&id={$goods.goods_id}&area_type={$goods.area_type}">{$goods.price|price}</span></div>
+        <div>积分价：<span class="paila_price">{$goods.price}PL</span></div>
+        <div>返积分：<span class="paila_price">{$goods.credit}PL</span></div>
+    </div>
+    <div>
+       
+    </div>
+</li>
+<!-- {else} -->
+<li class="li_nodes_2">
+    <div class="pai_position">
+        <div class="divmargin"><a href="index.php?app=goods&id={$goods.goods_id}&area_type={$goods.area_type}"><img alt="{$goods.goods_name}" src="{$goods.smimage_url}"/> </a></div>
+    </div>
+    <div class="name">
+        <div class="goods_height"><a href="index.php?app=goods&id={$goods.goods_id}&area_type={$goods.area_type}">{$goods.goods_name}</a></div>
+        </div>
+         <div class="fl01">售价：<span class="paila_price" href="index.php?app=goods&id={$goods.goods_id}&area_type={$goods.area_type}">{$goods.price|price}</span></div>
+        <div class="fl01">返积分：<span class="paila_price">{$goods.credit}PL</span></div>
+        
+</li>
+<!-- {/if} -->
+<!--{/foreach}-->
+<div class="clear"></div>
+<!-- {else} -->
+     <div id="no_results">{$lang.no_records}</div>
+<!-- {/if} -->
+</ul>
+</div>
+
+<div class="productlist_footbg">
+    {include file=page.bottom.html}
+</div>
+
+
+</div>
+</div>
+</div>
+<script type="text/javascript" src="{lib file=search_goods.js}" charset="utf-8"></script>
+<script type="text/javascript">
+var upimg   = '{res file=images/up.gif}';
+var downimg = '{res file=images/down.gif}';
+imgUping = new Image();
+imgUping.src = upimg;
+</script>
+{include file=footer.html}

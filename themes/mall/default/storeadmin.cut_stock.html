@@ -1,0 +1,22 @@
+{include file=storeadmin.member.header.html}
+<style>
+.member_no_records {border-top: 0px !important;}
+.table td{ padding-left: 5px; }
+.table .ware_text { width: 155px; }
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>派啦专柜</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=my_pailagoods&act=cut_stock">减少库存</a></li>		
+	</ul>
+    <div>
+    	<form method="post">
+    		库存减少:<input type="text" name="input1">
+    		<div>减少原因:<textarea name="text1"></textarea></div>
+    		<div><input type="submit" value="提交"/></div>
+    	</form>
+    </div>
+</div>
+
+
+{include file=storeadmin.footer.html}

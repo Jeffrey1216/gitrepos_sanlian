@@ -1,0 +1,81 @@
+{include file="header.html"}
+<div id="rightTop">
+ <p>产品促销</p>
+ <ul class="subnav">
+    <li><a href="index.php?app=promotion" class="btn1">管理</a></li>
+    <li><span>新增</span></li>
+  </ul>
+  </div>
+<div class="mrightTop1 info">
+  <div class="fontl">
+    <form method="get">
+      <input type="hidden" name="app" value="promotion" />
+      <input type="hidden" name="act" value="add" />
+	  {$lang.keyword}:
+      <input class="queryInput" type="text" name="keyword" value="{$smarty.get.goods_name|escape}" />
+      {$lang.brand}:
+      <select class="querySelect" name="brand_id">
+        <option value="0">{$lang.select_pls}</option>
+        <!-- {foreach from=$brands item=brand} -->
+        <option value="{$brand.brand_id}">{$brand.brand_name}</option>
+        <!-- {/foreach} -->
+      </select>
+        {$lang.store_name}:
+       	<select class="querySelect" name="store_id">
+         <option value="0">{$lang.select_pls}</option>
+         <!-- {foreach from=$stores item=store} -->
+         <option value="{$store.store_id}">{$store.store_name}</option>
+         <!-- {/foreach} -->
+       	</select>
+     	<input type="submit" class="formbtn" value="{$lang.query}" />
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare info">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <!--{if $goods_list}-->
+    <tr class="tatr1">
+      <td align="left">{$lang.goods_name}</td>
+      <td align="left">{$lang.brand}</td>
+      <td align="left">{$lang.gcategory}</td>
+      <td align="left">{$lang.price}</td>
+      <td align="left">{$lang.credit}</td>
+      <td align="left">{$lang.zprice}</td>
+      <td align="left">{$lang.gprice}</td>
+      <td align="left">{$lang.credit}</td>
+      <td align="left">{$lang.stock}</td>
+      <td align="left">{$lang.spec}</td>
+      <td>{$lang.handler}</td>
+    </tr>
+    <!--{/if}-->
+    <!--{foreach from=$goods_list item=goods}-->
+    <tr class="tatr2">
+	  <td align="left">{$goods.goods_name}</td>
+      <td align="left">{$goods.brand}</td>
+      <td align="left">{$goods.cate_name}</td>
+      <td align="left">{$goods.price}</td>
+      <td align="left">{$goods.credit}</td>
+      <td align="left">{$goods.zprice}</td>
+      <td align="left">{$goods.gprice}</td>
+      <td align="left">{$goods.credit}</td>
+      <td align="left">{$goods.stock}</td>
+      <td align="left">{$goods.spec_1}|{$goods.spec_2}</td>      
+      <td >
+	  <!--{if $goods.is_exists}-->
+	       {$lang.promotion}
+	  <!-- {else}-->
+      	    <a style='padding-left: 0' href="index.php?app=promotion&amp;act=apply&amp;gs_id={$goods.gs_id}">{$lang.promotion}</a>
+	   <!--{/if}-->
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="8">{$lang.no_data}</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+	{include file="page.bottom.html"}
+</div>
+
+{include file="footer.html"}

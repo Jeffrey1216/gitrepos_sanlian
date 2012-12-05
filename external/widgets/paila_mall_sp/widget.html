@@ -1,0 +1,34 @@
+ <div class="plm_house plm_food">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>5F</span>食品母婴
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+                  <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=969">更多 >></a>
+               </li>
+            </ul>
+            <div class="plm_house_ctt plm_food_ctt">
+                <ul class="plm_food_l">
+                <!-- {foreach from=$widget_data.images item=i} -->
+                   <li>
+                      <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /> </a>
+                   </li>
+                 <!-- {/foreach} -->
+                </ul>
+                <ul class="plm_food_r">
+                <!-- {foreach from=$widget_data.goods item=goods} -->
+                   <li>
+                      <span class="plm_hot plm_hot2"></span>
+                      <a class="plm_food_gds_img" href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.simage_url}" alt="{$goods.goods_name|truncate:16}" /></a>
+                      <p class="plm_food_gds_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:16}</a></p>
+                      <p class="plm_food_gds_prc">派啦价：<span>{$goods.price}</span></p>
+                   </li>
+             <!-- {/foreach} -->
+            
+                </ul>
+            </div>
+        </div>
+    </div>

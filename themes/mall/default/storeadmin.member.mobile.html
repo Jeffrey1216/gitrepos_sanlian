@@ -1,0 +1,153 @@
+{include file=storeadmin.member.header.html}
+<style type="text/css">
+.bgwhite { background: #FFFFFF; }
+</style>
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+    $('#mobile_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        rules : {
+            orig_password : {
+                required : true
+            },
+            new_mobile : {
+                required : true,
+                number   : true,
+                rangelength : [11,11],
+				remote   : {
+                    url : 'index.php?app=member&act=check_mobile',
+                    type: 'get',
+                    data:{
+            		mobile : function(){
+                            return $('#new_mobile').val();
+                        }
+                    }
+                }
+            },
+            sms_verify : {
+                required : true,
+                number   : true,
+                rangelength : [6,6]
+            }
+        },
+        messages : {
+            orig_password : {
+                required : '{$lang.orig_password_empty}'
+            },
+            new_mobile : {
+                required : '{$lang.mobile_required}',
+                number : '{$lang.mobile_invalid}',
+                rangelength  : '{$lang.mobile_invalid}',
+                remote   : '{$lang.mobile_exists}'
+            },
+            sms_verify : {
+                required : '{$lang.sms_verify_required}',
+                number   : '{$lang.sms_verify_invalid}',
+                rangelength  : '{$lang.sms_verify_invalid}'
+            }
+        }
+    });
+});
+var wait = 300; //设置秒数(单位秒)
+var secs = 0; //倒计时剩余秒数
+function smsverify(){
+	var mobile = $("#new_mobile").val();
+	$('#verify').attr('disabled',"true");
+	$.ajax({ 
+      type:"POST",
+      data:"mobile="+mobile,
+      url:"index.php?app=member&act=send_sms_verify&verifytype=modifymobile",
+      success:function(data){
+        		var d = DialogManager.create('show_error');
+        		d.setWidth(400);
+        		d.setTitle(lang.error);
+				switch (data){
+					case '1':
+						d.setContents('message', {type:'warning', text:'手机号码不能为空！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case '2':
+						d.setContents('message', {type:'warning', text:'手机号码输入不正确！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case '3':
+						d.setContents('message', {type:'warning', text:'手机号码已存在，请重新输入！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case '4':
+						d.setContents('message', {type:'notice', text:'短信验证码已经发送到您的手机上！'});
+						for(var i=0;i<=wait;i++) {
+							 window.setTimeout("sTimer("+i+")",i*1000);
+						}
+						break;
+					case '5':
+						d.setContents('message', {type:'warning', text:'短信验证码发送失败！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case '6':
+						d.setContents('message', {type:'warning', text:'对不起，每个手机号每天只能接收5次短信校验码！'});
+						$('#verify').removeAttr("disabled");
+						break;
+				}
+				d.show('center');
+        }
+	});
+}
+//自定义倒计时函数
+function sTimer(num) {
+	 if(num==wait)  {
+		 $('#verify').removeAttr("disabled");
+		 $('#verify').attr('value',"获取效验码");
+	 }else{
+	  	 secs=wait-num;
+	  	 $('#verify').attr('value',secs+"秒");
+	 } 
+}
+</script>
+<style>
+.borline td { padding:10px 0px; }
+.ware_list th { text-align:left; }
+</style>
+<div class="borderBox">
+	<h3 class="tit">个人资料设置</h3>
+	<ul class="tabDiv mb10">
+		<li><a href="index.php?app=member&act=profile&from=storeadmin">基本资料</a></li>
+		<li><a href="index.php?app=member&act=password&from=storeadmin">修改密码</a></li>
+		<li><a href="index.php?app=member&act=email&from=storeadmin">修改电子邮箱</a></li>
+		<li  class="hover"><a href="index.php?app=member&act=mobile&from=storeadmin">修改手机号</a></li>
+	</ul>
+	<form method="post" id="mobile_form">
+		<div class="information">
+			<div class="info individual">
+			 <table>
+                     <tr>
+                         <th class="width4">{$lang.orig_password}: </th>
+                         <td><input type="password" class="text width_normal" name="orig_password" /></td>
+                     </tr>
+                     <tr>
+                         <th class="width4">{$lang.new_mobile}: </th>
+                         <td><input type="text" class="text width_normal" name="new_mobile" id="new_mobile" maxlength="11"/></td>
+                     </tr>
+                     <tr>
+                         <th class="width4">{$lang.sms_verify}: </th>
+                         <td><input type="text" class="text width_normal" name="sms_verify" id="sms_verify" maxlength="6"/><input type="button"  style="margin-left:25px;width:80px;" value="获取效验码" id="verify" onclick="smsverify()"/>
+                     <input type="hidden"  name="from" value="storeadmin" /></td>
+                     </tr>
+                     <tr>
+                         <th></th>
+                         <td><input type="submit" class="btn" value="{$lang.submit}" /></td>
+                     </tr>
+             </table>
+           </div>
+       </div>
+    </form>
+</div>
+{include file=storeadmin.footer.html}

@@ -1,0 +1,178 @@
+{include file="header.html"}
+<style type="text/css">
+.dataTable td{text-align:center;} 
+.firstCell{text-align:left;}  
+.dis_tab_span{margin-right:10px;}
+.mrightTop{padding-top:5px;}
+.ques_seach{margin:15px 0;text-align:right;margin-right:50px;}
+.ques_seach_input{height:18px;width:100px;}
+</style>
+<div>
+<div id="rightTop">
+  <p>试卷管理</p>
+  <ul class="subnav">   
+    <li><a class="btn1" href="index.php?app=testpaper&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=testpaper">{$lang.manage}</a></li>
+  </ul>
+</div>
+<div class="titles">
+<div><h2>标题:<span>{$test_paper_info.tpi_title}</span></h2></div>
+<div><h2>副标题:<span>{$test_paper_info.tpi_subhead}</span></h2></div>
+</div>
+	<div class="mrightTop">
+	 <form method="get">     
+		搜索信息条件:&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" name="question_type" <!-- {if $question_type eq 0} -->checked<!-- {/if} --> value="0" />
+		全部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" <!-- {if $question_type eq 1} -->checked<!-- {/if} --> name="question_type" value="1" />
+		基本信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" <!-- {if $question_type eq 2} -->checked<!-- {/if} --> name="question_type" value="2" />
+		问卷题&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         
+		按类型搜索:：
+		<select name="class_name">
+        <option value="0">默认</option>
+		<!-- {foreach from=$question_classes item=opt} -->
+			<option value="{$opt.class_id}" <!-- {if $opt.class_id eq $class_id} -->selected<!-- {/if} -->>{$opt.class_name}</option>
+        <!-- {/foreach} -->
+        </select>
+		试题信息：<input class="ques_seach_input" type="text" name="stem" value="{if !empty($stem)}{$stem}{/if}"/>
+		<input type="hidden" name="app" value="testpaper" />
+		<input type="hidden" name="act" value="addToPaper" />
+		<input type="hidden" name="id" value="{$test_paper_info.tpi_id}" />
+		<input class="formbtn" style="vertical-align:-1px;margin-left:3px;" type="submit" value="搜索"/>
+		</form>
+  	</div>
+    <div class="fontr">
+       {if $page_info}{include file=page.top.html}{/if}
+    </div>
+ 
+  <table width="100%" cellspacing="0" cellpadding="0" class="dataTable" > 
+  <colgroup>
+  <col width="5%"/>
+  <col width="5%"/>
+  <col width="45%"/>
+    <col width="10%"/>
+  <col width="10%"/>
+    <col width="10%"/>
+      <col width="10%"/>
+    
+  </colgroup>
+    <tr>
+    
+      <td class="firsttd"><input type="checkbox" class="checkall" />      
+      <!-- {if $data} -->
+      <a href="index.php?app=question&act=drop&question_id={$data.question_id}" name="drop"> {$lang.drop}</a>
+     <!-- {/if} -->
+      </td>    
+       <td><span>题号:</span></td>
+        <td><span>试题信息</span></td>
+                <td><span>题型</span></td>
+      <td><span>题目分类</span></td> 
+      <td><span>是否为触发题</span></td>   
+      <td><span>触发ID</span></td>  
+            <td><span>选项</span></td>    
+    </tr>
+    <!-- {foreach from=$list item=row} -->
+    <tr>
+      <td class="firsttd"><input type="checkbox" ectype="questionInfo" value="{$row.question_id}" class="checkitem" <!-- {if $row.is_have} -->checked<!-- {/if} --> /></td>
+      <td>{$row.question_id}</td>
+      <td title="{$row.stem|escape:'html'}">{$row.stem}</td>
+      <td>{$row.class_name}</td>
+      <td>{if $row.question_type eq 'basicinfo'}基本信息{else $ques.question_type eq 'question'}问卷题{/if}</td> 
+      <td><input type="checkbox" label="{$row.question_id}" /></td>
+      <td><input type="text" onblur="checkParent(this);" ectype="parent_id" class="textwidth"  label="{$row.question_id}" /></td> 
+      <td><select label="{$row.question_id}">
+      	<option value="0">选择选项</option>
+      </select></td>   
+    </tr>  
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="7">{$lang.no_such_goods}</td>
+    </tr>
+    <!-- {/foreach} --> 
+  </table>  
+    <div id="dataFuncs">
+   <div class="pageLinks">
+            {if $page_info}{include file=page.bottom.html}{/if}
+   </div>
+ </div>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">
+var SITE_URL = "{$SITE_URL}";
+var tpi_id = {$test_paper_info.tpi_id};
+$("input[ectype='questionInfo']").click(function () {
+	var flag = $(this).attr("checked") ? 1 : -1;
+	var url = SITE_URL + "/admin/index.php?app=testpaper&act=handle";
+	var question_id = parseInt($(this).attr("value"));
+	var is_trigger_question ;
+	var parent_id ;
+	var inputObj = $("input[label='" + question_id + "']");
+	for(var i = 0 ; i < inputObj.length ; i++) {
+		if($(inputObj[i]).attr("type") == 'checkbox') {
+			is_trigger_question = $(inputObj[i]).attr("checked") ? 1 : -1;
+			break;
+		} 
+		if($(inputObj[i]).attr("type") == "text") {
+			parent_id = $(inputObj[i]).attr("value");
+			break;
+		}
+	}
+	if(is_trigger_question == 1) {
+		if(!(/^[0-9]{,8}$/.test(parent_id))) {
+			alert("父试题ID只能是小于8位的整数!");
+			return;
+		}
+	}
+
+	var parent_option_id = $("select[label='" + question_id + "']").attr("value");
+	$.post(url,{fid:flag , qid:question_id , tid:tpi_id , is_trigger:is_trigger_question,parent:parent_id,parent_opt:parent_option_id},function (data) {
+		var jsonData = eval('('+data+')');
+		if(jsonData.done) {
+			if(jsonData.retval == 'add_success') {
+				alert("添加成功!");
+			} else if(jsonData.retval == 'drop_success') {
+				alert("删除成功!");
+			}
+		} else {
+			alert(jsonData.msg);	
+		}
+	});
+});
+function checkParent(obj) {
+	if(!(/^[0-9]{1,8}$/.test(parseInt($(obj).attr('value'))))) {
+		alert("父试题ID只能是小于8位的整数!");
+		return;
+	}
+	var label = parseInt($(obj).attr("label"));
+	var url = SITE_URL + "/admin/index.php?app=testpaper&act=getOptions";
+	$.getJSON(url,{qid:parseInt($(obj).attr('value'))},function (data) {
+		if(data.done) {
+			clearOption(label);
+			for(var i in data.retval) {
+				$("select[label='" + label + "']").append("<option value='" + data.retval[i].option_id + "'>" + data.retval[i].option_content + "</option>");
+			}
+		} else {
+			alert(data.msg);
+		}
+	});
+}
+function clearOption(label) {
+	var selects = document.getElementsByTagName("select");
+	var sellen = selects.length;
+	var obj;
+	for(var i = 0 ; i < sellen ; i++) {
+		if(selects[i].getAttribute("label") == label) {
+			obj = selects[i];
+			break;
+		}
+	}
+	var options = obj.childNodes;
+	for(var j = options.length -1 ; j > 0 ; j--) {
+		if(options[j].value != 0) {
+			obj.removeChild(options[j]);
+		}
+	}
+}
+</script>

@@ -1,0 +1,28 @@
+    <div class="plm_roll">
+                    <div class="plm_roll_l">
+                    <!-- {foreach from=$widget_data.image_l item=i} -->
+                        <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /></a>
+                        <!-- {/foreach} -->
+                    </div>                   
+                         <div class="photo_box plb_roll_r" id="index_slider_3">
+							<ul>
+							<!-- {foreach from=$widget_data.image_lb item=i} -->
+								<li>
+									<a href="{$i.url}">										
+										<img  src="{$i.img}" alt="{$i.title}" />
+									</a>									
+								</li>
+							<!-- {/foreach} -->								
+							</ul>
+						</div>                   
+                </div>
+<script type="text/javascript">  
+Effect.slider({   		//ÂÖ²¥Æ÷Æô¶¯
+	'target': 'index_slider_3',
+	'showMarkers': true,
+	'showControls': true,
+	'width_allow':false,
+	'autostart':true,
+	'crosswise':true
+});
+</script>

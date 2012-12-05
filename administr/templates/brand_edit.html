@@ -1,0 +1,66 @@
+<style type="text/css">
+.brandform{font-size: 12px;}
+.brandform tr{height: 30px;}
+.brandform tr td textarea{height: 120px;width: 360px;vertical-align:middle;}
+.text001{width: 200px;margin-left: 25px;}
+.text002{margin-left: 37px;}
+.text005{margin: 0  0  0 10px;}
+.text006{margin-left: 15px;}
+.brandform tr td label{margin: 0 0 0 20px;font-weight: bold;}
+.catelist{margin-left: 22px;}
+.upsub{width: 80px;height: 30px;margin-left: 110px;}
+</style>
+{include file="header.html"}
+<div id="rightTop">
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=brandmandate&act=brand_index">管理</a></li>
+        <li><span>新增</span></li>
+    </ul>
+</div>
+<div class="info">
+    <form method="post" enctype="multipart/form-data">
+	<table class="brandform" width="100%">
+		<tr>
+		<td><label>客户名称：</label><input type="text" class="text001" name="supply_name" value="{$supply.supply_name}"/></td>
+		</tr>
+		<tr>
+		<td><label>客户类别：</label>
+			<select name="supply_type" class="catelist">
+				<option {if $supply.supply_type eq 1}selected{/if} value="1">普通会员</option>
+				<option {if $supply.supply_type eq 2}selected{/if} value="2">供应商</option>
+				<option {if $supply.supply_type eq 3}selected{/if} value="3">店面加盟</option>
+				<option {if $supply.supply_type eq 4}selected{/if} value="4">生产厂家</option>
+			</select>		
+		</td>
+		</tr>
+	 <tr><td colspan="2"><label>公司LOGO：</label><input class="text006" type="file" name="supply_logo"/> <b style="color:#ff0000">*</b>建议图片大小为160*160</td></tr>
+		<tr>
+		<td><label>联系人：</label><input type="text" class="text002" name="linkman" value="{$supply.linkman}"/></td>
+		</tr>
+		<tr><td><label>联系电话：</label><input type="text" class="text001" name="mobile"  value="{$supply.mobile}"/></td></tr>
+		<tr>
+		<td colspan="2"><label class="text005">客户企业简介：</label><textarea name="company_info">{$supply.company_info}</textarea></td>
+		</tr>
+		<tr>
+		<td colspan="2"><label>公司地址：</label><input type="text" class="text001" name="address" style="width:250px;" value="{$supply.address}"/></td>
+		</tr>
+		<tr>
+		<td><label>营业规模：</label><input type="text" class="text001" name="scale"  value="{$supply.scale}"/></td>
+		</tr>
+        <tr>
+        <td><label>经营方式：</label><input type="text" class="text001" name="business_practice" value="{$supply.business_practice}"/></td>
+        </tr>
+		<tr>
+		<td><label>目前商品销售渠道：</label><input type="text" class="text001" name="marketing_channel" value="{$supply.marketing_channel}"/></td>
+		</tr>
+		<tr>
+		<td><label>年销售量：</label><input type="text" class="text001" name="annual_sales" value="{$supply.annual_sales}"/></td>
+		</table>
+		<div style="margin:10px 0;">
+		<input type="hidden" name="app" value="brandmandate"/>
+		<input type="hidden" name="act" value="brand_edit"/>		
+		<input type="submit" value="提交" class="upsub" name="Submit"/>
+		</div>
+    </form>
+</div>
+{include file="footer.html"}

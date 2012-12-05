@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/ xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <title>派啦大派送-派啦网，零销商业大革命派啦模式，创造服务中国10亿人的购买力资产平台</title>
+    <meta name="description" content="派啦网,PMB模式"/>
+    <meta name="keywords" content="派啦网 派啦商城 PMB模式"/>
+    <meta name="author" content="www.paila100.com"/>
+    <link href="{res file=topics/paisong/css/recharge.css}" rel="stylesheet" type="text/css"/>
+    <link href="{res file=topics/paisong/css/recharge_success.css}" rel="stylesheet" type="text/css"/> 
+	<script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){	//标签页效果
+			var ch_con_left_buy = $(".ch_con_left_buy");			
+			var ch_con_left_menu_li=$(".ch_con_left_menu_li");
+			var re_change_img=$(".re_change_img");
+			ch_con_left_menu_li.each(function(i){
+				var ch_span = ch_con_left_menu_li.children("span");
+				var ch_li = ch_con_left_menu_li.eq(i);
+				var ch_buy = ch_con_left_buy.eq(i);				
+				var ch_img = re_change_img.eq(i);
+			$(this).click(function(){			
+			ch_buy.show();
+			ch_img.show();			
+			ch_li.css("background","#fff").css("border-right","1px solid #fff");
+			ch_span.eq(i).css("font-weight","700").css("font-size","14px");
+			ch_span.not(ch_span.eq(i)).css("font-weight","400").css("font-size","12px");
+			ch_con_left_menu_li.not(ch_li).css("background","url({res file=topics/paisong/images/ch_menu_bg.jpg})").css("border-right","0px solid #FDEBEB");
+			ch_con_left_buy.not(ch_buy).hide();			
+			re_change_img.not(ch_img).hide();
+			});			
+			});
+		})				
+		function check() //表单验证
+		{ 
+		var str = document.getElementById("txt_id").value;
+		var result=str.match(/^(-|\+)?\d+$/); 
+		if(str==""){alert("请填写充值金额!");return false;}
+		else if(result==null) {alert("充值金额只能是整数!");return false;}
+		else if(str<=0){ alert("充值金额必须大于0");return false;}
+		} 
+		function check_re()	//计算出相应的值
+		{
+		var str = document.getElementById("txt_id").value;			
+		var result=str.match(/^(-|\+)?\d+$/); 
+		var ch_span = document.getElementById("ch_con_left_buy_pay_span");
+			if(str!=""&&result!=null&&str>0){
+				ch_span.style.color="#4E4C4C";
+				ch_span.innerHTML="您将获得"+str+"次机会和"+str+"PL积分！";
+			}
+			else{ch_span.innerHTML="请正确输入要充值的金额（必须大于0且为整数！）";ch_span.style.color="red";}
+		}				
+	</script>
+</head>
+<body>
+<body>
+		<div class="head">   
+			<div id="logo">
+				<div class="logo_left"><a href="index.php"><img src="{res file=topics/paisong/images/paila_logo.jpg}"/></a></div>  
+			</div>
+		</div>  	
+	<div id="recharge">
+						
+		<div class="charge_banner">
+			<img class="re_change_img" src="{res file=topics/paisong/images/ch_banner.jpg}"/>
+			<img class="re_change_img"style="display:none;" src="{res file=topics/paisong/images/ch_banner2.jpg}"/>
+			<img class="re_change_img"style="display:none;" src="{res file=topics/paisong/images/ch_banner3.jpg}"/>
+		</div>
+		<div class="charge_content">
+			<div class="ch_con_left">
+				<ul class="ch_con_left_menu">
+					<li style="text-align:center;"><h3>抽奖机会获得</h3></li>
+					<li class="ch_con_left_menu_li"style="background:#fff;border-right:1px solid #fff;"><span style="font-weight:700;font-size:14px;">充值机会</span></li>
+					<li class="ch_con_left_menu_li"><span>邀请好友</span></li>
+					<li class="ch_con_left_menu_li"><span>参与问卷调查</span></li>					
+				</ul>
+				
+				<div class="ch_con_left_buy">
+					<div class="ch_con_left_buy_tit">
+						<ul>
+							<li>尊敬的<span>{$award.username}</span>欢迎您！</li>
+							<li>您的积分余额为<span>{$info.credit}</span>PL</li>
+							<li>剩余抽奖机会<span>{$award.num}</span>次</li>
+						</ul>
+					</div>
+					<div class="ch_con_left_buy_pay">
+					<form onsubmit=" return check()" method="post" action="index.php?app=topics&act=getchance">
+						<p><b>充值</b><input onkeyup="check_re()" id="txt_id" type="text" name="chargemoney"/>元（输入您要充值的金额）<span id="ch_con_left_buy_pay_span"></span></p>						
+						<input type="submit" id="ch_con_btn"value="">
+					</form>
+					</div>
+					<div class="ch_con_left_buy_state">
+						<h3>充值机会:</h3>
+						<ul>
+							<li>1.充值<b>1元</b>即可获得一次抽奖机会，以此类推。</li>
+							<li>2.充值1元还可获得<b>1PL积</b>分,以此类推。</li>
+							<li>3.抽奖机会将自动保存到您的账号，可用于“欢乐大派送”抽奖活动。</li>
+							<li>4.PL积分将自动保存到您的账号，可用于积分兑换或在派啦商城换买商品。</li>
+							<li>5.充值方式仅限<b>中国农业银行K宝</b>证书客户，充值金额最低1元起，上不封顶。</li>
+							<li>6.最终解释权归派啦网和中国农业银行共同所有。</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="ch_con_left_buy" style="display:none;">
+					<div class="ch_con_left_recharge_tit">
+						<ul>
+							<li>尊敬的<span>{$award.username}</span>欢迎您！</li>
+							<li>您的积分余额为<span>{$info.credit}</span>PL</li>
+							<li>剩余抽奖机会<span>{$award.num}</span>次</li>
+						</ul>
+					</div>
+					<div class="ch_con_left_recharge_invite">					
+						<div class="recharge_part1" style="">注意：自己邀请自己是没有奖励的哦！我们将会人工核查。						
+							<div class="recharge_part2"><img src="{res file=topics/paisong/images/ch_recharge_invite.gif}" />
+								 <div class="recharge_part3">这是您的专用邀请好友链接，请通过MSN或QQ发送给好友：
+									<input class="invite_text1" style="font-size:14px;font-weight:400;" type="text" value="{$site_url}/index.php?app=member&act=register&invitecode={$invitecode}" id="span_copy"/>
+									<input onclick="test()" type="button" class="invite_coby_button"style="font-size:14px;" value="复制"/>
+								</div>
+						   </div>							
+						</div>					
+					</div>
+					<div class="ch_con_left_recharge_state">
+						<h3>邀请好友:</h3>
+						<ul>
+							<li>1.每邀请一位好友注册并成功验证手机成为派啦会员，均可<b>再获得一次抽奖机会</b>，以此类推。</li>
+							<li>2.抽奖机会将在好友成功注册后24小时后，系统自动累计到您的派啦账户。</li>
+							<li>3.邀请好友没有数量限制，邀请越多，抽奖机会越多，获奖几率更大。</li>
+							<li>4.最终解释权归派啦网和中国农业银行共同所有。</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="ch_con_left_buy"style="display:none;">
+					<div class="ch_con_left_recharge_tit">
+						<ul>
+							<li>尊敬的<span>{$award.username}</span>欢迎您！</li>
+							<li>您的积分余额为<span>{$info.credit}</span>PL</li>
+							<li>剩余抽奖机会<span>{$award.num}</span>次</li>
+						</ul>
+					</div>
+					<div class="ch_con_left_buy_suvery">
+						<a href="index.php?app=testpaper"target="_blank"><img src="{res file=topics/paisong/images/suvery.jpg}"width="463px"height="425px"alt="立即参与问卷调查"/></a>
+						<a href="index.php?app=testpaper"target="_blank"><img src="{res file=topics/paisong/images/ch_pay_btn2.jpg}"alt="立即参与问卷调查"width="228px"height="60px"/></a>
+					</div>					
+				</div>
+				
+			</div>
+			<div class="ch_con_right">
+				<div class="ch_con_right_ad">
+					<div class="ch_con_right_ad_img">
+						<a href="index.php?app=goods&id=551&area_type=brandmall"><img src="{res file=topics/paisong/images/ad1.jpg}"/></a>
+					</div>
+					<div class="ch_con_right_ad_img">
+						<a href="index.php?app=goods&id=562&area_type=brandmall"><img src="{res file=topics/paisong/images/ad2.jpg}"/></a>
+					</div>
+				</div>
+				
+				<div class="ch_con_right_help">
+					<h3><img src="{res file=topics/paisong/images/ch_help.gif}" />农行K宝充值帮助</h3>
+					<a href="http://www.abchina.com/cn/EBanking/Safety/Authentication/200912/t20091203_19416.htm#_Toc225322744"target="_blank">1.K宝首次使用</a>
+					<a href="http://www.abchina.com/cn/EBanking/Safety/Authentication/200912/t20091203_19416.htm#_Toc225322750"target="_blank">2.下载K宝证书</a>
+					<a href="http://www.abchina.com/cn/EBanking/Safety/Authentication/200912/t20091203_19416.htm#_Toc225322751"target="_blank">3.K宝工具软件说明书</a>
+					<a href="http://www.abchina.com/cn/EBanking/Safety/Authentication/200912/t20091203_19416.htm#_Toc225322757"target="_blank">4.常见问题与解决办法</a>
+					<a class="text_r" href="http://www.abchina.com/cn/EBanking/Safety/Authentication/200912/t20091203_19416.htm#_Toc225322744"target="_blank">详情>></a>
+					<div class="ch_con_right_help_ad">
+						<a style="margin:0;" href="index.php?app=goods&id=892&area_type=pailamall"><img src="{res file=topics/paisong/images/ad3.jpg}"/></a>
+					</div>
+				</div>												
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div id="footer">          
+			<div class="fmenu">
+				<ul>
+					<li><a href="index.php">首页</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=about&article_id=46">关于我们</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=about&article_id=49">联系我们</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=about&article_id=47">客服中心</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=about&article_id=54">服务协议</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=channel&article_id=55">渠道招商</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=about&article_id=51">服务条款</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=about&article_id=52">隐私声明</a></li>
+					<li>|</li>
+					<li><a href="index.php?app=article&act=about&article_id=50">招贤纳士</a></li>					
+				</ul>
+			</div>
+			<div class="fblock3">
+				<p>Copyright@2010-2011 paila100.com派啦网 All Rights Reserved 赣B2--20110067<br>
+					客服热线：400-166-1616 公司电话：0791-8633928 传真：0791-6106509</p>
+				<img src="{res file=topics/paisong/images/7_22beian_03.jpg}">
+				<img src="{res file=topics/paisong/images/7_22beian_04.jpg}">
+				<img src="{res file=topics/paisong/images/7_22beian_06.jpg}">
+				<img src="{res file=topics/paisong/images/7_22beian_016.jpg}">
+			</div>
+	</div>
+<script type="text/javascript">			//复制链接
+	function p(txt){
+	if(window.clipboardData){
+	window.clipboardData.clearData();
+	window.clipboardData.setData("Text", txt + "");
+	}else if(navigator.userAgent.indexOf("Opera") != -1){
+	window.location = txt;
+	}else if (window.netscape){
+	try {
+	netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+	} catch (e) {
+	alert("被浏览器拒绝！\n您可以在浏览器地址栏输入'about:config'并回车\n然后将'signed.applets.codebase_principal_support'设置为'true'");
+	}
+	var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+	if (!clip){return;}
+	var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+	if (!trans){return;}
+	trans.addDataFlavor('text/unicode');
+	var str = new Object();
+	var len = new Object();
+	str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+	var copytext = txt;
+	str.data = copytext;
+	trans.setTransferData("text/unicode",str,copytext.length * 2);
+	var clipid = Components.interfaces.nsIClipboard;
+	if (!clip){return false;}
+	clip.setData(trans,null,clipid.kGlobalClipboard);
+	}
+	}
+	function test(){	//调用
+	p(document.getElementById("span_copy").value);
+	alert("复制成功");
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{include file=pp_index.top.html}
+<link type = "text/css" href = "{new_res file=css/agr_all.css}" rel="stylesheet"/>
+<div class="index_ctt_top">
+    <div class="content">
+        <div class="index_banner">
+            <a href="index.php?app=brand_mandate&act=formlist"><img src="{new_res file=images/pp_ad1.jpg}" alt="我要加盟" /></a>
+        </div>
+        <div class="show_ctt">
+            <ul class="index_case_l_ttl">
+               <li class="index_case_ttl_l">
+                  <h3>
+                     合作客户案例
+                  </h3>
+               </li>
+            </ul>
+            <div class="index_case_ctt">
+             <!-- {foreach from=$supply_arr item=supply} -->
+                <ul class="index_case_ctt1 show_case_ctt1">
+                  <li>
+                      <div class="index_case_ctt1_img">
+                          <a href="index.php?app=brand_mandate&act=view&id={$supply.supply_id}"><img src="{$supply.supply_logo}" alt="{$supply.supply_name}" /></a>
+                      </div>
+                      <div class="index_case_ctt1_name">
+                          <a href="index.php?app=brand_mandate&act=view&id={$supply.supply_id}}">{$supply.company_info|truncate:60}</a>
+                      </div>
+                   </li>
+                </ul>
+                <!-- {/foreach} -->
+                <div class="clear"></div>
+			
+            </div>
+          <div class="channel_goods_tit channel_goods_bpage">
+    				{include file=page.bottom.html}
+			</div>
+        </div>
+    </div> 
+</div>
+{include file=brand.bottom.html}
+</body>
+</html>

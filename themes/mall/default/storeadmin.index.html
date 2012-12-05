@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>派啦商户后台管理系统</title>
+<link rel="stylesheet" type="text/css" href="{res file=css/store_public.css}"/>
+<script type="text/javascript" src="{lib file=jquery-1.7.2.min.js}"></script>
+<script type="text/javascript" src="{lib file=public.js}"></script>
+<script type="text/javascript"> 
+	$(function(){
+		$('.nav-top-item').click(function(){
+			if ($(this).siblings('.sideMenu').is(':hidden')) {
+				$('.sideMenu').slideUp('normal');
+				$('.nav-top-item').removeClass("menuOn");
+				$(this).siblings('.sideMenu').slideDown('normal');
+				$(this).addClass("menuOn");
+			} else {
+				$(this).siblings('sideMenu').slideUp('normal');
+				$('.nav-top-item').removeClass("menuOn");
+			}
+		});
+	});
+	$(function(){
+		$("#btnShrink").toggle(function(){
+			$(".leftBox").css("left","-210px");
+			$("#shrinkDiv").css("left","0");
+			$(".rightBox").css("left","10px");
+		},function(){
+			$(".leftBox").css("left","0");
+			$("#shrinkDiv").css("left","200px");
+			$(".rightBox").css("left","210px");
+		}
+		);
+	});
+var sounddir="themes/img/",showstate=false;
+function skipErr(){}
+function showsound(sound){
+	if(sound==''||sound==undefined){sound='new_order.mp3';}
+		$("#wmp").attr("src",sounddir + sound);
+	}
+$(function(){
+	$("#messagebox dt a").click(function(){
+		$("#messagebox").hide();changeState()
+	});
+	
+	$("#msg1 a").click(function(){
+	 var url="index.php?app=seller_order&act=message&type=chg1";
+	  $.get(url, function(res){
+		  	ldata[0]=0;
+			$("#msg1 b").html("0");
+		});
+	 });
+	$("#msg2 a").click(function(){
+		var url="index.php?app=seller_order&act=message&type=chg2";
+	   $.get(url, function(res){
+		  	ldata[1]=0;
+			$("#msg2 b").html("0");
+		});
+	});
+	
+});
+function changeState(){
+	 var url="index.php?app=seller_order&act=message&type=chgall";
+	  $.get(url, function(res){
+		  	ldata[0]=0;ldata[1]=0;
+			$("#msg1 b").html("0");
+			$("#msg2 b").html("0");
+		});
+}
+var ldata=new Array(0,0);
+function domsg(){
+	 var url="index.php?app=seller_order&act=message";
+	 $.get(url, function(res){
+			data = res.split("|");
+			data[0]=parseInt(data[0]);data[1]=parseInt(data[1]);
+			if(data[0]>ldata[0] || data[1]>ldata[1]){
+				showstate=true;
+				ldata[0]=data[0];ldata[1]=data[1];
+			}
+			if(showstate && (ldata[0]>0 || ldata[1]>0)){
+				$("#msg1 b").html(ldata[0]);
+				$("#msg2 b").html(ldata[1]);
+				$("#messagebox").show();
+				showsound();
+				showstate = false;
+			}
+		});
+	}
+</script>
+</head>
+<body>
+<div style="display:none"><bgsound id="wmp" loop="1" src=""></bgsound></div>
+<script type="text/javascript">
+
+</script>
+<div class="leftBox">
+    <h1 class="logo"><img src="{res file=images/shopadminlogo.jpg}" width="200" height="104" alt="派啦商户后台管理系统" title="派啦商户后台管理系统"/><span>派啦</span></h1>
+    <div class="welcome">
+       
+    </div>
+    <div class="leftMenu">
+        <ul id="main-nav">
+            <li><a href="index.php?app=shopadmin&act=store_info" target="mainFrame" class="nav-top-item menuOn">我的账户</a>
+           		 <ul class="sideMenu" id="showMenu">
+                    <li><a href="index.php?app=shopadmin&act=store_info" target="mainFrame" class="sideOn" onclick="sideMenu(this)">账户概况</a></li>
+                    <li><a href="index.php?app=member&act=profile&from=storeadmin" target="mainFrame" onclick="sideMenu(this)">个人资料</a></li>
+                    <li><a href="index.php?app=friend&from=storeadmin" target="mainFrame" onclick="sideMenu(this)">好友管理</a></li>
+                    <li><a href="index.php?app=message&act=newpm&from=storeadmin" target="mainFrame" onclick="sideMenu(this)">短消息</a></li>
+                    <li><a href="index.php?app=shopadmin&act=recharge" target="mainFrame" onclick="sideMenu(this)">店铺余额充值</a></li>
+                </ul>
+             </li>
+			<li> <a href="index.php?app=my_store" target="mainFrame" class="nav-top-item">店铺管理</a>
+                <ul class="sideMenu">
+                    <li><a href="index.php?app=my_store" target="mainFrame" class="sideOn" onclick="sideMenu(this)">店铺设置</a></li>
+                    <li><a href="index.php?app=my_theme" target="mainFrame" onclick="sideMenu(this)">主题设置</a></li>
+                    <!--<li><a href="index.php?app=my_shipping" target="mainFrame" onclick="sideMenu(this)">配送设置</a></li>店铺不能自行设置配送方式--><li><a href="index.php?app=my_navigation" target="mainFrame" onclick="sideMenu(this)">导航设置</a></li>
+                    <li><a href="index.php?app=my_partner" target="mainFrame" onclick="sideMenu(this)">合作伙伴</a></li>
+                </ul>
+            </li>
+            <li> <a href="index.php?app=my_pailagoods" target="mainFrame" class="nav-top-item">商品管理</a>
+                <ul class="sideMenu">
+                	<li><a href="index.php?app=my_pailagoods" target="mainFrame" class="sideOn" onclick="sideMenu(this)">本店商品</a></li>
+                    <li><a href="index.php?app=buy_mallgoods" target="mainFrame" onclick="sideMenu(this)">店铺进货</a></li>
+                    <li><a href="index.php?app=promotion_manage" target="mainFrame" onclick="sideMenu(this)">促销管理</a></li> 
+                </ul>
+            </li>       
+            <li> <a href="index.php?app=my_member&act=register" target="mainFrame" class="nav-top-item">会员管理</a>
+                <ul class="sideMenu">
+                	<li><a href="index.php?app=my_member&act=register" target="mainFrame" class="sideOn" onclick="sideMenu(this)">会员注册</a></li>
+                    <li><a href="index.php?app=my_member&act=member_list" target="mainFrame" onclick="sideMenu(this)">会员列表</a></li>
+                    <li><a href="index.php?app=my_member&act=channelmsg" target="mainFrame" onclick="sideMenu(this)">渠道信息</a></li>
+                    <li><a href="index.php?app=assistMembers" target="mainFrame" onclick="sideMenu(this)">会员协助</a></li>
+                </ul>
+            </li>
+			<li> <a id="orderL" href="index.php?app=seller_order" target="mainFrame" class="nav-top-item">订单管理</a>                
+				<ul class="sideMenu">
+					<li><a href="index.php?app=seller_order" class="sideOn" target="mainFrame" onclick="sideMenu(this)">店铺订单</a></li>  
+					<li><a href="index.php?app=buy_myorders" target="mainFrame" onclick="sideMenu(this)">进货订单</a></li>                
+					<li><a href="index.php?app=my_qa" target="mainFrame"  onclick="sideMenu(this)">咨询管理</a></li>
+                </ul>
+            </li>
+            
+            <!-- 
+            <li>
+            	<a href="index.php?app=kjzf&act=userlogin" target="mainFrame" class="nav-top-item">派啦管理</a>
+            	
+                <ul class="sideMenu">
+					<li><a href="index.php?app=kjzf&act=userlogin" target="mainFrame" onclick="sideMenu(this)">快捷支付</a></li>
+					<li><a href="index.php?app=kjrz" target="mainFrame" onclick="sideMenu(this)">快捷认证</a></li>               
+				</ul>
+            </li>
+            <li> <a href="index.php?app=checkout" target="mainFrame" class="nav-top-item">结算管理</a>                
+				<ul class="sideMenu">
+					<li><a href="index.php?app=checkout" class="sideOn" target="mainFrame" onclick="sideMenu(this)">本店结算</a></li>
+					<!-- {if $is_paila_store eq 1} -->
+				<!-- 	<li><a href="index.php?app=checkoutpaila" target="mainFrame"  onclick="sideMenu(this)">派啦专柜结算</a></li> -->
+					<!-- {/if} -->
+                </ul>
+            </li>
+            <!-- <li> <a href="about:blank" target="mainFrame">系统信息</a>
+                <ul class="sideMenu hide" id="xtxx_show">
+                    <li><a href="about:blank" target="mainFrame" class="sideOn" onclick="sideMenu(this)">系统信息</a></li>
+					<li><a href="about:blank" target="mainFrame" class="sideOn" onclick="sideMenu(this)">技术支持</a></li>
+                </ul>
+            </li> -->
+        </ul>
+        
+    </div>
+</div>
+<div id="shrinkDiv"><a href="javascript:;" id="btnShrink" title="收缩" class="left"></a></div>
+<div class="rightBox">
+    <iframe scrolling="no" name="mainFrame" id="iframeHeight" frameborder="0" width="100%" height="100%" src="index.php?app=shopadmin&act=store_info"></iframe>
+</div>
+<dl id="messagebox" style="display:none;">
+    <dt><a href="javascript:void(0)" title="关闭"></a></dt>
+    <dd>
+    <div id="msg2">您有已付款订单(<b></b>)<a href="index.php?app=seller_order&type=accepted" target="mainFrame">查看</a></div>
+    <div id="msg1">您有未付款订单(<b></b>)<a href="index.php?app=seller_order&type=pending" target="mainFrame">查看</a></div>
+    </dd>
+</dl>
+<script type="text/javascript">
+try{window.onerror=skipErr();}catch(e){}
+domsg();setInterval("domsg()",30000) ;
+</script>
+</body>
+</html>

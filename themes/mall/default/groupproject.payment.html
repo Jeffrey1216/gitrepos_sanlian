@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>派啦网确认支付</title>
+<link type="text/css" rel="stylesheet" href="{res file=topics/seckill_groupbuy/css/seckill_groupbuy.css}" />
+</head>
+<body>
+{include file=groupproject_pay.head.html}
+<form action="index.php?app=group_order&act=goto_pay&order_id={$order.order_id}" method="post">
+<div class="pay_ctt">
+  <div class="pay_ctt_l">
+    <div class="pay_inf">
+        <div class="pay_inf_stp">
+            <div class="pay_inf_stp_ttl">
+                <h3>购物仅需<span>三步</span></h3>
+            </div>
+            <div class="pay_inf_stp_r">
+                <img src="{res file=topics/seckill_groupbuy/images/stp2.gif}" alt="确认支付" />
+            </div>
+        </div>
+        <ul class="pay_inf_dtl">
+            <li class="pay_inf_dtl_tbl">
+               <table class="pay_inf_tbl_ctt">
+                     <tr>
+                         <th class="pay_inf_tbl_th1">商品名称</th>
+                         <th>数量</th>
+                         <th>价格</th>
+                         <th>总价</th>
+                     </tr>
+                     <tr>
+                         <td class="pay_inf_tbl_td3">{$goods_info.title}</td>
+                         <td>{$order.quantity}</td>
+                         <td>{$goods_info.price|price}</td>
+                         <td>{$order.order_amount|price}</td>
+                     </tr>
+               </table>
+            </li>
+            <li class="pay_inf_dtl_phn">
+                <p><span>您的手机号：</span> {$order_extm.phone_mob} [成功后将发送提示信息到您手机上]</p>
+            </li>
+            <li class="pay_inf_dtl_addrs">
+               <h3>您的配送地址：</h3>
+               <p><span>姓名：</span>{$order_extm.consignee|default:未填写}<br/>
+               <span>地址：</span>{$order_extm.region_name}{$order_extm.address}<br/>
+               <span>邮编：</span>{$order_extm.zipcode|default:未填写}<br/>
+               <span>电话：</span>{$order_extm.phone_tel|default:未填写}<br/>
+               <span>手机：</span>{$order_extm.phone_mob|default:未填写}
+               </p>
+            </li>
+            <li class="pay_inf_dtl_amt">
+                <div class="pay_inf_dtl_amt_l">应付金额</div>
+                <div class="pay_inf_dtl_amt_r">{$order.order_amount|price}</div>
+            </li>
+        </ul>
+    </div>
+    <div class="pay_pmt">
+        <div class="pay_pmt_top">
+            <h3>选择以下支付方式：</h3>
+        </div>
+        <!--{if $payments.online}-->
+	  
+	   <div class="zhifu8_1">
+	   	  <!--{foreach from=$payments.online item=payment}-->
+          <div style="float:left;margin:10px;">
+              <span class="radio"><input id="payment_{$payment.payment_code}" type="radio" name="payment_id" value="{$payment.payment_id}" /></span>
+              <span class="logo"><label for="payment_{$payment.payment_code}"><img src="{$site_url}/includes/payments/{$payment.payment_code}/logo.gif" alt="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" title="{$payment.payment_name|escape}-{$payment.payment_desc|escape}" width="125" height="47" /></label></span>
+              
+          </div>
+		  <!--{/foreach}-->
+	   </div>
+	   
+	   <!--{/if}-->
+	   <div class="clear"></div>
+        <div class="pay_pmt_btn">
+            <input class="pay_pmt_sub" type="submit" value="" />
+        </div>
+    </div>
+  </div>   
+  <div class="pay_ctt_r">
+      <div class="pay_r_prms">
+          <div class="pay_prms_ttl">
+              <h3>派啦网承诺</h3>
+          </div>
+          <ul class="pay_prms_ctt">
+              <li class="pay_prms_ctt_img"><img src="{res file=topics/seckill_groupbuy/images/prms.gif}" alt="哌啦承诺" /></li>
+              <li class="pay_prms_ctt_epl">派啦网采用支付宝、农行支付等多种方式进行支付，最大程度保证用户的交易快捷和安全。</li>
+              <div class="clear"></div>
+          </ul>
+      </div>
+  </div>
+</div>
+</form>
+{include file=seckill.foot.html}
+</body>
+</html>

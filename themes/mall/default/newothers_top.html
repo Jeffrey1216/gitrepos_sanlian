@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset={$charset}" />
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}" />
+{$page_seo}
+<meta name="author" content="www.paila.com" />
+<meta name="generator" content="PaiLa {$paila_version}" />
+<meta name="copyright" content="PaiLa Inc. All Rights Reserved" />
+<meta property="wb:webmaster" content="4c8d15de69885fa0" />
+<link href="{new_res file=css/public.css}" rel="stylesheet" type="text/css"/>
+<link href="{new_res file=css/index.css}" rel="stylesheet" type="text/css"/>
+<link href="{res file=css/paila.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/new_paila.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/promote.index.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=../../../../store/default/styles/default/css/store_paila_shop.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script type="text/javascript" src="{lib file=jquery.js}"></script>
+<script type="text/javascript" src="{new_res file=js/index_channel.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=member.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{new_res file=js/photo.js}" charset="utf-8"></script>
+<script src="{lib file=jquery.lazyload.js}" type="text/javascript"></script>
+<script type="text/javascript" src="{lib file=ecmall.js}" charset="utf-8"></script>
+<script type="text/javascript">
+var SITE_URL = "{$site_url}";
+var IMAGE_URL = "{$image_url}";
+var PRICE_FORMAT = '{$price_format}';
+function mouseOver(o)
+{
+o.style.border ="4px solid #f8dbc6"
+}
+function mouseOut(o)
+{
+o.style.border ="4px solid #dedede"
+}
+$(document).ready(function(){
+	$(".li_nodes").hover(function(){
+		$(this).addClass("li_hover");
+		},
+		function () {
+		$(this).removeClass("li_hover");
+		});
+	$(".li_nodes_2").hover(function(){	
+		$(this).addClass("li_hover_2");
+		},
+		function () {
+		$(this).removeClass("li_hover_2");
+		});
+	$(".img_close").click(function(){
+	$(".img_close_box").fadeOut("slow");
+});	
+});
+</script>
+{$_head_tags}
+<!--<editmode></editmode>--> 
+</head>

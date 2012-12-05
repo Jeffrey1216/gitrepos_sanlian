@@ -1,0 +1,43 @@
+{include file="header.html"}
+<link href="templates/style/user.css" rel="stylesheet" type="text/css" />
+<div id="goodsadd">
+  <div>  
+  <div class="setup_top">
+    <ul class="subnav">
+    <li id="two1" onclick="setTab('two',1,4)" class="hover"> <h4>SEO设置</h4></li>
+    </ul>
+</div>        
+		   <div class="clear"></div>
+        <div class="wrap">
+
+        <div class="public">
+		    <div id="Tab2">
+                <form method="post" id="goods_form" action="index.php?app=seo&act=edit_goods&id={$goods.goods_id}">
+                    <div class="information_index">
+                        <div class="add_wrap" >
+                            <div class="products"  id="con_two_1" >
+                                <ul>
+                                    <li>
+                                        <h2>标题title</h2>
+                                        <div class="arrange"><input type="text" name="seo_title" value="{$goods.seo_title}" class="text width_normal" /></div>
+                                    </li>
+                                                                        <li>
+                                        <h2>关键字keywords</h2>
+                                        <div class="arrange"><input type="text" name="seo_keywords" value="{$goods.seo_keywords}" class="text width_normal" /></div>
+                                    </li>
+                                                                        <li>
+                                        <h2>描述description</h2>
+                                        <div class="arrange"><textarea name="seo_description" style="height:150px;" class="text width_normal" >{$goods.seo_description}</textarea></div>
+                                    </li>
+                           
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                            <input type="hidden" name="seo_goods_id" value="{$goods.goods_id}"/>
+                            <div class="issuance"><input type="submit" class="btn" value="提交"></div>
+                        </div>  
+                </form>
+                </div>
+            </div>
+</div>
+{include file="footer.html"}

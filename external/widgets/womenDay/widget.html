@@ -1,0 +1,60 @@
+<style type="text/css">	
+	a{text-decoration:none;color:#000;}
+	a:hover{text-decoration:underline;color:red;}
+	html{overflow-x:hidden;}	
+	.content_bg{width:1020px;margin:0 auto;background:#4a1535;padding-bottom:10px;margin-bottom:50px;}
+	.body_bg{width:1000px;margin:0 auto;background:#990354;padding-bottom:10px;}
+	.banner{width:1108px;height:456px;position:relative;background:url(themes/mall/new/styles/default/images/womanday/woman_banner.png) 0 0 no-repeat;left:-110px;}
+	*html .banner{width:1000px;height:456px;background:url(themes/mall/new/styles/default/images/womanday/woman_banner.jpg) 0 0 no-repeat;position:relative;left:0px;}
+	.woman_tit{width:1213px;height:92px;background:url(themes/mall/new/styles/default/images/womanday/woman_tit.png) 0 0 no-repeat;_background:url(themes/mall/new/styles/default/images/womanday/woman_tit.gif) 0 0 no-repeat;position:absolute;left:-96px;}
+	.bg_box{width:1000px;margin:0 auto;position:relative;}
+	.woman_goods_content{margin:80px 15px 40px 15px;}
+	.woman_goods{float:left;background:#fce6ed;width:285px;margin:19px;display:inline;overflow:hidden;font-size:14px;padding-bottom:10px;position:relative;}
+	.woman_goods li{margin:0 15px;line-height:27px;overflow:hidden;float:left;display:inline;white-space:nowrap;width:255px;}
+	.woman_goods .woman_goods_img{background:#fff;height:240px;overflow:hidden;width:285px;float:left;text-align:center;margin:0;}
+	.img_size{width:220px;height:220px;margin-top:10px;}
+	.del_line{text-decoration:line-through;}
+	.price_style{color:#f34d0b;font-weight:700;}
+	.go_btn{position:absolute;right:28px;bottom:17px;display:block;width:42px;height:18px;background:url(themes/mall/new/styles/default/images/womanday/go_ico.gif) 0 0 no-repeat;}
+	.woman_rule{color:#dedbdb;font-size:12px;margin-left:19px;}
+	.woman_rule li{line-height:20px;}
+</style>
+<div class="bg_box">
+	<div class="content_bg">
+		<div class="body_bg">
+			<div class="banner">
+			</div>
+			<div class="woman_tit">
+			</div>
+			<div class="woman_goods_content">
+			<!-- {foreach from=$widget_data.goods item=good} -->
+				<ul class="woman_goods">
+					<li class="woman_goods_img">
+						<a href="index.php?app=goods&id={$good.goods_id}"><img class="img_size" name="{$good.goods_name}" alt="{$good.goods_name}" src="{$good.mimage_url}"/></a>
+					</li>
+					<li><a href="index.php?app=goods&id={$good.goods_id}">{$good.goods_name}</a></li>
+					<li>市场价：<span class="del_line">{$good.cprice|price}</span></li>
+					<li>派啦价：<span class="price_style">{$good.price|price}</span></li>
+					<li>返积分：<span class="price_style">{$good.credit}PL</span></li>
+					<a href="index.php?app=goods&id={$good.goods_id}" class="go_btn"></a>
+				</ul>
+			<!-- {/foreach} -->				
+				<div style="clear:both;">
+				</div>
+				<ul class="woman_rule">
+					<li>活动时间：2012年3月5——8日</li>
+					<li>活动形式：</li>
+					<li>A．满50送价值32元的美如雅高档美容巾一条<a href="index.php?app=goods&id=511&area_type=pailamall ">（点击查看商品详细信息）。</a></li>
+					<li>B．满150元送价值45元的伊泰莲娜红苹果黑色豹纹图腾耳钉耳环一对<a href="index.php?app=goods&id=541&area_type=pailamall">（点击查看商品详细信息）。</a></li>
+					<li>C．满200元送价值77元的伊泰莲娜奢华水晶项链一条<a href="index.php?app=goods&id=669&area_type=pailamall">（点击查看商品详细信息）</a></li>
+					<li>活动细则：</li>
+					<li>1、参加活动前请先仔细阅读本活动规则，参与本期活动即视为认同本规则所有条款。</li>
+					<li>2、本次活动商品均正常PL币的赠送。</li>
+					<li>3、因为显示器不同存在色差，本次商品包装及颜色以实物为准；</li>
+					<li>4、如订单收货地址超出所选快递的配送范围，派啦网有可能直接转运邮局包裹等全国各地可到达的运输方式<a href="index.php?app=article&act=help&article_id=33">（点击查看配送区域）；</a></li>
+					<li>5、派啦网对本次活动保留最终解释权，更多活动详情请致电服务热线：400-166-1616</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

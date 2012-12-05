@@ -1,0 +1,151 @@
+<style type="text/css">
+html,body{overflow-x:hidden;width:100%;}
+.menu5 a{color:#bf1214;}
+.index_message{position:absolute;overflow:hidden;top:10px;left:0;height:35px;background:#f2d5b3;width:100%;z-index:99999999;color:#000;font-weight:700;cursor:pointer;}
+.index_message .mes_box{font-size:12px;margin:0 auto;text-align:center;width:1000px;overflow:hidden;position:relative;height:35px;}
+.index_message .mes_box_p{line-height:35px;text-align:center;}
+
+</style>
+<body id="ch">
+	<div id="ch_head_bg">
+	  <div class="ch_head_bg">
+	  	<div style="height:179px;overflow:hidden;position:absolute;right:-35px;width:498px;top:13px;" class="logo_right"><img src="{res file=images/ch_merry.gif}"/></div>	    	    
+		<div  class="ch_content">
+			<div class="head">
+	    		<div id="head">
+	        		<div style="position:absolute;top:0;">
+	        			<ul class="subnav"><!--上方菜单-->
+	            			<li id="select_list"><!--下拉菜单容器--></li><!--select_list-->
+	        			</ul><!--subnav-->
+	        		</div>
+	        		<div class="ch_top">
+						<div class="top_left" style="z-index:9999;">
+					<a href="index.php?app=article&act=channel&article_id=55" style="color:#fff;padding-left:15px;">渠道招商专区</a>
+						</div>
+	            		<div class="top_right" style="color:#fff;">
+		            		<div style="float:left;margin-top:15px;">
+		            		欢迎来到派啦网！<span style="padding-right:5px;color:#fff">{$visitor.user_name|escape}
+			                	<!--{if !$visitor.user_id}-->&nbsp;
+			            		请先 [ <a href="{url app=member&act=login}">登录</a> ] 或 [ <a href="{url app=member&act=register}">注册</a> ]
+			           			<!--{else}--> 
+			           			[<a href="{url app=member&act=logout}">退出</a>]
+			           			<!--{/if}-->	
+								</span>							
+								<a href="{url app=message&act=newpm}" class="note"><span style="padding:0 0 0 5px;color:#fff">站内消息</span>
+									<!--{if $new_message}-->({$new_message})<!--{/if}-->
+								</a>
+								<span>|</span>
+							</div>
+							<div style="width:65px;height:30px;float:left;margin-left:0px;">
+								<div id="navss">
+	    							<ul>
+	    								<li class="menu2" onMouseOver="this.className='menu5'" onMouseOut="this.className='menu2'">
+	    									<a style="margin-left:8px;_margin-left:4px;padding:0;" href="index.php?app=member">我的派啦</a>
+	    									<img src="{res file=images/gif.gif}"/>   
+	    									<div  class="list" >	       									
+											       <a style="color:#bf1214" href="{url app=buyer_order}">{$lang.my_order}</a>
+											       <a style="color:#bf1214" href="{url app=buyer_group_order}">{$lang.my_groupbuy}</a>
+											       <a style="color:#bf1214" href="{url app=my_question}">{$lang.my_question}</a>										  
+	   										 </div>
+	    								</li>
+	   								 </ul>
+								</div>
+							</div>
+							<span style="padding-left:5px;margin-top:13px;display:block;float:left;">|</span>
+							<a style="display:block;margin-top:13px;float:left;"href="{url app=article&act=help&article_id=11}" class="question">帮助中心</a>	           
+						</div>	         
+	        		</div>
+	    		</div>
+			</div>
+	    	<div style="width:1200px;height:178px;_overflow:hidden;" id="logo">
+	        	<div class="ch_logo_left"><a href="index.php"><img src="{res file=images/ch_logo.jpg}"></a></div>
+	        		<div class="logo_center">
+	           			<form action="" method="">
+	                		<div class="border" style="background:#fff;">
+	                			<div style="display:none;" class="select_js"></div>
+	                    		<div   class="selects_js">
+	                       			<p>搜索商品</p>	                         
+                        			<div class="ico"></div>
+                       				<ul id="select_js_ul" style="display:none;">
+			                            <li ectype="index">搜索商品</li>
+			                            <li ectype="store">搜索店铺</li>			                     
+                       				</ul>
+                       				<input type="hidden" value="index" name="act">
+                   				</div>
+	                      		<input type="text" class="text2" name="keyword">
+	                		</div>
+	                		<input type="hidden" value="search" name="app">
+	                		<input style="position:relative;z-index:999" type="submit" class="btton" value="搜索" name="Submit">
+	            		</form>
+	           			<div  class="hot_search"style="color:#fff;">热门搜索：
+	           				<!--{foreach from=$hot_keywords item=keyword}-->
+			    			<a style="color:#fff;" href="{url app=search&keyword=$keyword}">{$keyword}</a>
+			   				<!--{/foreach}-->
+	            		</div>
+	        		</div>       		
+	 		</div>   
+	    	<ul class="nav" style="overflow:hidden;height:33px;">
+	        	<li><a class="{if $index eq 1}hover {else}a5{/if}" href="index.php">首页</a><img src="{res file=images/the_line.gif}"/></li>
+	        	<!--{foreach from=$navs.middle item=nav}-->
+	        	<li><a class="{if $index neq 1 and $nav.link eq $current_url}hover {else}a5{/if}" href="{$nav.link}"{if $nav.open_new} target="_blank"{/if}>{$nav.title|escape}</a>
+	        	<img src="{res file=images/the_line.gif}"/></li>
+	        	
+	        	<!-- {/foreach} -->
+	        	<li id="shopcart">
+	        		<a href="{url app=cart}"><p style="display:block;margin-left:30px;font-size:12px">我的购物车有<span style="color:red;padding:0 3px">{$cart_goods_kinds}</span>件商品</p>
+	        		<input class="checkout" onclick="window.location.href='{url app=cart}'" type="image" src="{res file=images/checkout_03.jpg}"/></a>
+        		</li>
+	    	</ul>				
+		</div>
+		</div>
+		<div class="on_ch_bg"></div>
+		<div class="ch_bg"></div>
+		</div>
+<script type="text/javascript">
+$(function()
+{
+    $(".selects_js ul li").hover(
+        function()
+        {
+            $(this).addClass('search_nonce');
+        },
+        function()
+        {
+            $(this).removeClass();
+        }
+    );
+
+    $(".selects_js").click(block_fn);
+
+    $(".selects_js ul li").click(function(){
+        var text = $(this).text();
+        $(".selects_js p").text(text);
+
+        var act  = $(this).attr("ectype");
+        $(".selects_js input").val(act);
+    });
+      
+});
+
+function block_fn()
+{
+    $(".selects_js ul").toggle();
+}
+
+</script>
+<script type="text/javascript">
+	function close_mes(speed){
+			$(".index_message").animate({height:"4px"},{duration:speed});
+		}
+	function show_mes(speed){
+		$(".index_message").animate({height:"35px"},{duration:speed});
+	}	
+	$(function(){				
+		$(".index_message").toggle(function(){
+			close_mes(800);
+			},function(){
+			show_mes(800);
+				})
+		setTimeout("close_mes(2000)",18000);
+		})	
+</script>

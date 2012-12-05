@@ -1,0 +1,24 @@
+	<div class="plzn_topad">
+		<div id="index_slider_plzn" class="plzn_topad_box photo_box">
+			<ul>
+			<!-- {foreach from=$widget_data.images item=i} -->
+				<li>
+					<a href="{$i.url}">
+						<img src="{$i.img}" alt="{$i.title}" />
+					</a>
+				</li>
+			<!-- {/foreach} -->
+			</ul>
+		</div>
+	</div>
+<script type="text/javascript">
+Effect.slider({   		//轮播器启动
+	'target': 'index_slider_plzn',    //选择器
+	'showMarkers': true,   //显示文字说明
+	'showControls': false,  //左移右移控制
+	'width_allow':false,  //计算说明文字宽度
+	'autostart':true,   //自动
+	'crosswise':true,   //方向
+	'trun_text':new Array("1","2","3","4","5")   //说明文字
+    });	
+</script>

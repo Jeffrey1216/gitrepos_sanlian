@@ -1,0 +1,28 @@
+<script type="text/javascript" src="{lib file=public.js}" charset="utf-8"></script>
+<div class="leftBox">
+     <h2 class="help_head">°ïÖúÖÐÐÄ</h2>
+
+     <div class="leftMenu">
+         <ul>
+         	<!-- {foreach from=$acategories item=acategory} -->
+            <li><a href="javascript:void(0);" class="menuOn" id="cate_{$acategory}">{$acategory.cate_name|escape}</a>
+              <ul class="sideMenu" id="jytj_show">
+              <!-- {foreach from=$acategory.child item=childs} -->
+                  <li><a href="{url app=article&cate_id=$childs.cate_id&parent_id=$childs.parent_id}" cateId="{$childs.cate_id}" class="sideOn {if $childs.cate_id eq $cate_id_now} onHover{/if}" onclick="sideMenu(this)">{$childs.cate_name}</a></li>
+              <!-- {/foreach} -->
+              </ul>
+           </li>
+           <!-- {/foreach} -->
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+$('.sideOn').hover(function () {
+	$(this).addClass("onHover");
+},function () {
+	var cateId = {$cate_id_now|default:0};
+	$(this).removeClass("onHover");
+	$(".sideOn[cateId='"+cateId+"']").addClass("onHover");
+});
+
+</script>

@@ -1,0 +1,25 @@
+<div class="right_ad">   
+   <div class="img_box">
+        <!-- {foreach from=$widget_data.images item=image} -->
+		<a href="{$image.url}" ><img alt="{$image.title}" title="{$image.title}" src="{$image.img}"/></a>		
+	    <!-- {/foreach} -->
+	</div>
+   <div class="thumbs">	
+   <!-- {foreach from=$widget_data.images item=image name=move_img} -->		
+			<a href="{$image.url}">{$image.title}</a>				
+	<!-- {/foreach} -->		
+		</div>
+</div>
+<script type="text/javascript">
+$(function(){
+		var flag=0;
+		function move(){							
+			$(".img_box img").eq(flag).fadeIn("slow");
+			$(".img_box img").not($(".img_box img").eq(flag)).fadeOut("slow");
+			flag=flag+1;
+			t=setTimeout(move,3000);			
+			if(flag==5){flag=0;}   //·ÖÒ³ÊýÁ¿						
+		}		
+		move();		
+		});
+</script>

@@ -1,0 +1,83 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $("#reject").click(function(){
+        var reason = $.trim($("#reject_reason").val());
+        if (reason == '')
+        {
+            alert('请填写拒绝理由！');
+            return false;
+        }
+        return true;
+    });
+});
+//]]>
+</script>
+<div id="rightTop">
+  <p>渠道商管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel">审核</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=channellist">管理</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" action="">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">推广号：</th>
+        <td class="paddingT15 wordSpacing5">{$info.sn}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">手机号：</th>
+        <td class="paddingT15 wordSpacing5">{$info.mobile}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">电子邮箱：</th>
+        <td class="paddingT15 wordSpacing5">{$info.email}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">真实姓名：</th>
+        <td class="paddingT15 wordSpacing5">{$info.name} （{if $info.gender eq 0}先生{elseif $info.gender eq 1}女士{/if}）</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">公司名称：</th>
+        <td class="paddingT15 wordSpacing5" >{if $info.company}{$info.company}{else}暂无{/if}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">公司地址：</th>
+        <td class="paddingT15 wordSpacing5" >{if $info.address}{$info.address}{else}暂无{/if}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">身份证号码：</th>
+        <td class="paddingT15 wordSpacing5">{$info.identity}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">营业执照/<br/>组织机构代码证号码：</th>
+        <td class="paddingT15 wordSpacing5">{if $info.companynum}{$info.companynum}{else}暂无{/if}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">等级：</th>
+        <td class="paddingT15 wordSpacing5"><!--{if $info.level eq 1}-->经营中心 <!--{elseif $info.level eq 2}-->服务中心<!--{elseif $info.level eq 3}-->派啦加盟店<!--{elseif $info.level eq 4}-->派啦渠道商<!--{elseif $info.level eq 5}-->派啦渠道商（内部）<!--{/if}--> （{$info.area_name}）</td>
+      </tr>
+      <tr>
+          <th class="paddingT15">返利总积分：</th>
+          <td class="paddingT15 wordSpacing5">{$info.point} (CC)</td>
+      </tr>
+      <tr>
+          <th class="paddingT15">到期时间：</th>
+          <td class="paddingT15 wordSpacing5">{$info.exp_time|date}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">身份证复印件：</th>
+        <td class="paddingT15 wordSpacing5">{if $info.identitypic}<a href="{$site_url}/{$info.identitypic}" target="_blank"><img src="{$site_url}/{$info.identitypic}" width="100" height="100" /></a>{else}暂无{/if}</td>
+      </tr>
+      <tr>
+          <th class="paddingT15">公司营业执照/<br/>组织机构代码证：</th>
+          <td class="paddingT15 wordSpacing5">{if $info.companypic}<a href="{$site_url}/{$info.companypic}" target="_blank"><img src="{$site_url}/{$info.companypic}" alt="" width="100" height="100" /></a>{else}暂无{/if}</td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"} 

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset={$charset}" />
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}" />
+{$page_seo}
+<meta name="author" content="www.paila.com" />
+<meta name="copyright" content="PaiLa Inc. All Rights Reserved" />
+<link href="{res file=css/store_public.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/user.css}" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+var PRICE_FORMAT = '{$price_format}';
+//]]>
+</script>
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script type="text/javascript" src="{lib file=jquery-1.7.2.min.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=ecmall.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=member.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=public.js}"></script>
+<script type="text/javascript" src="{res file=js/nav.js}" charset="utf-8"></script>
+
+<script type="text/javascript">
+$(function(){
+    $('#left h1 span,h2.title a.fold').click(function(){
+        if($(this).hasClass('span_close')){
+            $(this).removeClass('span_close');
+            $(this).addClass('span_open');
+            this.title = 'open';
+            closeSubmenu($(this).parent());
+        }
+        else{
+            $(this).removeClass('span_open');
+            $(this).addClass('span_close');
+            this.title = 'close';
+            openSubmenu($(this).parent());
+        }
+    });
+
+    var span = $("#child_nav");
+    span.hover(function(){
+        $("#float_layer:not(:animated)").show();
+    }, function(){
+        $("#float_layer").hide();
+    });
+});
+function closeSubmenu(h1){
+    h1.next('ul').css('display', 'none');
+}
+function openSubmenu(h1){
+    h1.next('ul').css('display', '');
+}
+$(document).ready(function(){
+	sizeHeight();
+	window.onresize=function(){sizeHeight();}
+	addElementCss();
+});
+</script>
+{$_head_tags}
+</head>
+<body class="mainBody">
+	<div class="overflowDiv">

@@ -1,0 +1,426 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset=gbk" />
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+{$page_seo}
+<meta name="author" content="www.paila100.com" />
+<meta name="generator" content="PaiLa {$paila_version}" />
+<meta name="copyright" content="PaiLa Inc. All Rights Reserved" />
+<link href="{res file=css/public.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/paila.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{lib file=jquery.js}" charset="utf-8"></script>
+<script type="text/javascript" src="index.php?act=jslang"></script>
+<script charset="utf-8" type="text/javascript" src="{lib file='jquery.plugins/jquery.validate.js'}" ></script>
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+var PRICE_FORMAT = '{$price_format}';
+//]]>
+</script>
+<script type="text/javascript">
+function mouseOver(o)
+{
+o.style.border ="4px solid #f8dbc6"
+}
+function mouseOut(o)
+{
+o.style.border ="4px solid #dedede"
+}
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".li_nodes").hover(function(){
+		$(this).addClass("li_hover");
+		},
+		function () {
+		$(this).removeClass("li_hover");
+		});
+	$(".li_nodes_2").hover(function(){	
+		$(this).addClass("li_hover_2");
+		},
+		function () {
+		$(this).removeClass("li_hover_2");
+		});
+})
+</script>
+<script type="text/javascript">   //close by zzx
+$(document).ready(function(){
+	$(".img_close").click(function(){
+	$(".img_close_box").fadeOut("slow");
+});	
+});
+</script>
+
+</head>
+<script type="text/javascript">
+//注册表单验证
+$(function(){
+    $('#register_form').validate({
+        errorPlacement: function(error, element){
+            var error_td = element.parent('td').next('td');
+            error_td.find('.field_notice').hide();
+            error_td.append(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        onkeyup: false,
+        rules : {
+            user_name : {
+                required : true,
+                byteRange: [3,15,'{$charset}'],
+                remote   : {
+                    url :'index.php?app=member&act=check_user&ajax=1',
+                    type:'get',
+                    data:{
+                        user_name : function(){
+                            return $('#user_name').val();
+                        }
+                    },
+                    beforeSend:function(){
+                        var _checking = $('#checking_user');
+                        _checking.prev('.field_notice').hide();
+                        _checking.next('label').hide();
+                        $(_checking).show();
+                    },
+                    complete :function(){
+                        $('#checking_user').hide();
+                    }
+                }
+            },
+            password : {
+                required : true,
+                minlength: 6
+            },
+            password_confirm : {
+                required : true,
+                equalTo  : '#password'
+            },
+            mobile : {
+                required : true,
+                number   : true,
+                rangelength : [11,11],
+				remote   : {
+                    url : 'index.php?app=member&act=check_mobile',
+                    type: 'get',
+                    data:{
+                        mobile : function(){
+                            return $('#mobile').val();
+                        }
+                    }
+                }
+            },
+            sms_verify : {
+                required : true,
+                number   : true,
+                rangelength : [6,6]
+            },
+            tpwd : {
+                required : true,
+                number   : true,
+                rangelength : [6,6]
+            },
+            tpwd2 : {
+                required : true,
+                equalTo  : '#tpwd'
+            },
+            email : {
+                email    : true
+            },
+            invite_id : {
+                number   : true,
+                rangelength : [11,11],
+				remote   : {
+                    url : 'index.php?app=member&act=check_mobile&type=1',
+                    type: 'get',
+                    data:{
+            			invite_id : function(){
+                            return $('#invite_id').val();
+                        }
+                    }
+                }
+            },
+            captcha : {
+                required : true,
+                remote   : {
+                    url : 'index.php?app=captcha&act=check_captcha',
+                    type: 'get',
+                    data:{
+                        captcha : function(){
+                            return $('#captcha1').val();
+                        }
+                    }
+                }
+            },
+            agree : {
+                required : true
+            }
+        },
+        messages : {
+            user_name : {
+                required : '{$lang.user_name_required}',
+                byteRange: '{$lang.user_name_limit}',
+                remote   : '{$lang.user_already_taken}'
+            },
+            password  : {
+                required : '{$lang.password_required}',
+                minlength: '{$lang.password_length_limit}'
+            },
+            password_confirm : {
+                required : '{$lang.password_confirm_please}',
+                equalTo  : '{$lang.password_inconsistent}'
+            },
+            mobile : {
+                required : '{$lang.mobile_required}',
+                number : '{$lang.mobile_invalid}',
+                rangelength  : '{$lang.mobile_invalid}',
+                remote   : '{$lang.mobile_exists}'
+            },
+            sms_verify : {
+                required : '{$lang.sms_verify_required}',
+                number   : '{$lang.sms_verify_invalid}',
+                rangelength  : '{$lang.sms_verify_invalid}'
+            },
+            tpwd  : {
+            	required : '支付密码不能为空',
+                number : '支付密码必须为6位数字',
+                rangelength : '支付密码必须为6位数字'
+            },
+            tpwd2 : {
+            	required : '您必须再次确认您的支付密码',
+                equalTo  : '两次输入的支付密码不一致'
+            },
+            email : {
+                email    : '{$lang.email_invalid}'
+            },
+            invite_id : {
+                number : '{$lang.mobile_invalid}',
+                rangelength  : '{$lang.mobile_invalid}',
+                remote   : '邀请人手机号码不存在'
+            },
+            captcha : {
+                required : '{$lang.captcha_required}',
+                remote   : '{$lang.captcha_error}'
+            },
+            agree : {
+                required : '{$lang.agree_required}'
+            }
+        }
+    });
+});
+</script>
+<body>
+<div class="sign">
+<div class="content">
+<div class="l"><a href="index.php"><img src="{res file=images/sign_logo.gif}"/></a></div>
+<div class="r">
+<div class="signfont"><a href="index.php?app=article&article_id=100">派啦模式简介</a>|<a href="index.php?app=download&act=Merchant">派啦店下载</a>|<a href="index.php?app=article&act=help">帮助中心</a></div>
+<div><img src="{res file=images/phone.gif}"/></div>
+</div>
+</div>
+ </div>
+
+<div class="content" style="overflow:hidden">
+<div id="zhuce">
+   <div class="zhuce_1">
+          <h2 class="proline">新用户注册中心</h2>
+       </div>
+
+   <div class="zhuce_3">
+       <div class="zhuce_3_left">
+			<form name="" id="register_form" method="post" action="">
+                 <table>
+                     
+                     <tr>
+                         <td>{$lang.user_name}:</td>
+                         <td><input type="text" id="user_name" name="user_name" class="text width10" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">{$lang.user_name_desc}</label><label id="checking_user" class="checking">{$lang.checking}</label></td>
+                     </tr>
+                     <tr>
+                         <td>登录密码:</td>
+                         <td><input type="password" id="password" name="password" class="text width10" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">您的网站登入密码</label></td>
+                     </tr>
+                     <tr>
+                         <td>确认登录密码:</td>
+                         <td><input type="password" name="password_confirm" class="text width10" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">重复输入您的网站登入密码</label></td>
+                     </tr>
+                     <tr>
+                         <td>{$lang.mobile}:</td>
+                         <td><input type="text" name="mobile" id="mobile" class="text width10" maxlength="11"/></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">{$lang.mobile_desc}</label></td>
+                     </tr>
+                     <tr>
+                         <td>{$lang.sms_verify}:</td>
+                         <td><input style="width:90px;" type="text" name="sms_verify" id="sms_verify" class="text width4" maxlength="6"/> <input type="button"  style="margin-left:10px;width:80px;*position:relative;top:-7px;" value="获取效验码" id="verify" onclick="smsverify()"/></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">{$lang.sms_verify_desc}</label></td>
+                     </tr>
+                     <tr>
+                         <td>支付密码:</td>
+                         <td><input type="password" id="tpwd" name="tpwd" class="text width10" maxlength="6"/></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">您交易时使用现金余额或PL币余额时使用的密码</label></td>
+                     </tr>
+                     <tr>
+                         <td>确认支付密码:</td>
+                         <td><input type="password" name="tpwd2" id="tpwd2" class="text width10" maxlength="6"/></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">重复输入您的支付密码</label></td>
+                     </tr>
+                     <tr>
+                         <td>{$lang.email}:</td>
+                         <td><input type="text" name="email" class="text width10" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">请输入一个有效的电子邮箱地址(非必填项)</label></td>
+                     </tr>
+                     <!--{if $captcha}-->
+                     <tr>
+                         <td>{$lang.captcha}:</td>
+                         <td>
+                             <input type="text" name="captcha" class="text" id="captcha1" />
+                             <a href="javascript:change_captcha($('#captcha'));" class="renewedly"><img id="captcha" src="index.php?app=captcha&amp;{$random_number}" /></a>
+                         </td>
+                         <td class="padding3 fontColor4"><label class="field_notice">{$lang.captcha_desc}</label></td>
+                     </tr>
+                     <!--{/if}-->
+                     
+                     <tr>
+                         <td>邀请人:</td>
+                         <!--{if $inviteinfo}-->
+	                         <td>{$inviteinfo.user_name}</td>
+	                         <input type="hidden" name="invite_id" value="{$inviteinfo.mobile}" id="invite_id"/>
+	                      <!-- {else} -->
+	                      <td><input type="text" name="invite_id" class="text" id="invite_id" maxlength="11"/> </td>
+	                      <td class="padding3 fontColor4"><label class="field_notice">邀请人的手机号(非必填项)</label></td>
+                          <!--{/if}-->
+                     </tr>
+                     <tr>
+                         <td></td>
+                         <td><input style="width:18px;position:relative;top:5px;*top:1px;height:18px;" id="clause" type="checkbox" name="agree" value="1" /> <label for="clause">{$lang.i_have_read} <a href="{url app=article&article_id=54}" target="_blank" class="agreement">{$lang.mall_eula}</a></label></td>
+                         <td></td>
+                     </tr>
+                     <tr>
+                         <td></td>
+                         <td colspan="2"><input type="submit" name="Submit" value="" class="zhuce_btncr" /></td><input type="hidden" name="ret_url" value="{$ret_url}" />
+                     </tr>
+                 </table>
+			</form>
+	   	</div>
+      		   <div class="zhuce_3_right">
+                         <div class="zhuce_r">
+       <p>我已经是派啦网会员，<input style="width:97px;height:31px;*position:relative;top:10px;" type="button" onclick="window.location.href='index.php?app=member&act=login&ret_url='" class="signbutton" name="submit_btn" />
+          </p>
+       </div>
+	       <div class="zhuce_3_right1">
+
+<p>提示：请填写真实有效的信息，以便于办理业务。我们承诺不向第三方提供信息。</p>
+
+		     <h4>为什么要注册派啦网会员？</h4>
+			 <ul>
+			 <li>购买到优质又实惠的产品</li>
+			 <li>获得更贴心的服务与更多的回报</li>
+			 <li>建立属于自己的个性化商铺</li>
+			 <li>获取更多的客户利润</li>
+			 </ul>
+			  
+		   </div>
+		   <div class="zhuce_3_right1">
+		     <h4>为什么要手机验证？</h4>
+			 <ul>
+			 <li>手机验证完全免费</li>
+			 <li>手机找回密码更方便</li>
+			 <li>支持手机号码登录</li>
+			 <li>获得更多帐号安全服务</li>
+			 </ul>
+			  
+		   </div>
+		   
+	   </div>
+   </div>
+</div>
+</div>
+
+<div class="signfoot">
+<div class="content">
+	<ul>
+	     <!-- {foreach from=$about item=a name=about_info} -->
+	 	 <!-- {if $smarty.foreach.about_info.last} -->
+	     <a href="index.php?app=article&article_id={$a.article_id}">
+	       {$a.title}
+	     </a>
+	     <!-- {else} -->
+	     <a href="index.php?app=article&article_id={$a.article_id}">
+	       {$a.title}
+	     </a>
+	     |
+	     <!-- {/if} -->
+  <!-- {/foreach} -->
+	</ul>
+</div>
+</div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+var wait = 300; //设置秒数(单位秒)
+var secs = 0; //倒计时剩余秒数
+function smsverify(){
+	var mobile = $("#mobile").val();
+	$('#verify').attr('disabled',"true");
+	$.ajax({ 
+      type:"POST",
+      data:"mobile="+mobile,
+      url:"index.php?app=member&act=send_sms_verify",
+      success:function(data){
+        		var d = DialogManager.create('show_error');
+        		d.setWidth(400);
+        		//alert(parseInt(data);
+				switch (parseInt(data)){
+					case 1:
+						d.setContents('message', {type:'warning', text:'手机号码不能为空！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 2:
+						d.setContents('message', {type:'warning', text:'手机号码输入不正确！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 3:
+						d.setContents('message', {type:'warning', text:'手机号码已存在，请重新输入！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 4:
+						d.setContents('message', {type:'notice', text:'短信验证码已经发送到您的手机上！'});
+						for(var i=0;i<=wait;i++) {
+							 window.setTimeout("sTimer("+i+")",i*1000);
+						}
+						break;
+					case 5:
+						d.setContents('message', {type:'warning', text:'短信验证码发送失败！'});
+						$('#verify').removeAttr("disabled");
+						break;
+					case 6:
+						d.setContents('message', {type:'warning', text:'对不起，每个手机号每天只能接收5次短信校验码！'});
+						$('#verify').removeAttr("disabled");
+						break;
+				}
+				d.show('center');
+        }
+	});
+}
+//自定义倒计时函数
+function sTimer(num) {
+	 if(num==wait)  {
+		 $('#verify').removeAttr("disabled");
+		 $('#verify').attr('value',"获取效验码");
+	 }else{
+	  	 secs=wait-num;
+	  	 $('#verify').attr('value',secs+"秒");
+	 } 
+}
+</script>

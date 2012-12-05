@@ -1,0 +1,32 @@
+<div class="plm_top_r_ancmt ancmt">
+                    <ul class="plm_ancmt_ttl ancmt_ttl">
+                       <li class="pass pass1 pass2">
+                          <h4>¥Ÿœ˙–≈œ¢</h4>
+                       </li>
+                    </ul>
+                    <!-- {foreach from=$widget_data item=data name=all} -->
+                    <div class="ancmt_box">
+                    <ul class="plm_ancmt_ctt ancmt_ctt"  <!-- {if $smarty.foreach.all.first} -->id="ancmt_ctt_show"<!-- {/if} -->>
+                    <!-- {foreach from=$data item=left} -->
+                       <li>
+                          <a href="{$left.url}">{$left.title}</a>
+                       </li>
+                    <!-- {/foreach} -->
+                    </ul>
+                    </div>
+                    <!-- {/foreach} -->
+                </div>
+                <script typt="javascript">
+                $(function(){
+                	$(".ancmt_ttl").each(function(i){
+                			$(".ancmt_ttl").eq(i).find("li").each(function(index){
+                			        $(this).mouseover(function(){
+                			              $(".ancmt_ttl").eq(i).parents(".ancmt").find(".ancmt_box ul").attr("id","");
+                			              $(".ancmt_ttl").eq(i).find("li").removeClass("pass2");
+                			              $(".ancmt_ttl").eq(i).parents(".ancmt").find(".ancmt_box ul").eq(index).attr("id","ancmt_ctt_show");
+                			              $(".ancmt_ttl").eq(i).find("li").eq(index).addClass("pass2");
+                		            });
+                	        });
+                    });
+                })
+                </script>

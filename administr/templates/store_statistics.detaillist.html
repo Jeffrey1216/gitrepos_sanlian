@@ -1,0 +1,89 @@
+{include file="header.html"}
+<style media="print">
+	.noprint {
+		display:none;
+}
+</style>
+<OBJECT id="WebBrowser" height="0" width="0" classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>
+<div class="print">
+<div class="tablearea">
+<table cellpadding="0" cellspacing="0" class="table01">
+<tr>
+<td class="td_l"><img src="{$site_url}/themes/mall/default/styles/default/images/logo_03.gif"/></td>
+<td class="td_r">
+<div>地&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; 址：江西省南昌市昌北经济技术开发区<br/>双港西大街528号北大科技园B座1-2座</div>
+<div>客服热线：400-166-1616</div>
+<div>传  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  真：0791-87576988</div></td>
+</tr>
+<tr><td colspan="5"><div class="line"></div></td></tr>
+<tr>
+<td colspan="2" class="title">派啦网零售商品清单</td>
+</tr>
+<tr>
+<td>订&nbsp;&nbsp;单&nbsp;&nbsp;编&nbsp;号：{$order.order_sn}</td>
+<td>下&nbsp;单&nbsp;时&nbsp;&nbsp;间：{$order.add_time|date:Y-m-d H:i}</td>
+</tr>
+<tr>
+<td>买&nbsp;家&nbsp;名&nbsp;&nbsp;称：{$order.buyer_name}</td>
+<td>卖&nbsp;家&nbsp;名&nbsp;&nbsp;称：{$order.seller_name}</td>
+</tr>
+<tr>
+<td>收货人姓名：{$order_extm.consignee|escape}</td>
+<td>地&nbsp;区&nbsp;邮&nbsp;&nbsp;编：{$order_extm.zipcode}</td>
+</tr>
+<tr>
+<td>收货人电话：{$order_extm.phone_tel|default:未填写}</td>
+<td><b>{$lang.order_status}：&nbsp;</b>{if $order.status==11}等待店铺付款{elseif $order.status==20}店铺已付款{elseif $order.status==30}商城已发货{elseif $order.status==40}交易成功{elseif $order.status==50}退款中{elseif $order.status==60}退款完成{elseif $order.status==0}交易取消{/if}</td>
+</tr>
+<tr>
+<td>收货人手机：{$order_extm.phone_mob|default:未填写}</td>
+<td>配&nbsp;送&nbsp;&nbsp;方&nbsp;&nbsp;式：{$order_extm.shipping_name|default:免邮费}</td>
+</tr>
+<tr>
+<td colspan="2">收&nbsp;货&nbsp;地&nbsp;&nbsp;址：{$order_extm.region_name} {$order_extm.address}</td>
+</tr>
+</table>
+
+<table cellpadding="0" cellspacing="0" class="table02">
+<colgroup>
+<col width="10px"/>
+<col width="300px"/>
+<col width="100px"/>
+<col width="30px"/>
+<col width="30px"/>
+<col width="20px"/>
+</colgroup>
+<tr><td>序号</td>
+<td>商品名称</td>
+<td>商品规格</td>
+<td>数量</td>
+<td>批发价</td>
+<td>总金额</td>
+</tr>
+<!--{foreach from=$goods_list item=goods name=goods}-->
+<tr>
+<td>{$smarty.foreach.goods.iteration}</td>
+<td>{$goods.goods_name|escape}</td>
+<td>{$goods.specification|default:-}</td>
+<td>{$goods.quantity}</td>
+<td>{$goods.price}</td>
+<td>{$goods.price_total}</td>
+</tr>
+<!-- {/foreach} -->
+<tr>
+<td colspan="6" align="right">总计：{$order.goods_amount|price}</td>
+</tr>
+<tr>
+<td colspan="6" style="text-align:right">
+运费:{$order_extm.shipping_fee|price}&nbsp;&nbsp;
+实付款:{$order.pay_amount|price}&nbsp;&nbsp;
+欠款:{$order.arrears_amount|price}
+</td>
+</tr>
+</table>
+</div>
+<div style="text-align:center">
+<span class="noprint" >
+<input onclick="javascript:window.print()" type="button" value="打印"> 
+</span></div>
+</div>

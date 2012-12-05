@@ -1,0 +1,54 @@
+<div class="green_block">
+	<div class="green_block_tit">
+		绿色情报站
+	</div>
+	<div class="green_block_body">
+		<div class="l green_body">
+			<!--绿色情报站左侧 循环模块start-->
+			<!-- {foreach from=$infor.mation item=inf} -->
+			<div class="green_body_list">
+				<div class="l">
+					<a href="index.php?app=article&article_id={$inf.article_id}"><img src="http://img.paila100.com/{$inf.image0}" width ="124px;" height="105px" /></a>
+				</div>
+				<div class="l green_list_text">
+					
+					<a href="index.php?app=article&article_id={$inf.article_id}">
+						<b>{$inf.title}{$inf.img0}</b>
+					</a>
+						<p>							
+								{$inf.content|escape}
+						</p>
+
+					<a class="r" href="index.php?app=article&cate_id=31">更多&gt;&gt;</a>
+				</div>				
+			</div>
+			<!-- {/foreach} -->
+			<!--绿色情报站左侧 循环模块END-->
+		</div>
+		<div class="r hot_assess">
+			<div id="assess_tit" class = "news_tit">
+				<div class="news_tit_text">
+					<h3>热评商品</h3>
+				</div>
+			</div>
+			<!--绿色情报站-热评商品 START-->
+			<!-- {foreach from=$infor.commit item=comm} -->
+			<ul class="goods_80">
+				<li class="l mr_10">
+					<a href="index.php?app=goods&id={$comm.gs_id}">
+						<img class="img_80" src="{$comm.simage_url}"/>
+					</a>
+				</li>
+				<li class="l">
+					<span class="blue_col blue_margin">{$comm.buyer_name}(会员)</span>
+					<p>
+						<a href="index.php?app=goods&act=comments&id={$comm.gs_id}#module">{$comm.comment}</a>
+					</p>
+				</li>
+			</ul>
+			<!-- {/foreach} -->
+			<!--绿色情报站-热评商品 end-->
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

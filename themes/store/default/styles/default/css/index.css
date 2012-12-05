@@ -1,0 +1,79 @@
+
+/****************************************start content**********************************/
+.banner{height: 369px;width: 805px;float: right;overflow: hidden;}
+.ancmt,.hot_sale{height: 165px;width: 195px;border: 1px solid #d9d9d9;float: left;margin-top: 5px;}
+.ancmt{overflow: hidden;}
+.ancmt_ttl{height: 34px;}
+.ancmt_ttl li{width: 97px;line-height: 34px;text-align: center;float: left;cursor:pointer}
+.pass{border-bottom: 1px solid #d9d9d9;border-left: 1px solid #d9d9d9;}
+.pass1{border-left: none;}
+.pass2{border-bottom: none;color:#ff0000}
+.ancmt_ctt{display: none;}
+#ancmt_ctt_show{display: block;}
+.ancmt_ctt li{width: 190px;margin: 12px 0 0 15px;_margin: 12px 0 0 7px;float: left;overflow: hidden;}
+#ancmt_ctt_show li a{color:#666}
+.hot_sale{width: 792px;float: right;position:relative;}
+.hot_ttl{position: absolute;background: url(../images/ico_02.gif) no-repeat 0 -145px;height: 32px;width: 125px;text-align: center;line-height: 28px;top: -5px;}
+.hot_ttl h3{color: #fff;}
+.hot_sale ul li{float: left;width: 264px;}
+.paila_mall{border: 1px solid #d7d7d7;margin-top: 10px;}
+.plm_ttl{height: 33px; border-bottom: 2px solid #dd2123;background: url(../images/ico_01.gif) repeat-x 0 -543px;}
+.plm_ttl_img{height: 34px;width: 132px;background: url(../images/ico_02.gif) no-repeat 0 -94px;position: relative;left: -3px;_top: 1px;}
+.plb_ttl_img{background: url(../images/ico_02.gif) no-repeat 0 3px;}
+.agri_ttl_img{background: url(../images/ico_02.gif) no-repeat 0 -46px;}
+.plm_ttl li{float: left;line-height: 33px;}
+.plm_ttl_l{color: #f00;font-weight: bold;height: 30px;width: 330px;overflow: hidden;margin-left: 20px;}
+.plm_ttl_m{margin-left: 40px;width: 380px;height: 30px;overflow: hidden;}
+.plm_ttl_m a{padding:0 6px;}
+.plm_ttl_r{margin-left:45px;}
+.plm_add{height: 230px;overflow: hidden;margin:15px 0;}
+.plm_add_l{float:left;}
+.plm_add_gap{margin: 2px 0;*margin: 4px 0;margin: 4px 0\0;}
+.plm_add_m{float: left;margin-left: 12px;position: relative;}
+.plm_add_m li img{width:498px;height:230px;}
+.plm_add_l li img,.plm_add_r li img{width:238px;height:75px;}
+.plm_add_none{display: none;position: absolute;}
+.plm_add_r{float: right;}
+.plm_add_clk{position: absolute;top: 210px;left: 430px;width: 60px;}
+.plm_add_clk div{float: left;height: 15px;width: 15px;background: #848484;margin-right: 5px;display: inline;cursor:pointer;}
+.plm_add_clk .clk_img_bg{background: #dd1012;}
+.plm_gds{height: 220px;}
+.plm_gds li{width: 198px;overflow: hidden;float: left;}
+.plm_gds li p{height: 26px;overflow: hidden;padding: 2px 4px;}
+.plm_gds_img{display: block;margin: 0 auto;width: 160px;height: 160px;overflow: hidden;}
+.plm_gds_prc{display: block;padding: 2px 4px;height: 14px;overflow: hidden;}
+.plm_gds_prc em{ font-style:normal;}
+.bottom_add{width: 998px;overflow: hidden;height: 90px;border: 1px solid #d7d7d7;margin: 10px 0;}
+.bottom{width: 1000px;margin-top: 10px;}
+.bottom_l{border: 1px solid #d7d7d7;height: 320px;width: 318px;float: left;}
+.map{height: 282px;overflow: hidden;}
+.bottom_m{width: 338px;margin: 0 10px;}
+.btm_m_img{height: 106px;overflow: hidden;}
+.btm_l_ttl{height: 37px;border-bottom: 1px solid #d7d7d7;background: url(../images/ico_01.gif) repeat-x 0 -543px;line-height: 37px;}
+.bottom_m h3 a{margin-left: 34px;}
+.btm_l_ttl h3{color: #f00;margin-left: 6px;}
+.btm_l_more h3 a{margin-left: 15px;color: #f00;}
+.btm_l_ttl h3 a{font-size: 12px;font-weight: normal;color: #f00;padding-left:10px;}
+.btm_l_ttl h3 span{color: #666;font-size: 12px;font-weight:normal}
+.plb_ttl{border-bottom: 2px solid #f56f37;}
+.plb_ttl_l{color: #eb581b;}
+.plb_ttl_r{color: #eb581b;}
+.agri_ttl{border-bottom: 2px solid #52aa53;}
+.agri_ttl_l,.agri_ttl_r a{color: #249625;}
+.plb_trade{height: 174px;overflow: hidden;border: none;border-top: 1px solid #d7d7d7;margin: auto;width: auto;}
+.trade_sort{height: 32px;}
+.trade_ctt li{width: 336px;height: auto;margin: auto;}
+.trade_sort li{text-align: center;line-height: 32px;float: left;width: 83px;}
+.focus{color: #f00;font-weight: bold;width: 83px;}
+.blur{border-left: 1px solid #d7d7d7;border-bottom: 1px solid #d7d7d7;width: 84px;}
+.trade_inf{width: 100%;margin-top: 3px;}
+.trade_inf tr{height: 23px;}
+.trade_inf tr td{text-align: center; height: 18px;overflow: hidden;}
+.trade_number span{display: block;height: 18px;color: #fff;background: url(../images/ico_01.gif) no-repeat 0 -510px;float: left; width: 36px;line-height:18px;margin-left: 10px;_margin-left: 5px;}
+.trade_number div{float: left;margin-left: 10px;line-height: 19px;}
+.download{height: 282px;overflow: hidden;background: url(../images/download_bg.jpg) no-repeat;}
+.download1{margin: 20px 0 0 10px;}
+.download2{margin: 30px 0 0 80px;}
+/****************************************end content**********************************/
+
+

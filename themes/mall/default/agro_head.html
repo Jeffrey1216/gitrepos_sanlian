@@ -1,0 +1,182 @@
+<div id="agr_head">
+	<div class="top_bg">
+	</div>
+	<div class="nav_bg">
+	</div>
+	<div class="top_content">
+		<div class = "top_menu">		
+		 <div class="loginbar_ctt">
+            <div class="loginbar_l">
+               	<a href="index.php">返回派啦网首页</a>   {$visitor.user_name|escape}<span>
+                 <!--{if !$visitor.user_id}-->
+                 <a href="{url app=member&act=login}">登录</a></span>/<span><a href="{url app=member&act=register}">免费注册</a>
+                 <!--{else}-->
+                 <a href="{url app=member&act=logout}">退出</a>
+                 <!--{/if}-->
+                 </span>
+            </div>
+            <div class="loginbar_r">
+            <div style="left:60px;height:32px;line-height:32px;float:left;position:absolute;z-index:1000;margin-left:0px;">
+           <div id="navss">
+				<ul>
+					<li class="menu2" onMouseOver="this.className='menu1'" onMouseOut="this.className='menu2'">
+					<a style="margin-left:8px;_margin-left:4px;padding:0;" href="index.php?app=member">我的派啦<b></b></a>
+						 <div class="list">	       									
+			       <a href="{url app=buyer_order}">{$lang.my_order}</a>
+			       <a href="{url app=buyer_group_order}">{$lang.my_groupbuy}</a>
+			       <a href="{url app=my_question}">{$lang.my_question}</a>										  
+						 </div>
+					</li>
+				</ul>
+</div>
+</div>
+                | <a href="index.php?app=message&act=newpm">站内消息</a> | <a class="favorite" href="index.php?app=my_favorite">收藏夹</a> | <a href="index.php?app=download&act=Merchant">派啦店下载</a>| <a href="index.php?app=default&act=map">派啦店分布图</a> | <a href="{url app=article&act=help&article_id=11}">帮助中心</a>
+            </div>
+        </div>
+		</div>
+		<div class="top_logo">
+			<div class="agr_logo"><a  href="index.php?app=agro"><img src="{res file=images/logo_green.gif}"/></a></div>
+			
+<div class="search_bg">
+			<div class="search2_box">
+
+			<div class="search_con">
+			<form action="" method="">
+				<input type="hidden" name='app' value='search'/>
+				<input type="hidden" name='act' value='index'/>
+				<input type="hidden" name="mall_type" value='1'/>
+				<div class="sel_box sel_hover">
+					<div class="sel_sed">
+						<span >{if $reg_name}{$reg_name.region_name}{else}选择分类{/if}</span>
+						<input class="sel_btn" type="button"/>
+					</div>					
+				</div>
+  			<input class="sel_input" type="text" name="keyword"/>
+				<input type="submit" class="sel_sub" value=""/>
+				<input type="hidden" name="cate_id" value="{$gcategory_st.cate_id}"/>	
+							
+			</form>
+			</div>
+				<div class="search_con">
+			<div class="hot_sel">热门搜索:
+
+			<a href="index.php?app=search&act=index&keyword=火腿&mall_type=1">火腿</a>
+			<a href="index.php?app=search&act=index&keyword=油&mall_type=1">油</a>
+			<a href="index.php?app=search&act=index&keyword=麻鸡&mall_type=1">麻鸡</a>
+			<a href="index.php?app=search&act=index&keyword=红菇&mall_type=1">红菇</a>
+
+			</div>	
+			</div>		
+	
+			<ul class="search_ul" style="display:none;">	
+			<!-- {foreach from=$agcate item=acate} -->
+				<li xiaoyu="{$acate.cate_id}" onclick="json(this);"  >{$acate.cate_name}</li>	
+			<!-- {/foreach} -->	
+			</ul>		
+			
+	</div>
+	</div>
+		</div>
+		<div class="nav_box">
+			<a class="nav_list" <!-- {if $index} --> id="nav_hover" <!-- {/if} --> href="index.php?app=agro">首页</a>
+			<!-- {foreach from=$navs item=gcate} -->
+			<span class="nav_line"></span>
+			<a class="nav_list" <!-- {if $gcate.cate_id eq $cate_id}--> id="nav_hover" <!-- {/if} -->  href="index.php?app=search&cate_id={$gcate.cate_id}&mall_type=1">{$gcate.cate_name}</a>
+			<!-- {/foreach} -->
+			<div class="shopping_cart">
+				<a class="cart_text" href="{url app=cart}">我的购物车&nbsp;<span class="red_col">{$cart_goods_kinds}</span>&nbsp;件</a>
+				
+				<div class="cart_pay_btn" onclick="window.location.href='{url app=cart}'"></div>
+			</div>			
+		</div>
+			
+		<div class="clear"></div>
+
+</div>
+
+</div>
+
+<script type="text/javascript">	   //搜索
+function json(obj)
+{
+	var cate_id = $(obj).attr("xiaoyu");
+	var url = "index.php?app=search&act=edit";
+	$("ul[typedef=\"cate\"]").empty();
+	$.getJSON( url ,
+		{
+			cat : cate_id 
+		},			
+		function(data){
+			if (data.done) 
+			{
+				for (var i in data.retval)
+				{
+					$("ul[typedef=\"cate\"]").append("<li xiaoyu=\"" + data.retval[i].cate_id +"\""+"onclick=\""+"json1(this)"+"\">" + data.retval[i].cate_name + "</li>").live("mouseover",function(){
+						$(function(){
+							var sel_box=null;
+							var search_ul =$(".search_ul");
+									$(".search_ul li").click(
+									function(){
+										$(".sel_hover span").text($(this).html())
+										search_ul.hide();
+									})			
+							})
+					});
+				}
+			} else {
+				alert(data.msg);
+			}
+		}
+	);
+	//alert($(obj).attr('xiaoyu'));
+	$("input[name=\"cate_id\"]").remove();
+	$("<input>", {
+		  type: "hidden",
+		  name: "cate_id",
+		  val: cate_id,
+		  focusin: function() {
+		    $(this).addClass("active");
+		  },
+		  focusout: function() {
+		    $(this).removeClass("active");
+		  }
+		}).appendTo("form");
+};
+$(function(){
+	$(".mypl_ctt").mouseover(function(){
+		$(".mypl_list").show();
+	});
+	$(".mypl_ctt").mouseout(function(){
+		$(".mypl_list").hide();
+	});
+});
+
+$(function(){
+	var search_ul =$(".search_ul");
+	var sel_box = $(".sel_box");
+		sel_box.each(
+		function(i){
+			$(this).click(
+			function(){
+				if(search_ul.eq(i).css("display")=="none")
+				{
+				search_ul.hide();
+				search_ul.eq(i).show();
+				sel_box.removeClass("sel_hover");
+				sel_box.eq(i).addClass("sel_hover");
+				}
+				else{
+					search_ul.eq(i).hide();
+					sel_box.removeClass("sel_hover");
+				}
+			})
+		$(".search_ul li").click(
+			function(){
+				$(".sel_hover span").text($(this).html())
+				search_ul.hide();
+				sel_box.removeClass("sel_hover");
+		})	
+	})			
+});	
+
+</script>

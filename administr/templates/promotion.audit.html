@@ -1,0 +1,65 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p>{$lang.promotion}</p>
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=promotion&amp;act=audit&status=0">待审核</a></li>
+        <li><a class="btn1" href="index.php?app=promotion&amp;act=audit&status=10">已通过</a></li>
+        <li><a class="btn1" href="index.php?app=promotion&amp;act=audit&status=11">未通过</a></li>
+        <li><a class="btn1" href="index.php?app=promotion&amp;act=audit&status=20">已关闭</a></li>
+    </ul>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+
+  </div>
+	<div class="fontr">
+		<div class="page">
+		{include file="page.top.html"}
+		</div>
+	</div>
+</div>
+<div class="tdare info">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <!--{if $promotion_info}-->
+        <tr class="tatr1">
+            <td align="left">{$lang.goods_name}</td>
+            <td align="left">{$lang.spce_name}</td>
+            <td align="left">{$lang.spce_type}</td>
+            <td align="left">{$lang.pr_price}</td>
+            <td align="left">{$lang.pr_credit}</td>
+            <td align="left">{$lang.pr_time}</td>
+            <td align="left">{$lang.store_name}</td>
+            <td align="left">{$lang.pr_status}</td>
+            <td align="left">{$lang.operation}</td>
+        </tr>
+        <!--{/if}-->
+        <!--{foreach from=$promotion_info item=promotion}-->
+        <tr class="tatr2">
+            <td align="left">{$promotion.goods_name}</td>
+           	<td align="left">{$promotion.spec_name_1}|{$promotion.spec_name_2}</td>
+           	<td align="left">{$promotion.spec_1}|{$promotion.spec_2}</td>
+           	<td align="left">{$promotion.pr_price}</td>
+           	<td align="left">{$promotion.pr_credit}</td>
+           	<td align="left">{$promotion.pr_addtime|date}|{$promotion.pr_addtime|date}</td>
+           	<td align="left">{$promotion.store_name}</td>
+           	<td align="left">{if $promotion.pr_status eq 0}{$lang.status0}{/if}{if $promotion.pr_status eq 10}{$lang.status10}{/if}{if $promotion.pr_status eq 11}{$lang.status11}{/if}{if $promotion.pr_status eq 20}{$lang.status20}{/if}</td>
+           	<td align="left">
+	           	{if $promotion.pr_status eq 0}
+	           	<a href="{url app=promotion&act=varify&pr_id=$promotion.promotion_id}">{$lang.varify}</a>
+	           	{else}
+	           	<a href="{url app=promotion&act=check&pr_id=$promotion.promotion_id}">{$lang.check}</a>
+	           	{if $promotion.pr_status eq 10}
+	           	|<a href="{url app=promotion&act=edit&pr_id=$promotion.promotion_id}">{$lang.edit}</a>
+	           	{/if}
+	           	{/if}
+           	</td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="7">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    {include file="page.bottom.html"}
+</div>
+{include file="footer.html"}

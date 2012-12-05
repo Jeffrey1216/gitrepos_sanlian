@@ -1,0 +1,52 @@
+<div id="header_bg">
+		<div id="header">
+			<div class="top">
+						<div class="top_left">
+					<a href="index.php?app=article&act=channel&article_id=55" style="color:#bf1412">团购专区</a>
+						</div>
+	            		<div class="top_right">
+		            		<div style="float:left">
+		            		欢迎来到派啦网！<span style="padding-right:5px;color:#505050">{$visitor.user_name|escape}
+			                	<!--{if !$visitor.user_id}-->&nbsp;
+			            		请先 [ <a href="{url app=member&act=login}">登录</a> ] 或 [ <a href="{url app=member&act=register}">注册</a> ]
+			           			<!--{else}--> 
+			           			[<a href="{url app=member&act=logout}">退出</a>]
+			           			<!--{/if}-->	
+								</span>							
+								<a href="{url app=message&act=newpm}" class="note"><span style="padding:0 0 0 5px;color:#505050">站内消息</span>
+									<!--{if $new_message}-->({$new_message})<!--{/if}-->
+								</a>
+								<span>|</span>
+							</div>
+							<div style="width:65px;height:30px;float:left;margin-left:0px;">
+								<div id="navss">
+	    							<ul>
+	    								<li class="menu2" onMouseOver="this.className='menu1'" onMouseOut="this.className='menu2'">
+	    									<a style="margin-left:8px;_margin-left:4px;padding:0;" href="index.php?app=member">我的派啦</a>
+	    									<img src="{res file=images/gif.gif}"/>   
+	    									<div class="list" >	       									
+											       <a href="{url app=buyer_order}">{$lang.my_order}</a>
+											       <a href="{url app=buyer_group_order}">{$lang.my_groupbuy}</a>
+											       <a href="{url app=my_question}">{$lang.my_question}</a>										  
+	   										 </div>
+	    								</li>
+	   								 </ul>
+								</div>
+							</div>
+							<span style="padding-left:5px;">|</span>
+							<a  href="{url app=article&act=help&article_id=11}" class="question">帮助中心</a>	           
+						</div>	            
+	        		</div>
+			<div class="label">
+				<a href="index.php?app=group_project"><img src="{res file=topics/seckill_groupbuy/images/paila_logo.gif}"/>
+				<h1>团购频道</h1></a>
+				
+			</div>
+			<div class="nav">
+				<a  href="index.php">首页</a>
+				<a {if $index eq 1}class="nav_bg"{/if} href="index.php?app=group_project">今日团购</a>
+				<a {if $index eq 2}class="nav_bg"{/if} href="index.php?app=group_project&act=pastGroupBuy">往期团购</a>
+			</div>
+		
+		</div>
+	</div>

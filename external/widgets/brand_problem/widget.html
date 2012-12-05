@@ -1,0 +1,43 @@
+<div class="index_case_r" style="display:block;float:left;">
+            <div class="index_oncs">
+                <div class="index_login_ttl">
+                    <h3>在线客服</h3>
+                </div>
+                <ul class="index_oncs_ctt">
+                    <li class="index_oncs_cons">
+                       售前咨询<a href="http://wpa.qq.com/msgrd?%0D%0A%0D%0Av=3&amp;amp;uin=1845772484&amp;amp;site=qq&amp;amp;menu=yesQQ%C1%AC%BD%D3"><span class="index_oncs_ico1"></span></a>
+                  <a href="http://www.taobao.com/webww/?ver=1&&touid=cntaobao派啦购物网&siteid=cntaobao&status=2&portalId=&gid=$bizOrder.itemID:派啦购物网&itemsId="><span class="index_oncs_ico2"></span></a>
+                    </li>
+                    <li class="index_oncs_cons">
+                       售后咨询<a href="http://wpa.qq.com/msgrd?%0D%0A%0D%0Av=3&amp;amp;uin=1845772484&amp;amp;site=qq&amp;amp;menu=yesQQ%C1%AC%BD%D3"><span class="index_oncs_ico1"></span></a>
+                <a href="http://www.taobao.com/webww/?ver=1&&touid=cntaobao派啦购物网&siteid=cntaobao&status=2&portalId=&gid=$bizOrder.itemID:派啦购物网&itemsId="><span class="index_oncs_ico2"></span></a>
+                    </li>
+                    <li class="index_oncs_phone">
+                       全国客服热线：400-166-1616
+                    </li>
+                    <li class="index_oncs_phone">
+                       产品 招 商：0791-86100991
+                    </li>
+                    <li class="index_oncs_phone">
+                       加盟店招商：0791-86383383
+                    </li>
+                </ul>
+            </div>
+            <div class="index_oncs index_faq">
+                <div class="index_login_ttl">
+                    <h3>常见问题</h3>
+                </div>
+                <ul class="index_faq_ctt">
+                <!-- {foreach from=$widget_data.brand item=da} -->
+                    <li><a href="index.php?app=article&act=brand&article_id={$da.article_id}"><span style="float:left;height:15px;*height:14px;width:140px;overflow:hidden;cursor:pointer">{$da.title|truncate:20}</span></a><span style="float:right;cursor:pointer;padding-right:5px;">{$da.add_time}</span></li>
+                <!-- {/foreach} -->
+                </ul>
+            </div>
+            <div class="index_case_ad">
+            <!-- {foreach from=$widget_data.images item=image} -->
+         
+            <a href="index.php?app=brand_mandate&act=formlist"><img Src="{$image.img}"  title="{$image.title}" alt="{$image.title}"/></a>
+    	<!-- {/foreach} -->
+
+            </div>
+        </div>

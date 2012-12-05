@@ -1,0 +1,90 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    // multi-select mall_gcategory
+    $('#gcategory').length>0 && gcategoryInit("gcategory");
+    $('#time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+//]]>
+</script>
+ 
+<div class="tdare">
+	<table cellpadding="1" cellspacing="1" width="100%" class="tblist2">
+        <tr>
+        	<td>
+                <ul class="subnav3">   	
+                    <li class='on'><a>{$lang.goods_sales_rank}<span></span></a></li>
+                </ul>
+        	</td>        
+        </tr>
+    </table>
+    <table cellpadding="1" cellspacing="1" width="100%" class="tblist">
+        <tr>
+        	<td class="sch" style="text-align:left; padding-left:8px;">
+                    <div class="fontl">
+                     <form method="get" >     
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$lang.goods_name}:<input class="queryInput" type="text" name="goods_name" value="{if !empty($goods_name)}{$goods_name}{/if}"/>
+  	付款时间:<input class="queryInput3"  type="text" value="{$query.add_time_from}" id="time_from" name="time_from"/>
+  	-	<input class="queryInput3" type="text"  value="{$query.add_time_to}" id="time_to" name="time_to"/>
+	  <input type="hidden" name="app" value="sales_rank"/>
+	  <input type="hidden" name="act" value="index"/>
+	  <input type="hidden" name="status" value="{$sta}" />
+   <input type="submit" class="formbtn" value="查询" />
+   </form>
+                    </div>
+			<div class="fontr">
+       {if $page_info}{include file=page.top.html}{/if}
+    </div>
+        	</td>
+        </tr>
+    </table>
+	
+  <table class="tblist" width="100%" cellspacing="1" cellpadding="0">
+    <tr>
+      <td  class="firstCell">{$lang.number}</td>
+      <td>{$lang.goods_number}</td>
+      <td>{$lang.sales_quantity}</td>
+      <td>{$lang.goods_name}</td>
+      <td>{$lang.goods_spec}</td>
+      <td>{$lang.supply_name}</td>
+      <td>{$lang.supply_id}</td>
+      
+      <td>{$lang.whole_price}</td>
+      <td>{$lang.sales_price}</td>
+      <td>{$lang.sum_sales_price}</td>
+      <td>{$lang.give_ecredit}</td>
+      <td>{$lang.member_cate}</td>
+      <td>{$lang.member_obtain}</td>
+    </tr>
+    
+    <!-- {foreach from=$goods_info key=key item=goods name=goods} -->
+    <tr class={cycle values="tr1","tr2"}>
+      <td class="firstCell">{$goods.index}</td>
+      <td>{$goods.goods_id|escape}</td>
+      <td style="color:red">{$goods.sum_quantity|escape}</td>
+      <td>{$goods.goods_name|escape}</td>
+      <td>{$goods.specification|escape}</td>
+      <td>{$goods.supply_name|escape}</td>
+      <td>{$goods.supply_id|escape}</td>
+      <td>{$goods.zprice|escape}</td>
+      <td>{$goods.price|escape}</td>
+      <td>{$goods.sum_price|escape}</td>
+      <td>{$goods.sum_credit|escape}</td>
+      <td>{$goods.member_cate|escape}</td>
+      <td>{$goods.member_obtain|escape}</td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="13">{$lang.no_such_goods}</td>
+    </tr>
+   <!--{/foreach}-->
+  </table>
+</div>
+
+   <div class="pageLinks"> 
+            {if $page_info}{include file=page.bottom.html}{/if}
+        </div>
+  <div class="clear"></div>
+{include file="footer.html"}

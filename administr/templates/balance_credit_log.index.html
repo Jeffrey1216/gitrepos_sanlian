@@ -1,0 +1,79 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<style type="text/css">
+.querySelect{width:80px;height:20px;}
+</style>
+<div id="rightTop">
+    <ul class="subnav">
+        <li><span>{$lang.manage}</span></li>
+    </ul>
+</div>
+<form method="post">
+<div class="mrightTop"> 
+<span>记录类型:</span> 
+<select name="change_type">
+<option value="0">全部类型</option>
+<!-- {foreach from=$change_type item=val key=key} -->
+<option value="{$key}">{$val}</option>
+<!-- {/foreach} -->
+</select>
+<span>记录时间:</span>
+<select name="change_date_level">
+<option value="0">全部记录</option>
+<!-- {foreach from=$date_levels item=item key=key} -->
+<option value="{$key}">{$item.text}</option>
+<!-- {/foreach} -->
+</select>
+<input type="submit" value="查询" class="formbtn">
+</div>
+</form>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <tr class="tatr1">
+            <td width="10%" class="firstCell"><span>用户(NAME|MOBILE)</span></td>
+            <td>时间</td>
+            <td width='10%'><span>冻结金额</span></td>
+            <td width="10%"><span>金额</span></td>
+            <td width="10%"><span>冻结积分</span></td>
+            <td width="10%"><span>积分</span></td>
+            <td width="15%"><span>操作类型</span></td>
+            <td>订单号</td>
+            <td width="20%"><span>描述信息</span></td>
+        </tr>
+        <!-- {foreach from=$list item=val} -->
+        <tr class="tatr2">
+            <td class="firstCell">{$val.user_name}|{$val.mobile}</td>
+            <td>{$val.change_time|date:Y-m-d H:m:s}</td>
+            <td>{$val.frozen_money|price}</td>
+            <td>{$val.user_money|price}</td>
+            <td>{$val.frozen_credit}PL</td>
+            <td>{$val.user_credit}PL</td>
+            <td>{$change_type.$val.change_type}</td>
+            <td>{$val.order_id}</td>
+            <td><span title="{$val.change_desc}">{$val.change_desc|truncate:50}</span></td>
+        </tr>
+        <!-- {/foreach} -->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}
+<script type="text/javascript">
+$(function(){
+	$("#credit").change(function(){
+        var val = $('#credit').val();
+        $('.two_grade').hide();
+        $('#opt'+val).show();
+	})
+})
+
+</script>

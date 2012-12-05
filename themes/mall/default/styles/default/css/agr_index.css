@@ -1,0 +1,102 @@
+/*
+*农业专区PUBLIC样式
+*/
+.col1{color:#a2a2a2;}
+.banner_size1{width:224px;height:136px;}
+
+/*
+*农业专区BODY
+*/
+#agr_content{margin-top:15px;}
+.menu_tbg{width:195px;height:28px;background-position:0 -110px;display:block;overflow:hidden;}
+.menu_bbg{width:195px;height:10px;background-position:0 -157px;overflow:hidden;}
+.menu_box{height:430px;border-left:1px solid #d5d5d5;border-right:1px solid #d5d5d5;width:193px;}
+.agro_menu_tit{font-size:14px;color:#449f1e;height:31px;*height:27px;line-height:31px;padding:0 6px;font-weight:700;display:block;overflow:hidden;}
+.menu_list{border-bottom:1px solid #e8e8e8;margin:0 5px;height:50px;overflow:hidden;}
+.menu_list li{float:left;margin:5px 6px;white-space:nowrap;display:inline;}
+.menu_list a{color:#a2a2a2;}
+#menu_border{border-bottom:0 none;}
+/*** 弹出菜单 ***/
+.menu_li_node{position:relative;border:2px solid #fff;}
+.sub_menu{position:absolute;left:191px;background:#fff;border:2px solid #449f1e;width:564px;display:none;z-index:99998}
+#cur_hover{border:2px solid #449f1e;position:relative;}
+.line{display:none;position:absolute;background:#fff;width:5px;height:82px;*height:81px;z-index:99999;right:-4px;top:0px;_top:2px;overflow:hidden;}
+.bottom_line{height:2px;width:195px;overflow:hidden;background:#449f1e;position:absolute;left:0;z-index:99999;}
+
+.trun_banner,.hot_goods{width:560px;border:1px solid #d8d8d8;}
+.trun_banner{height:253px;float:left;display:inline;}
+.trun_banner ul li{width:562px;height:253px;}
+.trun_banner ul img{width:564px;height:253px;}
+.trun_banner ol{right:5px;bottom:5px;left:auto;height:15px;}
+.trun_banner ol li{width:15px;height:15px;background:#fff;color:#50b200;margin-right:5px;line-height:15px;}
+.trun_banner .active{height:15px;width:15px;background:#50b200;color:#fff;}
+.hot_goods{height:195px;position:relative;}
+.hot_goods_tit{position:absolute;top:-7px;left:0;background-position:0 -800px;width:123px;height:30px;}
+
+.agr_news{width:224px;}
+.r_banner{width:222px;}
+.r_banner{height:136px;border:1px solid #a2e54c;margin-top:10px;overflow:hidden;display:block;}
+.news_tbg,.news_bbg{width:224px;height:7px;overflow:hidden;}
+.news_tbg{background-position:0 -175px;}
+.news_bbg{background-position:0 -199px;}
+.news_list{height:152px;overflow:hidden;border-left:1px solid #d5d5d5;border-right:1px solid #d5d5d5;}
+.news_list li{margin:5px;white-space:nowrap;line-height:19px;}
+.news_tit{border-bottom:1px solid #aede80;}
+.news_tit_text{border-bottom:2px solid #568c21;width:83px;font-size:12px;color:#1b8612;height:20px;margin-bottom:-1px;}
+/*** 商品展示PUBLIC框架 ***/
+.goods_box{border:1px solid #e0e0e0;margin-bottom:15px;overflow:hidden;}
+.goods_tit_box{height:31px;line-height:31px;border-bottom:2px solid #9fce72;background-position:0 -1437px;}
+.goods_tit_box a{margin:0 8px;}
+.goods_tit{float:left;width:105px;height:31px;}
+.agr_more{color:#58961d;font-size:14px;font-weight:700;float:right;margin-right:10px;}
+/*** 排行榜 ***/
+.charts{width:210px;border-right:1px solid #d7d7d7;overflow:hidden;background:#f8fdef;}
+.charts_tit{height:30px;border-bottom:1px solid #d7d7d7;background-position:0 -1550px;}
+.charts ol{top:2px;width:60px;right:5px;left:auto;} 
+.charts ol li{background-position:0 -941px;width:8px;float:left;height:7px;color:#fea97b;font-weight:700;font-size:16px;margin:0px 2px;margin-top:10px;line-height:10px;overflow:hidden;}
+.charts .active{background-position:0 -926px;height:7px;}
+.charts{float:left;height:auto;}
+.charts ul{top:55px;}
+.charts .prev,.charts .next{position:absolute;top:5px;z-index:9999;color:#fea97b;font-weight:700;font-size:16px;cursor:pointer;}
+.charts .prev{right:70px;}
+.charts .next{right:0px;}
+.charts_banner{width:210px;height:112px;margin:0;padding:0;}
+.chart_banner_box{height:112px;overflow:hidden;width:210px;display:block;}
+.agr_photos{width:210px;height:235px;margin:25px 0 0 0;}
+.agr_photos ul li{width:210px;height:235px;}
+.agr_photos ul div{width:160px;margin:0 auto;}
+.agr_photos ul img{width:160px;height:160px;}
+
+.goods_banner{border-left:1px solid #d7d7d7;width:213px;height:408px;overflow:hidden;}
+.banner_size{width:215px;height:408px;}
+.goods_content{width:573px;overflow:hidden;}
+.goods_banner2{width:215px;overflow:hidden;}
+.banner_size2{width:215px;height:260px;}
+.agr_banner{height:90px;border:1px solid #d7d7d7;overflow:hidden;}
+.goods_content .img_120{margin-bottom:8px;}
+
+.green_body{width:374px;overflow:hidden;margin:10px 0px 0px 10px;display:inline;}
+.green_body_list{height:120px;margin-top:5px;}
+.green_block_tit{border-bottom:2px solid #9fce72;height:25px;line-height:25px;color:#568c21;font-size:14px;font-weight:700;margin:10px auto;}
+.green_block_body{background:#edf7db;padding-top:10px;margin-bottom:10px;}
+.green_body_list h4{font-size:12px;white-space:nowrap;margin-bottom:5px;}
+.green_body_list p{height:75px;line-height:25px;overflow:hidden;}
+.green_list_text{width:240px;overflow:hidden;margin-left:10px;}
+.hot_assess{background:#fff;width:565px;margin:10px;}
+#assess_tit{margin:10px;}
+#assess_tit h3{font-size:14px;}
+
+.agr_send{background-position:0 0;}
+.agr_hots{background-position:0 -35px;}
+.agr_new{background-position:0 -71px;}
+/*** 底部BANNER ***/
+#agr_servce li{float:left;height:80px;width:125px;margin:10px 20px;display:inline;cursor:pointer}
+.agr_ico0{background-position:0 -450px;}
+.agr_ico1{background-position:0 -361px;}
+.agr_ico2{background-position:0 -210px;}
+.agr_ico3{background-position:0 -622px;}
+.agr_ico4{background-position:0 -287px;}
+.agr_ico5{background-position:0 -543px;}
+/***********************************hzj 2012.05.30********************************/
+.blue_margin{margin:8px 0px 0px 0px;display:block}
+/*********************************************************************************/

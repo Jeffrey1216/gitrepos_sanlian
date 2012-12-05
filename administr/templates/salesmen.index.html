@@ -1,0 +1,41 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>业务员管理</p>
+  <ul class="subnav">
+    <li><span>{$lang.manage}</span></li>
+  </ul>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+      <td>会员名</td>
+      <td>真实姓名</td>
+      <td>电话</td>
+      <td>地区名</td>
+      <td>详细地址</td>
+      <td><span ectype="order_by" fieldname="last_login">职位</span></td>
+      <td class="handler">操作</td>
+    </tr>
+    <!-- {foreach from=$salesmen item=i} -->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" value="{$user.user_id}" /></td>
+      <td>{$i.user_name}</td>
+      <td>{$i.real_name}</td>
+      <td>{$i.tel_phone}</td>
+      <td>{$i.region_name}</td>
+      <td>{$i.address}</td>
+      <td>{$i.post}</td>
+      <td class="handler">
+      <span style="width: 100px">
+      <a href="index.php?app=salesmen&act=edit&id={$i.user_id}">编辑</a>|<a href="index.php?app=salesmen&act=drop&user_id={$i.user_id}">删除</a>
+      </span></td>
+    </tr>
+    <!-- {/foreach} -->
+    <tr class="no_data">
+      <td colspan="10">没有符合条件的记录</td>
+    </tr>
+
+  </table>
+</div>
+{include file="footer.html"}

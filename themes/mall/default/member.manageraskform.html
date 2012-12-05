@@ -1,0 +1,216 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<script type="text/javascript">
+$(function() {
+	regionInit("region");
+});
+function hide_error(){
+    $('#region').find('.error').hide();
+}
+
+</script>
+<script type="text/javascript">
+jQuery.validator.addMethod("cnCharset", function(value, element) {   
+	return this.optional(element) || /^[\u0391-\uFFE5]+$/.test(value);   
+	});
+$(function(){
+    $('#register_form').validate({
+        errorPlacement: function(error, element){
+            var error_td = element.parent('td').next('td');
+            error_td.find('.field_notice').hide();
+            error_td.append(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        onkeyup: false,
+        rules : {
+            real_name : {
+                required : true,
+                cnCharset: true,//启用中文验证
+                minlength: 2
+            },
+            identity_num : {
+                required : true,
+                minlength: 18
+            },
+            bank_name	 : {
+            	required : true
+            },
+            card_number	 : {
+            	required : true,
+            	number   : true,
+            	rangelength : [16,19]
+            },
+            identity_card:{
+				required:true,
+				accept: "jpg|jpeg|png|gif"
+			},
+            mobile : {
+                required : true,
+                number   : true,
+                rangelength : [11,11]
+            },
+            region_id : {
+            	required : true,
+                remote   : {
+                    url  : 'index.php?app=member&act=check_mgregion',
+                    type : 'get',
+                    data : {
+                        region_id : function(){
+                            return $('#region_id').val();
+                        }
+                    }
+                }
+            },
+            email : {
+                required : true,
+            	email    : true         
+            },
+            address : {
+                required : true
+            }
+        },
+        messages : {
+            real_name : {
+                required : '{$lang.user_name_required}',
+                cnCharset: '用户名只能是汉字！',//中文验证提示
+                minlength: '联系人姓名最少二个汉字'
+            },
+			identity_num:{
+				required : '请输入身份证号码',
+				idcard   : '身份证格式不对',
+				minlength: '请填写，18位身份证号',
+				remote   : '此身份证已注册'
+			},
+			bank_name	 : {
+            	required : '请选择开户银行'
+            },
+            card_number	 : {
+            	required : '请输入您的银行账号',
+            	number   : '银行账号必须是数字',
+            	rangelength : '银行账号必须是16到19位'
+            },
+            identity_card:{
+				required : '需要身份证正面图片',
+				accept   : '只支持jpg|jpeg|png|gif格式'
+			},
+            mobile : {
+                required : '{$lang.mobile_required}',
+                number : '{$lang.mobile_invalid}',
+                rangelength  : '{$lang.mobile_invalid}'
+            },
+            region_id : {
+            	required : '请选择',
+            	remote : '请选择地区到最后一级'
+            },
+            email  : {
+            	required : '{$lang.email_required}',
+                email    : '{$lang.email_invalid}'
+            },
+			address : {
+				required : "请输入详细地址"
+			}			
+        }
+    });
+});
+</script>
+<div class="content">
+    {include file=member.menu.html}
+	<div id="right">
+    	{include file=member.submenu.html}
+         <div class="wrap" style="padding:15px 0 0 0">
+           <div class="manager_info">
+		   <form name="" id="register_form" method="post" action="" enctype="multipart/form-data" >
+                 <table> 
+                 	<!-- {if $member} -->
+					<tr>
+					<th> 推荐人账号|手机号：</th>
+					<td><span>{$member.user_name}|{$member.mobile}</span>
+						<input type="hidden" name="inviter_param" class="text" value="{$member.user_name}"/>
+					</td>
+					</tr> 
+					<!-- {else} -->
+					<tr>
+						<th> 推荐人账号|手机号：</th>
+						<td>
+							<input type="text" name="inviter_param" class="text"/>
+						</td>
+					</tr>
+					<!-- {/if} -->
+                     <tr>
+                         <td>真实姓名:</td>
+                         <td><input type="text" id="real_name" name="real_name" class="text" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">用于验证你的团购员信息</label><label id="checking_user" class="checking">{$lang.checking}</label></td>
+                     </tr>
+					 <tr>
+						<td> 性   别：</td>
+						<td><label for="male"><input value="男" type="radio" name="sex" id="male" checked="checked"/> 男</label>
+						<label for="fmale"><input value="女" type="radio" name="sex" id="fmale"/>女</label></td>
+					</tr>
+					 <tr>
+                         <td>开户银行：</td>
+                         <td>
+                         <select name="bank_name" id="bank_name">
+							<!-- {html_options options=$bank} -->
+						 </select>
+                         </td>
+                         <td class="padding3 fontColor4"><label class="field_notice">您的开户银行</label></td>
+                     </tr>
+                     <tr>
+                         <td>开户卡号：</td>
+                         <td><input type="text" id="card_number" name="card_number" class="text" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">您的银行卡号</label></td>
+                     </tr>
+                     <tr>
+                         <td>身份证号：</td>
+                         <td><input type="text" id="identity_num" name="identity_num" class="text" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">您的真实身份证号</label></td>
+                     </tr>
+                     <tr>
+                         <td>身份证图：</td>
+                         <td><input type="file" class="text" name="identity_card" id="identity_card" value="浏览" ectype="change_store_logo"/></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">您的身份证正面</label></td>
+                     </tr>
+                     <tr>
+                         <td>联系电话:</td>
+                         <td><input type="text" name="mobile" id="mobile" class="text" maxlength="11"/></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">您的联系电话</label></td>
+                     </tr>
+					 <tr>
+                         <td>电子邮箱:</td>
+                         <td><input type="text" name="email" class="text" /></td>
+                         <td class="padding3 fontColor4"><label class="field_notice">请输入一个有效的电子邮箱地址</label></td>
+                     </tr>
+					<tr>
+						<td> 所在地区：</td>
+						<td>
+							<input type="hidden" name="region_id" id="region_id" class="mls_id" />
+							<input type="hidden" name="region_name" class="mls_names" />
+							<div id="region">
+								<select onchange="hide_error();">
+									<option>{$lang.select_pls}</option>
+									{html_options options=$regions}
+								</select>
+							</div>
+						</td>
+						<td class="padding3 fontColor4"><label class="field_notice">请选择您所属地区</label></td>
+					</tr>
+					<tr>
+						<td> 详细地址：</td>
+						<td><input class="text" type="text" name="address"/></td>
+						<td class="padding3 fontColor4"><label class="field_notice">请选择您在的详细地区</label></td>
+					</tr>
+                     <tr>
+                         <td></td>
+                         <td colspan="2"><input type="submit" name="Submit" value="提交" class="zhuce_btncr" /></td>
+                     </tr>
+                 </table>
+			</form>
+         </div>
+		</div>
+    </div>
+</div>
+{include file=footer.html}

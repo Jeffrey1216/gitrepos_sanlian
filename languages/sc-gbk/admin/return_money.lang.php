@@ -1,0 +1,5 @@
+<?php 
+	return array(
+		'order_detail' => '¶©µ¥ÏêÇé'
+	);
+?>

@@ -1,0 +1,121 @@
+<div id="ad">
+        <div class="moveContainer">
+        	<div class="movePic">
+        	<!-- {foreach from=$widget_data item=image name=fe_image} -->
+            <A Href="{$image.ad_link_url}"><Img class="pic" Src="{$image.ad_image_url}"/></A>
+            <!-- {/foreach} -->
+            
+            <!--<A Href="#"><Img class="pic" Src="../Images/men.Jpg"/></A>
+            <A Href="#"><Img class="pic" Src="../Images/aotumn.Jpg"/></A>
+            <A Href="#"><Img class="pic" Src="../Images/sb.Jpg"/></A>
+          --></div>
+        </div>
+        <ul class="num">
+        <!-- {foreach from=$widget_data item=image name=fe_image} -->
+            <li label="{$image.ad_sel_label}"><a href="#">{$image.ad_view_lang}</a></li>
+        <!-- {/foreach} -->
+        </ul>
+</div>
+<script type="text/javascript">
+window.onload = function () {
+	leftTimeOut();
+}
+var over = true;
+var moveTime = 400;
+var pic = $(".movePic");
+var picsNo = 1; //图片指示, 表示当前为第几张图片
+var TimeOut; //全局定时器
+var flag = 1;
+
+$(".num>li").hover(function () {
+window.clearInterval(TimeOut);
+var obj = this;
+	if(over) {
+		var moveLength = (picsNo - parseInt(obj.getAttribute("label"))) * 540;
+		picsNo = picsNo + (parseInt(obj.getAttribute("label")) - picsNo);
+		//alert(picsNo);
+		//alert(moveLength);
+		animate1(pic,'left',parseInt(parseInt(pic.css("left"))),moveLength,moveTime,'px');
+		//alert(picsNo);
+		if(-((picsNo-1)*540) != parseInt(parseInt(pic.css("left")))) {
+			animate1(pic,'left',parseInt(pic.css("left")),(-((picsNo-1)*540) - parseInt(parseInt(pic.css("left")))),moveTime,'px');
+		}
+   	}
+},function () {
+	if(-((picsNo-1)*540) != parseInt(parseInt(pic.css("left")))) {
+				animate1(pic,'left',parseInt(pic.css("left")),(-((picsNo-1)*540) - parseInt(parseInt(pic.css("left")))),moveTime,'px');
+		}
+	if(flag == 1) {
+		if(picsNo == 4) {
+			rightTimeOut();
+		} else {
+			leftTimeOut();
+		}
+	} else {
+		if(picsNo == 1) {
+			leftTimeOut();
+		}	else {
+			rightTimeOut();
+		}
+	} 
+		
+});
+function moveLeft(pic) {
+	//alert(11);
+	animate1(pic,'left',parseInt(pic.css("left")),-540,moveTime,'px');
+}
+
+//右移
+function moveRight(pic) {
+	animate1(pic,'left',parseInt(parseInt(pic.css("left"))),540,moveTime,'px');
+}
+function leftTimeOut() {
+	flag = 1;
+	TimeOut = window.setInterval(function () {
+		moveLeft(pic);
+		picsNo++;
+		if(picsNo == 4) {
+			window.clearInterval(TimeOut);
+			rightTimeOut();
+		}
+	},3000);
+}
+function rightTimeOut() {
+	flag = 0;
+	TimeOut = window.setInterval(function () {
+		moveRight(pic);
+		picsNo--;
+		if(picsNo == 1) {
+			window.clearInterval(TimeOut);
+			leftTimeOut();
+		}
+		
+	},3000);
+}
+var Tween = {
+	Linear:function (start,alter,curTime,dur) {return start+curTime/dur*alter;},//最简单的线性变化,即匀速运动
+	Quad:{//二次方缓动
+		easeIn:function (start,alter,curTime,dur) {
+			return start+Math.pow(curTime/dur,2)*alter;
+		},
+		easeOut:function (start,alter,curTime,dur) {
+			var progress =curTime/dur;
+			return start-(Math.pow(progress,2)-2*progress)*alter;
+		},
+		easeInOut:function (start,alter,curTime,dur) {
+			var progress =curTime/dur*2;
+			return (progress<1?Math.pow(progress,2):-((--progress)*(progress-2) - 1))*alter/2+start;
+		}
+	}
+}
+function animate1(o,attr,start,alter,dur,unit) {
+	over = false;
+	var curTime = 0;
+	var t = setInterval(function () {
+		o.css(attr,Tween.Quad.easeInOut(start,alter,curTime,dur) + unit);
+		if(curTime >= dur) clearTimeout(t);
+		curTime+=50;
+	},50);
+	over = true;
+}
+</script>

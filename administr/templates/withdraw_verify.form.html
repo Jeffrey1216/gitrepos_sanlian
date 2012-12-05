@@ -1,0 +1,104 @@
+{include file="header.html"}
+{include file="header.html"}
+<script src="{lib file=mlselection.js}" charset="utf-8"></script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+$(function(){
+  regionInit("region");
+})
+//]]>
+</script>
+<div id="rightTop">
+  <p>积分审核</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=credit_verify">{$lang.manage}</a></li>
+    <li><span>{$lang.verify}</span></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" action="index.php?app=withdraw_verify&act=verify&id={$member.id}">
+    <table class="infoTable">
+     <tr>
+        <th class="paddingT15">会员名：</th>
+        <td class="paddingT15 wordSpacing5">{$member.user_name|escape}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">手机：</th>
+        <td class="paddingT15 wordSpacing5">{$member.mobile}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">提现金额：</th>
+        <td class="paddingT15 wordSpacing5">{$member.withdraw_amount}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">提现类型：</th>
+        <td class="paddingT15 wordSpacing5">{$member.type}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">开户名：</th>
+        <td class="paddingT15 wordSpacing5">{$member.draw_name|escape}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">开户行：</th>
+        <td class="paddingT15 wordSpacing5">{$member.draw_bank}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">开户帐号：</th>
+        <td class="paddingT15 wordSpacing5">{$member.draw_accounts}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">提现时间：</th>
+        <td class="paddingT15 wordSpacing5">{$member.withdraw_time|date:Y-m-d H:i:s}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">审核时间：</th>
+        <td class="paddingT15 wordSpacing5">{$member.operator_time|date:Y-m-d H:i:s}</td>
+      </tr>
+      <!-- {if $member.status eq 3} -->
+      <tr>
+        <th class="paddingT15">审核：</th>
+        <td class="paddingT15 wordSpacing5">未通过<p>
+      </tr> 
+      <tr>
+        <th class="paddingT15">审核人：</th>
+        <td class="paddingT15 wordSpacing5">{$member.operator}<p>
+      </tr> 
+       <tr>
+        <th class="paddingT15">未通过原因：</th>
+        <td class="paddingT15 wordSpacing5">{$member.reason}<p>
+      </tr>
+      <!-- {else} -->   
+	  <tr>
+        <th class="paddingT15">审核：</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>通过:
+            <input type="radio" name="pass" value="2" checked="checked" />
+            </label>
+            <label>未通过:
+            <input type="radio" name="pass" value="3" />
+            </label>
+          </p></td>
+      </tr>    
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">未通过原因:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" /></textarea></td>
+      </tr> 
+      <tr>
+        <th class="paddingT15">审核人：</th>
+        <td class="paddingT15 wordSpacing5">{$verify.verify_name}</td>
+      </tr>
+       <!-- {/if} -->
+       <tr>
+       <!-- {if $member.status eq 3} -->
+       <td class=""><a style="text-decoration:none" href="index.php?app=withdraw_verify&act=index"><input type="button" value="返回" /></a></td>
+       <!-- {else} -->
+      	<th class=""><input class="" name="user_name" type="submit" value="审核" /></th>
+        <td class=""><a style="text-decoration:none" href="index.php?app=withdraw_verify&act=index"><input type="button" value="返回" /></a></td>
+       <!-- {/if} -->
+      </tr>
+    </table>
+  </form>
+
+</div>
+{include file="footer.html"}

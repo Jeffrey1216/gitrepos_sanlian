@@ -1,0 +1,55 @@
+{include file=index_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=other_top.html}
+
+{include file=curlocal.html}
+<div id="fenlei">
+   <div class="fenlei_1">
+   <h2>全部商品分类</h2>
+   </div>
+   <div class="fenlei_2">
+   	
+      <div class="fenlei_left">
+      	
+       <!--{foreach from=$gcategorys.0 item=gcategory}-->
+       <div class="fenlei_2l">
+	       <div class="fenlei_head">
+		   <a href="{url app=search&cate_id=$gcategory.id}"><h3>{$gcategory.value|escape}</h3></a>
+	       </div> 
+		   <ul>
+		   <!--{foreach from=$gcategory.children item=child}-->
+		   <li><a href="{url app=search&cate_id=$child.id}"><span>{$child.value|escape}</span></a>
+		   		<!-- {foreach from=$child.children item=cld} -->
+		   			<a href="{url app=search&cate_id=$cld.id}">{$cld.value|escape}</a>
+		   		<!-- {/foreach} -->
+		   		</li>
+		   <!-- {/foreach} -->
+		   </ul> 
+	   </div>
+   <!--{/foreach}-->
+	   
+	 </div>
+	  <div class="fenlei_right">
+	   
+	   <!--{foreach from=$gcategorys.1 item=gcategory}-->
+       <div class="fenlei_2l">
+	       <div class="fenlei_head">
+		   <a href="{url app=search&cate_id=$gcategory.id}"><h3>{$gcategory.value|escape}</h3></a>
+	       </div> 
+		   <ul>
+		   <!--{foreach from=$gcategory.children item=child}-->
+		   <li><a href="{url app=search&cate_id=$child.id}"><span>{$child.value|escape}</span></a>
+		   		<!-- {foreach from=$child.children item=cld} -->
+		   			<a href="{url app=search&cate_id=$cld.id}">{$cld.value|escape}</a>
+		   		<!-- {/foreach} -->
+		   		</li>
+		   <!-- {/foreach} -->
+		   </ul> 
+	   </div>
+   	<!--{/foreach}-->
+	   
+	  </div> 
+</div> 
+</div>
+{include file=footer.html}

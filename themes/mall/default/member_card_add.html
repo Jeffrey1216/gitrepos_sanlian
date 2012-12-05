@@ -1,0 +1,172 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+<style>
+	.borline td { padding:10px 0px; }
+	.ware_list th { text-align:left; }
+	td.td1{text-align:right;}
+	.styleA a{font-size:13px;text-decoration:underline;color:#234F8D;}
+	.styleA a:hover{font-size:14px;color:#234F8D;text-decoration:underline;}	
+</style>
+<script type="text/javascript">
+	$(function(){
+		//check bankaccount by ajax
+		$('input[name=CardNumber]').blur(function(){
+			$.get('index.php?app=member_card&act=cardajax', 
+			{ 
+				account:$('input[name=CardNumber]').val()
+			}, 
+			function(data) //回传函数 
+			{ 
+				if($.trim(data)=='')
+				{
+					var _checking = $('#checking_user');
+					_checking.prev('.field_notice').hide();
+					_checking.next('label').hide();
+					$('#exists_notice').show();
+					$('#checking_user').hide(); 
+					return;
+					
+				}else{
+					var _checking = $('#checking_user');
+					_checking.prev('.field_notice').hide();
+					_checking.next('label').hide();
+					$('#exists_notice').hide();
+					$('#checking_user').hide(); 
+					return;
+				}
+					
+				
+			} 
+		); 
+		});
+		$('#addCard_form').validate({
+			errorLabelContainer: $('#warning'),
+			invalidHandler: function(form, validator) {
+				var errors = validator.numberOfInvalids();
+				if(errors)
+				{
+					$('#warning').show();
+				}
+				else
+				{
+					$('#warning').hide();
+				}
+			},
+			errorPlacement: function(error, element){
+				$(element).parent('span').parent('b').after(error);
+			},
+			onkeyup : false,
+			rules : {
+				consignee : {
+					required : true
+				},
+				region_id : {
+					required : true,
+					min   : 1
+				},
+				address   : {
+					required : true
+				},
+				CardNumber : {
+					required : check_phone,
+					minlength:16,
+					maxlength:20,
+					checkTel:true
+				},
+				phone_mob : {
+					required : check_phone,
+					minlength:6,
+					digits : true
+				}
+			},
+			messages : {
+				consignee : {
+					required : '{$lang.consignee_required}. '
+				},
+				region_id : {
+					required : '{$lang.region_required}. ',
+					min  : '{$lang.region_required}. '
+				},
+				address   : {
+					required : '{$lang.address_required}. '
+				},
+				CardNumber : {
+					required : '{$lang.card_required}. ',
+					minlength: '{$lang.card_number_error}. ',
+					checkTel: '{$lang.card_number_error}. ',
+					remote : '{$lang.card_number_exists}'
+				},
+				phone_mob : {
+					required : '{$lang.phone_required}. ',
+					minlength: '{$lang.phone_mob_error}. ',
+					digits : '{$lang.phone_mob_error}. '
+				}
+			},
+			groups:{
+				phone:'phone_tel phone_mob'
+			}
+		});
+
+	});
+	function check_phone(){
+		return ($('[name="CardNumber"]').val() == '');
+	}
+</script>
+<div class="content">
+	{include file=member.menu.html}
+	<div id="right">
+		{include file=member.submenu.html}
+		<div class="wrap">
+			<div class="public">
+				<div id="warning"></div>
+				<form method="post" enctype="multipart/form-data" id="addCard_form">
+					<div class="information">
+						<div class="info individual" style="width:460px; float:left">
+							<table>
+								<tr>
+									<th>{$lang.user_name}： </th>
+									<td>{$profile.user_name|escape}</td>
+								</tr>
+								<tr>
+									<th>{$lang.mobile}：</th>
+									<td class= "styleA">{$profile.mobile}</td>
+								</tr>
+								<tr>
+									<th>{$lang.CardNumber}：</th>
+									<td id="cardNumber1">
+										<input type="text" class="text width_normal" id="cardNumber" name="CardNumber" value="{$memberCardInfo.CardNumber|escape}" />
+										<label class="field_notice">银行账号</label>
+										<label id="checking_user" class="checking">检查中...</label>
+										<label for="user_name" generated="true" id="exists_notice" class="error" style="display:none;">{$lang.card_number_exists}</label>
+									</td>
+								</tr>
+								<tr>
+									<th>{$lang.RealName}：</th>
+									<td><input type="text" class="text width_normal" name="RealName" value="{$memberCardInfo.RealName|escape}" /></td>
+								</tr>
+								<tr>
+									<th>{$lang.BankName}：</th>
+									<td><input type="text" class="text width_normal" name="BankName" value="{$memberCardInfo.BankName|escape}" /></td>
+								</tr>
+								<tr>
+									<th></th>
+									<td><input class="btn" type="submit" value="{$lang.addAccount}"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="wrap_bottom"></div>
+		</div>
+
+		<div class="clear"></div>
+		<div class="adorn_right1"></div>
+		<div class="adorn_right2"></div>
+		<div class="adorn_right3"></div>
+		<div class="adorn_right4"></div>
+        </div>
+        <div class="clear"></div>
+</div>
+{include file=footer.html}

@@ -1,0 +1,106 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+	$(".footact a").not($(".footact a:eq(0)")).click(function(){
+			var i=$(".footact a").index(this);
+			var text=$(this).html();
+			if($(this).attr("down")==1){
+				var d = DialogManager.create('show_error');
+				d.setWidth(350);
+				d.setTitle(lang.error);
+				d.setContents('message', {type:'warning', text:"服务器正在为您处理数据...,请您稍候!"});
+				d.show('center');
+				return;
+				}
+			$(this).attr("down","1");
+			$(this).width($(this).width());
+			$(this).html("<font>处理中请稍等</font><span></span>");
+			$("#hideframe").attr("src",$(this).attr("_href"));
+			$("#hideframe").load(function(){
+					$(".footact a:eq("+i+")").html(text);
+					$(".footact a:eq("+i+")").attr("down","0");
+				});
+		});
+});
+</script>
+<div id="rightTop">
+ 	<ul class="subnav2"> 
+ 	  	<!-- {if !$financeStore} -->
+        <li><a href="index.php?app=store&act=stock&id={$store_id}">全部库存<span></span></a></li>
+        <li class="on"><a href="index.php?app=store&act=get_stock&id={$store_id}">普通商品库存<span></span></a></li>
+        <li><a href="index.php?app=store&act=get_promotion&id={$store_id}">促销商品库存<span></span></a></li>
+        <!-- {else} -->
+        <li><a href="index.php?app=financeStore&act=stock&id={$store_id}">全部库存<span></span></a></li>
+        <li class="on"><a href="index.php?app=financeStore&act=get_stock&id={$store_id}">普通商品库存<span></span></a></li>
+        <li><a href="index.php?app=financeStore&act=get_promotion&id={$store_id}">促销商品库存<span></span></a></li>
+        <!-- {/if} -->
+	</ul>  
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+    <form method="get">
+       <div class="left">
+       	  <input type="hidden" name="app" value="{$smarty.get.app}" />
+          <input type="hidden" name="act" value="{$smarty.get.act}" />
+          <input type="hidden" name="id" value="{$store_id}" />
+          商品名称:<input class="queryInput" type="text" name="goods_name" value="{$smarty.get.goods_name}" />
+          <input type="submit" class="formbtn" value="查询" />
+      </div>
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html} </div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable stoceTable">
+    <tr class="tatr1">
+      <td>店铺名称</td>
+      <td>商品名称</td>
+      <td>商品规格</td>
+      <td>条形码</td>
+      <td>店铺库存</td>
+      <td>售出数量</td>
+      <td>派啦价</td>
+      
+      <td>批发价</td>
+      <td>赠送PL</td>
+      <td>存货金额小计</td>
+    </tr>
+    <!-- {foreach from=$stock_info  item=stock} -->
+    <tr class="tatr2">
+     <td>{$stock.store_name|truncate:15}</td>
+     <td>{$stock.goods_name|truncate:15}</td>
+     <td>{$stock.spec_1}{$stock.spec_2}{$stock.color_rgb}</td>
+     <td>{$stock.commodity_code}</td>
+     <td>{$stock.stock}</td>
+     <td>{$stock.selllog}</td>
+     <td>{$stock.price}</td>
+     
+     <td>{$stock.zprice}</td>
+     <td>{$stock.credit}</td>
+     <td>{$stock.samount}</td>
+    </tr>
+    <!-- {/foreach} -->
+    <!-- {if $stock_info} -->
+    <!-- {else} -->
+    <tr class="no_data">
+      <td colspan="12">没有符合条件的记录</td>
+    </tr>
+    <!-- {/if} -->
+  </table>
+</div>
+<div style="clear:both; width:98%; margin:0 auto; height:40px;">
+	<!-- {if !$financeStore} -->
+    <div class="footact" style="width:49%;">
+     	<a href="index.php?app=store">返&nbsp;回<span></span></a>
+     	<a _href="index.php?app=store&act=get_stock&output=true&id={$store_id}" down='0'>导出excel表格<span></span></a>
+    </div>
+    <!-- {else} -->
+    <div class="footact" style="width:49%;">
+     	<a href="index.php?app=financeStore">返&nbsp;回<span></span></a>
+     	<a _href="index.php?app=financeStore&act=get_stock&output=true&id={$store_id}" down='0'>导出excel表格<span></span></a>
+    </div>
+    <!-- {/if} -->
+    <div class="pageLinks" style="width:49%; padding-bottom:10px;">{include file=page.bottom.html}</div>
+</div>
+<iframe id="hideframe" name="hideframe" style="display:none;"></iframe>
+{include file="footer.html"}

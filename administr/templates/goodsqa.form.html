@@ -1,0 +1,42 @@
+<form enctype="multipart/form-data" method="post">
+<table width="574" height="410" border="1">
+  <tr> 
+    <th width="198" scope="row">咨询人</th>
+    <td width="119">{$data.user_name}</td>
+    <td width="72">咨询的物品</td>
+    <td width="157">{$data.item_name}</td>
+  </tr>
+  <tr>
+    <th scope="row">内容</th>
+    <td colspan="3">{$data.question_content}</td>
+  </tr>
+  <tr>
+    <th scope="row">回复</th>
+    <td colspan="3"><textarea name="review">{$data.answer}</textarea></td>
+  </tr>
+  <tr>
+    <th scope="row">审核结果</th>
+    <!-- {if $data.agree eq 0}-->
+    <td><input name="agreemod" type="radio"  value="1"/>可通过</td>
+    <td><input name="agreemod" type="radio"  value="2"/>不通过<br>不通过原因<br />
+    <textarea name="reason"></textarea></td>
+    <td><input name="agreemod" type="radio"  value="0" checked="checked"/>暂不处理</td>
+    <!--{/if}-->
+    <!-- {if $data.agree eq 1}-->
+    <td><input name="agreemod" type="radio"  value="1" checked="checked"/>可通过</td>
+    <td><input name="agreemod" type="radio"  value="2"/>不通过<br>不通过原因<br />
+    <textarea name="reason"></textarea></td>
+    <td><input name="agreemod" type="radio"  value="0"/>暂不处理</td>
+    <!--{/if}-->
+    <!-- {if $data.agree eq 2}-->
+    <td><input name="agreemod" type="radio"  value="1"/>可通过</td>
+    <td><input name="agreemod" type="radio"  value="2"  checked="checked"/>不通过<br>不通过原因<br />
+    <textarea name="reason"></textarea></td>
+    <td><input name="agreemod" type="radio"  value="0"/>暂不处理</td>
+    <!--{/if}-->
+  </tr>
+  <tr>
+    <th colspan="4" scope="row"><input type="submit"  value="提交"/></th>
+  </tr>
+</table>
+</form>

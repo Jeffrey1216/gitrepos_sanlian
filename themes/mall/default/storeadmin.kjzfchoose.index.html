@@ -1,0 +1,89 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox5">
+<h3 class="tit"><span>选择支付方式和取货方式</span></h3>
+	<ul class="tabDiv">
+		<li class="hover"><a href="{:U("tuijian/recommendation")}">选择支付和取货方式</a></li>		
+    </ul>
+    <div class="zhgk42">
+<div id="rzzf" align="center">
+<div>
+<div class="module_common">
+   <h3>选择支付方式和取货方式</h3>
+    <div class="line"></div> 
+    <div class="fastorder">
+        <table cellpadding="0" cellspacing="0">
+            <colgroup>
+                <col width="10%"/>
+                <col width="45%"/>
+                <col width="40%"/>
+            </colgroup>
+            <tr>
+                <td style="vertical-align:middle;">
+                <img src="themes/mall/new/styles/default/images/kjzf11.gif"/>                   
+                </td>
+                <td>
+                    <table cellpadding="0" cellspacing="0">                   
+                        <tr>
+                            <td style="width:60px">手机账号：</td>
+                            <td><input type="text" class="text2" value="请输入会员的手机账号" style="color:#666;"/></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="width:60px">支付方式：</td>
+                            <td>
+                            <div class="select_js1" >
+                                <div class="select_bg">现金支付</div>
+                                <ul style="display: none;">
+                                    <li ectype="index">现金支付</li>
+                                    <li ectype="store">现金+积分支付</li>
+                                    <li ectype="groupbuy">CC积分支付</li>
+                                    <li ectype="groupbuy">派啦宝余额支付</li>
+                                    <li ectype="groupbuy">选择会员的支付方式</li>
+                                </ul>
+                                <span style="dispaly:inline-block;height:30px;color:#666">会员需拥有足够的CC积分及派啦余额</span>
+                                <input type="hidden" value="index" name="act">
+                                </div>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="width:60px">取货方式：</td>
+                            <td>
+                             <div class="select_js2" onclick="javasrcipt:aa()">
+                               <div class="select_bg">上门取货</div>
+                                <ul style="display:none;">
+                                    <li ectype="index">上门取货</li>
+                                    <li ectype="store">平邮5元</li>
+                                    <li ectype="groupbuy">快递20元</li>
+                                </ul>
+                                    <input type="hidden" value="index" name="act">
+                                </div>
+                            </td>
+                            <td><span></span></td>
+                        </tr>
+                        <tr>
+                        <td>&nbsp;</td>
+                            <td colspan="2">
+                            <input type="button" value="快捷下单" onclick="go('index.php?app=kjzf&act=kjzfdxrz');" class="btn1">                                                     
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="fastorder_right">
+                        <p><b>温馨提示：</b></p>
+
+                        <p> 商铺掌柜通过会员“手机帐号在“快捷通道→快捷下单→快捷验证”窗口对会员在实际店支付订单进行快捷验证，做到会员实体店支付、提货或体验服务。（按实际资料进行录入“温馨提示”文字。）</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+  
+  </div>
+  </div>
+  </div>
+
+</div>

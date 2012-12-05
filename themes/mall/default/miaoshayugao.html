@@ -1,0 +1,44 @@
+{include file=index_top.html}
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+    <div class="miaosha">
+        <div class="ms_bg01"></div>
+        <div class="ms_bg02"></div>       
+         <a href="javascript:" onclick="addFavorite();"></a>
+    </div>
+
+{include file="footer.html"}
+
+ <script type="text/javascript">
+            function setHomePage(obj){
+            var aUrls=document.URL.split("/");
+            var vDomainName="http://"+aUrls[2]+"/";
+            try{//IE
+            obj.style.behavior="url(#default#homepage)";
+            obj.setHomePage(vDomainName);
+            }catch(e){//other
+            if(window.netscape) {//ff
+            try {
+            netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+            }
+            catch (e) {
+            alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将[signed.applets.codebase_principal_support]设置为'true'");
+            }
+            var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+            prefs.setCharPref('browser.startup.homepage',vDomainName);
+            }
+            }
+            if(window.netscape)alert("ff");
+            }
+            function addFavorite(){
+            var aUrls=document.URL.split("/");
+            var vDomainName="http://"+aUrls[2]+"/";
+            var description=document.title;
+            try{//IE
+            window.external.AddFavorite(vDomainName,description);
+            }catch(e){//FF
+            window.sidebar.addPanel(description,vDomainName,"");
+            }
+            }
+        </script>

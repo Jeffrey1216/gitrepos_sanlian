@@ -1,0 +1,83 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>确认订单</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=store_order&goods=store_cart">我的购物车</a></li>
+	</ul>
+	<div class="public_02" id="gouwuche">
+	
+<form method="post" id="order_form">
+<div class="content_1">
+    <div class="module_common">
+        <div class="step_main">
+            <div class="main_add" >
+                {include file="store_order.shipping.html"}
+                <div class="gouwuche1_2">
+                <h1>订单信息</h1>
+				<div class="gouwuche2">
+				<form>
+				 <table style="border-bottom:0px;width:100%"  cellSpacing="0" cellPadding="0">
+					<tr class="tr1">
+					<td class="td2">商品名称</td>
+					<td  class="td2">单价</td>
+					<td class="td2">数量</td>
+					<td class="td2">小计</td>
+					</tr>
+					<!-- {foreach from=$goods_info.items item=item} -->
+					<tr>
+					<td class="td1"><div class="gouwuche2_l"><a href="index.php?app=buy_mallgoods&act=show_goods&id={$item.goods_id}"><img class="img_50"  src="{$image_url}{$item.goods_image}" /></a></div><div class="gouwuche2_r"><p><a href="index.php?app=buy_mallgoods&act=show_goods&id={$item.goods_id}">{$item.goods_name}</a></p></div></td>
+					<td>{$item.price|price}</td>
+					<td>{$item.quantity}</td>
+					<td>{$item.subtotal|price}</td>
+					</tr>					
+					<!-- {/foreach} -->								
+		            <tr>
+					<td class="td3" colspan="5"><div>订单备注信息：</div>
+					<div><textarea style="width:350px;height:25px;" class="textarea" name="pay_message"></textarea></div>
+					</td>
+					</tr>
+					</table>
+					<!--  
+					<div class="gouwuche2_1">
+					    <div class="gouwuche2_1l">
+						   <ul>
+						      <li>订单总价：<span id="order_amount"></span>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+						      <li><input type="radio" checked="true" class="payType" name="payType" id="giveMoney" value="1"/>您需要支付现金：<span id="pay_cash">{$goods_info.amount|price}</span></li>
+						   </ul>
+					    </div>
+						<div class="gouwuche2_1r">
+						 
+						      <p>是否需要发票？（税金0%）&nbsp;&nbsp;<Input type="radio" name="need_invoice" value="1"/>&nbsp;&nbsp;是&nbsp;&nbsp;<Input type="radio"  name="need_invoice" value="0" />&nbsp;&nbsp;否<br/>
+						      
+						      发票抬头：<input style="width:180px;height:20px;" type="text" name="invoice_header" /></p>
+					    </div>
+					</div>
+				   -->
+					<ul>
+					<li>商品总数量：{$goods_info.quantity}件</li>
+					<li>商品总金额：<span>{$goods_info.amount|price}</span></li>
+					</ul>
+					<ul class="ul2">
+					<li style="margin-top:15px;"><a href="javascript:window.history.back();"><img style="position:relative;top:0;" src="{res file=images/gouwuche_10.gif}" />返回购物车</a></li>
+					<li><input type="button" onclick="toSubmit();" class="gouwuche_btn" value="下单完成并支付" /></li></ul>
+				</form>
+				</div>
+				</div>
+		        </div>
+		            
+	            <div class="clear"></div>
+		        </div>
+    </div>
+ 
+   
+</div>
+</form>
+   </div>
+   </div>
+<script type="text/javascript">
+//提交表单
+function toSubmit()
+{ 
+    void($('#order_form').submit());
+}
+</script>

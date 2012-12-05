@@ -1,0 +1,64 @@
+<div class="productlist">
+    <h1 class="proline">
+        <a class="font5" href="#"></a>
+    </h1>
+
+    <div class="brand">
+        <div class="move_image move_image3">
+            <span id="paila_to_left" class="to_left_brand to_left2 to_left_none"></span>
+            <span id="paila_to_right" class="to_right_brand to_right2"></span>
+
+            <div class="v_content">
+                    <ul id="moveUl" style="overflow:hidden;">
+                    <!-- {foreach from=$widget_data.images item=image} -->
+                        <li style="width:220px;">
+                            <a href="{$image.url}"><img original="{$image.img}"  alt="{$image.title}" title="{$image.title}"/></a>
+                            <p><a href="{$image.url}">{$image.title}</a></p>
+                        </li>
+                    <!-- {/foreach} -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>
+
+<script type="text/javascript">
+var paila_move_flag = true;
+var paila_move_width = 240;
+$("#paila_to_left").click(function () {
+	if(!paila_move_flag) {
+		return;
+	}
+	if($('#paila_to_right').hasClass('to_right_none')) { 
+		$('#paila_to_right').removeClass('to_right_none'); 
+	}
+	
+	if(parseInt($("#moveUl").css("left")) < 0){
+		paila_move_flag = false;
+		$("#moveUl").animate({left: "+="+paila_move_width},{duration:300,complete:function () {
+			if(parseInt($("#moveUl").css("left")) >= 0) {
+				$('#paila_to_left').addClass('to_left_none');
+			} 
+		paila_move_flag = true;}});
+	}
+});
+$("#paila_to_right").click(function () {
+	if(!paila_move_flag) {
+		return;
+	}
+	if($('#paila_to_left').hasClass('to_left_none')) { 
+		$('#paila_to_left').removeClass('to_left_none'); 
+	}
+	if(parseInt($("#moveUl").css("left")) > -(4*232)){
+		paila_move_flag = false;
+		$("#moveUl").animate({left: "-="+paila_move_width},{duration:300,complete:function () {
+			if(parseInt($("#moveUl").css("left")) <= -(4*232)) {
+				$('#paila_to_right').addClass('to_right_none');
+			}
+		paila_move_flag = true;}});
+	}
+});
+
+
+
+</script>

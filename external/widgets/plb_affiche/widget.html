@@ -1,0 +1,13 @@
+ <div class="pltd_search pltd_ann">
+     <div class="pltd_search_ttl pltd_ann_ttl">
+         <h3>¹«¸æ</h3>
+     </div>
+     <ul class="pltd_ann_ctt">
+	     <!-- {foreach from=$widget_data.credit item=data} -->
+	        <li>
+	           <a href="index.php?app=article&act=credit&article_id={$data.article_id}"><span class="pltd_ann_l">{$data.title}</span></a>
+	           <span class="pltd_ann_r">{$data.add_time}</span>
+	        </li>
+	     <!-- {/foreach} -->
+     </ul>
+</div>

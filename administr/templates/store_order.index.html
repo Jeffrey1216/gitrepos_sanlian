@@ -1,0 +1,130 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+    <ul class="subnav2"> 
+    	<li class="on"><a>店铺进货订单管理<span></span></a></li> 
+    	<li>本页订单信息统计</li>
+    	<li>订单总价统计:<font class="price">{$all_amount.order_amount}</font>元</li>
+    	<li>商品总价统计:<font class="price">{$all_amount.goods_amount}</font>元</li>
+    	<li>物流费统计:<font class="price">{$all_amount.shipping_fee}</font>元</li>
+    </ul>    
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">
+                <input type="hidden" name="app" value="{$app}" />
+             <!-- {if $app eq "store_order"} -->
+                <input type="hidden" name="act" value="index" />
+             <!-- {else} -->
+                <input type="hidden" name="act" value="store_order" />
+            <!-- {/if} -->
+                <select class="querySelect" name="store_type">
+                    <option value="">请选择</option>
+                    {html_options options=$store_type selected=$query.store_type}
+                </select>
+                <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                </select>:<input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                <select class="querySelect" name="status">
+                    <option value="">{$lang.search_status}</option>
+                    {html_options options=$order_status_list selected=$query.status}
+                </select>
+                <select class="querySelect" name="op_status">
+                    <option value="">操作状态</option>
+                    {html_options options=$op_status_list selected=$query.op_status}
+                </select>
+                下单时间:<input class="queryInput3" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                {$lang.add_time_to}:<input class="queryInput3" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+                {$lang.order_amount_from}:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                {$lang.order_amount_to}:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+            <!-- {if !$storemanage} -->
+            <a class="left formbtn1" href="index.php?app=store_order">{$lang.cancel_query}</a>
+            <!-- {else} -->
+            <a class="left formbtn1" href="index.php?app=storemanage_statistics&act=store_order">{$lang.cancel_query}</a>
+            <!-- {/if} -->
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+        {if $orders}{include file=page.top.html}{/if}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <!--{if $orders}-->
+        <tr class="tatr1">
+            <td class="firstCell">{$lang.order_sn}</td>
+            <td>{$lang.store_name}</td>
+            <td>直/加</td>
+            <td>下单时间</td>
+            <td>物流费用</td>
+            <td>{$lang.order_amount}</td>
+            <td>{$lang.payment_name}</td>
+            <td>订单状态</td>
+            <td>操作状态</td>
+            <td>{$lang.handler}</td>
+        </tr>
+        <!--{/if}-->
+        <!--{foreach from=$orders item=order}-->
+        <tr class="tatr2">
+            <td><a href='index.php?app={$app}&act=view&id={$order.order_id}'>{$order.order_sn}</a></td>
+		    <td>{$order.store_name|escape}</td>
+            <td><!-- {if $order.store_type eq 0} -->直营店<!-- {elseif $order.store_type eq 1} -->加盟店<!-- {/if} --></td>
+            <td>{$order.add_time|date:complete}</td>
+            <td>{$order.shipping_fee|price}</td>
+            <td>{$order.order_amount|price}</td>
+            <td>{$order.payment_name|escape|default:-}</td>
+            <td>{if $order.status==11}待付款{elseif $order.status==20}待发货{elseif $order.status==30}已发货{elseif $order.status==40}交易成功{elseif $order.status==50}退款中{elseif $order.status==60}退款完成{elseif $order.status==0}交易取消{/if}</td>
+            <td>{if $order.op_status==0}未操作{elseif $order.op_status==1}物流已更改物流费用{elseif $order.op_status==2}店面管理已确认订单价格{elseif $order.op_status==3}财务已确认收款信息{elseif $order.op_status==4}物流已确认发货{/if}</td>
+            <td>
+               <!-- {if $app eq "store_order"} -->
+                    <a href="index.php?app=store_order&amp;act=view&amp;id={$order.order_id}">查看订单</a>
+	            	<!-- {if $order.status eq 11 && $order.op_status eq 0} -->
+	            	|<a href="index.php?app=store_order&act=audit&order_id={$order.order_id}">改物流费</a>
+	            	<!-- {/if} -->
+	            	<!-- {if $order.status eq 20 && $order.op_status eq 3} -->
+	            	|<a href="index.php?app=store_order&act=delivery&order_id={$order.order_id}">发货</a>
+	            	<!-- {/if} -->
+           	   <!-- {elseif $app eq "store_order_manage"} -->
+	           		<!-- {if $order.status eq 11 && $order.op_status eq 1} -->
+	           			<a href="index.php?app=store_order_manage&amp;act=view&amp;id={$order.order_id}">审核订单</a>
+	           		<!-- {else} -->
+	           		    <a href="index.php?app=store_order_manage&amp;act=view&amp;id={$order.order_id}">查看订单</a>
+	           	    <!-- {/if} -->
+	           <!-- {elseif $app eq "store_statistics"} -->
+	           		<!-- {if $order.status eq 20 && $order.op_status eq 2} -->
+	           			<a href="index.php?app=store_statistics&amp;act=view&amp;id={$order.order_id}">审核订单</a>
+	           		<!-- {else} -->
+	           		    <a href="index.php?app=store_statistics&amp;act=view&amp;id={$order.order_id}">查看订单</a>
+	           	    <!-- {/if} -->
+            	<!-- {/if} -->
+            	<!-- {if !$storemanage} -->
+            	<a href="index.php?app=store_statistics&amp;act=view&amp;id={$order.order_id}&output=true">导出订单信息</a>
+            	<!-- {else} -->
+            	<a href="index.php?app=storemanage_statistics&amp;act=view&amp;id={$order.order_id}">查看订单</a>
+            	<a href="index.php?app=storemanage_statistics&amp;act=view&amp;id={$order.order_id}&output=true">导出订单信息</a>
+            	<!-- {/if} -->
+            </td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="10">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {if $orders}{include file=page.bottom.html}{/if}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

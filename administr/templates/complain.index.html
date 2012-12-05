@@ -1,0 +1,59 @@
+{include file="header.html"}
+<div id="rightTop">
+  <ul class="subnav">
+    <li><span>投诉管理</span></li>    
+  </ul>
+</div>
+<div class="mrightTop">  
+	<div class="fontl">
+    <form method="get" action="index.php">
+       <div class="left">
+          <input type="hidden" name="app" value="complain" />
+          <input type="hidden" name="act" value="index" />
+          订单:<input class="queryInput" name="order_sn" type="text" value="{$query.order_sn}">
+        状态:<select name="type">
+        <option value="">请选择..</option>
+    	 {html_options options=$type selected=$query.type.value}
+    </select>
+          <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>订单</td>
+      <td>投诉内容</td>
+      <td>投诉类型</td>
+      <td>提交时间</td>
+      <td>状态</td>
+      <td>客服回复</td>
+      <td>客服回复时间</td>
+  	  <td class="handler">{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$complain_info item=complain}-->
+    <tr class="tatr2">
+      <td>{$complain.order_sn}</td>
+      <td>{$complain.complain_reason|truncate:10}</td>
+      <td>{$complain.complain_type|escape:}</td>
+      <td>{$complain.c_add_time|date:complete}</td>
+      <td><!-- {if $complain.c_status eq 1} -->待处理<!-- {else} -->已解决<!-- {/if} --></td>
+      <td>{$complain.reply_content|default:无}</td>
+      <td>{$complain.reply_time|date:complete}</td>
+      <td class="handler"><a href="index.php?app=complain&act=view&id={$complain.complain_id}">查看回复</a> 
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有待投诉记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

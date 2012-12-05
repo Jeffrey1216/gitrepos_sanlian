@@ -1,0 +1,16 @@
+<?php
+
+return array(
+    'name'      => 'pailabi_fs',
+    'display_name'  => 'ÅÉÀ²±Ò·þÊÎÐ¬Ã±',
+    'author'    => 'sanwan',
+    'website'   => 'www.sanwan.html',
+    'version'   => '1.0',
+    'desc'      => 'ÅÉÀ²±Ò·þÊÎÐ¬Ã±',
+	'pics_num'		=>		2, //´¿Í¼Æ¬µÄÊýÄ¿
+	'goods_num'		=>		8,	//ÉÌÆ·ÊýÄ¿
+	'widget_type'	=>		1,
+    'configurable'  => false,
+);
+
+?>

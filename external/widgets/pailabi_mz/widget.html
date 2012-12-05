@@ -1,0 +1,90 @@
+<div class="plm_cosm">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>1F</span>√¿◊±√¿ Œ 
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+                <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=192">∏¸∂‡ >></a>
+               </li>
+            </ul>
+            <div class="plm_cosm_l">
+            <div class="photo_box plb_photo" id="index_slider">
+					<ul>
+					<!-- {foreach from=$widget_data.imagesGroup item=i} -->
+						<li>
+							<a class="plb_photo_img_l plb_clk" href="{$i.0.url}">
+								<div class="plb_photo_layer"></div>
+								<img  src="{$i.0.img}" alt="{$i.0.title}" />
+							</a>
+							<a class="plb_photo_img_r plb_clk" href="{$i.1.url}">
+								<div class="plb_photo_layer"></div>
+								<img   src="{$i.1.img}" alt="{$i.1.title}" />
+							</a>
+						</li>
+					<!-- {/foreach} -->
+					
+					</ul>
+				</div>
+				<div class="clear"></div>
+                   <div class="plm_cosm_gds">
+                    <ul class="plm_cosm_gds1">
+                    <!-- {foreach from=$widget_data.goods item=goods} -->
+                       <li>
+                          <span class="plb_hot">ÀÕ{$goods.credit}PL</span>
+                          <a href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.smimage_url}" alt="{$goods.goods_name|truncate:20}" /></a> 
+                          <p class="plm_cosm_gds1_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></p>
+                          <p  class="plm_cosm_gds1_prc">≈…¿≤º€£∫<span>{$goods.price}</span></p>
+                       </li>
+                    <!-- {/foreach} -->
+                    </ul>
+                </div>
+            </div>
+           <div class="plam_cosm_mark"></div>
+			<div class="photo_box plb_cosm_r" id="index_slider_5">
+				<div class="plm_cosm_r_ttl">
+					À˚√«∏’∏’π∫¬Ú
+				</div>
+				<!--≈≈––∞Ò¬÷≤•∆˜start-->
+				<div class="plb_cosm_photos">
+					<ul>
+					<!-- {foreach from=$widget_data.orders item=goods} -->
+						<li>
+						<!-- {foreach from=$goods item=g} -->
+							<div class="plb_cosm_line">
+								<div>{$g.buyer_name}π∫¬Ú¡À£∫</div>
+								<div><a href="index.php?app=goods&id={$g.goods_id}"><img class="img_160"src="{$g.smimage_url}"/></a></div>
+								<div class="h_2"><a href="index.php?app=goods&id={$g.goods_id}">{$g.goods_name|truncate:16}</a></div>
+								<div> –≥°º€:<span class="del_line">{$g.cprice}</span></div>
+								<div>≈…¿≤º€:<span class="red_col">{$g.price}</span></div>
+								<div class="plb_cosm_rebate">≈‰ÀÕ{$g.credit}PL</div>
+							</div>
+						<!-- {/foreach} -->
+						</li>
+			<!-- {/foreach} -->
+					</ul>
+				</div>
+				<!--≈≈––∞Ò¬÷≤•∆˜end-->		
+			</div>
+        </div>
+<script type="text/javascript">  
+Effect.slider({   		//¬÷≤•∆˜∆Ù∂Ø
+	'target': 'index_slider',
+	'showMarkers': false,
+	'showControls': true,
+	'autostart':true,
+	'crosswise':true
+	
+});
+</script>
+<script type="text/javascript">  
+Effect.slider({   		//¬÷≤•∆˜∆Ù∂Ø
+	'target': 'index_slider_5',
+	'showMarkers': true,
+	'showControls': true,
+	'width_allow':false,
+	'crosswise':true
+});
+</script>

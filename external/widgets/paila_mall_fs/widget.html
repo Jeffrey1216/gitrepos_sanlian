@@ -1,0 +1,35 @@
+ <div class="plm_cosm plm_dress">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>4F</span>·þÊÎÐ¬Ã±
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+                  <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=593">¸ü¶à >></a>
+               </li>
+            </ul>
+            <div class="plm_dress_top">
+            <!-- {foreach from=$widget_data.image_l item=i} -->
+                <div class="plm_dress_top_l">
+                    <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /></a> 
+                </div>
+            <!-- {/foreach} -->
+                <ul class="plm_dress_top_r">
+            <!-- {foreach from=$widget_data.image_r item=i} -->
+                   <li class="plm_dress_ad2">
+                      <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /></a> 
+                   </li>
+            <!-- {/foreach} -->
+                </ul>
+            </div>
+            <ul class="plm_dress_btm">
+            <!-- {foreach from=$widget_data.goods item=goods} -->
+               <li>
+                  <a class="plm_dress_gds_img" href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.smimage_url}" alt="{$goods.goods_name|truncate:16}" /></a>
+                  <p><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></p>
+               </li>
+            <!-- {/foreach} -->
+            </ul>
+        </div>

@@ -1,0 +1,62 @@
+{include file="header.html"}
+<style type="text/css">
+.dataTable td{text-align:center;} 
+.firstCell{text-align:left;}  
+.dis_tab_span{margin-right:10px;}
+.mrightTop{padding-top:5px;}
+.ques_seach{margin:15px 0;text-align:right;margin-right:50px;}
+.ques_seach_input{height:18px;width:100px;}
+</style>
+
+<div id="rightTop">
+  <p>试卷信息库</p>
+  <ul class="subnav">   
+    <li><a class="btn1" href="index.php?app=testpaper&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=testpaper">管理</a></li>
+  </ul>
+</div>
+<div class="tdare" style="margin-left:0;padding-left:0;">
+<form method="get" action="index.php">
+	<div class="mrightTop">
+		试卷标题：<input class="ques_seach_input" type="text" name="test"/>
+		<input type="hidden" name="app" value="testpaper"/>
+		<input type="hidden" name="act" value="search"/>
+		
+		<input class="formbtn" style="vertical-align:-1px;margin-left:3px;" type="submit" value="搜索"/>
+  	<div class="fontr">
+       {if $page_info}{include file=page.top.html}{/if}
+    </div>
+  	</div>
+  	</form>
+  	
+  	  <form method="post" action="index.php?app=testpaper&act=drop">
+  <table width="100%" cellspacing="0" class="dataTable" > 
+    <tr class="tatr1">
+      <td style="width:70px;text-align:left;"  class="firstCell"><input type="checkbox" class="checkall" />&nbsp;&nbsp;<span>全选</span></td>
+      <td width="20%"><span>试卷标题</span></td>	
+      <td width="20%"><span>试卷副标题</span></td>
+      <td width="20%"><span>创建时间</span></td>      
+      <td class="table-center"><span>操作</span></td>      
+    </tr>
+    <!-- {foreach from=$testpaper item=test} -->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" name="id[]" value="{$test.tpi_id}" /></td>
+      <td>{$test.tpi_title}</td>
+      <td>{$test.tpi_subhead}</td>
+      <td>{$test.create_time|date:complete}</td>     
+      <td class="table-center"><a href="index.php?app=testpaper&act=edit&tpi_id={$test.tpi_id}" class="dis_tab_span">编辑</a><a href="index.php?app=testpaper&act=addToPaper&id={$test.tpi_id}" class="dis_tab_span">试题管理</a></td>   
+    </tr>
+    <!-- {/foreach} -->   
+  </table> 
+  <div id="batchAction" class="left paddingT15">
+      &nbsp;&nbsp;&nbsp;&nbsp;<input class="formbtn batchButton" type="submit" value="批量删除" />
+          &nbsp;&nbsp;
+    </div>
+  </form>
+     <div id="dataFuncs">
+        <div class="pageLinks">
+            {if $page_info}{include file=page.bottom.html}{/if}
+        </div>
+    </div> 
+</div>
+{include file="footer.html"}

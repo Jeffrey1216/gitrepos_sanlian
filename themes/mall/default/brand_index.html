@@ -1,0 +1,114 @@
+{include file=pp_index.top.html}
+<style type="text/css">
+.content,.t_box,.banners_box{width:1000px;margin:0 auto;overflow:hidden;}
+.t_l_box,.t_m_box,.t_r_box,.m_l_box,.m_r_box{float:left;overflow:hidden;}
+.t_l_box{width:260px;}
+.t_m_box{width:460px;margin:0 6px;}
+.t_r_box{width:262px;}
+.m_l_box{width:728px;}
+.m_r_box{width:260px;margin-left:8px;}
+</style>
+<div class="index_ctt_top">
+<div class="content">
+<div class="t_box">
+	<div class="t_l_box" area="t_l_box" widget_type="area">
+		<!--{widgets page=brand area=t_l_box}-->
+	</div>
+	<div class="t_m_box"  area="t_m_box" widget_type="area">
+		<!--{widgets page=brand area=t_m_box}-->
+	</div>
+	<div class="t_r_box"  area="t_r_box" widget_type="area">
+		<!--{widgets page=brand area=t_r_box}-->
+	</div>	
+</div>
+<div class="banners_box" lebel="bot" area="banners_box" widget_type="area">
+	<!--{widgets page=brand area=banners_box}-->
+</div>
+<div class="index_case">
+        <div class="index_case_l">
+            <ul class="index_case_l_ttl">
+               <li class="index_case_ttl_l">
+                  <h3>
+                     合作客户案例
+                  </h3>
+               </li>
+               <li class="index_case_ttl_more">
+                  <!--<a href="index.php?app=brand_mandate&act=form">更多 >></a>-->
+               </li>
+            </ul>
+            <form method="get">
+		<div class="index_case_ctt">
+			
+		<ul class="index_case_ctt1">
+		 <!-- {foreach from=$supply_info item=supply} -->
+		<li>  
+			  <div class="index_case_ctt1_img">
+	      		 <a href="index.php?app=brand_mandate&act=view&id={$supply.supply_id}"><img src="{$supply.supply_logo}" alt="{$supply.supply_name}" /></a>
+	   		  </div>
+	     <div class="index_case_ctt1_name">
+	         <a href="index.php?app=brand_mandate&act=view&id={$supply.supply_id}">{$supply.company_info|truncate:60}</a>
+	     </div>
+	     </li> 
+	     <!-- {/foreach} -->
+	     </ul>	
+		     
+		      </div>
+	    </div>	   
+	    </form>
+  
+		<div class="m_r_box" area="m_r_box" widget_type="area">
+			<!--{widgets page=brand area=m_r_box}-->
+		</div>
+</div>      </div>
+
+<div class="index_new">
+        <ul class="index_case_l_ttl">
+           <li class="index_case_ttl_l">
+              <h3>
+                 最新产品介绍
+              </h3>
+           </li>
+           <li class="index_case_ttl_more">
+              <!--<a href="index.php">更多 >></a> -->
+          </li>
+        </ul>       
+		<div class="photo_box index_new_gds" id="index_slider_2">
+			<ul>		
+			<!-- {foreach from=$com_arr item=com_info} -->
+			   <li>
+			   <!-- {foreach from=$com_info item=com} -->
+				  <div class="index_new_gds_box">
+					  <a class="index_new_gds_img" href="index.php?app=brand_mandate&act=view&id={$com.supply_id}"><img src="{$com.goods_image}" alt="{$com.goods_name}" /></a>
+					  <a href="index.php?app=brand_mandate&act=view&id={$com.supply_id}" id="pp_logo"><img src="{$com.supply_logo}" alt="{$com.supply_name}"/></a>
+					  <p class="index_new_gds_name"><a href="index.php?app=brand_mandate&act=view&id={$com.supply_id}">{$com.goods_name}</a></p>
+					  <p>零售价:{$com.price|price}</p>
+				  </div>
+				<!-- {/foreach} -->
+			   </li>    
+		   <!-- {/foreach} -->
+			</ul>
+		</div>       
+</div>
+
+
+
+<div style="position:absolute;top:0;">
+	<ul class="subnav"><!--上方菜单-->
+  			<li id="select_list"><!--下拉菜单容器--></li><!--select_list-->
+	</ul><!--subnav-->
+   </div>
+   </div>
+   </div>
+{include file=brand.bottom.html}
+   
+<script type="text/javascript">
+
+Effect.slider({   		//轮播器启动
+	'target': 'index_slider_2',
+	'showMarkers': false,
+	'showControls': true,
+	'width_allow':false,
+	'autostart':true,
+	'crosswise':true	
+});
+</script>

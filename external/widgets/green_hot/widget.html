@@ -1,0 +1,80 @@
+
+        		<div class="agr">
+			<ul class="agr_ttl">
+				<li class="agr_ttl_l"></li>
+				<li class="agr_ttl_r">
+					<a href="index.php?app=agro"  class="more1"></a>
+				</li>
+				<li class="agr_ttl_m">
+				<!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+					<a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+					<!-- {/foreach} -->
+				</li>
+			</ul>
+			<div class="agr_l">
+				<ul class="agr_l_t">
+				
+					<li class="agr_ad1">
+						<a href="{$widget_data.images.0.url}"><img src="{$image_url}{$widget_data.images.0.img}" alt="{$widget_data.images.0.title}" width="422" height="162" /></a> 
+					</li>
+					<li class="agr_ad2">
+						<a href="{$widget_data.images.1.url}"><img src="{$image_url}{$widget_data.images.1.img}" alt="{$widget_data.images.1.title}" height="162" width="322" /></a> 
+					</li>
+				</ul>
+				<ul class="rcmd_gds agr_gds">
+					<!-- {foreach from=$widget_data.goods item=goods} -->
+					<li>
+						<span class="rcmd_ico">送{$goods.credit}PL</span>
+						<a href="index.php?app=goods&id={$goods.gs_id}" class="agr_gds_img"><img src="{$image_url}{$goods.smimage_url}" alt="{$goods.goods_name|escape}" /></a> 
+						<p  class="rcmd_name"><a href="index.php?app=goods&id={$goods.gs_id}">{$goods.goods_name|escape}</a></p>
+						<p class="rcmd_prc">派啦价：<span>{$goods.price}</span></p>
+				    </li>
+				<!-- {/foreach} -->
+				</ul>
+			</div>
+			<div class="agr_r">
+				<div class="channel_lbox pl_channel_1box">
+				 <!-- {foreach from=$widget_data.sales item=sales name=sales} -->
+				<ul class="channel_charts">
+				 <!-- {if $smarty.foreach.sales.first} -->
+					<li id="channel_charts_hover">
+						<strong>{$smarty.foreach.sales.iteration}</strong>
+						<div style="display:block;margin-left:5px\9;" class="channel_charts_img l"> 
+							<a href="index.php?app=goods&id={$sales.gs_id}"><img src="{$image_url}{$sales.simage_url}" class="img_60"/></a>
+						</div>
+						<a class="channel_charts_a" href="index.php?app=goods&id={$sales.gs_id}">{$sales.goods_name}</a>
+						<span style="display:block;color:red;" class="red_col_2">￥{$sales.price}</span>
+					</li>	
+					<!-- {else} -->
+					<li>
+						<strong>{$smarty.foreach.sales.iteration}</strong>
+						<div style="display:none;margin-left:5px\9;" class="channel_charts_img l"> 
+							<a href="index.php?app=goods&id={$sales.gs_id}"><img src="{$image_url}{$sales.simage_url}" class="img_60"/></a>
+						</div>
+						<a class="channel_charts_a" href="index.php?app=goods&id={$sales.gs_id}">{$sales.goods_name}</a>
+						<span style="display:none;color:red;" class="red_col_2">￥{$sales.price}</span>
+					</li>	
+					<!-- {/if} -->				
+				</ul>
+				<!--{/foreach}-->			  
+			</div>
+			
+			</div>
+		</div>
+		<script type="text/javascript">
+		$(function(){     //排行榜放大镜
+		$(".channel_charts").children("li").each(function(i){
+		$(this).mouseover(function(){
+			$("#channel_charts_hover").attr("id","");
+			$(".channel_charts").find(".channel_charts_img").css("display","none");
+			$(".channel_charts").find(".red_col2").css("display","none");
+			$(this).attr("id","channel_charts_hover");
+			$(".channel_charts_img").eq(i).css("display","block");
+			$(".red_col2").eq(i).css("display","block");
+			$(".red_col_2").css("display","none");
+			$(this).find(".red_col_2").css("display", "block");
+			})
+		});
+	})
+			</script>
+		

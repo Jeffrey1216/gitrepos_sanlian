@@ -1,0 +1,36 @@
+<div class="dtl_rcmd_ttl dtl_cmt_ttl">
+   <span class="dtl_rcmd_clct dtl_cmt_ml">
+        评价详情
+   </span>
+</div>
+<div class="dtl_cmt_sco">
+    <div class="dtl_sco_l">
+        <div class="dtl_sco_ctt">
+            <span>5</span>分<br/>
+            <strong>综合满意指数</strong>
+            <span class="dtl_sco_ico"></span>
+        </div>
+    </div>
+    <div class="dtl_sco_r">
+        <a></a><br/>
+          亲，只有购买过此商品的用户才能参与评分哦！
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- {foreach from=$goods_comments item=comment} -->
+<div class="dtl_cmt_sco dtl_cmt_sco2">
+    <div class="dtl_cmt_box">
+        <p>{$comment.comment|escape|nl2br}</p>
+        <p>{$comment.}</p>
+    </div>
+    <div class="dtl_cmt_name">
+   {if $comment.anonymous}***{else}{$comment.buyer_name|escape}{/if}
+    </div>
+    <!-- {foreachelse} -->
+<div>
+      <p>{$lang.no_records}</p>
+</div>
+<!-- {/foreach} -->
+    <div class="clear"></div>
+</div>
+  

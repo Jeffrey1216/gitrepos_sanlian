@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>派啦供应商后台管理系统</title>
+<link rel="stylesheet" type="text/css" href="{res file=css/supplier.css}"/>
+<script type="text/javascript" src="{lib file=jquery.js}"></script>
+<script type="text/javascript" src="{lib file=public.js}"></script>
+<script type="text/javascript"> 
+	$(document).ready(function(){
+		sizeHeight();
+		window.onresize=function(){sizeHeight();}
+		addElementCss();
+		btnZY();
+		
+		$("#main-nav li ul").hide();
+		$("#main-nav li a.menuOn").parent().find("ul").slideToggle("slow");
+		
+		$("#main-nav li a.nav-top-item").click(
+			function () {
+				var vParent = $(this).parent().siblings();
+				var liA = vParent.find("a");
+				$(this).parent().siblings().find("ul").slideUp("normal");
+				$(this).next().slideToggle("normal");
+				$(this).addClass("menuOn");
+				$(liA).removeClass("menuOn");
+				mainFrame.location.href=(this.href);
+				var aa = $(this).parent().find(".sideMenu");
+				aa.find("a").removeClass("sideOn");
+				aa.find("a:first").addClass("sideOn");
+				return false;
+			}
+		);
+		
+		$("#main-nav li .nav-top-item").hover(
+			function () {
+				$(this).stop().animate({ paddingRight: "25px" }, 200);
+			}, 
+			function () {
+				$(this).stop().animate({ paddingRight: "15px" });
+			}
+		);
+		
+	});
+	function btnZY(){
+		var $left = $(".leftBox");
+		var $shrink = $("#shrinkDiv");
+		var $right = $(".rightBox");
+ 
+		$("#btnShrink").click(function(){
+			if($("#btnShrink").attr("class")=="left"){
+				var vWidth = document.documentElement.clientWidth-10+"px";
+				$left.animate({left: '-210px'}, "normal");
+				$shrink.animate({left: '0px'}, "normal");
+				if ($.browser.version == "6.0"){
+					$right.animate({left: '10px',width: vWidth}, "normal");	
+				}
+				else{
+					$right.animate({left: '10px'}, "normal");	
+				}
+				$("#btnShrink").addClass("right").removeClass("left");
+				$("#btnShrink").attr("title","展开");
+				
+			}
+			else
+			{
+				var vWidth = document.documentElement.clientWidth-210+"px";
+				$left.animate({left: '0px'}, "normal");
+				$shrink.animate({left: '200px'}, "normal");
+				if ($.browser.version == "6.0"){
+					$right.animate({left: '210px',width: vWidth}, "normal");
+				}
+				else{
+					$right.animate({left: '210px'}, "normal");
+				}
+				
+				$("#btnShrink").addClass("left").removeClass("right");
+				$("#btnShrink").attr("title","收缩");
+			}
+		})
+	}
+</script>
+</head>
+<body>
+<div class="leftBox"> 
+<h1 class="logo"><img width="200" height="104" title="派啦商户后台管理系统" alt="派啦商户后台管理系统" src="themes/mall/new/styles/default/images/supplier/shopadminlogo.jpg"><span>派啦</span></h1>   
+    <div class="welcome">
+       
+    </div>
+    <div class="leftMenu">
+        <ul id="main-nav">
+            <li><a href="index.php?app=supplyadmin&act=supply_info" target="mainFrame" class="nav-top-item menuOn">我的账户</a>
+           		 <ul class="sideMenu hide">
+                    <li><a href="index.php?app=supplyadmin&act=supply_info" target="mainFrame" class="sideOn" onclick="sideMenu(this)">账户概况</a></li>
+                     <li><a href="index.php?app=supplyadmin&act=supply_profile" target="mainFrame" onclick="sideMenu(this)">企业资料</a></li>                
+                </ul>
+             </li>		
+            <li> <a href="index.php?app=supplyadmin&act=supply_mygoods" target="mainFrame" class="nav-top-item">商品管理</a>
+                <ul class="sideMenu hide">
+                    <li><a href="index.php?app=supplyadmin&act=supply_mygoods" target="mainFrame" class="sideOn" onclick="sideMenu(this)">商品列表</a></li>                    
+					
+                </ul>
+            </li>         
+			<li> <a id="orderL" href="index.php?app=supplyadmin&act=supply_seller" target="mainFrame" class="nav-top-item">订单管理</a>                
+				<ul class="sideMenu hide">
+					<li><a href="index.php?app=supplyadmin&act=supply_seller" class="sideOn" target="mainFrame" onclick="sideMenu(this)">商城订单</a></li>				                    
+			
+                </ul>
+            </li>
+        
+            <li> <a href="index.php?app=supplyadmin&act=checkout" target="mainFrame" class="nav-top-item">结算管理</a>                
+				<ul class="sideMenu hide">
+					<li><a href="index.php?app=supplyadmin&act=checkout" class="sideOn" target="mainFrame" onclick="sideMenu(this)">对账单</a></li>
+		
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="shrinkDiv"><a href="javascript:;" id="btnShrink" title="收缩" class="left"></a></div>
+<div class="rightBox">
+    <iframe scrolling="no" name="mainFrame" id="iframeHeight" frameborder="0" width="100% height="100%"  src="index.php?app=supplyadmin&act=supply_info"onload="this.height=100"></iframe>
+    
+
+</div>
+</body>
+</html>

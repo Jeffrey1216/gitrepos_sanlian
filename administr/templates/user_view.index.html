@@ -1,0 +1,65 @@
+{include file="header.html"}
+<script type="text/javascript">
+	$(function(){
+		$('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+		$('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+	});
+</script>
+<div id="rightTop">
+	<ul class="subnav2">
+    	<li class="on"><a>会员账户变动查看<span></span></a></li>
+    </ul>
+</div>
+<div class="mrightTop">
+	<form method="get">
+	<div class="font1">		
+             <div class="left" style="margin-top:6px;">
+                <input type="hidden" name="app" value="user_view" />
+                <input type="hidden" name="act" value="index" />
+                <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                </select>:<input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                余额:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+   	     积分:<input class="queryInput2" type="text" value="{$query.frozen_credit_from}" name="frozen_credit_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.frozen_credit_to}" name="frozen_credit_to" class="pick_date" />
+                注册时间:<input class="queryInput3" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                至:<input class="queryInput3" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+	</div>
+    </form>
+	<div class="fontr">{include file=page.top.html}</div>
+</div>
+<form method="post">
+	<div class="tdare">
+		<table width="100%" cellspacing="0" class="dataTable">	
+				<tr class="tatr1">
+					<td>会员名&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;真实姓名</td>
+					<td>余额</td>
+					<td>PL币</td>
+					<td>变动记录</td>
+					<td>描述</td>
+					<td>时间</td>
+				</tr>		
+		<!-- {foreach from=$member_info item=member} -->
+			<tr class="tatr2">
+				<td>{$member.user_name|escape}&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;{$member.real_name|escape}</td>
+				<td>{$member.user_money|price}</td>
+				<td>{$member.user_credit}PL</td>
+				<td>{$member.change_type}</td>
+				<td>{$member.change_desc|escape}</td>
+				<td>{$member.change_time|date:complete}</td>
+			</tr>
+		<!-- {foreachelse} -->
+			<tr class="no_data">
+			<td colspan="10">{$lang.no_data}</td>
+			</tr>
+		<!-- {/foreach} -->
+		</table>
+		<div id="dataFuncs">
+			<div class="pageLinks">{include file=page.bottom.html}</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</form>
+{include file="footer.html"}

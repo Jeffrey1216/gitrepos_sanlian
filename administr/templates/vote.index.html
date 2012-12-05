@@ -1,0 +1,42 @@
+{include file="header.html"}
+
+<div id="rightTop">
+  <p>投票管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=vote&act=addVote">发起投票</a></li>
+    <li><span>管理</span></li>    
+  </ul>
+</div>
+<div class="mrightTop">
+ 
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>投票标题</td>     
+      <td>总投票人数</td>
+      <td>开始时间</td>
+      <td>结束时间</td>
+      <td style="text-align:center;">操作</td>      
+    </tr>   
+    <!--{foreach from=$rs item=r}-->
+    <tr class="tatr2">
+      <td>{$r.th_name}</td>
+      <td>{$r.th_num}</td>     
+      <td>{$r.th_starttime}</td>
+      <td>{$r.th_endtime}</td>
+      <td style="text-align:center;"><a href="index.php?app=vote&act=detailVote&tid={$r.th_id}">详情</a><a href="http://www.paila100.com/index.php?app=vote&tid={$r.th_id}" target="_blank">预览</a><a href="index.php?app=vote&act=deleteVote&tid={$r.th_id}">删除</a></td>
+    </tr>    
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="5">暂时没有投票主题！</td>
+    </tr>
+    <!--{/foreach}-->    
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

@@ -1,0 +1,118 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>我的订单</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=buy_myorders&act=view&order_id={$order.order_id}">我的订单详情</a></li>
+	</ul>
+	<div class="public_02">
+<div class="module_common">
+  <div class="fastorder"> 
+   <h3>订单状态：<b class="fontsize1">{$order.status|modifier:order_status}</b>&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;订单号：{$order.order_sn}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下单时间：{$order.order_add_time|date:complete}</h3>
+    <div class="line"></div> 
+   <h3>备注信息：<b>{$order.postscript|escape}</b></h3>
+   <h3>卖家信息：</h3>
+   <dl>
+   <dt>店铺名：</dt>
+   <dd>{$order.supply_name|escape}</dd>
+   <dt>店铺地址：</dt>
+      <dd>{$order.address|escape|default:-}</dd>
+</dl>
+<dl> 
+      <dt>电话号码：</dt>
+   <dd>{$order.telphone|escape|default:-}</dd>
+   <dt>移动电话：</dt>
+   <dd>{$order.mobile|escape|default:-}</dd>
+    <dt>MSN:</dt>
+   <dd>{$order.im_msn|escape|default:-}</dd>
+    <dt>QQ:</dt>
+   <dd>{$order.im_qq|escape|default:-}</dd>
+   </dl>
+   <div>&nbsp;:</div>
+    <h3>买家信息：</h3>
+   <div class="goods">
+   <dl>
+   <dt>收货人地址：</dt>
+   <dd>     {$order_extm.consignee|escape}<!--{if $order_extm.phone_mob}-->, &nbsp;{$order_extm.phone_mob}<!--{/if}--><!--{if $order_extm.phone_tel}-->,&nbsp;{$order_extm.phone_tel}<!--{/if}-->
+                ,&nbsp;{$order_extm.region_name|escape}&nbsp;{$order_extm.address|escape}
+                <!--{if $order_extm.zipcode}-->,&nbsp;{$order_extm.zipcode|escape}<!--{/if}--><br />
+                <!--{if $order.invoice_no}-->
+              
+                {$lang.invoice_no}&nbsp;:&nbsp;{$order.invoice_no|escape}<!--&nbsp;&nbsp;&nbsp;&nbsp;<a href="{$shipping_info.query_url}&amp;{$order.invoice_no}" target="_blank">{$lang.query_logistics}</a>-->
+                <!--{/if}-->
+                <!--{if $order.postscript}-->
+                <br />
+                {$lang.postscript}&nbsp;:&nbsp;{$order.postscript|escape}<br />
+                <!--{/if}--></dd>
+   </dl>         
+            </div>
+   <h3>支付信息：</h3>
+   <div class="goods">
+   <dl>
+   <dt>支付方式：</dt>
+   <dd>{$order.payment_name|default:未选择} </dd>
+   <dt>支付状态：</dt>
+   <dd>{$order.pay_message|default:未填写} </dd>
+   </dl>         
+            </div>
+   <h3>订单详情：</h3>
+ 		<table width="100%" class="ordermgt" cellpadding="0" cellspacing="0">
+ 		   <colgroup>
+                <col width="20%" align="left">
+                <col width="10%" align="left">
+                <col width="15%" align="left">           
+                <col width="10%" align="left">
+                <col width="5%" align="center">                 
+            </colgroup>   
+ 		<tbody><tr>
+ 		<th>商品信息</th>
+ 		<th>数量</th>
+ 		<th>价格</th>
+ 		<th>总金额</th>
+        <th>操作</th>
+ 		</tr>
+ 		<!--{foreach from=$goods_list item=goods name=goods}-->
+ 			<tr>
+            	 <td>
+            	 <div style="float:left"><img src="{$image_url}{$goods.goods_image}" align="absmiddle"></div>
+              	 <div style="float:left;padding-left:10px;text-align:left">
+              	 	<div id="g{$goods.rec_id}">{$goods.goods_name}</div>
+              	 	<div>{$goods.specification}</div>
+              	 </div>
+              	 </td>
+                 <td><b>{$goods.quantity}</b></td>
+                 <td><b>{$goods.price|price}</b></td>
+                 <td class="price1">{$goods.amount|price}</td>
+                 <td>{if (($order.status eq 11 || $order.status eq 10) && $smarty.foreach.goods.total gt 1)}<a href="javascript:void(0)" onclick="delgoods({$goods.rec_id})">{$op_status}删除</a>{/if}</td>
+             </tr>
+        <!-- {/foreach} -->
+       		 <tr>	
+       		  	<td style="text-align:left;" colspan="5">下单时间：{$order.order_add_time|date:complete}</td>
+             </tr>
+        </tbody></table>
+        <h3 class="buy_foot"><p><a href="index.php?app=buy_myorders"><img src="themes/mall/default/styles/default/images/gouwuche_10.gif" >返回我的订单</a></p></h3> 
+                </div>  
+    </div>
+	</div>
+	</div>
+<script type="text/javascript">
+var order_id = {$order.order_id};
+var goodstotal = {$smarty.foreach.goods.total};
+function delgoods(rid){
+	var gname = $("#g"+rid).html();
+	
+	if(goodstotal==1){
+		alert("最后一个商品不能删除,请到订单管理里取消订单!");return;
+		}
+	if(confirm("确定删除商品【" + gname + "】?")==true){
+		 var url = "index.php?app=buy_myorders&act=delgoods&order_id="+order_id+"&rid=" + rid
+		 $.get(url, function(res){
+			var data = res.split("|");
+			alert(data[1]);
+			if(data[0]==1){location.reload();}
+			});
+		}
+	else{
+			return;
+		}
+	}
+</script>

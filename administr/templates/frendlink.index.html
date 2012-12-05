@@ -1,0 +1,57 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p>友情链接</p>
+    <ul class="subnav">
+        <li><span>管理</span></li>
+        <li><a href="index.php?app=frendlink&amp;act=add" class="btn1">新增</a></li>
+    </ul>
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+    </div>
+    <div class="fontr">
+        </div>
+</div>
+<table  class="dataTable" width="100%" cellspacing="0">
+	<tr>
+		<td class="bold">编号</td>
+		<td class="bold">名称</td>
+		<td class="bold">链接地址</td>
+		<td class="bold">logo图片</td>
+		<td class="bold">链接类型</td>
+		<td class="bold">序列</td>
+		<td class="bold">操作</td>
+	</tr>
+	
+  <!--{foreach from=$fl item=fl_all}-->
+	<tr>
+		<td>{$fl_all.link_id}</td>
+		<td>{$fl_all.link_name}</td>
+		<td><img width="95px;" height="30px;" src="{$fl_all.link_logo}"/></td>
+		<td>
+		<!-- {if $fl_all.link_logo != ''} -->
+		<img src="{$fl_all.link_logo}">
+		<!-- {else} -->
+		无图片  
+		<!-- {/if} -->
+		</td>
+		<td>
+		<!-- {if $fl_all.type eq 1} -->
+			全站链
+		<!-- {/if} -->
+		<!-- {if $fl_all.type eq 2} -->
+			友情图片链
+		<!-- {/if} -->
+		<!-- {if $fl_all.type eq 3} -->
+			友情文字链
+		<!-- {/if} -->
+		
+		</td>
+		<td>{$fl_all.show_order}</td>
+		<td class="friend_handle"><a href="index.php?app=frendlink&amp;act=dele&amp;link_id={$fl_all.link_id}">删除</a>|<a href="index.php?app=frendlink&amp;act=edit&amp;link_id={$fl_all.link_id}">修改</a></td>
+	</tr>
+	<!--{/foreach}-->
+	
+</table>
+{include file=page.bottom.html}
+{include file="footer.html"}

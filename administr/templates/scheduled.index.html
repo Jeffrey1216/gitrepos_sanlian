@@ -1,0 +1,44 @@
+{include file="header.html"}
+<style type="text/css">
+.dataTable td{text-align:center;} 
+.firstCell{text-align:left;}  
+.dis_tab_span{margin-right:10px;}
+.tdare{border-top:1px solid #cccccc;}
+</style>
+<div id="rightTop">
+  <p>计划任务</p>
+  <ul class="subnav">    
+    <li><a class="btn1" href="index.php?app=scheduled&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=scheduled">管理</a></li>
+  </ul>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable" > 
+    <tr class="tatr1">
+      <td style="width:70px;text-align:left;"  class="firstCell"><input type="checkbox" class="checkall" />&nbsp;&nbsp;<a href="#">删除</a></td>
+      <td width="10%"><span>序号</span></td>
+      <td width="10%"><span>时间周期</span></td>
+      <td width="10%"><span>数据表名</span></td>
+      <td width="10%"><span>字段</span></td>
+      <td class="table-center"><span>方法名</span></td>
+      <td class="table-center"><span>方法描述</span></td>
+      <td width="10%"><span>状态</span></td>
+      <td width="10%"><span>操作</span></td>      
+    </tr>
+    <!--{foreach from=$data item=list}-->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" /></td>
+
+      <td><!-- {if $list.p_id eq 1} -->顺风<!-- {/if} --><!-- {if $list.p_id eq 2} -->顺水<!-- {/if} --><!-- {if $list.p_id eq 3} -->顺你妹<!-- {/if} --></td>
+      <td><!-- {$list.incept_name} --></td>
+      <td><!-- {$list.finished_name} --></td>   
+      <td><!-- {$list.prise_info.price} --></td>
+     <td class="table-center"><!--{$list.prise_info.weight_start} --></td>
+    
+      <td class="table-center"><span class="dis_tab_span"><a href="index.php?app=distribution&act=edit&id={$list.pid}">编辑</a></span>
+      						   <span class="dis_tab_span"><a href="index.php?app=distribution&act=drop&id={$list.pid}">删除</a></span></td>   
+     <!--{/foreach}-->
+    </tr> 
+  </table>  
+</div>
+{include file="footer.html"}

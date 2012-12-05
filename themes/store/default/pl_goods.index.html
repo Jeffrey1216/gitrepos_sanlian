@@ -1,0 +1,75 @@
+{include file=storeindex_top.html}
+{include file=../../mall/new/new_head.html}
+{include file=../../mall/new/menu_select_js.html}
+{include file=service.html}
+<div style="width:1000px;overflow:hidden;margin:0 auto;">
+<div class="load">{include file=curlocal.html}</div>
+<!--end head ad of pailamall----------------------------->
+<div id="level3">
+	<!-- ×ó±ß -->
+	{include file=left.html}
+<!-- ×ó±ß½áÊø -->
+<div class="level2_right">
+    {include file=pagoodsinfo.html}
+</div>
+<div class="level3_right_div">
+<ul class="product_tab">
+    <li class="selected"><a href="{url app=goods&id=$goods.goods_id}#module">{$lang.goods_detail}</a></li>
+    <li><a href="{url app=goods&act=comments&id=$goods.goods_id}#module">{$lang.goods_comment}</a></li>
+    <li><a href="{url app=goods&act=saleslog&id=$goods.goods_id}#module">{$lang.sales_log}</a></li>
+    <li><a href="{url app=goods&act=qa&id=$goods.goods_id}#module">{$lang.qa}</a></li>
+</ul>
+<div style="padding-top:10px;border-bottom:1px solid #ccc;"><img src="{res file=images/des1_02.jpg}"/></div>
+<div class="option_box">
+    <div style="width:789px;overflow:hidden">{$goods.description|escape:editor}</div>
+</div>
+<!--{if $goods.related_info.count gt 0}-->
+<div class="module_currency">
+    <h2 class="common_title veins1">
+        <div class="ornament1"></div>
+        <div class="ornament2"></div>
+        <span class="ico1"><span class="ico2">{$lang.related_info}</span></span>
+    </h2>
+    <dl class="related_list">
+        <!--{foreach from=$goods.related_info.list item=app_data}-->
+        <!--{if $app_data.data and $app_data.app_type neq 'ECMALL'}-->
+        <dt><a href="{$app_data.app_url}">{$app_data.app_name}</a></dt>
+        <!--{foreach from=$app_data.data item=item}-->
+        <dd>{$item}</dd>
+        <!--{/foreach}-->
+        <!--{/if}-->
+        <!--{/foreach}-->
+    </dl>
+</div>
+<!--{/if}-->
+</div>
+</div>
+</div>
+
+{include file=../../mall/new/footer.html}
+<div id="goTopBtn" style="bottom:0;"><a href="javascript:void(0);" id="top"><div class="backtop"></div> </a></div>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+	$("#goTopBtn").hide();
+	
+ $(function () {
+	 $(window).scroll(function(){
+		 if (parseInt($(window).scrollTop()) > 100){
+			 $("#goTopBtn").fadeIn(800);
+		 }else{
+			 $("#goTopBtn").fadeOut(800);
+		 }
+	});
+ });
+ $('#top').click(function(){$('html,body').animate({scrollTop: '0px'}, 800);return false;});
+ });
+$(function(){
+	$(".backtop").mouseover(function(){
+	$(".backtop").addClass("backtop_s") ;
+	});
+	$(".backtop").mouseout(function(){
+	$(".backtop").removeClass("backtop_s") ;
+	});	
+});
+</script>

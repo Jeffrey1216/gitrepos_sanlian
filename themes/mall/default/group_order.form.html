@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>派啦网</title>
+<link href="{res file=topics/seckill_groupbuy/css/seckill_groupbuy.css}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{lib file=jquery.js}"></script>
+</head>
+<body>
+{include file=groupproject_pay.head.html}
+<div class="order_content">
+	<form method="post" onsubmit="return check();">
+	<div class="order_l">
+		<div class="order_l_tit">
+			<h2>购买仅需<span>三步</span></h2>
+			<div class="order_l_menu">
+			</div>
+		</div>
+		<ul class="order_l_goods">
+			<li>
+				<table class="order_l_table">
+					<tr>
+						<th >商品名称</th>
+						<th>数量</th>
+						<th>价格</th>
+						<th>总价</th>
+					</tr>
+					<tr>
+						<td class="order_l_ftd">{$goods_info.title}</td>
+						<td><input type="button" class="order_l_dec"/><input class="order_l_num" type="text" name="quantity" value="1"/><input type="button" class="order_l_add"></span><br/>每人限购<span class="order_l_number">{$goods_info.astrict_num}</span>件</td>
+						<td>￥<span class="order_price">{$goods_info.price}</span></td>
+						<td style="width:130px;"><b>￥<span class="order_l_tot_num">{$goods_info.price}</span><b></td>												
+					</tr>
+				</table>
+			</li>
+			<!-- {if $specnames} -->
+			<li>
+				<ul class="order_l_style" id="order_l_style">
+			   		<!-- {foreach from=$specnames item=specname} -->
+					<li>
+						<b>{$specname.spec_name}：</b>
+						<!-- {foreach from=$specname.specs item=spec} -->
+						<span label="{$spec.id}">{$spec.spec_value}</span>
+						<!-- {/foreach} -->
+					</li>
+					<input type="hidden" name="spec_value[]" value="" />
+					<!-- {/foreach} -->
+					<div class="order_l_style_sel"><b>您已经选择：</b></div>
+				</ul>
+			</li>
+			<!-- {/if} -->
+			<li class="order_l_fare">运费：<span>0.00</span></li>
+			<li class="order_l_fare" id="order_l_color">应付总额：￥<span class="order_l_tot_num">{$goods_info.price}</span></li>
+			<li><input type="hidden" name="order_amount" value="{$goods_info.price}" /></li>
+		</ul>
+		<div class="order_l_address">
+			<div class="order_l_address_tit">
+				<h2>请填写您的收货信息<a style="margin-left:50px;font-weight:400;font-size:12px;color:#285BCC;"  href="index.php?app=my_address">管理我的收货地址</a></h2>
+			</div>
+			<ul class="order_l_address_list">
+			<!-- {foreach from=$address item=v} -->
+				<li><input type="radio" name="order_address" value="{$v.addr_id}"/><span>{$v.region_name}</span><span>{$v.address}</span>（<span>收货人：{$v.consignee}</span>）</li>
+			<!-- {/foreach} -->
+				<li><input class="other_address" value="0" type="radio" name="order_address"/><span>我要使用其它收货地址</span></li>
+				<li class="order_address_new"id="order_address_new" style="display:none;">
+					<table>
+						<tr><td></td><td class="order_address_explain">注:完整信息有助于快速确定送货地址</td></tr>
+						<tr>
+							<td>省市区：</td>
+							<td>
+								<select name="check_select" id="region">
+									<option value="0">请选择...</option>
+								<!-- {foreach from=$region item=v} -->
+									<option value="{$v.region_id}">{$v.region_name}</option>
+								<!-- {/foreach} -->
+								</select>
+								<input type="hidden" class="mls_id" name="region_id" id="region_id"/><input type="hidden" name="region_name" class="mls_names" id="region_name"/>
+							</td>
+						</tr>
+						<tr>
+							<td>街道地址：</td><td><input id="check_address" style="width:400px;" name="address" type="text"></td>
+						</tr>
+						<tr>
+							<td>邮政编码：</td><td><input id="check_postcode" name="zipcode" type="text"></td>
+						</tr>
+						<tr>
+							<td>收件人姓名：</td><td><input id="check_name" name="consignee" type="text"></td>
+						</tr>
+						<tr>
+							<td>手机号码：</td><td><input id="check_mobil" name="phone_mob" type="text"></td>
+						</tr>
+						<tr>
+							<td>固定电话：</td><td><input id="check_phone" name="phone_tel" type="text"></td>
+						</tr>
+					</table>
+				</li>
+			</ul>
+			<p style="margin-left:10px;font-size:13px;">订单附言：</p>
+			<textarea class="order_l_textarea" name="extension"></textarea><br/>
+			<input  class="order_l_submit" value="" type="submit"/>
+		</div>
+	</div>
+	</form>
+	<div class="order_r">
+		
+		<div class="order_r_accep">
+			<div class="order_r_accep_tit">
+				<h3>派啦网承诺</h3>
+			</div>
+			<p>派啦网采用支付宝、农行支付等多种方式进行支付，最大程度保证用户的交易快捷和安全</p>
+		</div>
+	</div>
+</div>
+{include file=seckill.foot.html}
+<script type="text/javascript">
+var SITE_URL = "{$site_url}";
+$(function(){
+	$(".order_l_style").children("li").each(function(i){
+		var spanNode = $(this).find("span");
+		$(this).find("span").click(function(){
+			spanNode.removeClass("order_l_style_hover");
+			$(this).addClass("order_l_style_hover");
+			$(".order_l_style_sel").find("span[name="+i+"]").remove();
+			$(".order_l_style_sel").append("<span name="+i+">"+$(this).text()+"</span>");
+			$(this).parent("li").next("input:hidden").attr("value",$(this).attr("label"));
+		})
+	})
+	var order_l_num = $(".order_l_num").val();
+	var order_l_max = $(".order_l_number").text();
+	
+	$(".order_l_dec").click(function(){	
+		if(--order_l_num<1)
+		{order_l_num=1;}
+		$(".order_l_num").val(order_l_num);
+		price();
+	})
+	$(".order_l_add").click(function(){	
+		if(++order_l_num>order_l_max)
+		{
+			order_l_num = order_l_max;
+			alert("对不起！每人仅限购买"+order_l_max+"件！")
+		}		
+		$(".order_l_num").val(order_l_num);
+			price();
+	})
+	$(".order_l_num").keyup(function(){	
+		
+		if($(".order_l_num").val()>parseInt(order_l_max))
+		{	
+			order_l_num = order_l_max;
+			alert("对不起！每人仅限购买"+order_l_max+"件！");
+			$(".order_l_num").val(order_l_num);
+		}
+		else if( isNaN($(".order_l_num").val()))
+		{
+			alert("数量只能为数字！");
+			$(".order_l_num").val("1");
+		}		
+		else if($(".order_l_num").val()!=""&&($(".order_l_num").val().match(/^(-|\+)?\d+$/)==null||$(".order_l_num").val()<=0))
+		{
+			alert("数量只能为正整数！")
+			$(".order_l_num").val("1");
+		}
+		order_l_num = $(".order_l_num").val();
+		price();
+	})
+	function price()
+	{
+		var order_price = $(".order_price").text();
+		var order_l_tot_num = $(".order_l_tot_num").text();
+		$(".order_l_tot_num").text((order_price*order_l_num).toFixed(2));
+		$(":hidden[name='order_amount']").attr('value',(order_price*order_l_num).toFixed(2));
+	}
+	$(".order_l_address_list").children("li").click(function(){
+		if($(".other_address").is (":checked"))
+		{
+			$(".order_address_new").show();
+		}
+		else
+		{
+			$(".order_address_new").hide();
+			$(".order_address_new").find("input").val("");
+		}
+	});
+	if($(".order_l_address_list").children("li").length>2)
+	{		
+	$(".order_l_address_list").find("input").eq(0).attr("checked",true);
+	}
+	else
+	{
+		$(".order_l_address_list").find("input").eq(0).attr("checked",true);
+		$("#order_address_new").css("display","block");
+		}
+});
+function check()
+{
+	
+	var order_l_style = $(".order_l_style").find("li").length;	
+	var order_l_style_sel = $(".order_l_style_sel").find("span").length;
+	var check_address = document.getElementById("check_address").value;	
+	var check_name = document.getElementById("check_name").value;	
+	var check_phone = document.getElementById("check_phone").value;	
+	var check_mobil = document.getElementById("check_mobil").value;
+	var order_address_new = document.getElementById("order_address_new");
+	var check_postcode = document.getElementById("check_postcode").value;
+	var sel = document.getElementsByName("check_select")[document.getElementsByName("check_select").length-1];
+	var selvalue =sel.options[sel.options.selectedIndex].text;
+		if(order_l_style_sel<order_l_style){
+			alert("请选择商品规格！");return false;
+		}
+		else if(order_address_new.style.display=="none")
+		{
+		return true;
+		}
+		else if(selvalue=="请选择...")
+		{
+			alert("请选择收货地区！");return false;
+		}
+		else if(check_address=="")
+		{
+			alert("请填写详细收货地址！");return false;
+		}
+		else if(check_name=="")
+		{
+			alert("请填写收货人姓名！");return false;
+		}
+		else if(check_postcode==""||check_postcode.match(/^[1-9][0-9]{5}$/)==null)
+		{
+			
+			alert("请正确填写邮政编码！");return false;
+		}
+		else if(check_mobil==""&&check_phone=="")
+		{
+			alert("手机号和固定电话至少填写一项！");return false;
+		}
+		else if(check_mobil!=""&&!(/^13\d{9}$/g.test(check_mobil)||(/^15[0-35-9]\d{8}$/g.test(check_mobil))|| (/^18[05-9]\d{8}$/g.test(check_mobil))))
+		{
+			alert("请正确输入手机号！");return false;
+		}
+		else if(check_phone!=""&&check_phone.match(/^(-|\+)?\d+$/)==null)
+		{
+			alert("请正确输入固定电话！");return false;
+		}		
+		else
+		{ 		
+		return true; 
+		}		
+}	
+function regionChange()
+{
+    // 删除后面的select
+    $(this).nextAll("select").remove();
+
+    // 计算当前选中到id和拼起来的name
+    var selects = $(this).siblings("select").andSelf();
+    var id = 0;
+    var names = new Array();
+    for (i = 0; i < selects.length; i++)
+    {
+        sel = selects[i];
+        if (sel.value > 0)
+        {
+            id = sel.value;
+            name = sel.options[sel.selectedIndex].text;
+            names.push(name);
+        }
+    }
+    $(".mls_id").val(id);
+    $(".mls_name").val(name);
+    $(".mls_names").val(names.join("\t"));
+
+    // ajax请求下级地区
+    if (this.value > 0)
+    {
+        var _self = this;
+        var url = SITE_URL + '/index.php?app=mlselection&type=region';
+        $.getJSON(url, {'pid':this.value}, function(data){
+            if (data.done)
+            {
+                if (data.retval.length > 0)
+                {
+                    $("<select name=\"check_select\"><option>请选择...</option></select>").change(regionChange).insertAfter(_self);
+                    var data  = data.retval;
+                    for (i = 0; i < data.length; i++)
+                    {
+                        $(_self).next("select").append("<option value='" + data[i].region_id + "'>" + data[i].region_name + "</option>");
+                    }
+                }
+            }
+            else
+            {
+                alert(data.msg);
+            }
+        });
+    }
+}
+function regionInit(divId)
+{
+    $("#" + divId).change(regionChange); // select的onchange事件
+}
+$(function () {
+	regionInit("region");
+});
+</script>
+</body>
+</html>

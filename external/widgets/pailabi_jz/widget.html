@@ -1,0 +1,89 @@
+        <div class="plb_dress">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>3F</span>家装家饰
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+               <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=51">更多 >></a>
+               </li>
+            </ul>
+            <div class="plb_dress_ctt">
+                <div class="plb_dress_ad">
+                <!-- {foreach from=$widget_data.images item=i} -->
+                    <a href="{$i.url}"><img src="{$i.img}" alt="{$i.title}" /></a> 
+                <!-- {/foreach} -->
+                </div>
+                <div class="plb_dress_gds ancmt">
+                    <ul class="plb_dress_gds_ttl ancmt_ttl">
+                       <li class="pass pass1 pass2">
+                          精品推荐
+                       </li>
+                       <li  class="pass">
+                          精品推荐
+                       </li>
+                       <li  class="pass">
+                          精品推荐
+                       </li>
+                    </ul>
+                    <!-- {foreach from=$widget_data.goods_all item=goods name=all} -->
+                    <!-- {if $smarty.foreach.all.first} -->
+                    <div class="ancmt_box">
+                    <ul class="plm_cosm_gds1 plb_dress_gds1 ancmt_ctt"  id="ancmt_ctt_show">
+                    <!-- {foreach from=$goods item=i} -->
+                       <li>
+                          <span class="plb_hot plb_get2">送{$i.credit}PL</span>
+                          <a href="index.php?app=goods&id={$i.goods_id}"><img src="{$i.smimage_url}" alt="{$i.goods_name|truncate:20}" /></a> 
+                          <p class="plm_cosm_gds1_name"><a href="index.php?app=goods&id={$i.goods_id}">{$i.goods_name|truncate:20}</a></p>
+                          <p class="plm_cosm_gds1_prc">派啦价：<span>{$i.price}</span></p>
+                       </li>
+                    <!-- {/foreach} -->
+                    </ul>
+                    </div>
+                    <!-- {else} -->
+                    <div class="ancmt_box">
+                    <ul class="plm_cosm_gds1 plb_dress_gds1 ancmt_ctt">
+                       <!-- {foreach from=$goods item=i} -->
+                       <li>
+                          <span class="plb_hot plb_get2">送{$i.credit}PL</span>
+                          <a href="index.php?app=goods&id={$i.goods_id}"><img src="{$i.smimage_url}" alt="{$i.goods_name|truncate:20}" /></a> 
+                          <p class="plm_cosm_gds1_name"><a href="index.php?app=goods&id={$i.goods_id}">{$i.goods_name|truncate:20}</a></p>
+                          <p class="plm_cosm_gds1_prc">派啦价：<span>{$i.price}</span></p>
+                       </li>
+                    <!-- {/foreach} -->
+                    </ul>
+                    </div>
+                    <!-- {/if} -->
+                    <!-- {/foreach} -->
+                </div>
+                <ul class="plb_dress_r">
+					<!-- {foreach from=$widget_data.goods_r item=goods} -->
+                   <li>
+                      <div class="plb_dress_r_img">
+                          <a href="index.php?app=goods&id={$goods.goods_id}"><img src="{$goods.simage_url}" alt="{$goods.goods_name|truncate:20}" /></a>
+                      </div>
+                      <div class="plb_dress_r_gds">
+                          <p class="plb_dress_r_name"><a href="index.php?app=goods&id={$goods.goods_id}">{$goods.goods_name|truncate:20}</a></p>
+                          <p class="plb_dress_r_prc">派啦价:<span>{$goods.price}PL</span></p>
+                      </div> 
+                   </li>
+					<!-- {/foreach} -->
+                </ul>
+            </div>
+        </div>
+        <script type="text/javascript">
+        $(function(){
+        	$(".ancmt_ttl").each(function(i){
+        			$(".ancmt_ttl").eq(i).find("li").each(function(index){
+        			        $(this).mouseover(function(){
+        			              $(".ancmt_ttl").eq(i).parents(".ancmt").find(".ancmt_box ul").attr("id","");
+        			              $(".ancmt_ttl").eq(i).find("li").removeClass("pass2");
+        			              $(".ancmt_ttl").eq(i).parents(".ancmt").find(".ancmt_box ul").eq(index).attr("id","ancmt_ctt_show");
+        			              $(".ancmt_ttl").eq(i).find("li").eq(index).addClass("pass2");
+        		            });
+        	        });
+            });
+        })
+        </script>

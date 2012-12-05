@@ -1,0 +1,77 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+    <p>{$lang.order_manage}</p>
+    <ul class="subnav">
+        <li><!--{if $status eq 1}--><span>未审核</span><!--{else}--><a class="btn1" href="index.php?app=return_money&status=1&act=index">未审核</a><!--{/if}--></li>
+    <li><!--{if $status eq 2}--><span>已通过</span><!--{else}--><a class="btn1" href="index.php?app=return_money&status=2&act=index">已通过</a><!--{/if}--></li>
+    <li><!--{if $status eq 3}--><span>未通过</span><!--{else}--><a class="btn1" href="index.php?app=return_money&status=3&act=index">未通过</a><!--{/if}--></li>
+    </ul>
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">
+                <input type="hidden" name="app" value="return_money" />
+                <input type="hidden" name="act" value="index" />
+                <select id="smstype" class="querySelect" name="search_name">
+          		{html_options options=$search_name selected=$smarty.get.search_name}
+         	 	</select>  
+         	 	<input class="queryInput" name='search_value' type="text" value="{$smarty.get.search_value|escape}" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+            <a class="left formbtn1" href="index.php?app=return_money">{$lang.cancel_query}</a>
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+        {if $orders}{include file=page.top.html}{/if}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <!--{if $orders}-->
+        <tr class="tatr1">
+            <td width="15%"><span ectype="order_by" fieldname="order_sn">{$lang.order_sn}</span></td>
+            <td width="15%" class="firstCell"><span ectype="order_by" fieldname="seller_id">{$lang.store_name}</span></td>
+            <td width="15%"><span ectype="order_by" fieldname="add_time">{$lang.add_time}</span></td>
+            <td width="10%"><span ectype="order_by" fieldname="buyer_name">{$lang.buyer_name}</span></td>
+            <td width="15%"><span ectype="order_by" fieldname="order_amount">{$lang.order_amount}</span></td>
+            <td>{$lang.payment_name}</td>
+            <td>审核状态</td>
+            <td width="10%"><span ectype="order_by" fieldname="status">{$lang.status}</span></td>
+            <td width="10%">{$lang.handler}</td>
+        </tr>
+        <!--{/if}-->
+        <!--{foreach from=$orders item=order}-->
+        <tr class="tatr2">
+            <td><a href="index.php?app=return_money&act=view&id={$order.order_id}">{$order.order_sn}</a>&nbsp;&nbsp;<!--{if $order.extension eq 'groupbuy'}-->[{$lang.groupbuy}]<!--{/if}--></td>
+            <td class="firstCell">{$order.seller_name|escape}</td>
+            <td>{$order.add_time|date:complete}</td>
+            <td>{$order.buyer_name|escape}</td>
+            <td>{$order.order_amount|price}</td>
+            <td>{$order.payment_name|escape|default:-}</td>
+            <td><!-- {if $order.op_status eq 1} -->物流已审核,待财务审核<!-- {elseif $order.op_status eq 3 } -->已通过<!-- {else} -->未通过<!-- {/if} --></td>
+            <td><!-- {if $order.status eq 50} -->退款中<!-- {elseif $order.status eq 60} -->退款成功<!-- {/if} --></td>
+           	<td><!-- {if $order.op_status eq 1} --><a href="index.php?app=return_money&amp;act=operate&amp;id={$order.order_id}">审核</a><!-- {elseif $order.op_status eq 3} --><a href="index.php?app=return_money&amp;act=operate&amp;id={$order.order_id}&type=1">已通过</a><!-- {else} --><a href="index.php?app=return_money&amp;act=operate&amp;id={$order.order_id}&type=1">未通过</a><!-- {/if} --></td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="7">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {if $orders}{include file=page.bottom.html}{/if}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

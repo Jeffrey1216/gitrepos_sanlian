@@ -1,0 +1,70 @@
+<div class="dtl_rcmd_ttl dtl_cmt_ttl">
+   <span class="dtl_rcmd_clct dtl_cmt_ml">
+        评价详情
+   </span>
+</div>
+<!-- 
+<div class="dtl_cmt_sco">
+    <div class="dtl_sco_l">
+        <div class="dtl_sco_ctt">
+            <span>5</span>分<br/>
+            <strong>综合满意指数</strong>
+            <span class="dtl_sco_ico"></span>
+        </div>
+    </div>
+    <div class="dtl_sco_r">
+        <a></a><br/>
+          已有<span>154000</span>人咨询过了，欢迎您提问或互动！ 任何人都可咨询、评论、回复以及客服回复 
+
+    </div>
+    <div class="clear"></div>
+</div>
+-->
+<div class="dtl_cmt_sco dtl_cmt_sco2">
+<!-- 
+	<div class="dtl_cmt_sco_item">
+		<span><input type="radio"/> 全部</span>
+		<span><input type="radio"/> 好评</span>
+		<span><input type="radio"/> 中评</span>
+		<span><input type="radio"/> 差评</span>
+	</div>
+	<div class="dtl_cmt_item">
+		<div style="float:left;margin-left:20px;line-height:24px;width: 100px;">
+		    <h4>评论内容</h4>
+		</div>
+		<div style="float:right;line-height:24px;width: 100px;">
+		  	<h4>用户名</h4>
+		</div>
+	</div>
+	<div class="dtl_detile_item">
+	<div class="userimg"><img src="http://img.paila100.com/data/files/mall/portrait/1/14.gif"/><span class="blue_col">15870XXXX26</span></div>
+	<div class="del_comment">发货很快，包装得很专业，皮摸起来很舒服很软，应该是正品，里面的里布也很结实，背起来很有型，很上档次，很喜欢，期待到时13个月换新服务。同事们都说好看，要我介绍来买呢！！</div>
+	</div>
+-->	
+	<!-- {if $goods_comments} -->
+	<div class="dtl_cmt_item">
+		<div style="float:left;margin-left:20px;line-height:24px;width: 100px;">
+	  	 	<h4>评论内容</h4>
+		</div>
+		<div style="float:right;line-height:24px;width: 100px;">
+		  	<h4>用户名</h4>
+		</div>
+	</div>
+	<!-- {/if} -->
+	<!-- {foreach from=$goods_comments item=comment} -->
+	<div class="dtl_cmt_item">
+	    <div class="dtl_cmt_box">
+	        {$comment.comment|escape|nl2br}
+	    </div>
+	    <div class="dtl_cmt_name">
+	  	 	{if $comment.anonymous}***{else}{$comment.buyer_name|escape}{/if}
+	    </div>
+    </div>
+    <!-- {foreachelse} -->
+	<div>
+      <p>{$lang.no_records}</p>
+	</div>
+	<!-- {/foreach} -->
+    <div class="clear"></div>
+</div>
+  

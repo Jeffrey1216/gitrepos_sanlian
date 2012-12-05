@@ -1,0 +1,69 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+
+<div id="new_keyword" class="agr_map">
+<div class="keyword">
+    <div class="keyword1"></div>
+    <div class="keyword2"></div>
+    <span>{$lang.curlocal}:</span>
+文章列表
+</div>
+</div>
+
+<div class="content">
+ 	<div class="ancmt_left">
+ 		<div class="ancmt_sort">
+ 			<h2>派啦公告</h2>
+ 		</div>
+ 		<div class="ancmt_ctt0">
+ 			<ul class="ancmt_ttl0">
+ 				<li class="ancmt_ttl0_left">
+ 					<h3>标题</h3>
+ 				</li>
+ 				<li class="ancmt_ttl0_right">
+ 					<h3>发布时间</h3>
+ 				</li>
+ 			</ul>
+ 			<ul class="ancmt_list">
+ 			<!-- {foreach from=$acategory item=actegories} -->
+ 				<li>
+ 					<div class="ancmt_list_l">
+ 						<a href="index.php?app=article&act=notice&article_id={$actegories.article_id}">{$actegories.title}</a>
+ 					</div>
+ 					<span>{$actegories.add_time|date}</span>
+ 					<div class="ancmt_line"></div>
+ 				</li>
+ 			<!-- {/foreach} -->
+ 			</ul>
+ 		</div>
+ 	</div>
+ 	<div class="ancmt_right">
+ 		<div class="ancmt_sort">
+ 			<h2>最新消息</h2>
+ 		</div>
+ 			<div class="ancmt_ctt0">
+ 			<ul class="ancmt_ttl0">
+ 				<li class="ancmt_ttl0_left">
+ 					<h3>标题</h3>
+ 				</li>
+ 				<li class="ancmt_ttl0_right">
+ 					<h3>发布时间</h3>
+ 				</li>
+ 			</ul>
+ 			<ul class="ancmt_list">
+ 			<!-- {foreach from=$activity item=i} -->
+ 				<li>
+ 					<div class="ancmt_list_l">
+ 						<a href="index.php?app=article&act=activity&article_id={$i.article_id}">{$i.title}</a>
+ 					</div>
+ 					<span>{$i.add_time|date}</span>
+ 					<div class="ancmt_line"></div>
+ 				</li>
+ 			<!-- {/foreach} -->
+ 			</ul>
+ 		</div>
+ 	</div>
+</div>
+<div class="clear"></div>
+{include file=footer.html}

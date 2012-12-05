@@ -1,0 +1,136 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $("#reject").click(function(){
+        var reason = $.trim($("#reject_reason").val());
+        if (reason == '')
+        {
+            alert('请填写拒绝理由！');
+            return false;
+        }
+        return true;
+    });
+});
+function incomeset(){
+	if($("#recomincome").attr("checked")){
+		$("#bankdiv").css("display","block");
+	}else{
+		$("#bankdiv").css("display","none");
+	}
+}
+//]]>
+</script>
+<div id="rightTop">
+  <p>渠道商管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel">审核</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=channellist">管理</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" action="">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">手机号：</th>
+        <td class="paddingT15 wordSpacing5">{$info.mobile}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">电子邮箱：</th>
+        <td class="paddingT15 wordSpacing5">{$info.email}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">真实姓名：</th>
+        <td class="paddingT15 wordSpacing5">{$info.name} （{if $info.gender eq 0}先生{elseif $info.gender eq 1}女士{/if}）</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">公司名称：</th>
+        <td class="paddingT15 wordSpacing5" >{if $info.company}{$info.company}{else}暂无{/if}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">公司地址：</th>
+        <td class="paddingT15 wordSpacing5" >{if $info.address}{$info.address}{else}暂无{/if}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">身份证号码：</th>
+        <td class="paddingT15 wordSpacing5">{$info.identity}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">营业执照/<br/>组织机构代码证号码：</th>
+        <td class="paddingT15 wordSpacing5">{if $info.companynum}{$info.companynum}{else}暂无{/if}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">等级：</th>
+        <td class="paddingT15 wordSpacing5">{$info.level_name}（{$info.area_name}）</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">身份证复印件：</th>
+        <td class="paddingT15 wordSpacing5">{if $info.identitypic}<a href="{$site_url}/{$info.identitypic}" target="_blank"><img src="{$site_url}/{$info.identitypic}" width="100" height="100" /></a>{else}暂无{/if}</td>
+      </tr>
+      <tr>
+          <th class="paddingT15">公司营业执照/<br/>组织机构代码证：</th>
+          <td class="paddingT15 wordSpacing5">{if $info.companypic}<a href="{$site_url}/{$info.companypic}" target="_blank"><img src="{$site_url}/{$info.companypic}" alt="" width="100" height="100" /></a>{else}暂无{/if}</td>
+      </tr>
+      <tr><th class="paddingT15">加盟选项：</th>
+      	  <td class="paddingT15 wordSpacing5"><select name="year" />
+	       								<option value="1">1年 / {$fee1}</option>
+	       								<option value="2">2年 / {$fee2}</option>
+	       								<option value="3">3年 / {$fee3}</option>
+	       								</select>
+	       	优惠赠送有效期<select name="day" />
+	       								<option value="0">无</option>
+	       								<option value="7">一周</option>
+	       								<option value="15">半个月</option>
+	       								<option value="30">一个月</option>
+	       								<option value="60">两个月</option>
+	       								<option value="90">三个月</option>
+	       								<option value="120">四个月</option>
+	       								<option value="150">五个月</option>
+	       								<option value="180">六个月</option>
+	       								</select>
+	       	<input type="hidden" name="money" value="{$fee}" ></td></tr>
+	  <!--{if $info.recommend}-->
+	  <tr>
+          <th class="paddingT15">推荐人选项：</th>
+          <td class="paddingT15 wordSpacing5"><!--<input type="checkbox" id="recomincome" name="recomincome" value="1" onclick="incomeset();"/>已结算给 -->{$recominfo.name} （{$recominfo.mobile}） <!--{if $recominfo.level eq 1}-->经营中心 <!--{elseif $recominfo.level eq 2}-->服务中心<!--{elseif $recominfo.level eq 3}-->派啦加盟店<!--{elseif $recominfo.level eq 4}-->派啦渠道商<!--{elseif $recominfo.level eq 5}-->派啦渠道商（内部）<!--{/if}--> （{$recominfo.area_name}） <!--推荐收益率{$recomfee.recom_rate}%
+          										<input type="hidden" name="recom_rate" value="{$recomfee.recom_rate}" />--></td>
+      </tr>
+      <!--<tbody id="bankdiv" style="display:none;">
+      <tr>
+        <th class="paddingT15" style="border-top:dashed 1px #666666">结算方式:</th>
+        <td class="paddingT15 wordSpacing5" style="border-top:dashed 1px #666666"><select name="type"><option value="0">银行汇款</option><option value="1">人工结算</option></select></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">银行名称:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="bank" value="{$bank.bank}" />（其他方式结算请注明）</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">银行卡号：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="bankcard" value="{$bank.bankcard}" style="width:200px;"/></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">银行卡开户名：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="bankuser" value="{$bank.bankuser}"/>（其他方式结算请填写收款人姓名）</td>
+      </tr>
+      <tr>
+        <th class="paddingT15" style="border-bottom:dashed 1px #666666">银行业务流水号：</th>
+        <td class="paddingT15 wordSpacing5" style="border-bottom:dashed 1px #666666"><input class="infoTableInput2" type="text" name="chargecode" value="" style="width:200px;"/></td>
+      </tr>
+      </tbody>-->
+      <!--{/if}-->
+      <tr>
+        <th class="paddingT15" valign="top">拒绝理由：</th>
+        <td class="paddingT15 wordSpacing5">
+        <textarea name="reason" cols="60" rows="4" id="reject_reason"></textarea></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="agree" id="agree" value="同意"/>
+          <input class="formbtn" type="submit" name="reject" id="reject" value="拒绝" />
+          <input type="hidden" name="id" value="{$info.rid}" /></td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"} 

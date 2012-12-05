@@ -1,0 +1,62 @@
+{include file="header.html"}
+<script type="text/javascript" src="{lib file=MyDate/WdatePicker.js}"></script>
+<div id="rightTop">
+	    <p>促销编辑</p>
+         <ul class="subnav">
+           <li><a href="index.php?app=promotion&act=add" class="btn1">管理</a></li>
+           <li><span>新增</span></li>
+         </ul>
+        </div>
+	<div class="public_02">
+		<div class="table_edit">
+			<form id="goods_form" method="post">
+				<table>
+					<tr>                                            
+	            		<td><span>商品名：</span>{$goods.goods_name}</td>
+					</tr>
+					<tr>                                            
+	            		<td><span>派啦价：</span>{$goods.price}</td>
+					</tr>
+					<tr>                                            
+	            		<td><span>专柜进货：</span>{$goods.zprice}</td>
+					</tr>
+					<tr>                                            
+	            		<td><span>赠送PL：</span>{$goods.credit}</td>
+					</tr>
+					<tr>                                            
+	            		<td><span>产品重量：</span>{$goods.weight}</td>
+					</tr>
+					<tr>                                            
+	            		<td><span>库存数量：</span>{$goods.stock}</td>
+					</tr>
+					<tr>
+						<td><span>促销价：</span><input type="text" name="pr_price" class="span_input_1"/>
+						</td>
+					</tr>
+					<tr>
+						<td><span>促销数量：</span><input type="text" name="pr_stock" class="span_input_3"/>
+						</td>
+					</tr>
+					<tr id="newtime">
+						<td class="paddingT15">促销时间：<input type="text" class="Wdate" onclick="WdatePicker()" name="starttime" id="starttime"  value="{$smarty.get.starttime}" />
+						—
+						<input type="text" class="Wdate" onclick="WdatePicker()" name="endtime" id="endtime" value="{$smarty.get.endtime}" />
+						</td>
+					</tr>
+					
+					<tr class="line_bold">                                            
+						<th colspan="4">
+							<div class="select_div"> 
+								<input type="hidden" name="app" value="promotion" />
+								<input type="hidden" name="act" value="apply" />
+								<input type="hidden" name="gs_id" value="{$goods.gs_id}" />  						 
+								<input type="submit" class="formbtn" value="提交" />
+								<input type="reset" class="formbtn" value="重置" />	
+							</div>
+						</th>             
+					</tr> 
+				</table>    
+			</form>
+		</div>
+	</div>
+{include file="footer.html"}

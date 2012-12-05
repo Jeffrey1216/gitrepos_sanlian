@@ -1,0 +1,69 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>团购员管理</p>
+  <ul class="subnav">
+    <li><span>审核</span></li>
+    <!-- {if !$finance} -->    
+    <li><a class="btn1" href="index.php?app=channel&act=manager_check">管理</a></li>
+    <!-- {else} -->
+    <li><a class="btn1" href="index.php?app=verify_last_manager&act=manager_check">管理</a></li>
+  	<!-- {/if} -->
+  </ul>
+</div>
+<div class="mrightTop">  
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>申请人</td>
+      <td>真实姓名</td>
+      <td>性别</td>
+      <td>身份证号码</td>
+      <td>申请等级</td>
+      <td>推荐人</td>
+      <td>推荐人真实姓名</td>
+      <td>推荐人等级</td>
+      <td>审核状态</td>
+  	  <td class="handler">{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$customerAsk_list item=customer}-->
+    <tr class="tatr2">
+      <td>{$customer.user_name}</td>
+      <td>{$customer.real_name}</td>
+      <td>{$customer.sex}</td>
+      <td>{$customer.identity_num}</td>
+      <td><!-- {if $customer.need_level eq 1} -->初级团购员<!-- {elseif $customer.need_level eq 2} -->中级团购员<!-- {elseif $customer.need_level eq 3} -->高级团购员<!-- {elseif $customer.need_level eq 4} -->顶级团购员<!-- {/if} --></td>
+      <td>{$customer.recom_user_name|default:无}</td>
+      <td>{$customer.recom_real_name|default:无}</td>
+      <td><!-- {if $customer.recom_level eq 1} -->初级团购员<!-- {elseif $customer.recom_level eq 2} -->中级团购员<!-- {elseif $customer.recom_level eq 3} -->高级团购员<!-- {elseif $customer.recom_level eq 4} -->顶级团购员<!-- {/if} --></td>
+      <td><!-- {if $customer.vstatus eq 1} -->渠道审核通过<!-- {elseif customer.vstatus eq 2} -->渠道审核未通过<!-- {else} -->未操作<!-- {/if} --></td>
+      <td class="handler">
+      	<!-- {if $chan} -->
+      	<!-- {if !$customer.vstatus} -->
+      	<a href="index.php?app=channel&act=verifyManager&id={$customer.id}">渠道审核</a>
+      	<!-- {else} -->
+      	<span>暂无操作</span> 
+      	<!-- {/if} -->
+      	<!-- {/if} -->
+      	<!-- {if $finance} -->
+      	<!-- {if $customer.vstatus eq 1} -->
+      	<a href="index.php?app=verify_last_manager&act=verifyManager&id={$customer.id}">财务审核</a>
+      	<!-- {else} -->
+      	<span>暂无操作</span> 
+      	<!-- {/if} -->
+      	<!-- {/if} -->
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有待审核记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

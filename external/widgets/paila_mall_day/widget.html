@@ -1,0 +1,62 @@
+<div class="active0">
+				<ul class="active_ttl">
+				   <li class="active_ttl_l">
+						<h4>今日活动</h4>
+				   </li>
+				   <li class="active_ttl_r">
+						<span class="prev"></span>
+						<span class="next"></span>
+				   </li>
+				</ul>
+				<div class="active_ctt">
+				<ul class="active_show">
+				 <!-- {foreach from = $widget_data.images item = images} -->
+					<li>
+						<a href="{$images.url}">
+							<img style="width:222px;height:56px;" alt="{$images.title}" src="{$image_url}{$images.img}">
+						</a>
+					</li>
+				<!-- {/foreach} -->
+				</ul>
+				</div>
+			</div>
+
+
+<script type="text/javascript">
+$(function(){
+	var page = 1;
+    var i = 3;     //每版放5个图片
+	$(".prev").click(function(){           //按向左按钮
+		var active0 = $(".active0");
+		var active_show = $(".active_show");
+		var active_height = $(".active_ctt").height();
+		var len = active_show.find("li").length;
+		var page_count = Math.ceil(len / i) ;
+		if(!active0.is(":animated")){
+			if(page == page_count){
+				active_show.animate({top: '0px'},"slow");
+				page = 1;
+			}else{
+				active_show.animate({top: '-='+active_height},"slow");
+				page++;
+			}
+		}
+	});
+	$(".next").click(function(){           //按向左按钮
+		var active0 = $(".active0");
+		var active_show = $(".active_show");
+		var active_height = $(".active_ctt").height();
+		var len = active_show.find("li").length;
+		var page_count = Math.ceil(len / i) ;
+		if(!active0.is(":animated")){
+			if(page == 1){
+				active_show.animate({top: '-='+active_height*(page_count-1)},"slow");
+				page = page_count;
+			}else{
+				active_show.animate({top: '+='+active_height},"slow");
+				page--;
+			}
+		}
+	});
+})
+</script>

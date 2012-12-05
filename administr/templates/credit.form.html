@@ -1,0 +1,34 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p><b>订单详情</b></p>
+</div>
+<div class="info">
+    <div class="demand">
+    </div>
+    <div class="order_form">
+        <h1>订单状态</h1>
+        <ul>
+            <li><b>订单号: {$credit_view.order_sn}</b></li>
+            <li><b>订单状态: <!-- {if $credit_view.status eq 11} -->等待付款<!-- {elseif $credit_view.status eq 20} -->已付款<!-- {elseif $credit_view.status eq 40} -->交易成功<!-- {/if} --></b></li>
+            <li><b>交易派啦币数目：{$credit_view.credit}PL</b></li>
+            <li><b>订单总价: {$credit_view.order_amount|price}</b> </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="order_form">
+        <h1>订单详情</h1>
+        <h2>订单信息</h2>
+        <ul>
+            <li><b>买家名称 :</b> {$credit_view.buyer_name}</li>
+            <li><b>卖家名称:</b> {$credit_view.seller_name}</li>
+            <li><b>支付方式:</b>{$credit_view.payment_name}</li>
+            <li><b>下单时间:</b>{$credit_view.add_time|date:complete}</li>
+            <li><b>支付时间:</b>{$credit_view.pay_time|date:complete}</li>
+            <li><b>结束时间:</b>{$credit_view.finished_time|date:complete}</li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="printbutton"><input class="formbtn" type="button" value="返回" onclick="history.go(-1)" /></div>
+</div>
+
+{include file="footer.html"}

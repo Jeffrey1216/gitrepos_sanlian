@@ -1,0 +1,76 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=MyDate/WdatePicker.js}"></script>
+<style>
+.member_no_records {border-top: 0px !important;}
+.table td{ padding-left: 5px; }
+.table .ware_text { width: 155px; }
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>本店促销</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=promotion">申请列表</a></li>		
+	</ul>  
+	<div class="public_02">
+		<div class="table">
+			<form id="goods_form" method="post">
+				<table>
+					<tr>                                            
+	            		<td>商品名：{$goods.goods_name}</td>
+					</tr>
+   					<tr>                                            
+	            		<td>派啦价：{$goods.price}</td>
+					</tr>
+					<tr>                                            
+	            		<td>专柜进货：{$goods.zprice}</td>
+					</tr>
+					<tr>                                            
+	            		<td>赠送PL：{$goods.credit}</td>
+					</tr>
+					<tr>                                            
+	            		<td>产品重量：{$goods.weight}</td>
+					</tr>
+					<tr>                                            
+	            		<td>库存数量：{$goods.stock}</td>
+					</tr>
+					<tr>
+						<td><span>促销价：</span>
+							<input type="text" name="pr_price"/>
+						</td>
+					</tr>
+					<!-- 暂时隐藏
+					<tr>
+						<td><span>促销赠送PL：</span>
+							<input type="text" name="pr_credit"/>
+						</td>
+					</tr>
+					 -->
+					<tr>
+						<td><span>促销数量：</span>
+							<input type="text" name="pr_stock"/>
+						</td>
+					</tr>
+					<tr>
+						<td>促销时间：<input type="text" class="Wdate" onclick="WdatePicker()" name="starttime" id="starttime"  value="{$smarty.get.starttime}" />
+						—
+						<input type="text" class="Wdate" onclick="WdatePicker()" name="endtime" id="endtime" value="{$smarty.get.endtime}" />
+						</td>
+					</tr>
+					
+					<tr class="line_bold">                                            
+						<th colspan="4">
+							<div class="select_div"> 
+								<input type="hidden" name="app" value="promotion" />
+								<input type="hidden" name="act" value="apply" />
+								<input type="hidden" name="gs_id" value="{$goods.gs_id}" />  						 
+								<input type="submit" class="btn" value="提交" />	
+							</div>
+						</th>             
+					</tr> 
+				</table>    
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{include file=storeadmin.footer.html}

@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+{$page_seo}
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset={$charset}" />
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}" />
+<meta name="author" content="www.paila.com" />
+<meta name="generator" content="PaiLa {$paila_version}" />
+<meta name="copyright" content="PaiLa Inc. All Rights Reserved" />
+<link href="{new_res file=css/public.css}" rel="stylesheet" type="text/css"/>
+<link href="{res file=css/promote.index.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/new_paila.css}" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.promot_list{width:960px;}
+.pr_content{margin:0px auto;width:1000px;}
+.search_l p{margin-left:7px;}
+</style>
+<script type="text/javascript" src="{lib file=jquery.js}"></script>
+<script type="text/javascript" src="{new_res file=js/photo.js}" charset="utf-8"></script>
+<script src="{lib file=jquery.lazyload.js}" type="text/javascript"></script>
+{$_head_tags}
+<!--<editmode></editmode>--> 
+</head>
+<body>
+<!-- 头部 start  -->
+<div id="header">
+	<div style="position:absolute;top:0;">
+        <ul class="subnav"><!--上方菜单-->
+            <li id="select_list"><!--下拉菜单容器--></li><!--select_list-->
+        </ul><!--subnav-->
+    </div>
+    <div class="loginbar">
+        <div class="loginbar_ctt">
+            <div class="loginbar_l">
+                 欢迎来到派啦网！ <span>{$visitor.user_name|escape}
+                 <!--{if !$visitor.user_id}-->&nbsp;
+                 <a href="{url app=member&act=login}">登录</a></span> / <span><a href="{url app=member&act=register}">免费注册</a>
+                 <!--{else}-->
+                 [<a href="{url app=member&act=logout}">退出</a>]
+                 <!--{/if}-->
+                 </span>
+            </div>
+            <div class="loginbar_r" style="position:relative;*top:-4px;_top:0;">
+            <div style="left:60px;height:32px;line-height:32px;float:left;position:absolute;z-index:1000;margin-left:0px;"></div>
+			<a href="index.php?app=member">我的派啦</a> | <a href="index.php?app=message&act=newpm">站内信<font color="#ff6000" style="font-weight:700">{if $new_message neq ''}({$new_message}){/if}</font></a> | <a class="favorite" href="index.php?app=my_favorite">收藏夹</a><!--| <a href="index.php?app=download&act=Merchant">派啦店下载</a> --> | <a href="{url app=article&act=help}">帮助中心</a> | <a href="http://www.weibo.com/pailawang" class="weibo" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+    <div class="header_logo">
+        <div class="logo_l">
+            <a href="index.php"><img src="{new_res file=images/logo_03.gif}" alt="派啦网" /></a>
+        </div>
+		<div class="logo_m">
+			<form action="" method="">
+			<div class="search">
+			    <div class="search_l">
+			        <p><span>促销商品</span></p>			    
+			            <input type="hidden" value="promotion_index" name="app">
+			            <input type="hidden" value="index" name="act">
+			        </div>
+			        <div class="search_m">
+			            <input type="text" class="search_box" name="keyword" value="{$smarty.get.keyword}">
+			        </div>
+			        <div class="search_r">
+			         <input type="submit" class="search_sub" value="" name="Submit">
+			         </div>
+			    </div> 
+			</form>
+		</div>
+        <div class="logo_r">
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="nav">
+  <div class="nav_ctt">
+        <div id="all_goods" class="nav_l">
+			<div class="placeholder">
+			</div>
+			<div class="nav_downico"></div>
+            <a href="index.php?app=search">全部商品分类</a>
+        </div>
+        <ul class="nav_r">
+           <li {if $index eq 0} id="clk_bg"{/if}>
+              <a href="index.php">首页</a>
+           </li>  
+           <!--{foreach from=$middle item=nav}--> 
+           <li style="position: relative;" {if $index eq $nav.nav_id} id="clk_bg0"{/if}>
+           	  <span class="{if $nav.icotype eq 0}nav_r_new{/if}"></span>
+              <a href="{$nav.link}" {if $nav.open_new} target="_blank"{/if}>
+                <span>{$nav.title|escape}</span>
+              </a>
+           </li>
+           <!-- {/foreach} -->           
+        </ul>
+    </div>
+</div>
+<div class="promoto_main">
+	<div class="promot_ad" area="pr_special" widget_type="area">
+			<!--{widgets page=promotion area=pr_special}-->
+	</div>
+	<table class="promot_menu">
+    	<tr><td>
+      	<dl>
+	   	 	<dt><span>分 类:</span><a href="{$cate_url}" {if $cate_id == 0}class="now"{/if}>全部</a></dt>
+            <dd><ul>
+       		<!-- {foreach name=cate from=$gcate item=cate} -->
+            <li><a href="{$cate_url}&cate_id={$cate.cate_id_2}" {if $cate.cate_id_2 == $cate_id}class="now"{/if}>{$cate.cate_name}<span>({$cate.num})</span></a></li>
+        	<!-- {/foreach} -->	
+	<li><a href="{$cate_url}&act=autotrophy" {if $type eq 'commend'}class="now"{/if}>{$lang.autotrophyName}<span>({$commend_count})</span></a></li>
+	  		</ul>
+            </dd>
+	</td></tr></table>
+
+	<div class="clear"></div>
+	 <div class="plzn_gds promot_goods_list content">
+	<ul class="plzn_gds_ctt  cd_goods_gbs">
+	 <!-- {foreach from=$goods item=goods_info name=g} -->      
+	 <li class="li{$goods_info.class}">
+				<div class="plzn_gds_img cd_goods_img">
+					<a target="_blank" href="index.php?app=goods&id={$goods_info.gs_id}"><img src="themes/img/gray.gif" data-original="{$goods_info.mimage_url}" alt="{$goods_info.goods_name}"></a>
+				</div>
+				<div class="plzn_gds_btm cd_goods_xq">
+					<p><b>{$goods_info.goods_name}</b></p>
+					<div class="plzn_gds_prc cd_goods_prc"><span id="cd_kc">{if $opt eq 0}已销售:<em>{$goods_info.selllog}</em>件{else}余库存:<em>{$goods_info.stock}</em>件{/if}</span></div>
+					<div class="cd_prc_bg">
+						<div class="cd_prc_ctt">
+							<div class="cd_prc_ctt1">
+								<em>￥</em>{$goods_info.price1}<span>{$goods_info.price2}</span>
+							</div>
+							<div class="cd_prc_ctt2">
+								PL:<em>{$goods_info.credit1}</em><span>{$goods_info.credit2}</span>
+							</div>
+						</div>
+						<div class="cd_buy_btn">
+							<a href="index.php?app=goods&id={$goods_info.gs_id}&store_id={$store_id}"><img src="{new_res file=images/cd_buy_btn_11.gif}" alt="购买" /></a>
+						</div>
+					</div>
+				</div>
+			</li>
+	<!-- {foreachelse} -->
+    </ul>
+	<div class="tips"><p class="no_goods"></p></div>
+	
+	<!-- {/foreach} -->
+	</div> 
+	<div class="clear"></div>
+	<!--{if $page_info.page_count gt 1 && $page_info.curr_page le $page_info.page_count}-->
+      <div class="notice_page">
+        <div class="page">
+            <a class="stat">{sprintf lang=total_item var1=page_info.item_count}</a>
+            <!--{if $page_info.prev_link}-->
+            <a class="former" href="{$page_info.prev_link}">{$lang.prev_page} >></a>
+            <!--{else}-->
+            <span class="former_no"></span>
+            <!--{/if}-->
+            <!--{if $page_info.first_link}-->
+            <a class="page_link" href="{$page_info.first_link}">1&nbsp;<!--{$page_info.first_suspen}--></a>
+            <!--{/if}-->
+            <!--{foreach from=$page_info.page_links key=page item=link}-->
+            <!--{if $page_info.curr_page eq $page}-->
+            <a class="page_hover" href="{$link}">{$page}</a>
+            <!--{else}-->
+            <a class="page_link" href="{$link}">{$page}</a>
+            <!--{/if}-->
+            <!--{/foreach}-->
+            <!--{if $page_info.last_link}-->
+            <a class="page_link" href="{$page_info.last_link}"><!--{$page_info.last_suspen}-->&nbsp;<!--{$page_info.page_count}--></a>
+            <!--{/if}-->
+            <a class="nonce">{$page_info.curr_page} / {$page_info.page_count}</a>
+            <!--{if $page_info.next_link}-->
+            <a class="down2" href="{$page_info.next_link}">{$lang.next_page} >></a>
+            <!--{else}-->
+            <span class="down_no">{$lang.next_page}</span>
+            <!--{/if}-->
+        </div>
+   	 </div>
+    <!--{/if}-->
+  </div>	
+  <div class="clear"></div>  
+<script type="text/javascript">
+$(function() {
+	$(".promot_goods_list").find("li").hover(function() {
+			$(this).addClass("pro_hover");
+		}, function() {
+			$(this).removeClass("pro_hover");
+		});
+		         
+	    $("img").lazyload({
+	    	effect : "fadeIn",
+	    	failurelimit : 6
+	    });
+});
+</script>
+{include file="footer.html"}
+</body>
+</html>
+ 

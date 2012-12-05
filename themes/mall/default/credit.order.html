@@ -1,0 +1,101 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<style type="text/css">
+.float_right {float: right;}
+</style>
+<div class="content">
+    {include file=member.menu.html}
+    <div id="right">
+     
+        <div class="wrap" style="border-top:1px solid #E2E2E2">
+        <div class="public">
+        <!--
+            <div class="public">
+            	<ul class="subnav" id="ordermgt">
+			    <li>{if $opt eq 1}<span>售出</span>{else}<a class="btn1" href="index.php?app=member&act=credit_order&opt=1">售出</a>{/if}</li>	
+			    <li>{if $opt eq 2}<span>购买</span>{else}<a class="btn1" href="index.php?app=member&act=credit_order&opt=2">购买</a>{/if}</li>
+	 			</ul>
+                <div class="user_search">
+                <form method="get">
+                    {if $query.seller_name or $query.add_time_from or $query.add_time_to or $query.order_sn}
+                     <a class="detlink float_right" href="{url app=buyer_order}">{$lang.cancel_query}</a>
+                    {/if}
+                    <span>下单时间: </span>
+                    <input type="text" class="text1 width2" name="add_time_from" id="add_time_from" value="{$query.add_time_from}"/> &#8211;
+                    <input type="text" class="text1 width2" name="add_time_to" id="add_time_to" value="{$query.add_time_to}"/>
+                    <span>订单号:</span>
+                    <input type="text" class="text1 width_normal" name="order_sn" value="">
+                    <span>订单状态</span>
+                    <select name="status">
+                    	<option {if $status eq 0}selected{/if} value="0">所有订单</option>
+                    	<option {if $status eq 11}selected{/if} value="11">等待付款</option>
+                    	<option {if $status eq 20}selected{/if} value="20"">已付款</option>
+                    	<option {if $status eq 40}selected{/if} value="40">交易成功</option>
+                    </select>
+                    <input type="hidden" name="app" value="member" />
+                    <input type="hidden" name="act" value="credit_order" />
+                    <input type="submit" class="btn" value="查询" />
+                </form>
+                </div>
+                --><!-- {foreach from=$order_info item=order} -->
+                <div class="order_form">
+                    <h2>
+                        <p class="num">订单号: <span>{$order.order_sn}</span></p>
+                        <!-- {if $order.buyer_id eq $user_id} -->
+                        <p class="name"><span>卖家用户名:{$order.seller_name}</span></p>
+                        <!-- {else} -->
+                        <p class="name"><span>买家用户名:{$order.buyer_name}</span></p>
+                        <!-- {/if} -->
+                        <p class="state"><span>订单状态:<!-- {if $order.status eq 11} -->等待付款<!-- {elseif $order.status eq 20} -->已付款<!-- {elseif $order.status eq 40} -->交易成功<!-- {/if} --></span></p>
+                    </h2>
+                    <div class="con">
+                        <p class="ware_text">{$order.info|default:-无出售信息-} <span></span></p>
+                        <p class="price">价格: <span>{$order.order_amount|price}</span></p>
+                        <p class="amount">PLB数量: <span>{$order.credit}PL币</span></p>
+                    </div>
+                    <div class="foot">
+                        <p class="time">下单时间: {$order.add_time|date:Y-m-d H:i:s}</p>
+                        <p class="defray">支付方式: {$order.payment_name|default:-}</p>
+                        <div class="handle">
+                            <div style="float:left;">
+                               	 订单总价: <b id="order{$order.order_id}_order_amount">{$order.order_amount|price}</b>
+                            </div>
+                            <!-- {if $order.status eq 11 and $order.buyer_id eq $user_id} -->
+                            <a href="index.php?app=plb_cart&act=payment&id={$order.id}" target="_blank" {if $order.status neq ORDER_PENDING} style="display:none"{/if} class="btn">付款</a>
+                            <!-- {/if} -->
+                        </div>
+                    </div>
+                </div>
+				<!-- {foreachelse} -->
+                <div class="order_form member_no_records">
+                    <span>您还没有订单！</span>
+                </div>
+				<!-- {/foreach} -->
+                <div class="order_form_page">
+                    <div class="page">
+                        {include file=member.page.bottom.html}
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="wrap_bottom"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="adorn_right1"></div>
+        <div class="adorn_right2"></div>
+        <div class="adorn_right3"></div>
+        <div class="adorn_right4"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<iframe id='iframe_post' name="iframe_post" src="about:blank" frameborder="0" width="0" height="0"></iframe>
+{include file=footer.html}

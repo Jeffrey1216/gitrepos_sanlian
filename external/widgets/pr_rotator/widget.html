@@ -1,0 +1,23 @@
+<div id="zone_top" class="photo_box zone_top_box">
+	<ul>
+		<!-- {foreach from=$widget_data.images item=image} -->
+			<li>
+				<a href="{$image.url}" >
+					<img src="{$image.img}" alt="{$image.title}"/>
+				</a>
+			</li>
+		<!-- {/foreach} -->
+	</ul>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">  
+Effect.slider({   		//轮播器启动
+	'target': 'zone_top',    //选择器
+	'showMarkers': true,   //显示文字说明
+	'showControls': false,  //左移右移控制
+	'width_allow':false,  //计算说明文字宽度
+	'autostart':true,   //自动
+	'crosswise':true,   //方向
+	'trun_text':new Array("1","2","3","4","5")   //说明文字
+});
+</script>

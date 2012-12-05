@@ -1,0 +1,41 @@
+{include file="header.html"}
+<div id="rightTop">
+	<p>投诉管理	</p>
+</div>
+<div class="info">
+		<table class="infoTable" cellspacing="0" cellpadding="0">
+			<tr>
+			  <th height="35" align="left" valign="middle" >订单</th>
+			  <th height="35" align="left" valign="middle" >投诉类型</th>
+              <th height="35" align="left" valign="middle" >投诉内容</th>
+              <th height="35" align="left" valign="middle">投诉时间</th>
+              <th height="35" align="left" valign="middle">投诉状态</th>
+              
+			</tr>
+			<tr>
+            	<td height="35" align="left" valign="middle">{$complain_info.order_sn}</td>
+				<td height="35" align="left" valign="middle">{$complain_info.complain_type|escape}</td>
+				<td height="35" align="left" valign="middle">{$complain_info.complain_reason|escape}</td>
+                <td height="35" align="left" valign="middle">{$complain_info.add_time|date:complete}</td>
+                <td height="35" align="left" valign="middle"><!-- {if $complain_info.c_status eq 1} -->待处理<!-- {else} -->已解决<!-- {/if} --></td>
+			</tr>
+		</table>
+<hr  class="hr1"/>
+	<!-- {if $complain_info.c_status eq 2} -->
+<input type="button" value="返回" onclick="history.go(-1)" class="backsty"/>
+	<!-- {else} -->
+	<form method="post">
+    <table  cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="80" height="80" align="left" valign="top" style="font-weight:700;color:#333;padding-left:20px;padding-top:10px;font-size:12px;">客服回复：</td>
+              <td height="80" align="left" valign="top" style="padding-top:10px;"><textarea name="reason"></textarea></td>			
+			</tr>
+			<tr>
+				<td width="80" height="60" align="left" valign="middle"></td>
+			  <td height="60" align="left" valign="middle"><input type="submit" value="提交" class="backsty1"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回" onclick="history.go(-1)" class="backsty1"/></td>
+			</tr>
+		</table>
+</form>
+	<!-- {/if} -->
+</div>
+{include file="footer.html"}

@@ -1,0 +1,120 @@
+{include file="header.html"}
+<style type="text/css">
+	.distribution{padding:20px;border-top:1px solid #cccccc;}
+	.distribution ul{border:1px solid #cccccc;}
+	.dis_name,.dis_message{width:1000px;padding-left:50px;height:150px;}
+	.distribution b{padding:10px 0;display:inline-block;width:100%;}
+	.distribution input,.distribution select{margin:10px 5px;height:21px;vertical-align:middle;}
+	.dis_weight{width:1000px;float:left;margin-right:10px;margin-bottom:10px;}
+	.dis_weight_close{background:#F7F7F7;width:280px;float:left;margin-right:50px;margin-bottom:20px;position:relative;}
+	.dis_clear{clear:both;}
+	.dis_center{text-align:center;}
+</style>
+<script src="{lib file=mlselection.js}" charset="utf-8"></script>
+<script src="{lib file=jquery.plugins/jquery.validate.js}" charset="utf-8"></script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+$(function(){
+  regionInit("region");
+})
+//]]>
+</script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+$(function(){
+  regionInit("regions");
+})
+//]]>
+</script>
+
+<div id="rightTop">
+  <p>物流设置</p>
+  <ul class="subnav">    
+    <li><a class="btn1" href="index.php?app=distribution&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=distribution">管理</a></li>
+  </ul>
+</div>
+<div class="distribution">
+	<form method="post" action="index.php?app=distribution&act=add" name="form1" id="form1">
+		
+		<b>基本信息：</b>
+		<ul class="dis_name">
+			
+			<li>物流名称：<select name="name1"  onchange="select(this)" >
+							<option value="1" >顺风</option>
+							<option value="2" >顺水</option>
+							<option value="3" >顺你妹</option>
+						 </select></li>
+			<input type="sumbit" name="sendSelect" style="display:none" value="提交下拉框的值" />
+			<li style="padding-top:20px;">发货地&nbsp;&nbsp;&nbsp;&nbsp;
+			<div id="region" style="width:500px;border:1px solide red;margin-top:-30px;margin-left:60px;">
+			<input type="hidden" name="region_id" value="{$store.region_id}" class="mls_id" />
+         	<input type="hidden" name="region_name" value="{$store.region_name}" class="mls_names" />
+         	<select class="d_inline" name="regionss[]" >
+         	<option>{$lang.select_pls}</option>         
+          	{html_options options=$regions	}     
+         	</select>
+			</div>
+			</li>
+			<li>
+                <div id="region">收货地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;						
+                                <span style="display:none;" id="region_name_span"></span>
+                                <input id="edit_region_button" type="button" class="edit_region" value="{$lang.edit}" style="display:none;" />
+                                <select onchange="regionChange(this,'sel_class')" class="sel_class">
+                                    <option>{$lang.select_pls}</option>
+                                    {html_options options=$regions}
+                                </select>
+                                <input type="hidden" class="mls_id" name="region_ids" id="region_id"/>
+                                <input type="hidden" name="region_names" class="mls_names" id="region_name"/>    
+                            </div>
+                    </li>
+		</ul>
+		<b>收费信息：</b>
+		<ul class="dis_message">
+			<li>起步重量：<input type="text" name="weight_start"/>kg</li>
+			<li>起步价格：<input type="text" name="price_start"/>元</li>
+			
+		</ul>
+		<b>重量区间：<input class="dis_addbtns" type="button"value="添加重量区间"/></b>
+		
+		<div class="dis_weight" >
+		
+			 <div class="dis_weight_close">
+				<div class="dis_closebtn"></div>
+				<ul class="dis_weight_ul">
+				<li>最小重量：<input type="text" name="min_weight[]"/>kg</li>
+				<li>最大重量：<input type="text" name="max_weight[]"/>kg</li>
+				<li>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：<input type="text" name="price[]"/>元</li>				
+				</ul>
+			</div>
+																											
+		</div>
+		<input class="dis_subbtn" type="submit" name="submit" value="提交"/>
+	</form>
+	<div class="dis_clear"></div>
+</div>
+<script type="text/javascript">
+
+
+
+$(function(){
+	$(".dis_addbtns").click(function(){
+		$(".dis_weight").append("<div class=\"dis_weight_close\"><div class=\"dis_closebtn\"></div><ul class=\"dis_weight_ul\"><li>最小重量：<input name=\"min_weight[]\" type=\"text\"/>kg</li><li>最大重量：<input  name=\"max_weight[]\" type=\"text\"/>kg</li><li>单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价：<input name=\"price[]\" type=\"text\"/>元</li></ul></div>");			
+			});	
+})
+$(function(){
+		$(".dis_closebtn").live('click',function(){			
+			$(this).parent(".dis_weight_close").remove();
+		});	
+})	
+</script>
+<script>
+function fun(){
+document.getElementById("form1").submit();
+}
+</script>
+
+{include file="footer.html"}
+

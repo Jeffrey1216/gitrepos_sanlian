@@ -1,0 +1,20 @@
+{include file=storeindex_top.html}
+{include file=../../mall/new/new_head.html}
+<div id="level3">
+        {include file=store.left.html}
+
+    <div class="level2_right">
+    {include file=goodsinfo.html}
+    <div class="level3_right_div">
+        <ul class="product_tab">
+		    <li><a href="{url app=goods&id=$goods.goods_id}#module">{$lang.goods_detail}</a></li>
+		    <li><a href="{url app=goods&act=comments&id=$goods.goods_id}#module">{$lang.goods_comment}</a></li>
+		    <li><a href="{url app=goods&act=saleslog&id=$goods.goods_id}#module">{$lang.sales_log}</a></li>
+		    <li class="selected"><a href="{url app=goods&act=qa&id=$goods.goods_id}#module">{$lang.qa}</a></li>
+		</ul>
+        <div class="clear"></div>
+		{include file=qa.html}
+</div>
+</div>
+        
+{include file=../../mall/new/footer.html}

@@ -1,0 +1,34 @@
+{include file="header.html"}
+<div  class="order_form" style="border:none;margin-top:50px;"> 
+<div class="info">
+  <form method="post" action="index.php?app=order&act=audit&order_id={$order_id}">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">状态修改:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="status" value="50" checked="checked" />退款中
+            </label>
+            <label>
+            <input type="radio" name="status" value="60" />退款完成
+            </label>
+            <label>
+            <input type="radio" name="status" value="0" />交易取消
+            </label>
+          </p></td>
+      </tr>
+       <tr>
+        <th class="paddingT15"> <label for="drop_reason">退款原因:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="refund_cause" /></textarea></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20">
+          <input class="formbtn" type="submit" name="Submit" value="提交" />
+          <input class="formbtn" type="button" value="返回" onclick="history.go(-1)" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

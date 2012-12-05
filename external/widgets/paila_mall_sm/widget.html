@@ -1,0 +1,90 @@
+ <div class="plm_cosm">
+            <ul class="plm_cosm_ttl">
+               <li class="plm_cosm_ttl_l">
+                  <span>2F</span>数码家电 
+               </li>
+               <li class="plm_cosm_ttl_r">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a>
+             <!-- {/foreach} -->
+                  <a id="plm_cosm_more" href="index.php?app=search&cate_id=589">更多 >></a>
+               </li>
+            </ul>
+           <div style="float:left;" class="photo_box plb_cosm_r plm_blue_box" id="index_slider_3">
+				<div class="plm_cosm_r_ttl plm_cosm_r_tt2">
+					他们刚刚购买了
+				</div>
+				<!--排行榜轮播器start-->
+				<div class="plb_cosm_photos plm_cosm_box" >
+					<ul>
+					<!-- {foreach from=$widget_data.orders item=goods} -->
+						<li>
+						<!-- {foreach from=$goods item=g} -->
+							<div class="plb_cosm_line">
+								<div>{$g.buyer_name}购买了：</div>
+								<div><a href="index.php?app=goods&id={$g.goods_id}"><img class="img_160"src="{$g.smimage_url}"/></a></div>
+								<div class="h_2"><a href="index.php?app=goods&id={$g.goods_id}">{$g.goods_name|truncate:16}</a></div>
+								<div>市场价:<span class="del_line">{$g.cprice}</span></div>
+								<div>派啦价:<span class="red_col">{$g.price}</span></div>
+								<div class="plb_cosm_rebate plm_cosm_blue">热卖单品</div>
+							</div>
+						<!-- {/foreach} -->
+						</li>
+			<!-- {/foreach} -->	
+					</ul>
+				</div>
+				<!--排行榜轮播器end-->		
+			</div>
+            <div class="plm_cosm_l plm_cosm2_r">                				 
+                 <ul class="plm_add_m">
+				   <li class="plm_add_clk">
+                      <div class="plm_cosm_sort2 clk_img_bg">
+						精品推荐
+                      </div>
+                      <div class="plm_cosm_sort2">
+						人气商品
+                      </div>
+                      <div class="plm_cosm_sort2">
+						新品上架
+                      </div>
+					</li>
+				<!-- {foreach from=$widget_data.page item=pages} -->
+				       <li class="plm_add_none" style="display:block">
+						<ul class="plm_cosm_ad">
+						   <li class="l">
+							  <a href="{$pages.imagesGroup.0.url}"><img class="banner_style1" src="{$pages.imagesGroup.0.img}" alt="{$pages.imagesGroup.0.title}" /></a>
+						   </li> 
+						   <li class="r">
+							  <a href="{$pages.imagesGroup.1.url}"><img class="banner_style2" src="{$pages.imagesGroup.1.img}" alt="{$pages.imagesGroup.1.title}" /></a>
+						   </li>
+						</ul>
+						<div class="plm_cosm_gds">
+							<ul class="plm_cosm_gds1">
+						<!-- {foreach from=$pages.goods_all item=i} -->
+							   <li>
+								  <span class="plm_hot"></span>
+								  <a href="index.php?app=goods&id={$i.goods_id}"><img class="img_160"  src="{$i.smimage_url}" alt="{$i.goods_name|truncate:20}" /></a> 
+								  <p class="plm_cosm_gds1_name"><a href="index.php?app=goods&id={$i.goods_id}">{$i.goods_name|truncate:20}</a></p>
+								  <p class="plm_cosm_gds1_prc">派啦价：<span>{$i.price}</span></p>
+							   </li>
+						 <!-- {/foreach} -->
+							</ul>
+						</div>
+                   </li> 
+                 <!-- {/foreach} -->            
+                </ul>
+            </div>			
+        </div>
+<script type="text/javascript">
+Effect.slider({   		//轮播器启动
+	'target': 'index_slider_3',
+	'showMarkers': true,
+	'showControls': true,
+	'width_allow':false,
+	'autostart':false,
+	'crosswise':true
+	
+});
+
+
+</script>

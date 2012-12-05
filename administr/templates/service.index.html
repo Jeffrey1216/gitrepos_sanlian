@@ -1,0 +1,74 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    $('#gcategory').length>0 && gcategoryInit("gcategory");
+});
+//]]>
+</script>
+<div id="rightTop">
+  <ul class="subnav">
+     <li><span>全部商品</span></li>
+    <li><a href="index.php?app=service&act=user" style="text-decoration:none;" class="btn1">会员</a></li>
+    <li><a href="index.php?app=service&act=order" style="text-decoration:none;" class="btn1">订单列表</a></li>
+  </ul>
+</div>
+<div class="mrightTop info">
+  <div class="fontl">
+    <form method="get" id="search_form">
+      <div class="left">
+      <input type="hidden" name="app" value="service" />
+	  {$lang.goods_name}:
+      <input class="queryInput" type="text" name="goods_name" value="{$smarty.get.goods_name|escape}" />
+      {$lang.brand}:
+      <input class="queryInput" type="text" name="brand" value="{$smarty.get.brand|escape}" />
+          {$lang.gcategory}:
+          <div id="gcategory" style="display:inline;">
+            <input type="hidden" name="cate_id" value="0" class="mls_id" />
+            <select class="querySelect">
+              <option>{$lang.select_pls}</option>
+              {html_options options=$gcategories}
+            </select>
+          </div>
+          <input type="submit"  id="search" class="formbtn" value="{$lang.query}" />
+      </div>
+      <!--{if $smarty.get.cate_id or $query.goods_name  or $query.brand}-->
+      <a class="left formbtn1" href="index.php?app=service<!--{if $query.closed}-->&amp;closed={$query.closed}<!--{/if}-->">{$lang.cancel_query}</a>
+      <!--{/if}-->
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <!--{if $goods_list}-->
+    <tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+      <td width="30%"><span ectype="order_by" fieldname="goods_name">{$lang.goods_name}</span></td>
+      <td><span ectype="order_by" fieldname="brand">{$lang.brand}</span></td>
+      <td><span ectype="order_by" fieldname="cate_id">{$lang.gcategory}</span></td>
+      <td><span ectype="order_by" fieldname="views">浏览数</span></td>
+      <td>{$lang.handler}</td>
+    </tr>
+    <!--{/if}-->
+    <!--{foreach from=$goods_list item=goods}-->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" value="{$goods.goods_id}"/></td>
+      <td><img src="{$imgurl}{$goods.smimage_url}" />{$goods.goods_name|escape}</td>
+      <td>{$goods.brand|escape}</td>
+      <td>{$goods.cate_name|nl2}</td>
+      <td>{$goods.views|default:0}</td>
+      <td>
+      	<a target="_blank" href="{$site_url}/index.php?app=goods&amp;id={$goods.gs_id}">{$lang.view}</a>
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="8">{$lang.no_data}</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+  <div class="clear"></div>
+</div>
+{include file="footer.html"}

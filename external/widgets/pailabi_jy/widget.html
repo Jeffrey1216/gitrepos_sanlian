@@ -1,0 +1,130 @@
+<div class="bottom_l bottom_m">
+                <div class="btm_l_ttl">
+                    <h3>PL币交易专区 <span>PL Shop Distribution</span> <a href="index.php?app=plb_deal">MORE&nbsp;&nbsp;&gt;&gt;</a></h3>
+                </div>
+                <div class="btm_m_img">
+                <!-- {foreach from=$widget_data.images item=image} -->
+                    <a href="{$image.url}"><img src="{$image.img}" alt="{$image.title}" /></a>
+                 <!-- {/foreach} -->
+                </div>
+                <div class="plb_trade ancmt">
+                    <ul class="trade_sort ancmt_ttl">
+                       <li class="pass pass1 pass2">
+                          售出排行榜
+                       </li>
+                       <li class="pass">
+                          买入排行榜
+                       </li>
+                       <li class="pass">
+                          正在出售
+                       </li>
+                    </ul>
+                    <div class="ancmt_box">
+                    <ul class="trade_ctt ancmt_ctt" id="ancmt_ctt_show">
+                    <li>
+                    <table class="trade_inf" cellpadding="0" cellspacing="0">
+                          <tr>
+                             <th width="30%">
+                                用户名
+                             </th>
+                             <th width="40%">
+                                数量
+                             </th>
+                             <th width="30%">
+                                价格
+                             </th>
+                          </tr>
+                          <!-- {foreach from=$widget_data.orders item=order} -->
+                          <tr>
+                             <td class="trade_name">
+                                {$order.seller_name}
+                             </td>
+                             <td class="trade_number">
+                                <div>{$order.credit}PL币</div>
+                             </td>
+                             <td class="trade_name">
+                                {$order.order_amount|price}
+                             </td>
+                          </tr>
+                          <!-- {/foreach} -->
+                   </table>
+                   </li>
+                   </ul>
+                   <ul class="trade_ctt ancmt_ctt">
+                   <li>
+                    <table class="trade_inf" cellpadding="0" cellspacing="0">
+                          <tr>
+                             <th width="30%">
+                                用户名
+                             </th>
+                             <th width="40%">
+                                数量
+                             </th>
+                             <th width="30%">
+                                价格
+                             </th>
+                          </tr>
+                          <!-- {foreach from=$widget_data.orders item=order} -->
+                          <tr>
+                             <td class="trade_name">
+                                {$order.buyer_name}
+                             </td>
+                             <td class="trade_number">
+                                <div>{$order.credit}PL币</div>
+                             </td>
+                             <td class="trade_name">
+                                {$order.order_amount|price}
+                             </td>
+                          </tr>
+						<!-- {/foreach} -->
+                   </table>
+                   </li>
+                   </ul>
+                   <ul class="trade_ctt ancmt_ctt">
+                   <li>
+                    <table class="trade_inf" cellpadding="0" cellspacing="0">
+                          <tr>
+                             <th width="30%">
+                                用户名
+                             </th>
+                             <th width="40%">
+                                数量
+                             </th>
+                             <th width="30%">
+                                价格
+                             </th>
+                          </tr>
+                          <!-- {foreach from=$widget_data.goods item=good} -->
+                          <tr>
+                             <td class="trade_name">
+                                {$good.user_name}
+                             </td>
+                             <td class="trade_number">
+                                <a href="index.php?app=plb_cart&act=add&id={$good.id}"><span>买入</span></a>
+                                <div>{$good.credit_num}PL币</div>
+                             </td>
+                             <td class="trade_name">
+                               	{$good.price|price}
+                             </td>
+                          </tr>
+                          <!-- {/foreach} -->
+                   </table>
+                   </li>
+                   </ul>
+                   </div>
+                </div>    
+            </div>
+            <script type="text/javascript">
+            $(function(){
+            	$(".ancmt_ttl").each(function(i){
+            			$(".ancmt_ttl").eq(i).find("li").each(function(index){
+            			        $(this).mouseover(function(){
+            			              $(".ancmt_ttl").eq(i).parents(".ancmt").find(".ancmt_box ul").attr("id","");
+            			              $(".ancmt_ttl").eq(i).find("li").removeClass("pass2");
+            			              $(".ancmt_ttl").eq(i).parents(".ancmt").find(".ancmt_box ul").eq(index).attr("id","ancmt_ctt_show");
+            			              $(".ancmt_ttl").eq(i).find("li").eq(index).addClass("pass2");
+            		            });
+            	        });
+                });
+            })
+            </script>

@@ -1,0 +1,44 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript" src="{lib file=jquery.ui/jquery.ui.js}" id="dialog_js" charset="utf-8"></script>
+<script type="text/javascript" src="{lib file=dialog/dialog.js}" id="dialog_js" charset="utf-8"></script>
+<div class="borderBox">
+	<h3 class="tit"><span>快捷支付</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=kjzf&act=userlogin">快捷支付</a></li>
+	</ul>
+	<div style="width:500px;height:100px;margin:30px auto">	
+
+	<form method="post" action="index.php?app=kjzf&act=quick_brand_index"  id="cart_form">
+		请输入您的手机号：<input type="text" value="" name="mobile" id="mobile" /><br>
+		             <input type="submit" value="提交" class="user_btn"/>
+	</form>
+	</div>
+</div>
+<script type="text/javascript">	
+$(function(){
+    $('#cart_form').validate({
+        errorPlacement: function(error, element){
+            $(element).next('.field_notice').hide();
+            $(element).after(error);
+        },
+        success       : function(label){
+            label.addClass('validate_right').text('OK!');
+        },
+        rules : {
+	        mobile : {
+                required : true,
+                number   : true,
+                rangelength : [11,11]
+				
+            }
+        },
+        messages : {
+	        mobile : {
+	            required : '必须填写手机号',
+	            number : '这不是一个有效的手机号',
+	            rangelength  : '这不是一个有效的手机号'
+	        }
+        }
+    })
+});
+</script>

@@ -1,0 +1,56 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+<link type = "text/css" href = "{new_res file=css/agr_all.css}" rel="stylesheet"/>
+    <div class="content">
+        <div class="index_banner">
+            <a href="index.php?app=apply"><img src="{new_res file=images/pp_ad1.jpg}" alt="我要加盟" /></a>
+        </div>
+  <div class="league_main">
+    <div class="pl_pgmain">
+         <ul>
+         <li class="cd_list0_l"><h3><strong>所有派啦加盟店</strong></h3></li>
+         </ul>
+         <!-- {foreach from=$store_arr item=arr} -->
+		<dl class="i_dropbox_tmh">
+		<!-- {foreach from=$arr item=info} -->
+			<dd>
+			  <a href="index.php?app=store_league&act=view&id={$info.store_id}" target="_blank" hidefocus="true">
+				<img width="160" height="160" src="{$info.store_logo}">
+			  </a>
+				<span>
+				<p><a href="index.php?app=store_league&act=view&id={$info.store_id}" target="_blank" hidefocus="true"><strong>{$info.store_name}</strong></a></p>
+				<p>店铺地址：{$info.address}</p>
+				<p>联系电话：{$info.tel}</p>
+				<p><a href="index.php?app=store_league&act=view&id={$info.store_id}"><img src="{new_res file=images/join_btn.gif}"/></a></p>
+			   </span>
+			</dd>
+		<!-- {/foreach} -->
+		</dl>
+		<!-- {/foreach} -->
+	</div>
+<div class="clear"></div>
+         <div class="cd_stores_tit">
+    				{include file=page.bottom.html}
+			</div>
+  </div>
+  </div>
+</div>
+  <div class="cd_selectService">
+			 <ul>
+			  <li><h3>客服</h3></li>
+			  <li class="cd_serv_3"><a href="http://wpa.qq.com/msgrd?%0D%0A%0D%0Av=3&amp;uin=1845772484&amp;site=qq&amp;menu=yesQQ%C1%AC%BD%D3"></a></li>
+			  <li class="cd_serv_4"><a href="http://www.taobao.com/webww/?ver=1&&touid=cntaobao派啦购物网&siteid=cntaobao&status=2&portalId=&gid=$bizOrder.itemID:派啦购物网&itemsId"></a></li>
+			 </ul>
+		 </div>
+{include file=footer.html}
+<script type="text/javascript">
+$(document).ready(function(){
+	  $(".i_dropbox_tmh").each(function(i){
+		  $(this).find("dd").hover(function(index){
+			  $(this).toggleClass("hover");
+	  });
+	});
+})
+</script>
+

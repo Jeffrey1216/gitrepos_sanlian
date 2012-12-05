@@ -1,0 +1,59 @@
+{include file="header.html"}
+<div  class="order_form" style="border:none;margin-top:50px;">  
+ 
+        <h1>订单信息</h1>
+        <div style="margin-left:50px;">
+        <ul> 
+          <li>
+          	<b>订单编号：</b>
+          	<span>{$groinfo.order_sn}</span>
+          </li>
+          </ul>
+         </div>
+	   
+  <div class="clear"></div>
+</div>
+
+
+<div class="info">
+  <form method="post">
+    <table class="infoTable">
+     	<tr>
+        	<th class="paddingT15"> <label for="ship_no">物流单号:</label></th>
+        	<td>
+          	<input type="text" name="ship_no" value=""/>
+        	</td>
+      </tr>
+      <tr>
+        	<th class="paddingT15"> <label for="Invoice_no">发票号:</label></th>
+        	<td>
+          	<input type="text" name="Invoice_no" value=""/>
+        	</td>
+      </tr>
+      <tr>
+        	<th class="paddingT15"> <label for="ship_name">物流名称:</label></th>
+        	<td>
+          	<input type="text" name="ship_name" value=""/>
+        	</td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> <label for="ship_reason">物流操作原因:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="ship_reason" /></textarea></td>
+      </tr>
+      <tr>
+        <th class="paddingT15"> <label for="ship_query">物流查询地址:</label></th>
+        <td>
+          <input type="text" name="ship_query" value=""/>
+        </td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20">
+          <input class="formbtn" type="submit" name="Submit" value="提交" />
+          <input class="formbtn" type="button" value="返回" onclick="history.go(-1)" />
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

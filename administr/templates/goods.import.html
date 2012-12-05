@@ -1,0 +1,64 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>{$lang.goods}</p>
+  <ul class="subnav">
+  	<li><a class="btn1" href="index.php?app=goods">{$lang.all_goods}</a></li>
+    <li><!--{if $smarty.get.closed}--><span>{$lang.closed}</span><!--{else}--><a class="btn1" href="index.php?app=goods&amp;closed=1">{$lang.closed}</a><!--{/if}--></li>
+    <li><!-- {if $smarty.get.added} --><span>{$lang.add_goods}</span><!-- {else} --><a class="btn1" href="index.php?app=goods&amp;act=add&amp;added=1">{$lang.add_goods}</a><!-- {/if} --></li>
+    <li><!-- {if $smarty.get.import} --><span>数据导入</span><!-- {else} --><a class="btn1" href="index.php?app=goods&amp;act=import&amp;import=1">数据导入</a><!-- {/if} --></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" enctype="multipart/form-data">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15" style="text-align:right; padding-right:15px;">{$lang.select_file}：</th>
+        <td class="paddingT15 wordSpacing5">
+        <input type="file" name="csv" id="csv" style=" height:25px;"/>
+        <span class="grey">如果数据比较多,建议您分几个Excel文件多次导入!</span></td>
+      </tr>
+      <tr>
+        <th class="paddingT15" style="text-align:right;padding-right:15px;">{$lang.select_charset}：</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label><input type="radio" name="charset" value="utf-8" checked="checked" />utf-8</label>
+            <label><input type="radio" name="charset" value="gbk" />gbk</label>
+            <label>
+            <!--<input type="radio" name="charset" value="big5" />
+            big5</label>-->
+            <span class="red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认是utf-8编码</span>
+          </p>
+          </td>
+      </tr>
+      <tr>
+        <th class="paddingT15" valign="top" style="text-align:right;padding-right:15px;">{$lang.file_format}：
+         <br /><br /><a style="color:red;" href="../../themes/img/goods_import.zip">excel模版下载</a>&nbsp;&nbsp;&nbsp;&nbsp;
+         <br /><br /><a href="index.php?app=goods&amp;act=import_help&amp;import=1" target="_blank">启用宏方法</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        </th>
+        <td class="paddingT15 wordSpacing5"><a href="../../themes/img/goods_import_help.jpg" target="_blank"><img style="border:1px solid #cccccc" src="../themes/img/goods_import_help_s.jpg" /></a></td>
+      </tr>
+      <tr>
+        <th class="paddingT15" valign="top" style="text-align:right;padding-right:15px; color:#f00">数据输入要求：
+        </th>
+        <td class="paddingT15 wordSpacing5">
+        	<ul class="importhelp">
+            <li class="red">1.分类要从分类一到分类四 一级级选择.以防分类出错!如修改分类，要清除之前所选分类，从新从分类一开始选择</li>
+            <li>2.<font class="red">规格名称</font>和<font class="red">规格内容</font>用<font color="red">&amp;</font>隔开，多种规格之间用<b class="blue">$</b>隔开；如单一规格：颜色<font class=red>&amp;</font>红色；两种规格：颜色<font class=red>&amp;</font>红色<b class="blue">$</b>尺寸<font class=red>&amp;</font>30寸；可不填写！</li>
+            <li>3.首重件数要大于等于1（不填默认为1）</li>
+            <li>4.条形码一定要为<b class="blue">13</b>位的数字，且不能重复，[<font class="red">重复的数据会忽悠不导入,如不填,系统会自动分配</font>]。</li>
+            <li>5.小票名称字符数最好不要超过6个</li>
+            <li>6.派啦价一定要高于采购价（非负数），公司利润为非负数（可不填）</li>
+            <li>7.商品名称（必填），商品原名（可不填，不填默认为商品名称）</li>
+            <li>8.重量（可不填，默认单位为千克，支持小数）</li>
+            <li class="red" style="font-weight:bold; font-size:14px;">PS:为了数据的正确性,新的导入模版已加了宏的功能;<a href="index.php?app=goods&amp;act=import_help&amp;import=1" target="_blank">启用方法</a>!</li>
+            </ul>
+        </td>
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="{$lang.import}" />
+          <input class="formbtn" type="button" onclick="history.go(-1)" value="{$lang.back}" />        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"} 

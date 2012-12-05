@@ -1,0 +1,81 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+<h3 class="tit"><span>合作伙伴</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=my_partener">合作伙伴</a></li>
+	</ul>
+<div>    
+    <div>       
+        <script type="text/javascript" src="{lib file=jquery.plugins/jquery.validate.js}" charset="{$charset}"></script>
+       
+          <h3 class="margin2 h3_text">
+            <div class="eject_btn_two eject_pos1" ><b class="ico4"><a uri="index.php?app=my_partner&amp;act=add" ectype="dialog" dialog_id="my_partner_add" dialog_width="460" dialog_title="{$lang.add_partner}">{$lang.add_partner}</a></b></div>
+            </h3>
+             <div class="public table">       
+                <table>
+                   <col width="2%"/>
+            <col width="20%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="15%"/>
+            <col width="60%"/>
+                    <!--{if $partners}-->
+                    <tr class="line_bold">
+                        <th><input id="all" type="checkbox" class="checkall" /></th>
+                        <th colspan="5">
+                            <span class="all"><label for="all">{$lang.checkall}</label></span>
+                            <a href="javascript:void(0);" class="delete" uri="index.php?app=my_partner&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')" ectype="batchbutton">{$lang.drop}</a>
+                        </th>
+                    </tr>
+                    <tr class="gray">
+                        <th></th>
+                        <th>{$lang.title}</th>
+                        <th>{$lang.link}</th>
+                        <th>{$lang.logo}</th>
+                        <th>{$lang.sort_order}</th>
+                        <th>{$lang.handle}</th>
+                    </tr>
+                    <!--{/if}-->
+                    <!-- {foreach from=$partners item=partner name=v} -->
+                    <!--{if $smarty.foreach.v.last}--><tr class="line_bold"><!--{else}--><tr class="line"><!--{/if}-->
+                        <td><input type="checkbox" class="checkitem" value="{$partner.partner_id}" /></td>
+                        <td>{$partner.title|escape}</td>
+                        <td class="color1">{$partner.link}</td>
+                        <td>
+                        <!--{if $partner.logo}-->
+                        <img src="{$partner.logo}" height="30"/>
+                        <!--{/if}-->
+                        </td>
+                        <td><span>{$partner.sort_order}</span></td>
+                        <td>
+                        <div class="">
+                            <a href="javascript:void(0);" uri="index.php?app=my_partner&amp;act=edit&partner_id={$partner.partner_id}" dialog_id="my_partner_edit" dialog_title="{$lang.edit}" dialog_width="460" ectype="dialog" class="edit1">{$lang.edit}</a><a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=my_partner&amp;act=drop&id={$partner.partner_id}');" class="delete">{$lang.drop}</a>
+                        </div>
+                        </td>
+                    </tr>
+                    <!-- {foreachelse} -->
+                    <tr>
+                        <td colspan="6" class="member_no_records padding6">{$lang.no_records}</td>
+                    </tr>
+                    <!--{/foreach}-->
+                    <!--{if $partners}-->
+                    <tr>
+                        <th><input id="all2" type="checkbox" class="checkall" /></th>
+                        <th colspan="5">
+                        <p class="position1">
+                            <span class="all"><label for="all2">{$lang.checkall}</label></span>
+                            <a href="javascript:void(0);" class="delete" uri="index.php?app=my_partner&act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')" ectype="batchbutton">{$lang.drop}</a>
+
+                        </p>
+                        <p class="position2">
+                            {include file=member.page.bottom.html}
+                        </p>
+                        </th>
+                    </tr>
+                    <!--{/if}-->
+                </table>
+            </div>          
+           
+    </div>
+    <div class="clear"></div>
+</div>

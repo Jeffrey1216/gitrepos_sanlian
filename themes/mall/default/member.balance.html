@@ -1,0 +1,82 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+<div class="content">
+    {include file=member.menu.html}
+<div id="right">
+     <div>
+            <ul class="tab">
+                  <li class="normal"><a href="index.php?app=member&act=detailed">交易记录</a></li>
+                  <li class="active">收支记录</li>    
+           </ul>               
+             <div  class="wrap overageborder">       
+          <div class="overagenote">
+          <span>您的消费总金额为<strong>0</strong>元</span><span>支出金额为<strong>0</strong>元</span><span>收入金额为<strong>0</strong>元</span><span>余额为<strong>0</strong>元</span><a href="#" class="submit_btn">我要充值</a></div> 
+                <div class="overage">               
+             <form method="get">
+                  <b style="padding-right:20px">消费记录查询</b>  <span>时间: </span>
+                           <select>
+                   <option>一周内订单</option>
+                    <option>半个月内订单</option>
+                      <option>一个月内订单</option>
+                        <option>三个月内订单</option>
+                              <option>六个月内订单</option>
+                   </select>                         
+                    <input type="submit" value="搜索" class="btn">
+                </form>
+                </div>
+         <div class="overagelist">
+          <table cellpadding="0" cellspacing="0">
+          <tr class="tr2">
+          <th>时间</th>
+          <th>类型</th>
+          <th>收支</th>
+          <th>金额</th>
+          </tr>
+          <tr>
+          <td>2011-05-11</td>
+          <td>在线充值</td>
+          <td class="fontColor7">收入</td>
+          <td class="fontColor6">1.0</td>
+          </tr>       
+             <tr>
+          <td>2011-05-11</td>
+          <td>在线充值</td>
+          <td class="fontColor7">收入</td>
+          <td class="fontColor6">1.0</td>
+          </tr>
+                <tr>
+          <td>2011-05-11</td>
+          <td>在线充值</td>
+          <td class="fontColor7">收入</td>
+          <td class="fontColor6">1.0</td>
+          </tr>
+                <tr>
+          <td>2011-05-11</td>
+          <td>幸运大转盘全额返还</td>
+          <td class="fontColor7">收入</td>
+          <td class="fontColor6">1.0</td>
+          </tr>
+                <tr>
+          <td>2011-05-11</td>
+          <td>幸运大转盘全额返还</td>
+          <td class="fontColor7">收入</td>
+          <td class="fontColor6">1.0</td>
+          </tr>
+                <tr>
+          <td>2011-05-11</td>
+          <td>幸运大转盘全额返还</td>
+          <td class="fontColor7">收入</td>
+          <td class="fontColor6">1.0</td>
+          </tr>
+          </table>   
+          </div>  
+            <div class="productlist_footbg">
+            {include file=member.page.bottom.html}
+        </div> 
+            </div>
+
+      
+    </div>
+</div>
+</div>
+{include file=footer.html}

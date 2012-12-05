@@ -1,0 +1,88 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+    <ul class="subnav">   	
+        <li><a class="btn1" href='index.php?app=store_statistics'><span>管理</span></a></li>
+        <li><a class="btn1">现金订单</a></li>
+        <li>采购总金额：{$goods_collect.stock_amount|price}</li>
+        <li>物流总金额：{$goods_collect.shipping_fee|price}</li>     	
+        <li>配送PL币总额：{$goods_collect.send_pl}PL</li>
+        <li>业务提成总金额：{$goods_collect.send_operation|price}</li>
+        <li>派啦价总金额:{$goods_collect.user_price|price}</li>
+        <li>公司总收益：{$goods_collect.pl_income|price}</li>
+    </ul>
+ </div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get">
+             <div class="left">
+                <input type="hidden" name="app" value="shop_sell" />
+                <input type="hidden" name="act" value="ready" />
+                <select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
+                </select>:<input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
+                订单类型： <select class="querySelect" name="type">
+                    <option value="">请选择</option>
+                    {html_options options=$type selected=$query.type.value}
+                </select>
+                订单状态： <select class="querySelect" name="status">
+                    <option value="">请选择</option>
+                    {html_options options=$status selected=$query.status}
+                </select>
+                下单时间:<input class="queryInput2" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                至:<input class="queryInput2" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+                物流金额:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
+                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to" class="pick_date" />
+                <input type="submit" class="formbtn" value="{$lang.query}" />
+            </div>
+            <!--{if $filtered}-->
+            <a class="left formbtn1" href="index.php?app=shop_sell&act=ready">{$lang.cancel_query}</a>
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+        {if $orders}{include file=page.top.html}{/if}
+    </div>
+</div>
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+    
+        <tr class="tatr1">
+           <td>采购单编码</td>
+           <td>采购商</td>
+           <td>采购货款</td>
+           <td>付款额度</td>
+           <td>欠款</td>
+           <td>合同查看</td>
+           <td>采购日期</td>
+           <td>操作</td>          
+        </tr>
+        <!--{foreach from=$order item=order_info}-->
+        <tr class="tatr2">
+           <td><a href='index.php?app=shop_sell&act=plorder&id={$order_info.order_id}'>{$order_info.order_sn}</a></td>
+		   <td><a href="">{$order_info.buyer_name|escape}</a></td>
+		   <td  style="color:red">{$order_info.stock_price|price}</td>
+		   <td>{$order_info.shipping_fee|price}</td>
+		   <td>{$order_info.send_pl}PL</td>
+		   <td>{$order_info.send_operation|price}</td>
+		   <td>{$order_info.user_price|price}</td>
+		   <td><a href='index.php?app=shop_sell&act=plorder_view&id={$order_info.order_id}'>查看</a>|<a onclick="window.open('index.php?app=shop_sell&act=orderprint&id={$order_info.order_id}')">订单打印</a></td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="14">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

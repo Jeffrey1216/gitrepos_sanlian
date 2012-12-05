@@ -1,0 +1,44 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>许愿墙</p>
+  <ul class="subnav">   
+    <li><a class="btn1" href="index.php?app=vowwall">{$lang.manage}</a></li>
+  </ul>
+  
+</div>
+
+<div  class="order_form wish">  
+         <h1>审核</h1>
+         <form method="post" action="index.php?app=vowwall&act=audit">
+        <table class="infoTable">
+      <!-- {foreach from=$vid item=vids} -->
+      <input type="hidden" name="vid[]" value="{$vids}"/>
+      <!-- {/foreach} -->
+      <tr>
+        <th class="paddingT15">审核:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="status" value="1" checked="checked" />已通过
+            </label>
+            <label>
+            <input type="radio" name="status" value="2" />未通过
+            </label>
+            <label>
+            <input type="radio" name="status" value="0" />未审核
+            </label>
+          </p></td>
+      </tr>
+      
+      <tr>
+        <th></th>
+        <td class="ptb20">
+          <input class="formbtn" type="submit" name="Submit" value="提交" />
+          <input class="formbtn" type="button" value="返回" onclick="history.go(-1)" />
+        </td>
+      </tr>
+    </table>
+  </form>
+        
+</div>
+
+{include file="footer.html"}

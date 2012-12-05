@@ -1,0 +1,10 @@
+<div class="index_login index_ann">
+            <div class="index_login_ttl">
+                <h3>品牌托管公告</h3>
+            </div>
+            <ul class="index_ann_ctt">
+             	<!-- {foreach from=$widget_data.brand item=data} -->
+                    <li><a href="index.php?app=article&act=brand&article_id={$data.article_id}"><span style="float:left;width:140px;overflow:hidden;padding-left:5px;cursor:pointer;">{$data.title}</span></a><span style="float:right;padding-right:5px;cursor:pointer">{$data.add_time}</span></li>
+                <!-- {/foreach} -->
+            </ul>
+        </div>

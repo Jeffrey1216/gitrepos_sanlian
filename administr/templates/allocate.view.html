@@ -1,0 +1,33 @@
+	{include file="header.html"}
+    <div class="particular">
+        <div class="particular_wrap"><h2>订单详情</h2>
+            <div class="box">
+                <div class="state">订单状态&nbsp;:&nbsp;<strong>{$order.status|modifier:order_status}</strong></div>
+                <div class="state">订单派发状态&nbsp;:&nbsp;<strong>{if $order.assign_store_id}{$lang.yes}{else}{$lang.no}{/if}</strong></div>
+                <div class="num">订单号&nbsp;:&nbsp;{$order.order_sn}</div>
+                <div class="time">下单时间&nbsp;:&nbsp;{$order.add_time|date:complete}</div>
+                <div class="time">收货地址&nbsp;:&nbsp;{$order.region_name}</div>
+            </div>           
+            <h3>订单信息</h3>
+         
+         <div class="ware_line">                        
+                        <table cellpadding="0" cellspacing="0">
+                        <tr>
+                        <td><b>商品名称</b></td>
+                        <td><b>商品数量</b></td>
+                        <td><b>单价</b></td>
+                        </tr>
+                        <!-- {foreach from=$view item=order } --> 
+                        <tr>
+                        <td>{$order.goods_name}</td>
+                        <td>{$order.quantity}</td>
+                        <td>{$order.price}</td>
+                        </tr>
+                         <!-- {/foreach} -->
+                        </table>                        
+                         
+                        </div>
+                        
+                    </div>                                   
+                 </div>     
+  {include file="footer.html"}

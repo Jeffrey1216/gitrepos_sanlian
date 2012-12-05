@@ -1,0 +1,234 @@
+	
+<h2>{$data.goods.goods_name}</h2>
+<div style="padding-top:10px;overflow:hidden;padding-top:10px;">  
+    
+    <div class="level3_center">
+      <div id="BigImage" class="jqzoom" >
+			<img id="_middleImage" src="{$images_arr.0.thumbnail}" image_url="{$IMAGE_URL}" <!-- {if $images_arr.0.yimage_url eq $IMAGE_URL} -->longdesc=""<!-- {else} --> longdesc="{$images_arr.0.yimage_url}"<!-- {/if} --> />
+		</div>
+    </div>
+    <div class="level3_right">
+        <div><i>派&nbsp;&nbsp;&nbsp;啦&nbsp;&nbsp;&nbsp;价：</i><span class="paila_price">{$data.goods.price|price}</span></div>
+        <div><i>市场参考价：</i><span class="paila_price">{$data.goods.cprice|price}</span></div>
+        <div><i>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费：</i><span>买家承担运费</span></div>
+        <div><i>品&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;牌：</i><span>{$data.goods.brand}</span></div>
+        <div><i>所&nbsp;&nbsp;在&nbsp;地区：</i><span>{$data.store_data.region_name}</span></div>
+        <div class="handle">
+            <!--{if $goods.spec_qty gt 0}-->
+            <ul>
+                <li class="handle_title">{$goods.spec_name_1|escape}: </li>
+            </ul>
+            <!--{/if}-->
+            <!--{if $goods.spec_qty gt 1}-->
+            <ul>
+                <li class="handle_title">{$goods.spec_name_2|escape}: </li>
+            </ul>
+            <!--{/if}-->
+            <ul>
+                <li class="handle_title">{$lang.quantity}: </li>
+                <li>
+                    <input type="text" class="text width1" name="" id="quantity" value="1" />
+                    	件
+                </li>
+            </ul>
+            <!--{if $goods.spec_qty gt 0}-->
+            <ul>
+                <li class="handle_title">你已选择 : </li>
+                <li class="aggregate" ectype="current_spec"></li>
+            </ul>
+            <!--{/if}-->
+             <input class="btn1 btn1_0" onclick="buy();" class="padding_left_02" type="button" value="加入购物车" />
+             <a href="index.php?app=buy_mallgoods">返回继续购物</a>
+        </div>           
+        </div>
+    </div>
+ 
+<div class="clear"></div>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL="{$site_url}";
+var specs = new Array();
+<!--{foreach from=$goods._specs item=spec}-->
+specs.push(new specObj({$spec.spec_id}, '{$spec.spec_1|escape}', '{$spec.spec_2|escape}',{$spec.price}));
+<!--{/foreach}-->
+var specQty = {$goods.spec_qty};
+var defSpec = {$goods.default_spec|escape};
+var goodsspec = new goodsspecObj(specs, specQty, defSpec);
+
+/* spec对象 */
+function specObj(id, spec1, spec2, price, stock)
+{
+    this.id    = id;
+    this.spec1 = spec1;
+    this.spec2 = spec2;
+    this.price = price;
+}
+/* 选中某规格 num=1,2 */
+function selectSpec(num, liObj)
+{
+    goodsspec['spec' + num] = $(liObj).html();
+    $(liObj).attr("class", "solid");
+    $(liObj).siblings(".solid").attr("class", "dotted");
+
+    // 当有2种规格并且选中了第一个规格时，刷新第二个规格
+    if (num == 1 && goodsspec.specQty == 2)
+    {
+        goodsspec.spec2 = null;
+        $(".aggregate").html("");
+        $(".handle ul:eq(1) li[class='handle_title']").siblings().remove();
+
+        var spec2Values = goodsspec.getDistinctValues('spec2', goodsspec.spec1);
+        for (var i = 0; i < spec2Values.length; i++)
+        {
+            $(".handle ul:eq(1)").append("<li class='dotted' onclick='selectSpec(2, this)'>" + spec2Values[i] + "</li>");
+        }
+    }
+    else
+    {
+        var spec = goodsspec.getSpec();
+        if (spec != null)
+        {
+            $("[ectype='current_spec']").html(spec.spec1 + ' ' + spec.spec2);
+            $("[ectype='goods_price']").html(price_format(spec.price));
+        }
+    }
+}
+/* goodsspec对象 */
+function goodsspecObj(specs, specQty, defSpec)
+{
+    this.specs = specs;
+    this.specQty = specQty;
+    this.defSpec = defSpec;
+    this.spec1 = null;
+    this.spec2 = null;
+    if (this.specQty >= 1)
+    {
+        for(var i = 0; i < this.specs.length; i++)
+        {
+            if (this.specs[i].id == this.defSpec)
+            {
+                this.spec1 = this.specs[i].spec1;
+                if (this.specQty >= 2)
+                {
+                    this.spec2 = this.specs[i].spec2;
+                }
+                break;
+            }
+        }
+    }
+
+    // 取得某字段的不重复值，如果有spec1，以此为条件
+    this.getDistinctValues = function(field, spec1)
+    {
+        var values = new Array();
+        for (var i = 0; i < this.specs.length; i++)
+        {
+            var value = this.specs[i][field];
+            if (spec1 != '' && spec1 != this.specs[i].spec1) continue;
+            if ($.inArray(value, values) < 0)
+            {
+                values.push(value);
+            }
+        }
+        return (values);
+    }
+
+    // 取得选中的spec
+    this.getSpec = function()
+    {
+        for (var i = 0; i < this.specs.length; i++)
+        {
+            if (this.specQty >= 1 && this.specs[i].spec1 != this.spec1) continue;
+            if (this.specQty >= 2 && this.specs[i].spec2 != this.spec2) continue;
+
+            return this.specs[i];
+        }
+        return null;
+    }
+
+    // 初始化
+    this.init = function()
+    {
+        if (this.specQty >= 1)
+        {
+            var spec1Values = this.getDistinctValues('spec1', '');
+            for (var i = 0; i < spec1Values.length; i++)
+            {
+                if (spec1Values[i] == this.spec1)
+                {
+                    $(".handle ul:eq(0)").append("<li class='solid' onclick='selectSpec(1,this)'>" + spec1Values[i] + "</li>");
+                }
+                else
+                {                   
+                    $(".handle ul:eq(0)").append("<li class='dotted' onclick='selectSpec(1,this)'>" + spec1Values[i] + "</li>");
+                }
+            }
+        }
+        if (this.specQty >= 2)
+        {
+            var spec2Values = this.getDistinctValues('spec2', this.spec1);
+            for (var i = 0; i < spec2Values.length; i++)
+            {
+                if (spec2Values[i] == this.spec2)
+                {
+                    $(".handle ul:eq(1)").append("<li class='solid' onclick='selectSpec(2,this)'>" + spec2Values[i] + "</li>");
+                }
+                else
+                {
+                    $(".handle ul:eq(1)").append("<li class='dotted' onclick='selectSpec(2,this)'>" + spec2Values[i] + "</li>");
+                }
+            }
+        }
+        var spec = this.getSpec();
+        $("[ectype='current_spec']").html(spec.spec1 + ' ' + spec.spec2);
+    }
+}
+$(function(){
+    goodsspec.init(); 
+});
+
+/* buy */
+function buy()
+{
+    if (goodsspec.getSpec() == null)
+    {
+        alert(lang.select_specs);
+        return;
+    }
+    var spec_id = goodsspec.getSpec().id;
+
+    var quantity = $("#quantity").val();
+    if (quantity == '')
+    {
+        alert(lang.input_quantity);
+        return;
+    }
+    if (parseInt(quantity) < 1)
+    {
+        alert(lang.invalid_quantity);
+        return;
+    }
+    add_to_cart(spec_id, quantity);
+}
+
+/* add cart */
+function add_to_cart(spec_id, quantity)
+{
+	var url = SITE_URL + '/index.php?app=commoncart&act=addToCart';
+    $.getJSON(url, {'spec_id':spec_id, 'quantity':quantity}, function(data){
+        if (data.done)
+        {
+            $('.bold_num').text(data.retval.cart.kinds);
+            $('.bold_mly').html(price_format(data.retval.cart.amount));
+            alert("加入成功!!!");  
+        }
+        else
+        {
+            alert(data.msg);
+        }
+    });
+}
+//]]>
+
+</script>
+

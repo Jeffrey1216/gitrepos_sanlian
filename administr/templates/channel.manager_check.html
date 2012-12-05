@@ -1,0 +1,117 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>团购员管理</p>
+  <ul class="subnav">
+  	<!-- {if !$finance} -->
+  	<li><a class="btn1" href="index.php?app=channel&act=manager">审核</a></li> 
+  	<!-- {else} -->
+    <li><a class="btn1" href="index.php?app=verify_last_manager">审核</a></li>
+    <!-- {/if} -->    
+    <li><span>管理</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+	<div class="fontl">
+    <form method="get">
+       <div class="left">
+         	<!-- {if !$finance} -->
+		  	<input type="hidden" name="app" value="channel" />      	
+		  	<!-- {else} -->
+		  	<input type="hidden" name="app" value="verify_last_manager" />
+		    <!-- {/if} -->   
+          <input type="hidden" name="act" value="manager_check" />
+          <select id="smstype" class="querySelect" name="condt">
+          	<option value="0" {if $condt eq 0}selected{/if}>会员名</option>
+          	<option value="1" {if $condt eq 1}selected{/if}>真实姓名</option>
+          	<option value="2" {if $condt eq 2}selected{/if}>手机号</option>
+          	<option value="3" {if $condt eq 3}selected{/if}>推荐人</option>
+          	<option value="4" {if $condt eq 4}selected{/if}>代数</option>
+          </select>
+          <span class="two_grade"><input class="queryInput" name="mem" type="text" value="{}"></span>
+        <span>等级: </span>
+             <select name="level">
+             	<option value="0" <!-- {if $level eq 0} -->selected<!-- {/if} -->>所有记录</option>
+             	<option value="1" <!-- {if $level eq 1} -->selected<!-- {/if} -->>初级团购员</option>
+            	<option value="2" <!-- {if $level eq 2} -->selected<!-- {/if} -->>中级团购员</option>
+              	<option value="3" <!-- {if $level eq 3} -->selected<!-- {/if} -->>高级团购员</option>
+              	<option value="4" <!-- {if $level eq 3} -->selected<!-- {/if} -->>顶级团购员</option>
+             </select>
+          <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>用户名</td>
+      <td>真实姓名</td>
+      <td>性别</td>
+      <td>手机号</td>
+      <td>等级</td>
+      <td>身份证号</td>
+      <td>直接推荐返利</td>
+      <td>会员消费返利</td>
+      <td>代数</td>
+      <td>推荐人账号</td>
+      <td>注册时间</td>
+  	  <td class="handler">{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$customerManager_list item=node}-->
+    <tr class="tatr2">
+      <td>{$node.user_name}</td>
+      <td>{$node.real_name}</td>
+      <td>{$node.sex}</td>
+      <td>{$node.mobile}</td>
+      <td>{$node.level_definition}</td>
+      <td>{$node.identity_num}</td>
+      <td>{$node.benefit_ratio}</td>
+      <td>{$node.member_expense_yield}</td>
+      <td>{$node.algebra}</td>
+      <td>{$node.cuser_name|default:无}</td>
+      <td>{$node.reg_time|date}</td>
+      <td class="handler">
+      	  	<!-- {if !$finance} -->
+     		<a href="index.php?app=channel&act=manager_underling&id={$node.user_id}">直属团购员</a>		
+		  	<!-- {else} -->
+		    <a href="index.php?app=verify_last_manager&act=manager_detail&id={$node.user_id}">编辑</a>
+     		|<a href="index.php?app=verify_last_manager&act=manager_underling&id={$node.user_id}">直属团购员</a>	
+		    <!-- {/if} -->  		
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有团购员记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$("#smstype").change(function(){
+			changeValue();
+		})
+	})
+	function changeValue() {
+		var inputNode;
+		$(".two_grade").empty();
+		$("#smstype").attr('value'); //变
+		switch(parseInt($("#smstype").attr('value'))) {
+		case 0: inputNode ="<input class=\"queryInput\" name='user_name' type=\"text\" value=\"{$user_name}\"/>";break;
+		case 1: inputNode ="<input class=\"queryInput\" name='real_name' type=\"text\" value=\"{$real_name}\"/>"; break;
+		case 2: inputNode ="<input class=\"queryInput\" name='mobile' type=\"text\" value=\"{$mobile}\"/>"; break;
+		case 3: inputNode ="<input class=\"queryInput\" name='cuser_name' type=\"text\" value=\"{$cuser_name}\"/>"; break;
+		case 4: inputNode ="<input class=\"queryInput\" name='algebra' type=\"text\" value=\"{$algebra}\"/>"; break;
+		default : alert("Error! ..");return;
+		}
+		$(".two_grade").append(inputNode);
+	}
+	changeValue();
+</script>
+{include file="footer.html"}

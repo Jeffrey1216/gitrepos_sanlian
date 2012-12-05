@@ -1,0 +1,33 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>渠道商管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel">审核</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=channellist">管理</a></li>
+  </ul>
+</div>
+<div class="info">
+  <form name="form" method="post" action="">
+    <table class="infoTable">
+      <tr>
+        <th class="paddingT15">收信人：</th>
+        <td class="paddingT15 wordSpacing5">{$name}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">主题：</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableFile2" type="text" name="title" /></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">内容：</th>
+        <td class="paddingT15 wordSpacing5"><textarea class="infoTableFile2" name="content"/></textarea></td>
+      </tr>
+      <tr>
+        <th></th>
+        <td class="ptb20"><input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+        				<input type="hidden" name="id" value="{$id}"/></td>
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

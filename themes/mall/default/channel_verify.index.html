@@ -1,0 +1,48 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+
+<div class="content">
+    {include file=member.menu.html}
+    
+<div id="manager_info" class="right">
+	{include file=member.subtop.html}
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>申请人</td>
+      <td>真实姓名</td>
+      <td>性别</td>
+      <td>身份证号码</td>
+      <td>申请等级</td>
+      <td>推荐人</td>
+      <td>推荐人真实姓名</td>
+      <td>推荐人等级</td>
+  	  <td class="handler">待审核</td>
+    </tr>
+    <!--{foreach from=$customerAsk_list item=customer}-->
+    <tr class="tatr2">
+      <td>{$customer.user_name}</td>
+      <td>{$customer.real_name}</td>
+      <td>{$customer.sex}</td>
+      <td>{$customer.identity_num}</td>
+      <td><!-- {if $customer.need_level eq 1} -->团购员<!-- {elseif $customer.need_level eq 2} -->团购点<!-- {elseif $customer.need_level eq 3} -->社区团购中心<!-- {else} -->无<!-- {/if} --></td>
+      <td>{$customer.recom_user_name|default:无}</td>
+      <td>{$customer.recom_real_name|default:无}</td>
+      <td><!-- {if $customer.recom_level eq 1} -->团购员<!-- {elseif $customer.recom_level eq 2} -->团购点<!-- {elseif $customer.recom_level eq 3} -->社区团购中心<!-- {else} -->无<!-- {/if} --></td>
+      <td class="handler"><a href="index.php?app=channel&act=verifyManager&id={$customer.id}">审核</a> 
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有待审核记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+ </div>
+{include file=footer.html}

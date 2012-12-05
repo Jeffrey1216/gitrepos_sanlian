@@ -1,0 +1,92 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+
+{include file=menu_select_js.html}
+
+
+<div class="content">
+   {include file=member.menu.html}
+<div class="mypaila_right">
+     <div class="borderstyle">
+      
+<div style="margin:10px;">
+ <h2 style="color: #BF1412;border-style:none;">渠道商基本信息</h2>
+    
+		<table>
+		<tbody>
+		<tr>
+		<td style="border-style:none;">手机号:</td>
+		<td style="border-style:none;">{$user.mobile}</td>
+		</tr>
+		<tr>
+		<td style="border-style:none;">电子邮箱:</td>
+		<td style="border-style:none;">{$user.email}</td>
+		</tr>
+		<tr>
+		<td style="border-style:none;">真实姓名:</td>
+		<td style="border-style:none;">{$user.name} （{if $user.gender eq 0}先生{elseif $user.gender eq 1}女士{/if}）</td>
+		</tr>
+		<tr>
+		<td style="border-style:none;">公司名称:</td>
+		<td style="border-style:none;">{if $user.company}{$user.company}{else}暂无{/if}</td>
+		</tr>
+		<tr>
+		<td style="border-style:none;">公司地址:</td>
+		<td style="border-style:none;">{if $user.address}{$user.address}{else}暂无{/if}</td>
+		</tr>
+		<tr>
+		<td style="border-style:none;">身份证号码:</td>
+		<td style="border-style:none;">{$user.identity}</td>
+		</tr>
+		<tr>
+		<td style="border-style:none;">营业执照/组织机构代码证号码:</td>
+		<td style="border-style:none;">{if $user.companynum}{$user.companynum}{else}暂无{/if}</td>
+		</tr>
+		<tr>
+		<td style="border-style:none;">等级:</td>
+		<td style="border-style:none;"><!--{if $user.level eq 1}-->经营中心 <!--{elseif $user.level eq 2}-->服务中心<!--{elseif $user.level eq 3}-->派啦加盟店<!--{elseif $user.level eq 4}-->派啦渠道商<!--{elseif $user.level eq 5}-->派啦渠道商（内部）<!--{/if}--> （{$user.area_name}）</td>
+		</tr>
+		<tr>
+		<td style="vertical-align:top;border-style:none;">身份证复印件:</td>
+		<td style="height:100px;vertical-align:top;border-style:none;">{if $user.identitypic}<a href="{$site_url}/{$user.identitypic}" target="_blank"><img src="{$site_url}/{$user.identitypic}" width="100" height="100" /></a>{else}暂无{/if}</td>
+		</tr>
+		<tr>
+		<td style="vertical-align:top;border-style:none;">营业执照/组织机构代码证:</td>
+		<td style="height:100px;vertical-align:top;border-style:none;">{if $user.companypic}<a href="{$site_url}/{$user.companypic}" target="_blank"><img src="{$site_url}/{$user.companypic}" alt="" width="100" height="100" /></a>{else}暂无{/if}</td>
+		</tr>
+		</tbody>
+		</table>
+		
+		</div>
+	<div style="margin:10px;">
+	 <h2 style="color: #BF1412;border-style:none;">渠道商账户概况</h2>
+	 <table>
+      <tbody>
+		<tr>
+		<td style="border:none;">{if $user.identitypic}<a href="{$site_url}/{$user.identitypic}" target="_blank"><img src="{$site_url}/{$user.identitypic}" width="100" height="100" /></a>{else}暂无{/if}</td>
+		<td style="border-right: 1px solid #E5E5E5;border-bottom:none;width:40%;">
+		<ul style="margin-left:20px;">
+		<li>您好，<span style="color:#c57b3e;margin:5px;">{$user.channel_name}</span><span style="color:#c57b3e;margin:5px;"><!--{if $user.gender eq 0}-->先生<!--{/if}--><!--{if $user.gender eq 1}-->女士<!--{/if}--></span>，欢迎使用“我的派啦”管理系统！</li>
+		<li>您的身份:<span style="color:#c57b3e;margin:5px;"><!--{if $user.level eq 1}-->经营中心 <!--{elseif $user.level eq 2}-->服务中心<!--{elseif $user.level eq 3}-->派啦加盟店<!--{elseif $user.level eq 4}-->派啦渠道商<!--{elseif $user.level eq 5}-->派啦渠道商（内部）<!--{/if}--></span>(<span style="margin:5px;">{$user.area_name}</span>)</li>
+		<li>返利总积分:<span style="color:#c57b3e;margin:5px;">{$user.point}</span>(PL)</li>
+		<li>渠道商年费:<span style="color:#c57b3e;margin:5px;">{$fee.fee}</span>元</li>
+		<li>到期时间:<span style="color:#c57b3e;margin:5px;"><!--{if $user.exp_time}-->{$user.exp_time|date}<!--{/if}--></span></li>
+		</ul>
+		
+		</td>
+		
+		<td style="border:none;width:40%;">
+		<ul style="margin-left:20px;">
+		<li>推广号:<span style="color:#c57b3e;margin:5px;">{$user.sn}</span></li>
+		<li>会员消费返利收益率:<span style="color:#c57b3e;margin:5px;">{$fee.return_rate}</span>%</li>
+		<li>推荐渠道商收益率:<span style="color:#c57b3e;margin:5px;">{$fee.recom_rate}</span>%</li>
+		</ul>
+		</td>
+	  </tbody>
+</table>
+</div>
+    </div>	
+</div>
+    
+</div>
+{include file=footer.html}

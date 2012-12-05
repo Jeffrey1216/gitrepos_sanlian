@@ -1,0 +1,54 @@
+{include file=other_top.html}
+{include file=newothers_top.html}
+{include file=new_credit_head.html}
+{include file=menu_select_js.html}
+<div class="flow_chart">
+    <img src="{res file=images/gouwuche_11.gif}" />
+</div>
+<form method="post" id="order_form">
+<div class="content">
+    <div class="module_common">
+        <div class="step_main">
+            <div class="main_add">
+                <h1>订单信息</h1>
+				<div class="gouwuche2">
+				  <table style="border-bottom:0px;"  cellSpacing=0 cellPadding=0>
+					<tr class="tr1">
+					<td class="td2">交易信息</td>
+					<td  class="td2">价格</td>
+					<td class="td2">PL币数目</td>
+					</tr>
+					<tr>
+					<td class="td1">{$cart.info}</td>
+					<td>{$cart.price|price}</td>
+					<td>{$cart.credit}PL</td>
+					</tr>
+		            <tr>
+					</tr>
+					<tr><td class="td3" colspan="5" style="text-align:left;border-bottom:1px solid #ccc;padding-top:10px;">给卖家的附言：<input type="text" style="width:300px;height:25px;color:#d5d5d5" name="content"/></td></tr>
+					</table>
+					<div class="gouwuche2_1">
+					    <div class="gouwuche2_1l">
+						   <ul>
+						      <li>订单总价：<span id="order_amount">{$cart.price|price}</span></li>
+						      <li><input type="radio" checked="true" class="payType" name="payType" id="giveMoney" value="1"/>您需要支付现金：<span id="pay_cash">{$cart.price|price}</span></li>
+						   </ul>
+					    </div>
+					</div>
+					<ul>
+					<li>商品总金额：<span>{$cart.price|price}<span></li>
+					
+					</ul>
+					<ul class="ul2">
+					<li style="margin-top:15px;" id="astyle"><a href="index.php?app=plb_cart"><img style="position:relative;top:0;" src="{res file=images/gouwuche_10.gif}" />返回购物车</a></li>
+					<li>
+					<input type="submit"  class="gouwuche_btn" value="下单完成并支付" onclick="window.location.href='index.php?app=plb_cart&act=order&id={$id}'"/></li></ul>
+				</div>
+		            </div>
+		            
+		            <div class="clear"></div>
+		        </div>
+    </div>
+</div>
+</form>
+{include file="footer.html"}

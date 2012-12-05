@@ -1,0 +1,55 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>商品列表页</p>
+</div> 
+  <div class="mrightTop">
+  <div class="fontl">
+    <form method="get">
+    	<input type="hidden" name="app" value="supply" />
+        <input type="hidden" name="act" value="goods_list" />
+        <input type="hidden" name="supply_id" value="{$supply_id}" />
+       <div class="left">
+       商品名称:<input type="text" value="" name="goods_name" class="queryInput">
+        <input type="submit" value="查询" class="formbtn">
+      </div>
+    </form>
+  </div>
+  <div class="fontr"></div>
+</div>
+<div class="info">
+  <form method="post" enctype="multipart/form-data" id="test_form">
+   <table width="100%" cellspacing="0" class="dataTable">
+        <tr class="tatr1">
+            <td align="left" class="table-center">商品图片</td>
+            <td align="left">商品编号</td>
+            <td align="left">商品名称</td>
+            <td class="table-center">市场价格</td>
+            <td class="table-center">商户采购价</td>
+            <td class="table-center">厂家底价</td>
+            <td class="table-center">赠送PL</td>
+            <td class="table-center">折扣率</td>
+            <td class="handler">操作</td>
+        </tr>
+        <!-- {foreach from=$goods_info item=goods} -->
+        <tr class="tatr2">
+            <td align="left" class="table-center"><img height="120" width="120" src="{$goods.img}"></td>
+            <td class="table-center">{$goods.commodity_code}</td>
+            <td align="left">{$goods.goods_name}</td>
+            <td align="left">{$goods.price}</td>
+            <td class="table-center">{$goods.sprice}</td>
+            <td class="table-center">{$goods.gprice}</td> 
+            <td class="table-center">{$goods.credit}</td> 
+            <td class="table-center">{$goods.discount}</td>   
+            <td class="handler"><a href="index.php?app=supply&act=goods_edit&goods_id={$goods.goods_id}&supply_id={$supply_id}">编辑</a> </td>
+        </tr>
+        <!-- {/foreach} -->
+        
+       </table>
+       {include file="page.bottom.html"}
+       <div class="left paddingT15">
+       <a class="formbtn batchButton" href="index.php?app=supply" style="display:inline-block;text-align:center;line-height:20px;text-decoration:none;margin:8px 8px 15px 8px">返回</a>
+      </div>
+  </form>
+</div>
+
+{include file="footer.html"} 

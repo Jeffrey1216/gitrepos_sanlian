@@ -1,0 +1,79 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>销毁查看</p>
+</div>
+<div class="info">
+  <form method="post" action="">
+    <table class="infoTable">
+     <tr>
+        <th class="paddingT15">商品：</th>
+        <td class="paddingT15 wordSpacing5">{$stock.goods_name|escape}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">店铺：</th>
+        <td class="paddingT15 wordSpacing5">{$stock.store_name|escape}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">销毁数量：</th>
+        <td class="paddingT15 wordSpacing5">{$stock.quantity}</td>
+      </tr>
+    
+      <tr>
+        <th class="paddingT15">销毁原因：</th>
+        <td class="paddingT15 wordSpacing5">{$stock.stock_reason|escape}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">添加时间：</th>
+        <td class="paddingT15 wordSpacing5">{$stock.add_time|date:complete}</td>
+      </tr>
+      <tr>
+      	 <th class="paddingT15">审核状态：</th>
+         <td class="paddingT15 wordSpacing5"><!-- {if $stock.stock_status eq 1} -->待审核<!-- {elseif $stock.stock_status eq 2} -->已通过<!-- {else} -->未通过<!-- {/if} --></td>
+      </tr>
+<!-- {if $stock.stock_status eq 2 or $stock.stock_status eq 3} -->
+	<!-- {if $stock.stock_status eq 3} -->
+      <tr>
+      	 <th class="paddingT15">未通过原因：</th>
+         <td class="paddingT15 wordSpacing5">{$stock.reason|escape}</td>
+      </tr>
+    <!-- {/if} -->
+      <tr>
+      	 <th class="paddingT15">审核人：</th>
+         <td class="paddingT15 wordSpacing5">{$stock.verify_name|escape}</td>
+      </tr>
+      <tr>
+      	 <th class="paddingT15">审核时间：</th>
+         <td class="paddingT15 wordSpacing5">{$stock.varify_time|date:complete}</td>
+      </tr>
+      <tr>
+        <td><input type="button" onclick="history.go(-1)" value="返回"/></td>
+      </tr>
+  <!-- {elseif $verify} -->
+       <tr>
+        <th class="paddingT15">审核：</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>通过:
+            <input type="radio" name="pass" value="2" checked="checked" />
+            </label>
+            <label>未通过:
+            <input type="radio" name="pass" value="3" />
+            </label>
+          </p></td>
+      </tr>    
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">未通过原因:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" /></textarea></td>
+      </tr>
+       <tr>
+       <th><input type="submit" value="提交"/></th>
+        <td><input type="button" onclick="history.go(-1)" value="返回"/></td>
+      </tr>
+      <!-- {else} -->
+       <tr>
+        <td><input type="button" onclick="history.go(-1)" value="返回"/></td>
+      </tr>
+      <!-- {/if} -->
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

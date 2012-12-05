@@ -1,0 +1,130 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox">
+<h3 class="tit"><span>快捷支付</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=quickCart&mobile={$mobile}&uid={$uid}">我的购物车</a></li>
+	</ul>
+	<div id="gouwuche">
+	<div class="gouwuche1">
+	   <h3><span class="gouwuche1_l"><img style="vertical-align:-2px" src="{res file=images/gouwuche_01.gif}" /></span>我购物车中的商品</h3>
+	</div>
+	<!--{foreach from=$carts item=cart key=store_id}-->
+	<div class="gouwuche2">
+	<form action="{url app=store&id=$store_id}" method="post">
+	    <table style="width:98%;margin-left:10px;vertical-align:middle;"  cellSpacing=0 cellPadding=0>
+	    <colgroup>
+                <col width="35%" align="left"/>
+                <col width="5%" align="left"/>
+                <col width="15%" align="left"/>
+                <col width="10%" align="left"/>
+                <col width="10%" align="left"/>
+              <col width="25%" align="left"/>
+            </colgroup>  
+		<tr class="tr1">
+			<td class="td2">商品名称</td>
+			<td class="td2">单价</td>
+			<td class="td2">数量</td>
+			<td class="td2">小计</td>
+			<td class="td2">赠送积分</td>
+			<td class="td2">操作</td>
+		</tr>
+		<!--{foreach from=$cart.goods item=goods}-->
+		<tr id="cart_item_{$goods.rec_id}">
+			<td class="td1"><div class="gouwuche2_l"><img class="img_50"  src="{$goods.goods_image}" alt=""/></div><div class="gouwuche2_r"><p>{$goods.goods_name|escape}</p></div></td>
+			<td>{$goods.price|price}</td>
+			<td>
+				<img class="verticals" src="{res file=images/subtract.gif"}" onclick="decrease_quantity({$goods.rec_id});" alt="{$lang.decrease}" width="12" height="12" />
+            	<input style="width:50px;" id="input_item_{$goods.rec_id}" value="{$goods.quantity}" orig="{$goods.quantity}" changed="{$goods.quantity}" onkeyup="change_quantity({$store_id}, {$goods.rec_id}, {$goods.spec_id}, this);" class="text1 width3" type="text" />
+            	<img class="verticals" src="{res file=images/adding.gif"}" onclick="add_quantity({$goods.rec_id});" alt="{$lang.increase}" width="12" height="12" />
+            </td>
+			<td><span class="price2" id="item{$goods.rec_id}_subtotal">{$goods.subtotal|price}</span></td>
+			<td id="item{$goods.rec_id}_credit">{$goods.credit_total|default:0}PL</td>
+			<td><a href="javascript:;" onclick="drop_cart_item({$storeid}, {$goods.rec_id});"> <img class="image2" src="{res file=images/gouwuche_06.gif}" />删除</a>
+			</td>
+		</tr>
+		<!--{/foreach}-->
+		</table>
+		<ul>
+		<li>总获得积分：<span id="cart{$store_id}_credit_total">{$cart.credit_total}PL</span></li>
+		<li>商品总金额：<strong class="fontsize1" id="cart{$store_id}_amount">{$cart.amount|price}</strong></li>
+		</ul>
+		<ul class="ul2">
+		<li><a href="index.php?app=kjzf&act=quick_brand_index&mobile={$mobile}" class="back"><img class="verticals" src="{res file=images/gouwuche_10.gif}" />继续购物</a></li>
+		<li><a style="font-weight:700;" href="{url app=quickorder&goods=quickCart&store_id=$cart.store_id&mobile=$mobile&uid=$uid}" class="gouwuche_btn">{$lang.next_order_form}</a></li></ul>
+	</form>
+	</div>
+	<!--{/foreach}-->
+</div>
+</div>
+<script type="text/javascript">
+function drop_cart_item(store_id, rec_id){
+    var tr = $('#cart_item_' + rec_id);
+    var amount_span = $('#cart' + store_id + '_amount');
+    var credit_total_span = $("#cart" + store_id + "_credit_total");
+    var cart_goods_kinds = $('#cart_goods_kinds');
+    $.getJSON('index.php?app=quickCart&act=drop&rec_id=' + rec_id, function(result){
+        if(result.done){
+            //删除成功
+            if(result.retval.cart.quantity == 0){
+                window.location.reload();    //刷新
+            }
+            else{
+                tr.remove();        //移除
+                window.location.reload();    //刷新
+            }
+        }
+    });
+}
+function move_favorite(store_id, rec_id, goods_id){
+    var tr = $('#cart_item_' + rec_id);
+    $.getJSON('index.php?app=my_favorite&act=add&type=goods&item_id=' + goods_id, function(result){
+        //没有做收藏后的处理，比如从购物车移除
+        if(result.done){
+            //drop_cart_item(store_id, rec_id);
+            alert(result.msg);
+        }
+        else{
+            alert(result.msg);
+        }
+
+    });
+}
+function change_quantity(store_id, rec_id, spec_id, input, orig){
+    var subtotal_span = $('#item' + rec_id + '_subtotal');
+    var credit_span = $('#item' + rec_id + '_credit');
+    var amount_span = $('#cart' + store_id + '_amount');
+    var credit_total_span = $("#cart" + store_id + "_credit_total");
+    //暂存为局部变量，否则如果用户输入过快有可能造成前后值不一致的问题
+    var _v = input.value;
+    $.getJSON('index.php?app=quickCart&act=update&spec_id=' + spec_id + '&quantity=' + _v, function(result){
+        if(result.done){
+            //更新成功
+            $(input).attr('changed', _v);
+            subtotal_span.html(price_format(result.retval.subtotal));
+            credit_span.html(result.retval.credit + "PL");
+            amount_span.html(price_format(result.retval.amount));
+            credit_total_span.html(result.retval.credit_total + "PL");
+        }
+        else{
+            //更新失败
+            alert(result.msg);
+            $(input).val($(input).attr('changed'));
+        }
+    });
+}
+function decrease_quantity(rec_id){
+    var item = $('#input_item_' + rec_id);
+    var orig = Number(item.val());
+    if(orig > 1){
+        item.val(orig - 1);
+        item.keyup();
+    }
+}
+function add_quantity(rec_id){
+    var item = $('#input_item_' + rec_id);
+    var orig = Number(item.val());
+    item.val(orig + 1);
+    item.keyup();
+}
+</script>

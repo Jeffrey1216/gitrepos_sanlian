@@ -1,0 +1,91 @@
+{include file=storeadmin.member.header.html}
+
+<div class="borderBox">
+	<h3 class="tit"><span>促销管理</span></h3>
+	<ul class="tabDiv mb10">
+		<li><a href="index.php?app=promotion_manage">本店管理</a></li>
+		<li class="hover"><span>编辑</span></li>
+	</ul>
+	<div class="public_02">
+		<div class="table">
+			<form id="goods_form" method="post" enctype="multipart/form-data">
+				<table style="margin:15px">
+					<tr>                                            
+	            		<td class="paddingT15"><span>商品名：{$pr.goods_name}</span>
+	            		</td>
+					</tr>
+					<tr>                                            
+	            		<td class="paddingT15"><span>原派啦价：{$pr.price}</span>
+	            		</td>
+					</tr>
+					<tr>                                            
+	            		<td class="paddingT15"><span>原赠送积分数：{$pr.credit}</span>
+	            		</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销价：{$pr.pr_price}</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销赠送PL：{$pr.pr_credit}</span>
+						</td>
+					</tr>
+					<tr>
+						<td id="img"><span>促销图片：</span>
+						<span><img src="{$site_url}/{$pr.pr_img}"/></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销排序：{$pr.pr_sort}</span>
+						</td>
+					</tr>
+					<tr>
+						<td id="time">促销时间:{$pr.pr_addtime|date:Y-m-d}—{$pr.pr_endtime|date:Y-m-d}
+						</td>
+					</tr>
+					<tr><td>
+					<span><strong>是否包邮：</strong>
+						{if $pr.pr_art eq 0}不包邮{/if}{if $pr.pr_art eq 1}包邮{/if}
+					</span>
+					</td></tr>
+					<tr>
+						<td class="paddingT15"><span>促销数量：</span>
+						<input type="text" name="pr_stock" value="{$pr.pr_stock}" style="margin-left:15px"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="paddingT15"><span>促销品名：</span>
+						<input type="text" name="pr_name" value="{$pr.pr_name}" style="margin-left:15px"/>
+						</td>
+					</tr>
+					<!-- {if $pr.spec_name_1} -->
+					<tr>
+						<td>规格信息</td>
+					</tr>
+					<tr>
+						<td>
+							<span>{$pr.spec_name_1}:{$pr.spec_1}</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span>{$pr.spec_name_2}:{$pr.spec_2}</span>
+						</td>
+					</tr>
+					<!-- {/if} -->
+					<tr>                                           
+						<th colspan="4">
+							<div class="select_div"> 
+								<input type="hidden" name="app" value="promotion_manage" />
+								<input type="hidden" name="act" value="edit" />
+								<input type="hidden" name="pr_id" value="{$pr.promotion_id}" />  						 
+								<input type="submit" class="formbtn" value="提交" />	
+								<a href="{url app=promotion_manage}" class="formbtn">返回</a>     
+							</div>
+						</th>      
+					</tr> 
+				</table>    
+			</form>
+		</div>
+       </div>
+{include file=storeadmin.footer.html}

@@ -1,0 +1,42 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<style type="text/css">
+/*.borline td { padding:10px 0px; }
+.ware_list th { text-align:left; }
+.bgwhite { background: #FFFFFF; }*/
+</style>
+<div class="content">
+   <div class="totline"></div><div class="botline"></div>
+   {include file=member.menu.html}
+	<div id="right">
+	{include file=member.subtop.html}
+	<ul class="tab" style="margin-top:10px">
+     <li class="active">快捷充值</li>
+    </ul>
+   <div class="wrap">
+	<form method="post" id="register_form">
+		<div class="information">
+			<div class="info">
+			 <table  style="width:787px;margin:45px auto;color:#000">
+                     <tr>
+                         <th style="font-size:14px;color:#000;text-align:right">请输入充值金额: </th>
+                         <td align="left"><input type="text" class="text width_normal" id="balance" name="balance" /><label class="field_notice"><em style="color:red">*</em> 必填项</label><label id="checking_user" class="checking">{$lang.checking}</label></td>
+                     </tr>
+                     <tr>
+                         <th></th>
+                         <td><input type="submit" class="mypaila_next_btn" value="" /></td>
+                     </tr>
+             </table>
+           </div>
+       </div>
+    </form>
+    <div id="mypaila_bottom">
+   <span style="color:#4ea51a">温馨提示：</span>
+   <p>1、充值的金额将立即进入您的派啦现金余额账户。</p>
+   <p>2、派啦充值中心暂只支持支付宝平台充值。</p>
+  </div>
+</div>
+</div>
+{include file=footer.html}

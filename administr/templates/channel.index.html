@@ -1,0 +1,50 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>渠道商管理</p>
+  <ul class="subnav">
+    <li><span>审核</span></li>
+    <li><a class="btn1" href="index.php?app=channel&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=channellist">管理</a></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>手机</td>
+      <td>姓名</td>
+      <td>性别</td>
+      <td>身份证号码</td>
+      <td>公司名称</td>
+      <td>代理等级</td>
+      <td>地区</td>
+      <td>推荐时间</td>
+  	  <td class="handler">{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$users item=user}-->
+    <tr class="tatr2">
+      <td>{$user.mobile}</td>
+      <td>{$user.name}</td>
+      <td><!--{if $user.gender eq 0}-->男<!--{elseif $user.gender eq 1}-->女<!--{/if}--></td>
+      <td>{$user.identity}</td>
+      <td>{$user.company}</td>
+      <td>{$user.level_name}</td>
+      <td>{$user.area_name}</td>
+      <td>{$user.createtime|date}</td>
+      <td class="handler"><a href="index.php?app=channel&act=verify&id={$user.rid}">审核</a> 
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有待审核记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

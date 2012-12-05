@@ -1,0 +1,72 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>渠道商管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel">审核</a></li>
+    <li><a class="btn1" href="index.php?app=channel&act=add">{$lang.add}</a></li>
+    <li><span>管理</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+	<div class="fontl">
+    <form method="get">
+       <div class="left">
+          <input type="hidden" name="app" value="channel" />
+          <input type="hidden" name="act" value="channellist" />
+          手机号:<input class="queryInput" type="text" name="mobile" value="" />
+		  姓名:<input class="queryInput" type="text" name="name" value="" />
+          等级:<select class="querySelect" name="level">
+		  		<option value=""></option>
+      	  		<!-- {foreach from=$channellevel_list item=node} -->
+      	  		<option leng="{$node.area_level}" parent_level="{$node.parent_level}" value="{$node.id}">{$node.level_name}</option>
+      	  		<!-- {/foreach} -->
+      	  	  </select>
+          <input type="submit" class="formbtn" value="查询" />
+      </div>
+          </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>手机</td>
+      <td>姓名</td>
+      <td>性别</td>
+      <td>公司名称</td>
+      <td>代理等级</td>
+      <td>地区</td>
+      <td>返利金额</td>
+      <td>登录次数</td>
+      <td>注册时间</td>
+      <td>到期时间</td>
+  	  <td class="handler">{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$users item=user}-->
+    <tr class="tatr2">
+      <td>{$user.mobile}</td>
+      <td>{$user.name}</td>
+      <td><!--{if $user.gender eq 0}-->男<!--{elseif $user.gender eq 1}-->女<!--{/if}--></td>
+      <td>{$user.company}</td>
+      <td>{$user.level_name}</td>
+      <td>{$user.area_name}</td>
+      <td>{$user.total_credit|price}</td>
+      <td>{$user.logins}</td>
+      <td>{$user.reg_time|date}</td>
+      <td>{$user.exp_time|date}</td>
+      <td class="handler"><a href="index.php?app=channel&act=info&id={$user.channel_id}">详情</a>&nbsp;|&nbsp;
+      					<a href="index.php?app=channel&act=detail&id={$user.channel_id}">明细</a>
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有渠道商记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

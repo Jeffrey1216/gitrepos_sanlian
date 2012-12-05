@@ -1,0 +1,139 @@
+                <script type="text/javascript">
+                $(function(){
+                   $('#check_coupon').click(function(){
+                       var coupon_sn = $('#coupon_sn').val();
+                       if(coupon_sn == '')
+                       {
+                           return;
+                       }
+                       $.getJSON("index.php?app=order&act=check_coupon", {coupon_sn: coupon_sn, store_id: '{$smarty.get.store_id}'}, function(data){
+                           if(data['retval'])
+                           {
+                               $('.unusable').hide();
+                               var msg = '{$lang.usable}';
+                               var str = price_format(data['retval']['price']);
+                               $('.usable').show().html(msg + str).css("display","block");
+                           }
+                           else
+                           {
+                               $('.usable').hide();
+                               $('.unusable').show().css("display","block");
+                               $('#coupon_sn').val('');
+                           }
+                       });
+                   });
+               });
+                
+                </script>
+                <div class="make_sure">
+                	
+                    <p>{$lang.order_amount}:&nbsp;<strong class="fontsize3" id="order_amount"></strong>&nbsp;&nbsp;{$lang.have_credit}&nbsp;&nbsp;<strong class="fontsize3" id="have_credit">{$member_credit}</strong>&nbsp;&nbsp;{$lang.credit}</p>
+                    <p><input type="radio" checked="true" class="payType" name="payType" id="giveMoney" value="1"/>{$lang.use_cash}:&nbsp;&nbsp;{$lang.payable}&nbsp;&nbsp;<strong class="fontsize3" id="pay_cash"></strong>&nbsp;&nbsp;</p>
+                    <p><input type="radio" class="payType" id="giveCredit" name="payType" value="2"/>{$lang.use_credit}:&nbsp;&nbsp;{$lang.payable}&nbsp;&nbsp;<strong class="fontsize3" id="pay_credit">&nbsp;</strong>&nbsp;&nbsp;{$lang.credit}
+                    <span style="display:none;" id="displayLackCreditAll">,&nbsp;&nbsp;{$lang.lack_credit}:&nbsp;&nbsp;<strong class="fontsize3" id="lack_credit_all"></strong>&nbsp;&nbsp;{$lang.credit}</span></p>
+                    
+                    <p><input type="radio" class="payType" id="giveCreditCash" name="payType" value="3"/>{$lang.use_cash_credit}:&nbsp;&nbsp;{$lang.payable}&nbsp;&nbsp;<strong class="fontsize3" id="pay_cash_href"></strong>&nbsp;&nbsp;,&nbsp;&nbsp;{$lang.payable}&nbsp;&nbsp;<strong class="fontsize3" id="pay_credit_cash">&nbsp;&nbsp;</strong>&nbsp;&nbsp;{$lang.credit}&nbsp;&nbsp;
+                    <span style="display:none" id="displayLackCredit">,&nbsp;&nbsp;{$lang.lack_credit}:&nbsp;&nbsp;<strong class="fontsize3" id="lack_credit"></strong>&nbsp;&nbsp;{$lang.credit}</span></p>
+                    {if $goods_info.allow_coupon}
+                    <p style="display:none;">{$lang.coupon_sn}:&nbsp;
+                    <input type="text" name="coupon_sn" id="coupon_sn" class="text" />  
+                    <input type="button" value="{$lang.check}" class="check" id="check_coupon" />
+                    <span class="usable">{$lang.usable}</span> <span class="unusable">{$lang.unusable}</span>
+                    </p>
+                    {/if}
+                    <p>
+                        <a href="javascript:toSubmit();" class="btn">{$lang.shopping_step_three}</a>
+                        <a href="{url app=cart&store_id=$goods_info.store_id}" class="back">{$lang.backto_cart}</a>
+                    </p>
+                </div>
+              
+                <script type="text/javascript">
+                function toSubmit(){ 
+                    if(!checkPay())
+                    {
+                    	return;
+                    };
+                    void($('#order_form').submit());
+                 }
+                <!--
+                // 设置支付总价格. (三种方式,可用积分, 可用 现金, 可用现金加积分) 
+                function paytype() {
+                	DialogManager.create();
+                    var pay_cash = $('#pay_cash');
+                    var pay_credit = $('#pay_credit');
+                    var pay_credit_cash = $("#pay_credit_cash");
+                    var lack_credit_all = $('#lack_credit_all');
+                    var pay_cash_href = $('#pay_cash_href');
+                    //alert(price_format(total_amount));
+                    pay_cash.html(price_format(total_amount)); //设置付现金方式的金额
+                    pay_credit.html(total_amount)// 设置付积分方式的积分
+                    //判断积分是否够全额支付
+                    if(Number(member_credit) < Number(total_amount)) {
+						//如果不足够
+						//alert('sdf');
+						
+						$('#displayLackCreditAll').css('display','inline-block');
+						$('#lack_credit_all').html(Number(total_amount)-Number(member_credit));
+                    }
+                    pay_credit_cash.html(Number(total_amount)/2); //设置积分和现金各一半的支付方式
+                    pay_cash_href.html(price_format(Number(total_amount)/2));
+                    //判断积分是否够支付一半
+                    if(Number(member_credit) < Number(total_amount)/2) {
+						//如果不足够
+						$('#displayLackCredit').css('display','inline-block');
+						$('#lack_credit').html(Number(total_amount)/2-Number(member_credit));
+                    }
+                	//alert(total_amount);
+                	//alert(member_credit);
+                }
+                
+                function checkPay() {
+                    var payTypes = $('.payType');
+                    var lack_credit = "{$lang.lack_credit}";
+                    var credit = "{$lang.credit}";
+                    for(var i = 0 ; i < payTypes.length ; i++ ) {
+						if(payTypes[i].checked == true) {
+							//alert(payTypes[i].value);
+							switch(payTypes[i].value) {
+								case '1':
+										error_pay = '';
+										return true;
+									;break;
+								case '2':
+									if(Number(member_credit) < Number(total_amount)) {
+										var error_pay = lack_credit + (Number(total_amount)-Number(member_credit)).toString() + credit;
+										createError(error_pay);
+										return false;
+									}
+									return true;
+									;break;
+								case '3':
+									if(Number(member_credit) < Number(total_amount)/2) {
+										//如果不足够
+										var error_pay = lack_credit + (Number(total_amount)/2-Number(member_credit)).toString() + credit;
+										createError(error_pay);
+										return false;
+				                    }
+									return true;
+									;break;
+								default : error_pay = 'Error!';
+							}
+						}
+                    }
+					var lack_credit = "{$lang.lack_credit}";
+					var credit = "{$lang.credit}";
+					
+					
+                }
+                function createError(errorText) {
+                	var d = DialogManager.create('show_error');
+                	d.setWidth(400);
+                	d.setTitle("{$lang.not_select}");
+                	d.setContents("message",{type:'warning',text:errorText});
+                	d.show('center');
+                }
+                /*function changeCredit(v) {
+                	
+                	
+                }*/
+                --></script>

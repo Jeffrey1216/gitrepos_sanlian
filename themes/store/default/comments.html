@@ -1,0 +1,49 @@
+<div style="padding-top:10px">
+    <div style="margin:10px 0;border-bottom:1px solid #ccc;"><img src="{res file=images/des1_06.jpg}"/></div>
+    <table cellpadding="0" cellspacing="0" class="table_01 table_02">
+        <colgroup>
+            <col width="25%;"/>
+            <col width="50%"/>
+            <col width="25%"/>
+        </colgroup>
+        <thead>
+        <!-- {foreach from=$goods_comments item=comment} -->
+        <th>…Ã∆∑∆¿∑÷£∫{if $comment.evaluation gt 0}<img style="vertical-align: middle;" src="{res file=images/bit.gif}" />{/if}
+            {if $comment.evaluation gt 1}<img style="vertical-align: middle;" src="{res file=images/bit.gif}" />{/if}
+            {if $comment.evaluation gt 2}<img style="vertical-align: middle;" src="{res file=images/bit.gif}" />{/if}
+            {if $comment.evaluation lt 3}<img style="vertical-align: middle;" src="{res file=images/bit2.gif}" />{/if}
+            {if $comment.evaluation lt 2}<img style="vertical-align: middle;" src="{res file=images/bit2.gif}" />{/if}
+            {if $comment.evaluation lt 1}<img style="vertical-align: middle;" src="{res file=images/bit2.gif}" />{/if}</th>
+        <th>&nbsp;</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{if $comment.anonymous}***{else}{$comment.buyer_name|escape}{/if}</td>
+            <td>&nbsp;</td>
+            <td>{$comment.evaluation_time|date:complete}</td>
+        </tr>
+        <tr class="paila_price">
+            <td colspan="3">
+                <div>{$comment.comment|escape|nl2br}</div>
+                <div class="style_02">°æ{$comment.evaluation_time|date:complete}°ø</div>
+            </td>
+        </tr>
+        <!-- {foreachelse} -->
+        <tr>
+            <td colspan="3">1{$lang.no_records}</td>
+        </tr>
+        <!-- {/foreach} -->
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">
+                <div class="productlist_footbg">
+                    {include file=page.bottom.html}
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+

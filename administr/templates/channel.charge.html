@@ -1,0 +1,61 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>渠道商缴费管理</p>
+  <ul class="subnav">
+    <!--li><a class="btn1" href="index.php?app=channel&act=add">{$lang.add}</a></li>
+    <li><span>管理</span></li-->
+  </ul>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+    <form method="get">
+       <div class="left">
+          <input type="hidden" name="app" value="channel" />
+          <input type="hidden" name="act" value="charge" />
+		  姓名:<input class="queryInput" type="text" name="name" value="" />
+          手机号:<input class="queryInput" type="text" name="mobile" value="" />
+          <input type="submit" class="formbtn" value="查询" />
+      </div>
+          </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>订单号</td>
+      <td>渠道商姓名</td>
+      <td>手机号</td>
+      <td>等级</td>
+      <td>所属区域</td>
+      <td>加盟期限</td>
+      <td>额外优惠</td>
+      <td>缴费</td>
+      <td>缴费方式</td>
+      <td>缴费时间</td>
+    </tr>
+    <!--{foreach from=$users item=user}-->
+    <tr class="tatr2">
+      <td>{$user.order_sn}</td>
+      <td>{$user.name} （<!--{if $user.gender eq 0}-->先生<!--{elseif $user.gender eq 1}-->女士<!--{/if}-->）</td>
+      <td>{$user.mobile}</td>
+      <td>{$user.level_name}</td>
+      <td>{$user.area_name}</td>
+      <td>{$user.year}年</td>
+      <td>{if $user.exday}{$user.exday}天{/if}</td>
+      <td>{$user.money}</td>
+      <td>{if $user.paymethod=='offline'}线下缴费{else}{$user.paymethod}{/if}</td>
+      <td>{$user.createtime|date}</td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有渠道商收益记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

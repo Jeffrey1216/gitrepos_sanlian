@@ -1,0 +1,79 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div id="rightTop">
+    <p>{$lang.order_assign}</p>
+    <!--
+    <ul class="subnav">
+        <li><span>管理</span></li>
+    </ul>
+    -->
+</div>
+<div class="mrightTop">
+    <div class="fontl">
+        <form method="get" action="index.php?app=allocate&act=index">
+             <div class="left">
+               {$lang.condition}:<select  name="assign_store_id">
+			<option value="" >{$lang.select_pls}</option>
+			{html_options options=$assign_store_list selected=$query.assign_store_id}
+			<option value="1">已分派</option>
+			<option value="0">未分派</option>
+            </select>
+       			{$lang.add_time_from}<input class="queryInput2" type="text" value="{$query.add_time_from}" id="add_time_from" name="add_time_from" class="pick_date" />
+                {$lang.add_time_to}:<input class="queryInput2" type="text" value="{$query.add_time_to}" id="add_time_to" name="add_time_to" class="pick_date" />
+         <input type="hidden" name="app" value="allocate"/>
+         <input type="hidden" name="act" value="index"/>
+         <input type="submit" class="formbtn" value="{$lang.query}" />
+         
+            </div>
+             <!--{if $filtered}-->
+            <a class="left formbtn1" href="index.php?app=allocate">{$lang.cancel_query}</a>
+            <!--{/if}-->
+        </form>
+    </div>
+    <div class="fontr">
+       {if $page_info}{include file=page.top.html}{/if}
+    </div>
+</div>
+
+<div>
+    <table width="100%" cellspacing="0" cellpadding="0">
+         
+        <tr class="tatr1">            
+            <td width="15%"><span ectype="order_by" fieldname="">{$lang.order_sn}</span></td>                 
+            <td width="10%"><span ectype="order_by" fieldname="">{$lang.count_price}</span></td>
+            <td width="15%"><span ectype="order_by" fieldname="">{$lang.Add_time}</span></td>
+            <td width="15%"><span ectype="order_by" fieldname="">{$lang.Region_name}</span></td>
+            <td width="10%"><span ectype="order_by" fieldname="">{$lang.condition}</span></td>
+            <td width="10%">{$lang.operation}</td>
+        </tr>
+        <!-- {foreach from=$orders item=all} -->
+        <tr class="tatr2">           
+            <td>{$all.order_sn|escape}</td>          
+            <td>{$all.goods_amount|price}</td>
+            <td>{$all.add_time|date:complete}</td>
+            <td>{$all.region_name}</td>
+            <td>{if $all.assign_store_id}{$lang.yes}{else}{$lang.no}{/if}</td>
+            <td><a href="index.php?app=allocate&act=add&order_id={$all.order_id}">分派</a>|<a href="index.php?app=allocate&act=view&order_id={$all.order_id}">查看</a></td>
+        </tr>
+        
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="5">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+     <div id="dataFuncs">
+        <div class="pageLinks">
+            {if $page_info}{include file=page.bottom.html}{/if}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+    
+  
+{include file="footer.html"}

@@ -1,0 +1,78 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<style type="text/css">
+body{font-size:12px;font-family: "宋体",Arial, Helvetica, sans-serif;}
+*{margin:0;padding:0;}
+.ctt{width:790px;overflow:hideen;float:right;}
+.tb tr th{}
+.tb tr td,.tb tr th{text-align:center;}
+.tb tr{line-height: 24px;}
+.top0{margin:10px 0;}
+.infoTable{padding:10px;}
+.top0 input{margin-left:10px;width:80px;}
+</style>
+<div class="content">
+	{include file=member.menu.html}
+	<div class="ctt">
+    <ul class="tab" style="margin:10px 0 0 0">
+       <li class="active">派啦币交易中心-信息编辑</li>
+    </ul>
+	<div class="wrap">
+    <form method="post">
+        <table class="infoTable">
+            <tr>
+                <th class="paddingT15">
+                    出售数量:</th>
+                <td class="paddingT15 wordSpacing5">
+                    <input class="infoTableInput2" id="credit_num" type="text" name="credit_num" value="{$credit.credit_num|escape}" /> 
+                </td>
+            </tr>
+			<tr>
+                <th class="paddingT15">
+                     出售价格:</th>
+                <td class="paddingT15 wordSpacing5">
+                    <input class="infoTableInput2" id="price" type="text" name="price" value="{$credit.price|escape}" />
+                </td>
+            </tr>
+            <tr>
+                <th class="paddingT15">
+                   发布信息:</th>
+                <td class="paddingT15 wordSpacing5">
+                    <input class="infoTableInput2" id="info" type="text" name="info" value="{$credit.info|escape}" />
+                </td>
+            </tr>
+            <tr>
+                <th class="paddingT15">发布状态</th>
+			<td>
+				<select name="type">
+				<option  {if $credit.type eq 0}selected{/if} value="0">出售</option>
+				<option  {if $credit.type eq 1}selected{/if} value="1">急售</option>
+				</select>
+			</td>
+            </tr>
+            <tr>
+            <th class="paddingT15">交易周期</th>
+			<td>
+				<select name="cycle">
+				<option {if $credit.cycle eq 259200}selected{/if} value="3">3天</option>
+				<option {if $credit.cycle eq 604800}selected{/if} value="7">7天</option>
+				<option {if $credit.cycle eq 864000}selected{/if} value="10">10天</option>
+				<option {if $credit.cycle eq 1296000}selected{/if} value="15">15天</option>
+				</select>
+			</td>
+            </tr>
+        <tr>
+            <th></th>
+            <td class="ptb20">
+            	<input type="hidden" name="app" value="member"/>
+            	<input type="hidden" name="act" value="credit_edit"/>
+                <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+</div>

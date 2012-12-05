@@ -1,0 +1,82 @@
+{include file="header.html"}
+{include file="header.html"}
+<script src="{lib file=mlselection.js}" charset="utf-8"></script>
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+$(function(){
+  regionInit("region");
+})
+//]]>
+</script>
+<div id="rightTop">
+  <p>积分审核</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=credit_verify&verify_id={$verify.user_id}">{$lang.manage}</a></li>
+    <li><span>{$lang.verify}</span></li>
+  </ul>
+</div>
+<div class="info">
+  <form method="post" action="index.php?app=credit_verify&act=verify&id={$verify.id}">
+    <table class="infoTable">
+     <tr>
+        <th class="paddingT15">会员名：</th>
+        <td class="paddingT15 wordSpacing5">{$verify.user_name}</td>
+      </tr>
+   
+      <tr>
+        <th class="paddingT15">手机：</th>
+        <td class="paddingT15 wordSpacing5">{$verify.phone_mob}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动：</th>
+        <td class="paddingT15 wordSpacing5">{$verify.credit}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">积分变动记录：</th>
+        <td class="paddingT15 wordSpacing5">{$verify.notes}</td>
+      </tr>
+      <tr>
+      <!-- {if $verify.verify eq 2} -->
+      <th class="paddingT15">审核：</th>
+      <td class="paddingT15 wordSpacing5">未通过</td>
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">未通过原因:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" />{$verify.reason}</textarea></td>
+      </tr>
+      <!-- {else} -->
+        <th class="paddingT15">审核：</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>通过:
+            <input type="radio" name="pass" value="1" checked="checked" />
+            </label>
+            <label>未通过:
+            <input type="radio" name="pass" value="2" />
+            </label>
+          </p></td>
+      </tr>    
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">未通过原因:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" /></textarea></td>
+      </tr>
+      <!-- {/if} -->
+      <!-- {if $verify.verify eq 2} -->
+      <tr>
+        <th class="paddingT15">操作人：</th>
+        <td class="paddingT15 wordSpacing5">{$verify.operator}</td>
+      </tr>
+      <tr>
+        <th class="paddingT15">审核人：</th>
+        <td class="paddingT15 wordSpacing5">{$verify.verify_name}</td>
+      </tr>
+       <tr>
+        <td class=""><a style="text-decoration:none" href="index.php?app=credit_verify&act=index"><input type="button" value="返回" /></a></td>
+      <!-- {else} -->
+      	<th class=""><input class="" name="user_name" type="submit" value="审核" /></th>
+        <td class=""><a style="text-decoration:none" href="index.php?app=credit_verify&act=index"><input type="button" value="返回" /></a></td>
+      <!-- {/if} -->
+      </tr>
+    </table>
+  </form>
+</div>
+{include file="footer.html"}

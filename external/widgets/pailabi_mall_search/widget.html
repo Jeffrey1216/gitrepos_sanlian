@@ -1,0 +1,20 @@
+<div class="plm_sort">
+                    <div class="plm_sort_ttl">
+                        <p><strong>热门分类</strong><span><a href="index.php?app=search">更多分类>></a></span></p>
+                    </div>
+                    <div class="plm_sort1">
+                    <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                        <h4><a href="index.php?app=search&cate_id={$gcategory.cate_id}">{$gcategory.cate_name}</a></h4>
+                        <ul class="plm_sort1_ctt">
+                    <!-- {foreach from=$gcategory[0] item=gcategories} -->
+                           <li>
+                              <span class="{if $gcategories.typelog eq 2}plm_sort1_hot{/if}"></span>
+                              <a href="index.php?app=search&cate_id={$gcategories.cate_id}">{$gcategories.cate_name}</a>
+                           </li>
+                    <!-- {/foreach} -->
+                        </ul>
+                        <div class="clear"></div>
+                    <!-- {/foreach} -->
+                    </div>
+                   
+                </div>

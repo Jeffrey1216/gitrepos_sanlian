@@ -1,0 +1,227 @@
+{include file=pp_index.top.html}
+<div class="index_ctt_top">
+    <div class="content">     
+        <div class="show_ctt bg001">
+            <ul class="index_case_l_ttl" style="border-bottom:2px solid #ff6800;margin:0 5px;">
+               <li class="index_case_ttl_l"><h3>合作客户需求表单</h3></li>
+            </ul>
+            <div class="index_case_ctt">
+                        <div class="clear"></div>
+        <form method="post" enctype="multipart/form-data">
+		<table class="brandform">
+		<tr>
+		<th colspan="2">客户基本信息</th></tr>
+		<tr>
+		<td><label>客户名称：</label><input type="text" class="text001" name="supply_name"/><b style="color:#ff0000">&nbsp;&nbsp;&nbsp;*</b></td>
+		<td><label>客户类别：</label>
+			<select name="supply_type" class="catelist">
+				<option value="1">普通会员</option>
+				<option value="2">供应商</option>
+				<option value="3">店面加盟</option>
+				<option value="4">生产厂家</option>
+			</select>		
+		</td>
+	
+		</tr>
+	 <tr><td colspan="2"><label>公司LOGO：</label><input type="file" name="supply_logo"/> <b style="color:#ff0000">*</b>建议图片大小为160*160</td></tr>
+		<tr>
+		<td><label>联系人：</label><input type="text" class="text001" name="linkman"/><b style="color:#ff0000">&nbsp;&nbsp;&nbsp;*</b></td>
+		<td><label>联系电话：</label><input type="text" class="text001" name="mobile"/><b style="color:#ff0000">&nbsp;&nbsp;&nbsp;*</b></td>
+		</tr>
+		<tr>
+		<td colspan="2"><label>客户企业简介：</label><textarea class="text002" name="company_info"></textarea><b style="color:#ff0000">&nbsp;&nbsp;&nbsp;*</b></td>
+		</tr>
+		<tr>
+		<td colspan="2"><label>公司地址：</label><input type="text" class="text001" name="address" style="width:250px;"/><b style="color:#ff0000">&nbsp;&nbsp;&nbsp;*</b></td>
+		</tr>
+		<tr>
+		<td><label>营业规模：</label><input type="text" class="text001" name="scale"/></td>
+		<td><label>经营方式：</label><input type="text" class="text001" name="business_practice"/></td>
+		</tr>
+		<tr>	
+		<td colspan="2">
+		<label>提供公司的相关材料：</label>
+		<ul id="demo4">
+		<!--  <li>
+		<input class="i-text" type="file" name="info"/>
+		</li>-->
+		</ul>
+		<a href="javascript:" class="collect"><span>添加</span></a>
+		</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="color:#aaaaaa"><b style="color:#ff0000">*</b> 请上传您公司的企业法人营业执照，组织机构代码证书，税务登记证、食品流通许可证、授权书、检验检查合格等证书的复印件</td>
+		</tr>
+		<tr>
+		<td><label>目前商品销售渠道：</label><input type="text" class="text001" name="marketing_channel"/></td>
+		<td><label>年销售量：</label><input type="text" class="text001" name="annual_sales"/></td>
+		</tr>
+		<tr>
+		<th colspan="2">客户需求</th>
+		</tr>
+		<tr>
+		<td colspan="2"><label>渠道需求：</label><textarea class="text002" name="channel"></textarea></td>		
+		</tr>
+		<tr>
+		<td colspan="2"><label>品牌需求：</label><textarea class="text002" name="brand_demand"></textarea>	</td>	
+		</tr>
+		<tr>
+		<td colspan="2"><label>公司形象需求：</label><textarea class="text002" name="company_demand"></textarea>	</td>	
+		</tr>
+		<tr>
+		<td colspan="2"><label>区域合作需求：</label><textarea class="text002" name="cooperation_demand"></textarea>	</td>	
+		</tr>
+		<tr>
+		<th colspan="2">表单</th>
+		</tr>
+		<tr>
+		<td colspan="2" class="download"><a href="http://img.paila100.com/data/files/download/%E4%BE%9B%E5%BA%94%E5%95%86%E5%95%86%E5%93%81%E6%98%8E%E7%BB%86%E8%A1%A8.xls"><b>下载</b>并填写供应商品明细表.xls</a>
+	</td>
+		</tr>
+		<tr><td colspan="2" style="color:#aaaaaa"><input type="file" name="upfile">&nbsp;&nbsp;&nbsp;&nbsp;<b style="color:#ff0000">*</b>请上传您已填好的的供应商品明细表
+		<!-- <input type="hidden" name="max_file_size" value="10000"/> --></td></tr>		
+		</table>
+		<div style="border-top:2px solid #FF6800;margin:0 5px;"></div>
+		<div style="text-align:center;margin:10px 0;">
+		<input type="hidden" name="app" value="brand_mandate"/>
+		<input type="hidden" name="act" value="formlist"/>		
+		<input type="submit" value="" class="upsub" name="Submit"/>
+		</div>		</form>
+            </div>          
+        </div>
+    </div> 
+</div>
+<div class="index_footer">
+    <div class="content">
+        <div class="index_footer_l">
+            <a href="#"><img src="{new_res file=images/pp_logo2.gif}" alt="派啦网" /></a>
+        </div>
+        <div class="index_footer_r">
+           <strong>400-166-1616</strong><br/>
+           <span>服务时间：早9:00-晚18:00</span><br/>
+           客服热线：400-166-1616 公司电话：0791-88633928 传真：0791-8610650951<br/>                    
+           Copyright@2010-2011 paila100.com派啦网 All Rights Reserved 赣B2--20110067号<br/>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+$(function(){
+	 $("#demo4").easyinsert({
+	  name: ["info[]"],
+	  type: ["file"]
+	 });
+	});
+	
+	;(function($){
+	 $.fn.extend({
+	  "easyinsert": function(o){
+	   o = $.extend({
+	    //触发器
+	    clicker: null,//根据class（或id）选择，默认.next()获取
+	    //父标签
+	    wrap: "li",
+	    name: "i-text",
+	    type: "text",
+	    value: "",
+	    maxlength: 20,
+	    className: "i-text",
+	    //新增上限值
+	    toplimit: 0,//0表示不限制
+	    //初始化值，二维数组
+	    initValue: null//用于修改某资料时显示已有的数据
+	   }, o || {});
+	   var oo = {
+	    remove: "<a href=\"#nogo\" class=\"remove\">移除</a>",
+	    error1: "参数配置错误，数组的长度不一致，请检查。",
+	    error2: "参数配置错误，每组初始化值都必须是数组，请检查。"
+	   }
+	   //容器
+	   var $container = $(this);
+	   var allowed = true;
+	   //把属性拼成数组（这步不知道是否可以优化？）
+	   var arrCfg = new Array(o.name, o.type, o.value, o.maxlength, o.className);
+	   //arr ==> [name, type, value, maxlength, className]
+	   var arr = new Array();
+	   $.each(arrCfg, function(i, n){
+	    if ( $.isArray(n) ) {
+	     arr[i] = n;
+	    } else {
+	     arr[i] = new Array();
+	     if ( i === 0 ) {
+	      arr[0].push(n);
+	     }else{
+	      //补全各属性数组（根据name数组长度）
+	      $.each(arr[0], function() {
+	       arr[i].push(n);
+	      });
+	     }
+	    }
+	   });
+	   if ( allowed ) {
+	    //获取触发器
+	    var $Clicker = !o.clicker ? $container.next() : $(o.clicker);
+	    $Clicker.bind("click", function() {
+	     //未添加前的组数
+	     var len = $container.children(o.wrap).length;
+	     //定义一个变量，判断是否已经达到上限
+	     var isMax = o.toplimit === 0 ? false : (len < o.toplimit ? false : true);
+	     if ( !isMax ) {//没有达到上限才允许添加
+	      var $Item = $("<"+ o.wrap +">").appendTo( $container );
+	      $.each(arr[0], function(i) {
+	       switch ( arr[1][i] ) {
+	        case "select"://下拉框
+	         var option = "";
+	         $.each(arr[2][i], function(i, n) {
+	          option += "<option value='"+ n +"'>"+ i +"</option>";
+	         });
+	         $("<select>", {
+	          name: arr[0][i],
+	          className: arr[4][i]
+	         }).append( option ).appendTo( $Item );
+	         break;
+	        case "custom"://自定义内容，支持html
+	         $Item.append( arr[2][i] );
+	         break;
+	        default://默认是input
+	         $("<input>", {//jQuery1.4新增方法
+	          name: arr[0][i],
+	          type: arr[1][i],
+	          value: arr[2][i],
+	          maxlength: arr[3][i],
+	          className: arr[4][i]
+	         }).appendTo( $Item );
+	       }
+	      });
+	      $Item = $container.children(o.wrap);
+	      //新组数
+	      len = $Item.length;
+	      if ( len > 1 ) {
+	       $Item.last().append(oo.remove);
+	       if ( len === 2 ) {//超过一组时，为第一组添加“移除”按钮
+	        $Item.first().append(oo.remove);
+	       }
+	      }
+	      $Item.find(".remove").click(function(){
+	       //移除本组
+	       $(this).parent().remove();
+	       //统计剩下的组数
+	       len = $container.children(o.wrap).length;
+	       if ( len === 1 ) {//只剩一个的时候，把“移除”按钮干掉
+	        $container.find(".remove").remove();
+	       }
+	       //取消“移除”按钮的默认动作
+	       return false;
+	      });
+	     }
+	     //取消触发器的默认动作
+	     return false;
+	    });
+	    //初始化
+	   }
+	  }
+	 });
+	})(jQuery);
+</script>
+</body>
+</html>

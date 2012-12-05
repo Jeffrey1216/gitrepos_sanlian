@@ -1,0 +1,83 @@
+<!--{if !$widget_data.is_login}-->
+<div class="index_login">
+    <div class="index_login_ttl">
+        <h3>会员登录</h3>
+    </div>
+	    <ul class="index_login_box">
+	       <li>
+	          <label>用户名：</label><input class="index_login_text" type="text" name="user_name" value="" id="uname"/>
+	       </li>
+	       <li>
+	          <label>密&nbsp;&nbsp;&nbsp;&nbsp;码：</label><input class="index_login_text" name="password" type="password" value="" id="upwd"/>
+	       </li>
+	       <li>
+	
+	          <input id="login" class="index_login_btn1" type="button" value="" name="submit"/>
+	          
+	          <input id="res" class="index_login_btn2" onclick="window.location.href='index.php?app=member&act=register'" type="button" value=""/><br/>
+	       
+	          <p class="index_login_fgt"><a href="{url app=find_password}">忘记密码？</a></p>
+	       </li>
+	       <li class="index_login_btm">
+	          <span><a href="index.php?app=article&act=brand&article_id=95">品牌托管介绍</a></span>
+	          <span><a href="index.php?app=article&act=brand&article_id=88">品牌托管小知识</a></span>
+	       </li>
+	    </ul>
+</div>
+<!--{else}-->
+<div class="index_login">
+
+   <div class="index_login_ttl">
+                <h3>会员信息</h3>
+            </div>
+            <div class="index_login_box">
+               <div class="index_lg">
+			       <div class="index_lg_l">
+			       <!-- {if $widget_data.member.portrait eq $widget_data.url} -->
+			       <img width="80" height="80" src="themes/mall/new/new_styles/default/images/testimg/join.jpg"/>
+			       <!-- {else} -->
+			       <img width="80" height="80" src="{$widget_data.member.portrait}"/>
+			       <!-- {/if} -->
+				   </div>
+				   <div class="index_lg_r">
+				       <p>
+					      会员名：<!-- {$widget_data.member.user_name} -->
+					   </p>
+					   <p>
+					      手机号： <!-- {$widget_data.member.mobile} -->
+					   </p>
+					   <p>
+					      上次登陆时间： <!-- {$widget_data.member.Last_login|date:complete} -->
+					   </p>
+				   </div>
+			   </div>
+			   <!-- {if $widget_data.supply.supply_id eq null} -->
+			      <div style="margin:0 atuo;text-align:center"><a href="index.php?app=brand_mandate&act=formlist" class="index_lg_btn1"></a> <a href="{url app=member&act=logout}">退出</a></div>	  				   				
+			   <!-- {else} -->
+			   <div style="margin:0 atuo;text-align:center"><a href="index.php?app=brand_mandate&act=view&id={$widget_data.supply.supply_id}" class="index_lg_btn2"></a> <a href="{url app=member&act=logout}">退出</a></div>			   
+			   <!-- {/if} -->
+            </div>
+</div>
+<!--{/if}-->
+<script type="text/javascript">
+$("#login").click(function () {
+	var user_name = $('input[name="user_name"]').attr("value");
+	var password = $('input[name="password"]').attr("value");
+	$.ajax({
+			type:"POST",
+			url:'index.php?app=brand_mandate&act=login',
+			data:{user_name:user_name, password:password},
+			dataType:'json',
+			success: function (data) {
+				if (data.done) 
+				{
+					window.location.href="index.php?app=brand_mandate";
+				} else {
+					alert(data.msg);
+				}
+			}
+		}
+	);
+});
+
+</script>

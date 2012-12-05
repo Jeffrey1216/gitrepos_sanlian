@@ -1,0 +1,77 @@
+{include file=storeadmin.member.header.html}
+<script type="text/javascript">
+$(function(){
+    $('#add_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#add_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+});
+</script>
+<div class="borderBox">
+	<h3 class="tit"><span>我的订单</span></h3>
+	<ul class="tabDiv mb10">
+		<li class="hover"><a href="index.php?app=buy_myorders">我的订单</a></li>
+	</ul>
+	<div class="public_02">
+	<div class="table">
+	<div class="mypaila_right">   
+            <div class="order_search">
+			  	<div class="user_search">
+                <form method="get">
+                    <!--{if $query.seller_name or $query.add_time_from or $query.add_time_to or $query.order_sn}-->
+                     <a class="detlink float_right" href="{url app=buy_myorders}">{$lang.cancel_query}</a>
+                    <!--{/if}-->
+                    <span>{$lang.add_time}: </span>
+                    <input type="text" class="text1 width2" name="add_time_from" id="add_time_from" value="{$query.add_time_from}"/> &#8211;
+                    <input type="text" class="text1 width2" name="add_time_to" id="add_time_to" value="{$query.add_time_to}"/>
+                    <span>{$lang.order_sn}:</span>
+                    <input type="text" class="text1 width_normal" name="order_sn" value="{$query.order_sn|escape}">
+                    <span>{$lang.order_status}</span>
+                    <select name="type">
+                    {html_options options=$types selected=$type}
+                    </select>
+                    <input type="hidden" name="app" value="buy_myorders" />
+                    <input type="hidden" name="act" value="index" />
+                    <input type="submit" class="btn" value="{$lang.soso}" />
+                </form>
+                </div>
+            </div>
+          <table cellspacing="0" cellpadding="0">
+          <!-- {foreach from=$orders item=order} -->
+              <tbody>
+                 <tr class="tr2">
+                  <td>订单号：{$order.order_sn}</td>
+                     <td>下单时间：{$order.add_time|date:Y-m-d H:i}</td>
+                    <td> 单价</td>
+                    <td>&nbsp; </td>
+                    <td>订单状态：<span class="paila_price">{$order.status|modifier:order_status}<!--{if $order.evaluation_status}-->,&nbsp;{$lang.already_evaluate}<!--{/if}--></span></td>
+              </tr>
+              <!-- {foreach from=$order.store_order_goods item=goods} -->
+               <tr>
+                  <td><a href="index.php?app=buy_mallgoods&act=show_goods&id={$goods.goods_id}"><img alt="{$goods.goods_name}" title="{$goods.goods_name}" src="{$image_url}{$goods.goods_image}"> </a>
+                  <span><a href="index.php?app=buy_mallgoods&act=show_goods&id={$goods.goods_id}">{$goods.goods_name|escape}</a></span></td>
+                    <td>收货人：{$order.buyer_name} </td>
+                    <td><span class="paila_price">{$goods.price|price}</span></td>
+                   <td>&nbsp;</td>
+                    <td>数量：<span>{$goods.quantity}</span></td>
+              </tr>
+			<!-- {/foreach} -->
+              <tr class="tr2">
+                  <td>订单总价：<span class="paila_price">{$order.order_amount|price}</span></td>
+                  <td>&nbsp;</td>
+                  <td colspan="3">
+                  <a href="index.php?app=store_cashier&order_id={$order.order_id}" id="order{$order.order_id}_action_pay"{if $order.status neq ORDER_PENDING} style="display:none"{/if} class="btn"><img style="width:62px;height:19px;position:relative;top:1px;float:left;border:0;" align="absmiddle" src="themes/mall/default/styles/default/images/pay01.gif" /></a>
+                  <input type="button" value="{$lang.confirm_order}" class="btn1" ectype="dialog" dialog_id="buyer_order_confirm_order" dialog_width="400" dialog_title="{$lang.confirm_order}" uri="index.php?app=buy_myorders&amp;act=confirm_order&order_id={$order.order_id}&ajax"  id="order{$order.order_id}_action_confirm"{if $order.status neq ORDER_SHIPPED or $order.payment_code eq 'cod'} style="display:none"{/if} />
+                  <input type="button" value="{$lang.cancel_order}" class="btn1" ectype="dialog" dialog_width="400" dialog_title="{$lang.cancel_order}" dialog_id="buyer_order_cancel_order" uri="index.php?app=buy_myorders&amp;act=cancel_order&order_id={$order.order_id}&ajax"  id="order{$order.order_id}_action_cancel"{if $order.status neq ORDER_PENDING and $order.status neq ORDER_SUBMITTED} style="display:none"{/if} />
+                  <a href="index.php?app=buy_myorders&act=view&order_id={$order.order_id}" class="btn1">{$lang.view_order}</a>
+                  </td>
+              </tr>
+              <tr><td colspan="5" style="padding:0">&nbsp;</td></tr>
+                </tbody>
+              <!-- {/foreach} -->
+          </table>          
+            <div class="productlist_footbg">
+  {include file=member.page.bottom.html}
+</div>
+        </div>
+	</div>
+	</div>
+</div>

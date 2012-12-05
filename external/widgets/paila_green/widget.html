@@ -1,0 +1,80 @@
+        <div class="paila_mall" id="pailaagro_mall">
+            <ul class="plm_ttl agri_ttl">
+               <li class="plm_ttl_img agri_ttl_img"> 
+               </li>
+               <li class="plm_ttl_l plb_ttl_l">
+                 全场配送PL币...
+               </li>
+               <li class="plm_ttl_m">
+               <!-- {foreach from=$widget_data.gcategory item=gcategory} -->
+                  <a href="index.php?app=search&cate_id={$gcategory.cate_id}">
+                    {$gcategory.cate_name}
+                  </a>
+       			<!-- {/foreach} -->
+               </li>
+               <li class="plm_ttl_r">
+                  <a href="index.php?app=agro">
+                    更多 >>
+                  </a>
+               </li>
+            </ul>
+            <div class="plm_add">
+                <ul class="plm_add_l">
+                <!-- {foreach from=$widget_data.image1 item=i} -->
+                   <li>
+                      <a href="{$i.url}">
+                        <img src="{$i.img}" />
+                      </a>
+                   </li>
+ 				<!-- {/foreach} -->
+                </ul>
+                <ul class="plm_add_m">
+                <!-- {foreach from=$widget_data.image2 item=i} -->
+                   <li class="plm_add_none" style="display:block">
+                      <a href="{$i.url}">
+                        <img src="{$i.img}" alt="{$i.title}" />
+                      </a>
+                   </li> 
+                <!-- {/foreach} -->
+                   <li class="plm_add_clk">
+                      <div class="clk_img_bg">
+                      </div>
+                      <div>
+                      </div>
+                      <div>
+                      </div>
+                   </li>
+                </ul>
+                <ul class="plm_add_r">
+                <!-- {foreach from=$widget_data.image3 item=i} -->
+                   <li>
+                      <a href="{$i.url}">
+                        <img src="{$i.img}" />
+                      </a>
+                   </li>
+                 <!-- {/foreach} -->
+                </ul>
+            </div>
+            <div class="plm_gds">
+                <ul>
+                <!-- {foreach from=$widget_data.goods item=goods} -->
+                   <li>
+                      <a href="index.php?app=goods&id={$goods.goods_id}" class="plm_gds_img">
+                        <img src="{$goods.smimage_url}" alt="{$goods.goods_name|truncate:20}" />
+                      </a>
+                      <p>
+                        <a href="index.php?app=goods&id={$goods.goods_id}">
+                          {$goods.goods_name|truncate:20}
+                        </a>
+                      </p>
+                      <span class="plm_gds_prc">
+                           派啦价：
+                           <em>
+                             ￥{$goods.price}
+                           </em>
+                      </span>
+                   </li>
+  			   <!-- {/foreach} -->
+                </ul>
+            </div>
+        </div>

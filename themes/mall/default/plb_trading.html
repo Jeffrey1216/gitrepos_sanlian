@@ -1,0 +1,213 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+<style type="text/css">
+.pltd_content{margin: 0 auto;width: 1000px;}
+.pltd_banner{width: 1000px;overflow: hidden;margin:5px 0}
+.pltd_content_l{float: left;width:780px;}
+.pltd_mad,.pltd_fst,.pltd_plbsl{width:780px;overflow:hidden;}
+.pltd_mad_l{float:left;width:210px;overflow: hidden;}
+.pltd_mad_r{float:right;width:560px;overflow: hidden;}
+.pltd_content_r{float: right;width:210px;}
+.pltd_lg,.pltd_ancmt0{width:210px;overflow:hidden;}
+.pltd_ancmt0{margin-top:10px;}
+</style>
+<div class="pltd_content">
+    <div class="pltd_banner" area="pltd_banner" widget_type="area">
+    	<!--{widgets page=plb_deal area=pltd_banner}-->
+    </div>
+    <div class="pltd_content_l">
+        <div class="pltd_mad">
+            <div class="pltd_search">
+            <!-- 搜索 -->
+           <div class="pltd_search_ttl">
+               <h3><span>快速搜索</span></h3>
+           </div>
+           <form method="get">
+           <ul class="pltd_search_ctt">
+              <li>
+                 <label>输入所需PLB：{$credit_num}</label><input class="pltd_number" type="text" value="{$credit_num}" name="credit_num"/>
+              </li>
+              <li>
+                 <label>选择价格区间：</label>
+                 	<select class="pltd_number" name="opt">
+                 		<option {if $opt eq 0}selected{/if} value="0">---无区间---</option>
+						<option {if $opt eq 1}selected{/if} value="1">0-99</option>
+						<option {if $opt eq 2}selected{/if} value="2">100-199</option>
+						<option {if $opt eq 3}selected{/if} value="3">200-299</option>
+						<option {if $opt eq 4}selected{/if} value="4">300-399</option>
+						<option {if $opt eq 5}selected{/if} value="5">400-500</option>
+					</select>
+              </li>
+              <li>
+                 <input type="text" class="pltd_search_box" value="{$info}" name="info" />
+              </li>
+              <li>
+              	<input type="hidden" name="app" value="plb_deal"/>
+              	<input type="hidden" name="act" value="search"/>
+                 <input type="submit" class="pltd_search_btn" value="" />
+              </li>
+           </ul>
+           </form>
+       </div> 
+       <!-- 轮播 --> 
+            <div class="pltd_mad_r" area="pltd_mad_r" widget_type="area">
+            	<!--{widgets page=plb_deal area=pltd_mad_r}-->
+            </div>
+        </div>
+        <!-- 快捷通道 -->
+         <div class="pltd_fast">
+           <div class="pltd_fast_l"></div>
+           <ul class="pltd_fast_ttl">
+               <li class="pltd_fast_ttl_l"><h3>快捷通道</h3></li>
+               <li class="pltd_fast_ttl_r">[ 选择你想购买的派啦价格区间 ]</li>
+           </ul>
+           <ul class="pltd_fast_ctt">
+              <li>
+                 <a href="index.php?app=plb_deal&act=search&min=0&max=99"><img src="{new_res file=images/plb_ad3_03.gif}" alt="0-99PL" /></a>
+              </li>
+              <li>
+                 <a href="index.php?app=plb_deal&act=search&min=100&max=199"><img src="{new_res file=images/plb_ad4_03.gif}" alt="0-99PL" /></a>
+              </li>
+              <li>
+                 <a href="index.php?app=plb_deal&act=search&min=200&max=399"><img src="{new_res file=images/plb_ad5_03.gif}" alt="0-99PL" /></a>
+              </li>
+              <li>
+                 <a href="index.php?app=plb_deal&act=search&min=400&max=599"><img src="{new_res file=images/plb_ad6_03.gif}" alt="0-99PL" /></a>
+              </li>
+              <li>
+                 <a href="index.php?app=plb_deal&act=search&min=600"><img src="{new_res file=images/plb_ad7_03.gif}" alt="0-99PL" /></a>
+              </li>
+           </ul>
+       </div>
+        <!-- 出售专区 -->
+         <div class="pltd_fast pltd_sale">
+           <div class="pltd_fast_l"></div>
+           <ul class="pltd_fast_ttl">
+               <li class="pltd_fast_ttl_l"><h3>派啦币出售区</h3></li>
+               <li class="pltd_fast_ttl_r"><a href="index.php?app=plb_deal&act=search">更多>></a></li>
+           </ul>
+           <div class="pltd_sale_ctt">
+               <table cellpadding="0" cellspacing="0" width="100%">
+                   <tr class="pltd_sale_th">
+                      <th width="55%"><span class="pltd_sale_th1">出售信息</span></th>
+                      <th width="10%">PL币数量</th>
+                      <th width="10%">价格</th>
+                      <th width="18%">发布时间</th>
+                      <th width="7%">操作</th>
+                   </tr>
+                 
+                   <!-- {foreach from=$credit_goods_info item=credit_info} -->
+                   <!-- {if $credit_info.type eq 1} -->
+                   <tr>
+                      <td><p class="pltd_sale_inf">{$credit_info.info}</p></td>
+                      <td>{$credit_info.credit_num}</td>
+                      <td>{$credit_info.price|price}</td>
+                      <td>{$credit_info.time}</td>
+                      <td><input type="button" class="pltd_lvl2_buy_bn" value="" onclick="window.location.href='index.php?app=plb_cart&act=add&id={$credit_info.id}'" /></td>
+                   </tr>
+                   <!-- {elseif $credit_info.type eq 0} -->
+                   <tr>
+                      <td><p class="pltd_sale_inf pltd_sale_inf2">{$credit_info.info}</p></td>
+                      <td>{$credit_info.credit_num}</td>
+                      <td>{$credit_info.price|price}</td>
+                      <td>{$credit_info.time}</td>
+                      <td><input type="button" class="pltd_lvl2_buy_bn" value="" onclick="window.location.href='index.php?app=plb_cart&act=add&id={$credit_info.id}'"/></td>
+                   </tr>
+                   <!-- {/if} -->
+                   <!-- {/foreach} -->
+               </table>
+           </div>
+       </div>
+    </div>
+    <div class="pltd_content_r">
+    	<!-- 够买和出售 -->
+        <div class="pltd_r_top">
+          <div>
+              <a href="index.php?app=plb_deal&act=search"><span class="pltd_buy_bn"></span></a>
+              <a href="index.php?app=member&act=credit"><span class="pltd_buy_bn pltd_buy_bn2"></span></a>
+          </div>
+          <ul class="pltd_r_help">
+             <li>
+                <p class="pltd_buy_process"><a href="index.php?app=article&act=credit&article_id=89">购买流程</a></p>
+             </li>
+             <li>
+                <p class="pltd_sale_process"><a href="index.php?app=article&act=credit&article_id=91">咨询专区</a></p>
+             </li>
+             <li>
+                <p class="pltd_consult_zone"><a href="index.php?app=article&act=credit&article_id=90">出售流程</a></p>
+             </li>
+             <li>
+                <p class="pltd_safe"><a href="index.php?app=article&act=credit&article_id=92">交易安全</a></p>
+             </li>
+          </ul>
+       </div>
+        <!-- 公告 -->
+        <div class="pltd_ancmt0" area="pltd_ancmt0" widget_type="area">
+        	<!--{widgets page=plb_deal area=pltd_ancmt0}-->
+        </div>
+        <!--  出售信息 -->
+         <div class="pltd_search pltd_inf">
+           <div class="pltd_search_ttl pltd_ann_ttl">
+               <h3>出售信息</h3>
+           </div>
+           <ul class="pltd_inf_ctt">
+           <!-- {foreach from=$order_info item=order} -->
+              <li>
+                 <div class="pltd_inf_l">
+                 </div>
+                 <div class="pltd_inf_r">
+                    <p>
+           
+                       {$order.add_time}&nbsp;&nbsp;<span>{$order.seller_name}</span>
+                    </p>
+              
+                    <p>
+                       以价格<span>{$order.order_amount|price}</span>出售了 PL币<span>{$order.credit}元</span>
+                    </p>
+                 </div>
+              </li>
+              <!-- {/foreach} -->
+           </ul>
+           <div class="pltd_inf_btm">
+               <a href="index.php?app=member&act=credit">我也要卖</a>
+           </div>
+       </div>
+        <!-- 购买信息 -->
+         <div class="pltd_search pltd_inf">
+           <div class="pltd_search_ttl pltd_ann_ttl">
+               <h3>购买信息</h3>
+           </div>
+           <ul class="pltd_inf_ctt">
+           <!-- {foreach from=$order_info item=order} -->
+              <li>
+                 <div class="pltd_inf_l pltd_inf_l2">
+                 </div>
+                 <div class="pltd_inf_r">
+                    <p>
+                       {$order.add_time}&nbsp;&nbsp;<span>{$order.buyer_name}</span>
+                    </p>
+                    <p>
+                       以价格<span>{$order.order_amount|price}</span>购买了 PL币<span>{$order.credit}元</span>
+                    </p>
+                 </div>
+              </li>
+            <!-- {/foreach} -->
+           </ul>
+           <div class="pltd_inf_btm pltd_inf_btm2">
+               <a href="index.php?app=plb_deal&act=search">我也要买</a>
+           </div>
+       </div>
+    </div>
+</div>
+
+
+<div style="position:absolute;top:0;">
+	<ul class="subnav"><!--上方菜单-->
+  			<li id="select_list"><!--下拉菜单容器--></li><!--select_list-->
+	</ul><!--subnav-->
+   </div>
+
+<div class="clear"></div>
+{include file=footer.html}
+</html>

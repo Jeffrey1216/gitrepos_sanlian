@@ -1,0 +1,78 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p class="rightTop_p">订单结算</p>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+    <form action="index.php?app=checkout&act=_get_orders" method="get">
+    		<!-- {if !$financeStore} -->
+	 		<input type="hidden" name="app" value="store" />
+	 		<!-- {else} -->
+	 		<input type="hidden" name="app" value="financeStore" />
+	 		<!-- {/if} -->
+			<input type="hidden" name="act" value="get_settle" />
+			<input type="hidden" name="id" value="{$store_id}" />
+		  	<div class="tabSearch">	
+					完成交易时间：<input type="text" class="Wdate" onclick="WdatePicker()" name="starttime" id="starttime"  value="{$smarty.get.starttime}" />—
+					<input type="text" class="Wdate" onclick="WdatePicker()" name="endtime" id="endtime" value="{$smarty.get.endtime}" />
+					<input type="submit" name="submit" class="btn1" value="查询" style="float:none"/>
+			</div>  
+	</form> 
+  </div>
+  <div class="fontr">{include file=page.top.html} </div>
+</div>
+<!--  
+<div class="jiesuan_ddtoggle">
+ <h3>进货统计</h3>
+ <p>销售金额总计：<em>{$statistics.order_amount}</em></p>
+ <p>使用PL总计：<em>{$statistics.use_credit}</em></p>
+ <p>赠送PL总计：<em>{$statistics.get_credit}</em></p>
+ <p>厂家进货价总计：<em>{$statistics.gprice}</em></p>
+ <p>专柜进货价总计：<em>{$statistics.zprice}</em></p>
+ <p>交易产生现金：<em>{$statistics.pay_money}</em></p>
+</div>
+-->
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable stoceTable">
+    <tr class="tatr1">
+      <td>订单编号</td>
+      <td>完成时间</td>    
+      <td>进货商品</td>
+      <td>进货规格</td>
+      <td>进货数量</td>
+      <td>派啦价</td>
+      <td>厂家进货价</td>
+      <td>专柜进货价</td>
+      <td>赠送PL</td>
+    </tr>
+    <!-- {foreach from=$store_order_info item=order} -->
+    <tr class="tatr2">
+     <td>{$order.order_sn}</td>
+     <td>{$order.finished_time|date:Y-m-d H:m:s}</td>
+     <td>{$order.goods_name}</td>
+     <td>{$order.spec_1}{$order.spec_2}</td>
+     <td>{$order.quantity}</td>
+     <td>{$order.price}</td>
+     <td>{$order.gprice}</td>
+     <td>{$order.zprice}</td>
+     <td>{$order.credit}</td>
+    </tr>
+    <!-- {/foreach} -->
+    <!-- {if $store_order_info} -->
+    <!-- {else} -->
+    <tr class="no_data">
+      <td colspan="12">没有符合条件的记录</td>
+    </tr>
+    <!-- {/if} -->
+  </table>
+</div>
+<!-- {if !$financeStore} -->
+<a href="index.php?app=store" class="rightFh">返&nbsp;回</a>
+<a href="index.php?app=store&act=get_settle&output=true&id={$store_id}&starttime={$stime}&endtime={$etime}" class="rightFh">导出完整数据</a>
+<!-- {else} -->
+<a href="index.php?app=financeStore" class="rightFh">返&nbsp;回</a>
+<a href="index.php?app=financeStore&act=get_settle&output=true&id={$store_id}&starttime={$stime}&endtime={$etime}" class="rightFh">导出完整数据</a>
+<!-- {/if} -->
+<div class="pageLinks">{include file=page.bottom.html}</div>
+{include file="footer.html"}
+<script type="text/javascript" src="{lib file=MyDate/WdatePicker.js}"></script>

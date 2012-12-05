@@ -1,0 +1,150 @@
+{include file=index_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<div class="publicBox content" >
+{include file=member.menu.html}
+		<div style="border:0" class="myPaila-content r">
+			<div class="l">
+				<div class="myPaila-welcome">
+					<div class="l">
+						<div class="myPaila-welcome-photo">
+							<img src="{$user.portrait}?{$random_number}" width="90" height="90" alt="我的头像"/>
+						</div>
+						<a class="blue_col myPaila-welcome-setPhoto" href="index.php?app=member&act=profile">设置头像</a>
+					</div>  
+					<div class="l">
+						<ul class="myPaila-welcome-list">
+							<li>会员名称：<strong>{$user.user_name|escape}</strong><span style="margin-left:45px">注册时间：{$user.reg_time|date:Y-m-d}</span></li>
+							<li>现金余额：<em class="red_col">{$user.money}</em>元<a class="blue_col myPaila-welcome-setPhoto" href="index.php?app=voucher_center" >充值</a></li>
+							<li>PL币余额：<em class="red_col">{$user.credit}</em>PL<!-- <a href="index.php?app=article&act=help&cate_id=29&parent_id=1" class="col-lightgray">PL币怎么用？</a> --></li>								
+						</ul>
+					</div>
+					<div class="clear"></div>
+					<div  class="myPaila-welcome-remind">
+						<table style="width:450px;margin:0px auto">
+								<tr>
+									<td  style="border-bottom:dashed 1px #f1f1f1">交易提醒：</td>
+									<td  style="border-bottom:dashed 1px #f1f1f1"><!-- {if $buyer_stat.pending} --><a href="index.php?add_time_from=&add_time_to=&order_sn=&type=pending&app=buyer_order&act=index">待付款<strong>（{$buyer_stat.pending}）</strong></a><!-- {else} -->待付款（0）<!-- {/if} --></td>
+									<td  style="border-bottom:dashed 1px #f1f1f1"><a href="index.php?add_time_from=&add_time_to=&order_sn=&type=shipped&app=buyer_order&act=index">待确认收货（{$buyer_stat.shipped}）</a></td>
+									<td  style="border-bottom:dashed 1px #f1f1f1"><a href="index.php?add_time_from=&add_time_to=&order_sn=&type=finished&app=buyer_order&act=index">待评价（{$buyer_stat.finished}）</a></td>
+									<td  style="border-bottom:dashed 1px #f1f1f1"></td>
+								</tr>
+								<tr>
+									<td>帐户提醒：</td>
+									<td>退换货（0）</td>
+									<td><a href="index.php?app=my_question">咨询留言（{$goods_qa}）</a></td>
+									<td><!-- {if $new_message} --><a href="index.php?app=message&act=newpm">站内信<strong>（{$new_message}）</strong><!-- {else} -->站内信（{$new_message}）<!-- {/if} --></a></td>
+								</tr>
+						</table>
+					</div>
+				</div>
+				
+				<!-- 商品推荐 -->
+   			<div id="myPaila-goods" class="rcmd_l ancmt">
+				<ul class="rcmd_ttl ancmt_ttl">
+				   <li class="pass pass2">派啦热卖</li>
+				   <li class="pass pass1">新品推荐</li>
+				   <li class="pass">精品推荐</li>				  
+				</ul>
+				<div class="ancmt_box">
+                    <ul class="rcmd_gds ancmt_ctt" id="rcmd_ctt_show">
+                  <!-- {foreach from=$is_hot item=hot} -->
+					   <li>
+                          <span class="rcmd_ico"></span>
+                          <a href="index.php?app=goods&id={$hot.gs_id}"><img src="{$hot.smimage_url}" alt="{$hot.goods_name|escape}" /></a> 
+                          <p  class="rcmd_name"><a href="index.php?app=goods&id={$hot.gs_id}">{$hot.goods_name|escape}</a></p>
+                          <p class="rcmd_prc">派啦价：<span>{$hot.price}</span></p>
+                       </li>
+				<!-- {/foreach} -->
+                    </ul>
+                </div>
+					<div class="ancmt_box">
+                    <ul class="rcmd_gds ancmt_ctt" id="">
+                    <!-- {foreach from=$is_new item=new} -->
+                       <li>
+                          <span class="rcmd_ico"></span>
+                          <a href="index.php?app=goods&id={$new.gs_id}"><img src="{$new.smimage_url}" alt="{$new.goods_name|escape}" /></a> 
+                          <p  class="rcmd_name"><a href="index.php?app=goods&id={$new.gs_id}">{$new.goods_name|escape}</a></p>
+                          <p class="rcmd_prc">派啦价：<span>{$new.price}</span></p>
+                       </li>
+						<!-- {/foreach} -->				 
+                    </ul>
+                </div>
+					<div class="ancmt_box">
+                    <ul class="rcmd_gds ancmt_ctt" id="">
+                       <!-- {foreach from=$is_best item=best} -->
+                       <li>
+                          <span class="rcmd_ico"></span>
+                          <a href="index.php?app=goods&id={$best.gs_id}"><img src="{$best.smimage_url}" alt="{$best.goods_name|escape}" /></a> 
+                          <p  class="rcmd_name"><a href="index.php?app=goods&id={$best.gs_id}">{$best.goods_name|escape}</a></p>
+                          <p class="rcmd_prc">派啦价：<span>{$best.price}</span></p>
+                       </li>
+						<!-- {/foreach} -->				   
+                    </ul>
+                </div>
+					
+			</div> 
+    <!--商品推荐 end-->   
+				
+			</div>
+			<div class="r">
+            	<div class="mc_right">
+                	<div class="name">邀请好友送PL</div>
+                    <div class="body">
+                    	<p>复制链接邀请好友</p>
+                    	<table border="0" width="180" style="margin:0 auto" align="center"><tr>
+                        	<td><input type="text" value="{$invite_url}" id="span_copy"/></td><td><input type="image" id="clip_copy" src="{res file=images/copy.gif}"  onclick="copyurl()"/></td></tr></table>                     
+                        
+                        </span>
+                    </div>
+                </div>                
+                <div class="mc_right">
+               		<div class="name">今日活动</div>
+                    <div class="body">
+                    <ul><!-- {foreach from=$data item=images} -->
+                    <li><a href="{$images.url}"><img src="{$images.img}" alt="{$images.title}"/></a></li>
+                    <!-- {/foreach} --></ul></div>
+                </div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		</div>
+<script type="text/javascript" src="{new_res file=js/member_center.js}" ></script>
+<script type="text/javascript">
+//复制内容到剪切板
+function doCopy(txt){
+	if(window.clipboardData){
+			window.clipboardData.clearData();
+			window.clipboardData.setData("Text", txt + "");
+	}else if(navigator.userAgent.indexOf("Opera") != -1){
+		window.location = txt;
+	}else if (window.netscape){
+		try {
+			netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+		} catch (e){
+			alert("被浏览器拒绝！\n您可以在浏览器地址栏输入'about:config'并回车\n然后将'signed.applets.codebase_principal_support'设置为'true'");
+		}
+		var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+		if (!clip){return;}
+		var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+		if (!trans){return;}
+		trans.addDataFlavor('text/unicode');
+		var str = new Object();
+		var len = new Object();
+		str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+		var copytext = txt;
+		str.data = copytext;
+		trans.setTransferData("text/unicode",str,copytext.length * 2);
+		var clipid = Components.interfaces.nsIClipboard;
+		if (!clip){return false;}
+		clip.setData(trans,null,clipid.kGlobalClipboard);
+		}
+	}
+function copyurl(){
+	doCopy(document.getElementById("span_copy").value);
+	alert("复制成功");
+}
+//
+</script>        
+{include file=footer.html}

@@ -1,0 +1,85 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p>友情链接</p>
+    <ul class="subnav">
+        <li><a href="index.php?app=frendlink" class="btn1">管理</a></li>
+                <li><span>新增</span></li>
+            </ul>
+</div>
+<form method="post" enctype="multipart/form-data">
+<table>
+       <tr> <td class="bold">名称</td><td colspan="3"><input type="text" name='link_name' value={$frend.link_name}></td></tr>
+       <tr> <td class="bold">地址</td><td colspan="3"><input type="text" name='link_url' value={$frend.link_url}></td></tr>
+       <tr> <td class="bold">排序号码</td><td colspan="3"><input type="text" name='ordernum' value={$frend.show_order}></td></tr>
+       <tr> <td class="bold">logo图片</td><td colspan="3"><input name='file' type="file" ></td></tr> 
+       <tr> 
+       <td class="bold">类型</td>
+       <td>
+       <!-- {if ($frend.type == "1")} --> 
+       <select name="type">
+       			<option value="1"  selected="selected">1</option>
+       			<option value="2"  >2</option>
+       			<option value="3"  >3</option>
+       </select>
+       <!-- {/if} -->
+       <!-- {if ($frend.type == "2")} --> 
+       <select name="type">
+       			<option value="1" >1</option>
+       			<option value="2"  selected="selected">2</option>
+       			<option value="3" >3</option>
+       </select>
+       <!-- {/if} -->
+       <!-- {if ($frend.type == "3")} --> 
+       <select name="type">
+       			<option value="1" >1</option>
+       			<option value="2">2</option>
+       			<option value="3" selected="selected">3</option>
+       </select>
+       <!-- {/if} -->
+       <!-- {if ($frend.type == "")} --> 
+       <select name="type">
+       			<option value="1" >1</option>
+       			<option value="2">2</option>
+       			<option value="3" selected="selected">3</option>
+       </select>
+       <!-- {/if} -->
+       </td>
+       <td>注：1为全站链，2为普通链图片，3为普通链文字</td>
+       </tr> 
+            <tr>
+           <!--  {if $frend.link_logo} -->
+                <th class="paddingT15">
+                </th>
+                <td class="paddingT15 wordSpacing5">
+                <img src="/{$frend.link_logo}" class="makesmall" max_width="120" max_height="90" />
+                </td>
+            <!-- {else} -->
+            <td>
+            	无图片
+            </td>
+            <!-- {/if} -->
+            </tr>
+            <tr>
+            <td></td>
+            <td></td>
+            <td class="ptb20" colspan="3">
+                <input type="submit" value="提交" name="Submit" class="formbtn">
+                <!-- {if $temadd eq 1} -->
+                <input type="reset" value="重置" name="Submit2" class="formbtn">
+                <!-- {/if} -->
+                <!-- {if $temedit eq 2} -->
+                <input type="button" value="返回" name="Submit2" class="formbtn" onclick="return reweb();">
+                <!-- {/if} -->
+            </td>
+                 
+            </tr>
+ 
+                   
+</table>
+</form>
+    <script type="text/javascript">
+    function reweb(){
+    	this.location.href='index.php?app=frendlink';
+    }
+    </script>
+{include file="footer.html"}

@@ -1,0 +1,108 @@
+{include file="header.html"}
+<div id="rightTop">
+    <p><b>{$lang.order_detail}</b></p>
+</div>
+<div class="info">
+    <div class="demand">
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_status}</h1>
+        <ul>
+            <li><b>{$lang.order_sn}:</b>{$order.order_sn}{if $order.extension eq 'groupbuy'}[{$lang.groupbuy}]{/if}&nbsp;&nbsp;&nbsp;<!--{if $order.group_id}-->[<a href="{$site_url}/index.php?app=groupbuy&id={$order.group_id}" target="_blank">{$lang.groupbuy_detail}</a>]<!--{/if}--></li>
+            <li><b>{$lang.order_status}:</b>{if $order.status==11}等待买家付款{elseif $order.status==12}等待确认收货{elseif $order.status==20}买家已付款{elseif $order.status==30}卖家已发货{elseif $order.status==40}交易成功{elseif $order.status==50}退款中{elseif $order.status==60}退款完成{elseif $order.status==0}交易取消{/if}</li>
+            <li><b>{$lang.order_amount}:</b> <span class="red_common">{$order.order_amount|price}</span>({$lang.preference}:{$order.discount|price})</li>
+            <li><b>审核状态:</b> <span class="red_common"><!-- {if $order.op_status eq 1} -->物流已审核,待财务审核<!-- {elseif $order.op_status eq 3 } -->已通过财务审核<!-- {else} -->未通过财务审核<!-- {/if} --></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="order_form">
+        <h1>{$lang.order_detail}</h1>
+        <h2>{$lang.order_info}</h2>
+        <ul>
+            <li><b>{$lang.buyer_name} :</b> {$order.buyer_name|escape}</li>
+            <li><b> 店铺 :</b> {$order.seller_name|escape}</li>
+            <!--{if $order.payment_code}-->
+            <li><b>{$lang.payment_name}:</b>{$order.payment_name|escape}</li>
+            <!--{/if}-->
+            <!--{if $order.pay_message}-->
+            <li><b>{$lang.pay_message}:</b>{$order.pay_message|escape}</li>
+            <!--{/if}-->
+            <li><b>{$lang.add_time}:</b>{$order.add_time|date:complete}</li>
+            <!--{if $order.pay_time}-->
+            <li><b>{$lang.pay_time}:</b>{$order.pay_time|date:complete}</li>
+            <!--{/if}-->
+            <!--{if $order.finished_time}-->
+            <li><b>{$lang.finished_time}:</b>{$order.finished_time|date:complete}</li>
+            <!--{/if}-->
+            <!--{if $order.postscript}-->
+            <li><b>{$lang.postscript}:</b>{$order.postscript|escape}</li>
+            <!--{/if}-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+
+    <div class="order_form">
+        <h2>{$lang.consignee_info}</h2>
+        <ul>
+            <li><b>{$lang.consignee}:</b> {$order_extm.consignee|escape}</li>
+            <li><b>{$lang.region}:</b> {$order_extm.region_name|escape}</li>
+            <li><b>{$lang.zipcode}:</b> {$order_extm.zipcode|escape}</li>
+            <li><b>{$lang.phone_tel}:</b> {$order_extm.phone_tel|escape}</li>
+            <li><b>{$lang.phone_mob}:</b> {$order_extm.phone_mob|escape}</li>
+            <li><b>{$lang.address}:</b> {$order_extm.address|escape}</li>
+            <li><b>{$lang.shipping_name}:</b> {$order_extm.shipping_name|escape}</li>
+            <li><b>买家留言：</b>{$order.buyer_desc|default:无}</li>
+            <li><b>发票抬头：</b>{$order.invoice_header|default:无}</li>
+            <!--{if $order.ship_time}-->
+            <li><b>{$lang.ship_time}:</b>{$ordera.ship_time|escape}</li>
+            <!--{/if}-->
+            <!-- {if $order.ship_no} -->
+            <li><b>物流单号:</b> {$order.ship_no|escape}</li>
+            <!--{/if}-->
+            <!--{if $order.invoice_no}-->
+            <li><b>{$lang.invoice_no}:</b> {$order.invoice_no|escape}</li>
+            <!--{/if}-->
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!-- {if $status eq 50 or $status eq 60} -->
+     <div class="order_form">
+        <h2>退款信息</h2>
+        <ul>
+            <li><b>退款人:</b> {$order.refund_name|default:未填写}</li>
+            <li><b>退款时间:</b> {$ordera.refund_time|default:未填写}</li>
+            <li><b>退款理由:</b> {$order.refund_cause|default:未填写}</li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!-- {/if} -->
+    <div class="order_form">
+        <h2>{$lang.goods_info}</h2>
+        <!--{foreach from=$goods_list item=goods}-->
+        <div class="order_info" class="order_info" style="float:left;width:420px">
+            <a href="{$site_url}/index.php?app=goods&amp;xx=2&amp;id={$goods.goods_id}" target="_blank" class="order_info_pic"><img width="50" height="50" alt="{$lang.goods_pic}" src="{$goods.goods_image}" /></a>
+            <div class="order_info_text"><a href="{$site_url}/index.php?app=goods&amp;xx=2&amp;id={$goods.goods_id}" target="_blank">{$goods.goods_name|escape}</a><br />{$goods.specification|escape}</div>
+            <p><b>{$lang.price} :</b> <span class="red_common">{$goods.price|price}</span></p>
+            <p><b>{$lang.quantity} :</b> {$goods.quantity}</p>
+            <p><b>规格:</b> {$goods.specification|default:无规格}</p>
+        </div>
+        <!--{/foreach}-->
+        <div class="clear"></div>
+    </div>
+    <div class="printbutton">
+    <!-- {if $StoreOrder} -->
+    <input type="button" value="打印" onclick="window.open('index.php?app=StoreOrder&act=orderprint&id={$order.order_id}')"/>
+    <!-- {else} -->
+    <!-- {if $order.op_status eq 0 and $order.status eq 20}  -->
+    <form method="POST">
+      <input type="hidden" name="app" value="order"/>
+      <input type="hidden" name="act" value="view"/>
+      <input type="hidden" name="id" value="$order.order_id"/>
+      <input type="submit" value="确认"/>
+    </form>
+    <!-- {/if} -->
+    <input type="button" value="打印" onclick="window.open('index.php?app=order&act=orderprint&id={$order.order_id}')"/>
+    <!-- {/if} -->
+    </div>
+</div>
+{include file="footer.html"}

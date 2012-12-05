@@ -1,0 +1,68 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>{$lang.goods}</p>
+  <ul class="subnav">
+  	<li><a class="btn1" href="index.php?app=goods">{$lang.all_goods}</a></li>
+    <li><!--{if $smarty.get.closed}--><span>{$lang.closed}</span><!--{else}--><a class="btn1" href="index.php?app=goods&amp;closed=1">{$lang.closed}</a><!--{/if}--></li>
+    <li><!-- {if $smarty.get.added} --><span>{$lang.add_goods}</span><!-- {else} --><a class="btn1" href="index.php?app=goods&amp;act=add&amp;added=1">{$lang.add_goods}</a><!-- {/if} --></li>
+    <li><a class="btn1" href="index.php?app=goods&amp;act=import&amp;import=1"><span>数据导入</span></a></li>
+  </ul>
+</div>
+<div class="info">
+  <table width="700" class="data" align="left" border="0" cellspacing="1" cellpadding="1">
+  <tr>
+    <td style="background:#eeeeee" colspan="2" class="status">导入结果统计：</td>
+    <td style="background:#eeeeee" width="70"><a href="index.php?app=goods&act=import&import=1">继续导入</a></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="status">成功导入<b class="red">{$oknum}</b>个,成功商品列表如下：</td>
+    <td>操作</td>
+  </tr>
+  <!--{if $oknum gt 0}-->
+  {foreach from=$okgoods name='goods' item='goods'}
+  <tr>
+    <td colspan="2" class="name">{$smarty.foreach.goods.iteration}.{$goods.E}</td>
+    <td>
+    <a href="{$site_url}/index.php?app=goods&amp;xx=1&amp;id={$goods.goods_id}" target="_blank">查看</a>
+    <a href="index.php?app=goods&act=edit&id={$goods.goods_id}" target="_blank">编辑</a></td>
+  </tr>
+  <!--{/foreach}-->
+  <!--{else}-->
+  <tr>
+    <td colspan="3" class="err">无成功商品</td>
+  </tr>
+  <!--{/if}-->
+  <tr>
+    <td colspan="3" class="status">跳过导入<b class="red">{$errnum}</b>个,跳过列表如下：</td>
+   
+  </tr>
+  <!--{if $errnum gt 0}-->
+  <tr>
+    <td class="name" style="background:#eeeeee" width="50%">商品名称</td>
+    <td colspan="2" style="background:#eeeeee">跳过原因</td>
+  </tr>
+  <!--{foreach from=$errgoods item='goods' name='goods'}-->
+  <tr>
+    <td class="name">{$smarty.foreach.goods.iteration}.{$goods.E}</td>
+    <td class="msg" colspan="2">{$goods.msg}</td>
+  </tr>
+  <!--{/foreach}-->
+  <!--{else}-->
+  <tr>
+    <td colspan="3" class="err">无跳过商品</td>
+  </tr>
+  <!--{/if}-->
+  </tr>
+</table>
+</div>
+<script>
+$(function(){
+	$("td.name,td.msg").mouseover(function(){
+		$(this).parent("tr").children('td').css("background","#efefef");
+	}).mouseout(function(){
+		$(this).parent("tr").children('td').css("background","#ffffff");
+		});
+});
+</script>
+<div style="height:10px; display:block"></div>
+{include file="footer.html"} 

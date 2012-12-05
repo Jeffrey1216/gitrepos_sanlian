@@ -1,0 +1,73 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+<div class="content">
+    {include file=member.menu.html}
+	<div id="right">
+	{include file=member.subtop.html}
+     <div>
+            <ul class="tab">
+                  <li class="active">交易记录</li>   
+           </ul>               
+             <div class="wrap overageborder">  
+                <div class="span_div"> <span>现金余额:<em style="color:red">{$users.money|price}</em></span> <span>冻结余额：<em style="color:red">{$users.frozen_money|price}</em></span><span>积分余额：<em style="color:red">{$users.credit}PL</em></span><span>冻结积分余额：<em style="color:red">{$users.frozen_credit}PL</em></span> </div>    
+                <div  style="padding:10px 0 15px 25px">               
+	             	<form method="get">
+	                  <span style="font-size:14px;color:#000;">时间: </span>
+	                   <select name="day" class="text" style="width:200px;font-size:14px;color:#000">
+	                   	<option value="7" <!-- {if $day eq 7} -->selected<!-- {/if} -->>一周内积分记录</option>
+	                    <option value="15" <!-- {if $day eq 15} -->selected<!-- {/if} -->>半个月内积分记录</option>
+	                    <option value="30" <!-- {if $day eq 30} -->selected<!-- {/if} -->>一个月内积分记录</option>
+	                    <option value="90" <!-- {if $day eq 90} -->selected<!-- {/if} -->>三个月内积分记录</option>
+	                   	<option value="180" <!-- {if $day eq 180} -->selected<!-- {/if} -->>六个月内积分记录</option>
+	                   	<option value="0" <!-- {if $day eq 0} -->selected<!-- {/if} -->>所有积分记录</option>
+	                   </select>    
+					   <input type="hidden" name="app" value="member" />       
+					   <input type="hidden" name="act" value="detailed" />                   
+	                   <input type="submit" value="搜索" class="btn">
+	                </form>
+	              
+                </div>
+         <div class="overagelist">
+          <table cellpadding="0" cellspacing="0">
+          <tr class="tr_bg">
+          <th>编号</th>
+          <th>操作时间</th>
+          <th>现金余额</th>
+          <th>冻结余额</th>
+          <th>PL积分</th>
+          <th>冻结积分</th>
+          <th>操作类型</th>
+          <th style="width:200px">操作描述</th>
+          
+          <th>订单号</th>
+          </tr>
+          <!-- {foreach from=$node_list item=node name=node} -->
+          <tr>
+         <td>{$smarty.foreach.node.iteration}</td>
+         <td class="fontColor7">{$node.change_time|date:Y-m-d H:i:s}</td>
+          <td>{$node.user_money}</td>
+          <td>{$node.frozen_money}</td>
+          <td>{$node.user_credit}</td>
+          <td>{$node.frozen_credit}</td>
+          <td>{$node.change_type}</td>
+          <td style="text-align:left;">{$node.change_desc}</td>
+          
+          <td><!-- {if $node.order_id neq 0} -->{$node.order_sn}<!-- {else} -->未知定单<!-- {/if} --></td>
+          </tr>  
+          <!-- {foreachelse} -->
+          <tr>
+          	<td colspan="5"> 没有积分记录 ! </td>
+          </tr>     
+          <!-- {/foreach} -->
+          </table>   
+          </div>  
+          
+        <div class="productlist_footbg">
+           <div class="page">{$page}</div> 
+        </div>
+  </div>     
+    </div>
+</div>
+</div>
+{include file=footer.html}

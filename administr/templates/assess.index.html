@@ -1,0 +1,72 @@
+{include file="header.html"}
+<script type="text/javascript">
+//<!CDATA[
+$(function(){
+    // multi-select mall_gcategory
+    $('#gcategory').length>0 && gcategoryInit("gcategory");
+});
+//]]>
+</script>
+<div id="rightTop">
+  <ul class="subnav">
+    <li><span>商品评价</span></li>
+  </ul>
+</div>
+<div class="mrightTop info">
+  <div class="fontl">
+    <form method="get" id="search_form">
+      <div class="left">
+      <input type="hidden" name="app" value="assess" />
+	  {$lang.goods_name}:
+      <input class="queryInput" type="text" name="goods_name" value="{$smarty.get.goods_name|escape}" />
+          {$lang.gcategory}:
+          <div id="gcategory" style="display:inline;">
+            <input type="hidden" name="cate_id" value="0" class="mls_id" />
+            <select class="querySelect">
+              <option>{$lang.select_pls}</option>
+              {html_options options=$gcategories}
+            </select>
+          </div>
+          <input type="submit"  id="search" class="formbtn" value="{$lang.query}" />
+      </div>
+      <!--{if $smarty.get.cate_id or $query.goods_name  or $query.brand}-->
+      <a class="left formbtn1" href="index.php?app=assess">{$lang.cancel_query}</a>
+      <!--{/if}-->
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td width="20" class="firstCell"><input type="checkbox" class="checkall" /></td>
+      <td width="30%"><span ectype="order_by" fieldname="goods_name">商品</span></td>
+      <td><span ectype="order_by" fieldname="brand">评价(编辑评价时只用填写1,2,3即可3为好评)</span></td>
+      <td><span ectype="order_by" fieldname="cate_id">{$lang.gcategory}</span></td>
+      <td><span ectype="order_by" fieldname="views">评价内容</span></td>
+      <td>{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$goods_list item=goods}-->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" value="{$goods.order_id}"/></td>
+      <td><a href="{$site_url}/index.php?app=goods&amp;id={$goods.goods_id}">{$goods.goods_name|escape}</a></td>
+      <td><span id="comment" ectype="inline_edit" fieldname="evaluation" fieldid="{$goods.rec_id}" required="1" class="editable" maxvalue="3" maxlength="1" title="{$lang.editable}"><!-- {if $goods.evaluation eq 1} -->差评<!-- {elseif $goods.evaluation eq 2} -->中评<!-- {else} -->好评<!-- {/if} --></span></td>
+      <td>{$goods.cate_name|nl2}</td>
+      <td><span ectype="inline_edit" fieldname="comment" fieldid="{$goods.rec_id}" required="1" class="editable" title="{$lang.editable}">{$goods.comment|escape}</span></td>
+      <td>
+		<a href="index.php?app=assess&act=drop&id={$goods.order_id}">删除</a>
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="8">{$lang.no_data}</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="batchAction" class="left paddingT15">
+ 	 <input class="formbtn batchButton" type="button" name="id" value="批量删除" uri="index.php?app=assess&act=bath_edit&ret_page={$page_info.curr_page}"/>
+  </div>
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+  <div class="clear"></div>
+</div>
+{include file="footer.html"}

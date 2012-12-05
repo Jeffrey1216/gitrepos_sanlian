@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset={$charset}" />
+<meta http-equiv="Content-Type" content="text/html; charset={$charset}" />
+{$page_seo}
+<meta name="author" content="www.paila.com" />
+<meta name="generator" content="PaiLa {$paila_version}" />
+<meta name="copyright" content="PaiLa Inc. All Rights Reserved" />
+<meta property="wb:webmaster" content="4c8d15de69885fa0" />
+<link href="{new_res file=css/public.css}" rel="stylesheet" type="text/css"/>
+<link href="{new_res file=css/index.css}" rel="stylesheet" type="text/css"/>
+<link href="{res file=css/new_paila.css}" rel="stylesheet" type="text/css" />
+<link href="{res file=css/promote.index.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{lib file=jquery.js}"></script>
+<script src="{lib file=jquery.lazyload.js}" type="text/javascript"></script>
+{$_head_tags}
+<!--<editmode></editmode>--> 
+</head>
+{include file=../../store/default/store_top.html}
+<div class="content">
+	<div class="plzn_cdt cd_goods_px">
+		<!-- {if $cates} -->
+	      <dl class="plzn_cdt_sort">
+			<dt>商品分类：<a href="{$cate_url}" {if $view eq 'view' && $cate_id eq 0} class="now" {/if}>全部</a></dt>
+			<dd>
+				<ul class="store_cate_nav">
+				<!-- {foreach from=$cates item=cate} -->
+					<li>
+						<a {if $cate_id eq $cate.cate_id} class="now"{/if} href="{$cate_url}&cate_id={$cate.cate_id}">{$cate.cate_name}<span>({$cate.num})</span></a>
+					</li>
+				<!-- {/foreach} -->
+				</ul>
+			</dd>
+			<div class="clear"></div>
+		</dl>
+		<!-- {/if} -->
+        <!--{if $view eq 'view'}-->
+		<dl class="plzn_cdt_sort">
+			<dt>价格区间：<a href="{$price_url}" {if $sprice eq 0 && $eprice eq 0}class="now"{/if}>全部</a></dt>
+			<dd>
+				<ul class="store_cate_nav">
+                	<li><a href="{$price_url}&sprice=0&eprice=50" {if $sprice eq 0 && $eprice eq 50}class="now"{/if}>0-50<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=50&eprice=100" {if $sprice eq 50 && $eprice eq 100}class="now"{/if}>50-100<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=100&eprice=200" {if $sprice eq 100 && $eprice eq 200}class="now"{/if}>100-200<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=200&eprice=300" {if $sprice eq 200 && $eprice eq 300}class="now"{/if}>200-300<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=300&eprice=400" {if $sprice eq 300 && $eprice eq 400}class="now"{/if}>300-400<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=400&eprice=500" {if $sprice eq 400 && $eprice eq 500}class="now"{/if}>400-500<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=500" {if $sprice eq 500 && $eprice eq 0}class="now"{/if}>500<span>元以上</span></a></li>
+				</ul>
+			</dd>
+			<div class="clear"></div>
+		</dl>
+        <!--{/if}-->
+		<!-- {if $pr_cates} -->
+		<dl class="plzn_cdt_sort">
+			<dt>商品促销：<a href="{$prcate_url}&pr_cate_id=all" {if $pr_cate_id eq 0 && $view eq 'view2'} class="now"{/if}>全部</a></dt>
+			<dd>
+				<ul class="store_cate_nav">
+                	
+				<!-- {foreach from=$pr_cates item=nav} -->
+					<li>
+						<a href="{$prcate_url}&pr_cate_id={$nav.cate_id_2}" {if $pr_cate_id eq $nav.cate_id_2} class="now"{/if}>{$nav.cate_name}<span>({$nav.num})</span></a>
+					</li>
+				<!-- {/foreach} -->
+				</ul>
+			</dd>
+			<div class="clear"></div>
+		</dl>
+		<!-- {/if} -->
+         <!--{if $view eq 'view2'}-->
+		<dl class="plzn_cdt_sort">
+			<dt>价格区间：<a href="{$price_url}" {if $sprice eq 0 && $eprice eq 0}class="now"{/if}>全部</a></dt>
+			<dd>
+				<ul class="store_cate_nav">                	
+                    <li><a href="{$price_url}&sprice=0&eprice=50" {if $sprice eq 0 && $eprice eq 50}class="now"{/if}>0-50<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=50&eprice=100" {if $sprice eq 50 && $eprice eq 100}class="now"{/if}>50-100<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=100&eprice=200" {if $sprice eq 100 && $eprice eq 200}class="now"{/if}>100-200<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=200&eprice=300" {if $sprice eq 200 && $eprice eq 300}class="now"{/if}>200-300<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=300&eprice=400" {if $sprice eq 300 && $eprice eq 400}class="now"{/if}>300-400<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=400&eprice=500" {if $sprice eq 400 && $eprice eq 500}class="now"{/if}>400-500<span>元</span></a></li>
+                    <li><a href="{$price_url}&sprice=500" {if $sprice eq 500 && $eprice eq 0}class="now"{/if}>500<span>元以上</span></a></li>
+				</ul>
+			</dd>
+			<div class="clear"></div>
+		</dl>
+        <!--{/if}-->
+		</div>
+		<div class="plzn_scrn cd_px">
+        <ul class="order_tab">
+	        <li class="ordername">排&nbsp;&nbsp;序：</li>
+			<li{if $opt eq 0} class="now"{/if}><a href="{$order_url}&opt=0">销量<span></span></a></li>
+            <li{if $opt eq 1} class="now"{/if}><a href="{$order_url}&opt=1">最新<span></span></a></li>			
+			<li{if $opt eq 2} class="now"{/if}><a href="{$order_url}&opt=2">价格<span></span></a></li>
+            <li class="price{if $opt eq 3}2{/if}"><a href="{$order_url}&opt=3">价格<span></span></a></li>
+            <li class="priceform"><form action="index.php" method="get">按价格区间筛选：<input type="hidden" value="store_league" name="app"><input type="hidden" value="view" name="act"><input type="hidden" name="id" value="{$store_id}"><input type="hidden" name="cate_id" value="{$cate_id}"><input type="hidden" value="pr_cate_id" value="{$pr_cate_id}"><input type="hidden" value="{$opt}" name="opt"><input type="text" title="此入输入最低价" class="price" value="{if $sprice neq 0}{$sprice}{/if}" name="sprice"> - <input type="text" class="price" value="{if $eprice neq 0}{$eprice}{/if}" title="此处输入最高价" name="eprice"> <input type="submit" class="bt" value=""></form></li>
+        
+            <!--{if $page_info.page_count gt 1}-->
+            <li class="page">
+                <!--{if $page_info.prev_link}-->
+                <a class="prev" href="{$page_info.prev_link}"><span></span>{$lang.prev_page}</a>
+                <!--{else}-->
+                <a class="prev_no" href="javascript:void(0)"><span></span>{$lang.prev_page}</a>
+                <!--{/if}-->
+                <!--{if $page_info.next_link}-->
+                <a class="next"  href="{$page_info.next_link}">{$lang.next_page}<span></span></a>
+                <!--{else}-->
+                <a class="next_no" href="javascript:void(0)">{$lang.next_page}<span></span></a>
+                <!--{/if}-->
+            </li>
+            <!--{/if}-->
+
+        </ul>
+		
+       </div>
+		<div class="plzn_gds">
+		<ul class="plzn_gds_ctt  cd_goods_gbs"> 
+		<!-- {if $pr_goods} -->
+		<!-- {foreach from=$pr_goods item=goods_info} -->
+			<li class="li{$goods_info.class}">
+				<div class="plzn_gds_img cd_goods_img">
+					<a target="_blank" href="index.php?app=pr_goods&pr_id={$goods_info.promotion_id}"><img src="themes/img/gray.gif" data-original="{$goods_info.mimage_url}" alt="{$goods_info.goods_name}"></a>
+				</div>
+				<div class="plzn_gds_btm cd_goods_xq">
+					<p><b>{$goods_info.goods_name}</b></p>
+					<div class="plzn_gds_prc cd_goods_prc"><span id="cd_kc">{if $opt eq 0}已销售:<em>{$goods_info.pr_selllog}</em>件{else}余库存:<em>{$goods_info.pr_stock}</em>件{/if}</span></div>
+					<div class="cd_prc_bg">
+						<div class="cd_prc_ctt">
+							<div class="cd_prc_ctt1">
+								<em>￥</em>{$goods_info.price1}<span>{$goods_info.price2}</span>
+							</div>
+							<div class="cd_prc_ctt2">
+								PL:<em>{$goods_info.pr_credit1}</em><span>{$goods_info.pr_credit2}</span>
+							</div>
+						</div>
+						<div class="cd_buy_btn">
+							<a href="index.php?app=pr_goods&pr_id={$goods_info.promotion_id}"><img src="{new_res file=images/cd_buy_btn_11.gif}" alt="购买" /></a>
+						</div>
+					</div>
+				</div>
+			</li>
+            <!-- {/foreach} -->
+		<!-- {/if} -->
+        <!--{if $store_goods_info}-->
+		<!-- {foreach from=$store_goods_info item=goods_info} -->
+			<li class="li{$goods_info.class}">
+				<div class="plzn_gds_img cd_goods_img">
+					<a target="_blank" href="index.php?app=goods&id={$goods_info.gs_id}&store_id={$store_id}"><img src="themes/img/gray.gif" data-original="{$goods_info.mimage_url}" alt="{$goods_info.goods_name}"></a>
+				</div>
+				<div class="plzn_gds_btm cd_goods_xq">
+					<p><b>{$goods_info.goods_name}</b></p>
+					<div class="plzn_gds_prc cd_goods_prc"><span id="cd_kc">{if $opt eq 0}已销售:<em>{$goods_info.selllog}</em>件{else}余库存:<em>{$goods_info.stock}</em>件{/if}</span></div>
+					<div class="cd_prc_bg">
+						<div class="cd_prc_ctt">
+							<div class="cd_prc_ctt1">
+								<em>￥</em>{$goods_info.price1}<span>{$goods_info.price2}</span>
+							</div>
+							<div class="cd_prc_ctt2">
+								PL:<em>{$goods_info.credit1}</em><span>{$goods_info.credit2}</span>
+							</div>
+						</div>
+						<div class="cd_buy_btn">
+							<a href="index.php?app=goods&id={$goods_info.gs_id}&store_id={$store_id}"><img src="{new_res file=images/cd_buy_btn_11.gif}" alt="购买" /></a>
+						</div>
+					</div>
+				</div>
+			</li>
+		<!-- {/foreach} -->
+		<!-- {/if} -->
+        <!--{if $pr_goods || $store_goods_info}-->
+        <!--{else}-->
+        	<p class="no_goods"></p>
+        <!--{/if}-->
+		</ul>
+	</div>
+	<div class="clear" style="height:8px"></div>
+	<div>
+    <!--{if $page_info.page_count gt 1 && $page_info.curr_page le $page_info.page_count}-->
+            <div class="notice_page">
+                <div class="page">
+                    <a class="stat">{sprintf lang=total_item var1=page_info.item_count}</a>
+                    <!--{if $page_info.prev_link}-->
+                    <a class="former" href="{$page_info.prev_link}">{$lang.prev_page} >></a>
+                    <!--{else}-->
+                    <span class="former_no"></span>
+                    <!--{/if}-->
+                    <!--{if $page_info.first_link}-->
+                    <a class="page_link" href="{$page_info.first_link}">1&nbsp;<!--{$page_info.first_suspen}--></a>
+                    <!--{/if}-->
+                    <!--{foreach from=$page_info.page_links key=page item=link}-->
+                    <!--{if $page_info.curr_page eq $page}-->
+                    <a class="page_hover" href="{$link}">{$page}</a>
+                    <!--{else}-->
+                    <a class="page_link" href="{$link}">{$page}</a>
+                    <!--{/if}-->
+                    <!--{/foreach}-->
+                    <!--{if $page_info.last_link}-->
+                    <a class="page_link" href="{$page_info.last_link}"><!--{$page_info.last_suspen}-->&nbsp;<!--{$page_info.page_count}--></a>
+                    <!--{/if}-->
+                    <a class="nonce">{$page_info.curr_page} / {$page_info.page_count}</a>
+                    <!--{if $page_info.next_link}-->
+                    <a class="down2" href="{$page_info.next_link}">{$lang.next_page} >></a>
+                    <!--{else}-->
+                    <span class="down_no">{$lang.next_page}</span>
+                    <!--{/if}-->
+                </div>
+            </div>
+     <!--{/if}-->
+	</div>	
+	<div class="cd_service" id="cd_service">
+ <ul>
+  <li><h3>客服</h3></li>
+  <li class="cd_serv_1"><a href="http://wpa.qq.com/msgrd?%0D%0A%0D%0Av=3&amp;uin=1845772484&amp;site=qq&amp;menu=yesQQ%C1%AC%BD%D3"></a></li>
+  <li class="cd_serv_2"><a href="http://www.taobao.com/webww/?ver=1&&touid=cntaobao派啦购物网&siteid=cntaobao&status=2&portalId=&gid=$bizOrder.itemID:派啦购物网&itemsId"></a></li>
+ </ul>
+</div>
+</div>
+<script type="text/javascript">
+$(function() {
+$(".cd_goods_gbs").find("li").hover(function() {
+		$(this).addClass("pl_hover");
+	}, function() {
+		$(this).removeClass("pl_hover");
+	});
+});
+ $("img").lazyload({
+	    	effect : "fadeIn",
+	    	threshold : 200
+	    });
+</script>
+{include file="footer.html"}
+</body>
+</html>

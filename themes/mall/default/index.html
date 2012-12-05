@@ -1,0 +1,66 @@
+{include file=index_top.html}
+{include file=new_head.html}
+<script type="text/javascript"> 
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+var IMAGE_URL = "{$image_url}";
+var PRICE_FORMAT = '{$price_format}';
+//$(function() {
+//$("img").lazyload({threshold : 1200,effect : "fadeIn"});
+//}); 
+//]]>
+</script>
+<style type="text/css">
+.content{margin:0 auto;width:1000px;}
+.index_ad{width:794px;float:right;}
+.index_ad_r{width:558px;height:230px;float:left;overflow:hidden;}
+.index_ad_btm{width:1000px;margin-top:10px;}
+.index_ancmt{width:224px;overflow:hidden;float:right;}
+.index_hot{width:558px;float:left;height:168px;margin:10px 0px 0px 0px}
+.index_hot_r{width:224px;float:right;margin-top:10px;position:relative}
+.index_plm{width:1000px;overflow:hidden;margin:0px auto 0 auto;float:left;margin-top:10px}
+.index_plm_1{width:764px;overflow:hidden;height:px;float:left}
+.index_plm_r{width:226px;overflow:hidden;height:px;float:right}
+.index_btm{width:1000px;margin:0px auto 5px auto;float:left}
+.index_btm_l,.index_btm_r{float:left;width:320px;overflow:hidden;}
+.index_btm_r{float:right;}
+.index_btm_m{width:340px;float:left;}
+</style>
+<div class="content">
+<div class="index_ad" style="overflow:hidden">
+     <div class="index_ancmt" area="paila_home_move" widget_type="area">
+     	<!-- {widgets page=index area=paila_home_move} -->
+     </div>
+    <div class="index_ad_r" area ="notice_activity" widget_type="area">
+    	<!-- {widgets page=index area=notice_activity} -->
+     </div>
+    <div class="index_hot" area="farm_produce" widget_type="area">
+     <!-- {widgets page=index area=farm_produce} -->
+    </div>
+    <div class="index_hot_r" area="paila_mall_day" widget_type="area">
+     <!-- {widgets page=index area=paila_mall_day} -->
+    </div>
+</div>
+<div class="clear"></div>
+<div class="index_plm_1" area ="paila_hot" widget_type="area">
+ <!-- {widgets page=index area=paila_hot} -->
+</div>
+<div class="index_plm_r" area ="hot_brand" widget_type="area">
+ <!-- {widgets page=index area=hot_brand} -->
+</div>
+<div class="index_plm" area="green_hot" widget_type="area">
+    <!-- {widgets page=index area=green_hot} -->
+</div>
+<div class="index_plm" area="commendation" widget_type="area">
+    <!-- {widgets page=index area=commendation} -->
+</div>
+<div class="index_plm" area="preview_new" widget_type="area">
+    <!-- {widgets page=index area=preview_new} -->
+</div>
+<div class="index_plm" area="promotion_fecture" widget_type="area">
+    <!-- {widgets page=index area=promotion_fecture} -->
+</div>
+
+
+</div>
+{include file=footer.html}

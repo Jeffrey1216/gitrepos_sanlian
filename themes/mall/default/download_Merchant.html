@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<!-- Use IE7 mode -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset={$charset}" />
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+{$page_seo}
+<meta name="author" content="www.paila.com" />
+<meta name="generator" content="PaiLa {$paila_version}" />
+<meta name="copyright" content="PaiLa Inc. All Rights Reserved" />
+<link href="{res file=css/paila_public.css}" rel="stylesheet"type="text/css"/>
+<link href="{res file=css/paila.css}" rel="stylesheet" type="text/css" />
+<link href="{new_res file=css/public.css}" rel="stylesheet"type="text/css"/>
+{$_head_tags}
+<!--<editmode></editmode>-->
+</head>
+<div class="top">
+				<div class="loginbar_ctt">
+            <div class="loginbar_l">
+                 欢迎来到派啦网！ <span>{$visitor.user_name|escape}
+                 <!--{if !$visitor.user_id}-->&nbsp;
+                 <a href="{url app=member&act=login}">登录</a></span> / <span><a href="{url app=member&act=register}">免费注册</a>
+                 <!--{else}-->
+                 [<a href="{url app=member&act=logout}">退出</a>]
+                 <!--{/if}-->
+                 </span>
+            </div>
+            <div class="loginbar_r">
+            <div style="width:65px;height:32px;line-height:32px;float:left;position:absolute;z-index:1000;margin-left:0px;">
+           <div id="navss">
+				<ul>
+					<li class="menu2" onMouseOver="this.className='menu1'" onMouseOut="this.className='menu2'">
+					<a style="margin-left:8px;_margin-left:4px;padding:0;" href="index.php?app=member">我的派啦<b></b></a>
+						 <div class="list">	       									
+			       <a href="{url app=buyer_order}">{$lang.my_order}</a>
+			       <a href="{url app=buyer_group_order}">{$lang.my_groupbuy}</a>
+			       <a href="{url app=my_question}">{$lang.my_question}</a>										  
+						 </div>
+					</li>
+				 </ul>
+</div>
+</div>
+                | <a href="index.php?app=message&act=newpm"><span style="padding:0 0 0 5px;color:#505050">站内消息</span>
+																	</a> | <a href="index.php?app=download&act=Merchant">派啦店下载</a> | <a href="index.php?app=default&act=map">派啦店简介</a> | <a href="{url app=article&act=help&article_id=11}">帮助中心</a>
+            </div>
+        </div>
+	        	       
+	        		</div>
+	<div id="down_bg">
+		<div id="down_head">		
+			<a href="http://www.paila100.com" hidefocus="true"><img src="{res file=images/logo_download.jpg}"/></a>
+			
+			<div class="down_nav">
+				<a class="down_hover" href="index.php?app=download&act=Merchant" hidefocus="true">商户管理系统</a>
+			</div>
+		</div>
+		<div id="down_banner">
+			<a href="http://img.paila100.com/data/files/download/%E6%B4%BE%E5%95%A6%E5%95%86%E6%88%B7%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.exe"></a>
+		</div>
+		<div id="down_content">
+			<h2 id="h2_01"></h2>
+			<div class="down_page">
+				<div class="down_page1">
+					<div class="page_img">
+					<img src="http://www.paila100.com/themes/mall/new/styles/default/images/myaccount1.jpg"/>
+					</div>
+                    <h3>账户信息</h3>
+					<p>您可以通过“个人资料”查看到您的个人信息，同时可进行修改个人（企业、商户）名称、地址、电话、电子邮箱等资料。</p>
+				</div>
+				<div class="down_page1 padding001">
+
+					<div class="page_img">
+				<img src="http://www.paila100.com/themes/mall/new/styles/default/images/shopmgt.jpg"/>
+					</div>
+                     <h3>店铺管理</h3>
+					<p>您可以通过“店铺设置”对自己的网店进行设置(LOGO、店铺条幅、店铺名称、经营地址、联系电话、店铺简介等信息内容设置)</p>
+				</div>
+                	<div class="down_page1 padding002">
+					<div class="page_img">
+					<img src="http://www.paila100.com/themes/mall/new/styles/default/images/promgt.jpg"/>
+					</div>
+                         <h3>商品管理</h3>
+					<p>您可以对您的产品进行添加、编辑、下架、修改、删除等操作，当商品数量过多时，您可以通过搜索功能迅速找到产品进行操作。</p>
+				</div>
+                	<div class="down_page1">
+					<div class="page_img">
+					<img src="http://www.paila100.com/themes/mall/new/styles/default/images/huiyuan.jpg"/>
+					</div>
+                         <h3>会员管理</h3>
+					<p>您可以通过“我的会员”查看推广的会员消费情况。</p>
+				</div>
+			</div>
+            	<div class="down_page">
+                    		<div class="down_page1">
+					<div class="page_img">
+					<img src="http://www.paila100.com/themes/mall/new/styles/default/images/ordermgt.jpg"/>
+					</div>
+                         <h3>订单管理</h3>
+					<p>查看派啦网会员消费后产生的订单的信息(包括所有已付款订单、未发货订单、已发货订单、已完成交易订单、退换货订单等)</p>
+				</div>
+				<div class="down_page1 padding001">
+					<div class="page_img">
+					<img src="http://www.paila100.com/themes/mall/new/styles/default/images/pailamgt.jpg"/>
+					</div>
+                    <h3>派啦管理</h3>
+					<p>您可以通过“派啦管理”快捷进货、快捷下单、快捷支付等流程。</p>
+				</div>
+				<div class="down_page1 padding002">
+					<div class="page_img">
+				<img src="http://www.paila100.com/themes/mall/new/styles/default/images/checkout.jpg"/>
+					</div>
+                     <h3>结算管理</h3>
+					<p>您可以通过“结算管理”查看您的账户消费明细以及收益情况。</p>
+				</div>
+					<div class="down_page1">
+					<div class="page_img">
+				<img src="http://www.paila100.com/themes/mall/new/styles/default/images/myaccount1.jpg"/>
+					</div>
+                     <h3>其他功能</h3>
+					<p>您还可以在商户后台发送短消息，添加管理好友，管理品牌和使用伙伴等功能。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{include file=footer.html}

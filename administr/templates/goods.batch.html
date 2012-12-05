@@ -1,0 +1,292 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>{$lang.goods_batch}</p>
+  <ul class="subnav">
+  </ul>
+</div>
+<form method="post">
+<!-- {if $goods_list.pailastore} -->
+<div class="info">
+	<h1>分类专区</h1>
+    <table class="infoTable">
+      <!-- {if $smarty.get.act eq "recommend"} -->
+      <tr>
+        <th class="paddingT15">{$lang.recommend_to}:</th>
+        <td class="paddingT15 wordSpacing5">
+            <ul class="recommend_to">
+                {foreach from=$recommends key=recom_id item=recom_name name=fe_recom}
+                <li><label><input type="radio" name="recom_id" value="{$recom_id}" /> {$recom_name}</label></li>
+                {/foreach}
+            </ul>
+        </td>
+      </tr>
+      <!-- {elseif $smarty.get.act eq "edit"} -->
+      
+      <tr>
+        <th class="paddingT15">{$lang.gcategory}:</th>
+        <td class="paddingT15 wordSpacing5">
+        <div id="gcategory_store">
+            <input type="hidden" name="cate_id_store" value="0" class="mls_id" />
+            <input type="hidden" name="cate_name_store" value="" class="mls_names" />
+            <select>
+              <option>{$lang.select_pls}</option>
+
+
+          {html_options options=$gcategories_store}
+
+
+            </select>
+            <span class="grey">{$lang.note_for_gcategory}</span> </div></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">{$lang.brand}:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="brand_store" id="brand" />
+          <span class="grey">{$lang.note_for_brand}</span></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">{$lang.closed_status}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="closed_store" value="-1" checked="checked" />
+            {$lang.no_change}</label>
+            <label>
+            <input type="radio" name="closed_store" value="1" />
+            {$lang.close}</label>
+            <label>
+            <input type="radio" name="closed_store" value="0" />
+            {$lang.open}</label>
+          </p></td>
+      </tr>
+      <tr id="close_reason" style="display:none">
+        <th class="paddingT15"><label for="close_reason">{$lang.close_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="close_reason" name="close_reason_store" cols="60" rows="3"></textarea></td>
+      </tr>
+      <!-- {elseif $smarty.get.act eq "drop"} -->
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">{$lang.drop_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" cols="60" rows="3" /></textarea></td>
+      </tr>
+      <!-- {/if} -->
+      <tr>
+        <th></th>
+        <td class="ptb20"><input type="hidden" name="id_store" value="{$goods_list.pailastore}" />
+        </td>
+      </tr>
+    </table>
+</div>
+<script type="text/javascript">
+$(function () {
+	_all_gcategoryInit("gcategory_store");
+});
+</script>
+
+<!-- {/if} -->
+
+<!-- {if $goods_list.pailamall} -->
+<div class="info">
+	<h1>派啦专区</h1>
+    <table class="infoTable">
+      <!-- {if $smarty.get.act eq "recommend"} -->
+      <tr>
+        <th class="paddingT15">{$lang.recommend_to}:</th>
+        <td class="paddingT15 wordSpacing5">
+            <ul class="recommend_to">
+                {foreach from=$recommends key=recom_id item=recom_name name=fe_recom}
+                <li><label><input type="radio" name="recom_id" value="{$recom_id}" /> {$recom_name}</label></li>
+                {/foreach}
+            </ul>
+        </td>
+      </tr>
+      <!-- {elseif $smarty.get.act eq "edit"} -->
+      
+      <tr>
+        <th class="paddingT15">{$lang.gcategory}:</th>
+        <td class="paddingT15 wordSpacing5">
+        <div id="gcategory_mall">
+            <input type="hidden" name="cate_id_mall" value="0" class="mls_id" />
+            <input type="hidden" name="cate_name_mall" value="" class="mls_names" />
+            <select>
+              <option>{$lang.select_pls}</option>
+
+
+          {html_options options=$gcategories_mall}
+
+
+            </select>
+            <span class="grey">{$lang.note_for_gcategory}</span> </div></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">{$lang.brand}:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="brand_mall" id="brand" />
+          <span class="grey">{$lang.note_for_brand}</span></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">{$lang.closed_status}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="closed_mall" value="-1" checked="checked" />
+            {$lang.no_change}</label>
+            <label>
+            <input type="radio" name="closed_mall" value="1" />
+            {$lang.close}</label>
+            <label>
+            <input type="radio" name="closed_mall" value="0" />
+            {$lang.open}</label>
+          </p></td>
+      </tr>
+      <tr id="close_reason" style="display:none">
+        <th class="paddingT15"><label for="close_reason">{$lang.close_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="close_reason_mall" name="close_reason" cols="60" rows="3"></textarea></td>
+      </tr>
+      <!-- {elseif $smarty.get.act eq "drop"} -->
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">{$lang.drop_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" cols="60" rows="3" /></textarea></td>
+      </tr>
+      <!-- {/if} -->
+      <tr>
+        <th></th>
+        <td class="ptb20"><input type="hidden" name="id_mall" value="{$goods_list.pailamall}" />
+        </td>
+      </tr>
+    </table>
+</div>
+<script type="text/javascript">
+$(function () {
+	_all_gcategoryInit("gcategory_mall");
+});
+</script>
+<!-- {/if} -->
+
+<!-- {if $goods_list.pailaargo} -->
+<div class="info">
+	<h1>农业专区</h1>
+  
+    <table class="infoTable">
+      <!-- {if $smarty.get.act eq "recommend"} -->
+      <tr>
+        <th class="paddingT15">{$lang.recommend_to}:</th>
+        <td class="paddingT15 wordSpacing5">
+            <ul class="recommend_to">
+                {foreach from=$recommends key=recom_id item=recom_name name=fe_recom}
+                <li><label><input type="radio" name="recom_id" value="{$recom_id}" /> {$recom_name}</label></li>
+                {/foreach}
+            </ul>
+        </td>
+      </tr>
+      <!-- {elseif $smarty.get.act eq "edit"} -->
+      
+      <tr>
+        <th class="paddingT15">{$lang.gcategory}:</th>
+        <td class="paddingT15 wordSpacing5">
+        <div id="gcategory_argo">
+            <input type="hidden" name="cate_id_argo" value="0" class="mls_id" />
+            <input type="hidden" name="cate_name_argo" value="" class="mls_names" />
+            <select>
+              <option>{$lang.select_pls}</option>
+
+
+          {html_options options=$gcategories_argo}
+
+
+            </select>
+            <span class="grey">{$lang.note_for_gcategory}</span> </div></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">{$lang.brand}:</th>
+        <td class="paddingT15 wordSpacing5"><input class="infoTableInput2" type="text" name="brand_argo" id="brand" />
+          <span class="grey">{$lang.note_for_brand}</span></td>
+      </tr>
+      <tr>
+        <th class="paddingT15">{$lang.closed_status}:</th>
+        <td class="paddingT15 wordSpacing5"><p>
+            <label>
+            <input type="radio" name="closed_argo" value="-1" checked="checked" />
+            {$lang.no_change}</label>
+            <label>
+            <input type="radio" name="closed_argo" value="1" />
+            {$lang.close}</label>
+            <label>
+            <input type="radio" name="closed_argo" value="0" />
+            {$lang.open}</label>
+          </p></td>
+      </tr>
+      <tr id="close_reason" style="display:none">
+        <th class="paddingT15"><label for="close_reason">{$lang.close_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="close_reason_argo" name="close_reason" cols="60" rows="3"></textarea></td>
+      </tr>
+      <!-- {elseif $smarty.get.act eq "drop"} -->
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">{$lang.drop_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" cols="60" rows="3" /></textarea></td>
+      </tr>
+      <!-- {/if} -->
+      <tr>
+        <th></th>
+        <td class="ptb20"><input type="hidden" name="id_argo" value="{$goods_list.pailaargo}" />
+        </td>
+      </tr>
+    </table>
+
+</div>
+<script type="text/javascript">
+$(function () {
+	_all_gcategoryInit("gcategory_argo");
+});
+</script>
+<!-- {/if} -->
+
+<!-- {if !$goods_list} -->
+<div class="info">
+    <table class="infoTable">
+      <!-- {if $smarty.get.act eq "recommend"} -->
+      <tr>
+        <th class="paddingT15">{$lang.recommend_to}:</th>
+        <td class="paddingT15 wordSpacing5">
+            <ul class="recommend_to">
+                {foreach from=$recommends key=recom_id item=recom_name name=fe_recom}
+                <li><label><input type="radio" name="recom_id" value="{$recom_id}" /> {$recom_name}</label></li>
+                {/foreach}
+            </ul>
+        </td>
+      </tr>
+      <!-- {elseif $smarty.get.act eq "drop"} -->
+      <tr>
+        <th class="paddingT15"> <label for="drop_reason">{$lang.drop_reason}:</label></th>
+        <td class="paddingT15 wordSpacing5"><textarea id="drop_reason" name="drop_reason" cols="60" rows="3" /></textarea></td>
+      </tr>
+      <!-- {/if} -->
+      <tr>
+        <th></th>
+        <td class="ptb20"><input type="hidden" name="id" value="{$smarty.get.id}" />
+        </td>
+      </tr>
+    </table>
+</div>
+<!-- {/if} -->
+<div>
+<input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+<input class="formbtn" type="button" value="{$lang.back}" onclick="history.go(-1)" />
+</div>
+</form>
+<script type="text/javascript" src="index.php?act=jslang"></script>
+      <script type="text/javascript">
+//<!CDATA[
+$(function(){
+    // multi-select mall_gcategory
+    
+
+    $(":radio[name='closed']").click(function(){
+        if (this.value == 1)
+        {
+            $("#close_reason").show();
+        }
+        else
+        {
+            $("#close_reason").hide();
+        }
+    });
+});
+//]]>
+</script>
+{include file="footer.html"}

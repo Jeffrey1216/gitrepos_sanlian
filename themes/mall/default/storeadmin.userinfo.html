@@ -1,0 +1,72 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+    <h3 class="tit">
+    	<span class="fl pr20">账户信息</span>
+    </h3>
+    <h3 class="user_info">{$lang.welcome}<span>{$user.user_name|escape}</span></h3>
+    <div class="padBox clearfix">    
+        <div class="picBox fl"> <img src="{$user.portrait}" width="120" height="120" alt="" />
+            <h3 class="margin2">                           
+                            <a class="button_01" href="{url app=member&act=profile&from=storeadmin}" >{$lang.edit_profile}>></a>
+            </h3>
+        </div>
+        <div class="tabBox" >
+            <table class="tabForm">
+                <tbody>
+                    <tr>
+                        <th>上次登录时间：</th>
+                        <td>{$user.last_login|date:complete}</td>
+                        <th>卖家信用度：</th>
+                        <td><a href="{url app=store&act=credit&id=$store.store_id}" target="_blank">{$store.credit_value}</a>{if $store.credit_value ge 0 } <img src="{$store.credit_image}" /> {/if}</td>
+                    </tr>
+                    <tr>
+                        <th>上次登录的IP：</th>
+                        <td>{$user.last_ip}</td>
+                        <th>{$lang.praise_rate}：</th>
+                        <td>{$store.praise_rate}%<span class="star"></span></td>
+                    </tr>
+                    <tr>
+                        <th>登录次数：</th>
+                        <td>{$user.logins}(次)</td>
+                        <th>注册时间：</th>
+                        <td>{$user.reg_time|date:complete}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="borderBox">
+    <h3 class="tit"><span>卖家关注信息</span> </h3>
+    <table class="gzMsg" cellspacing="7">
+        <tr>
+            <td><h5>店铺信息</h5>
+            <div style="float:left">
+                <p>{$lang.store_grade}：<b class="fRed">{$sgrade.grade_name}</b>　　　</p>
+                <p>{$lang.expire_time}： <b class="fRed"><!--{if $sgrade.add_time}-->{sprintf lang=leaving_day var1=sgrade.add_time}<!--{else}-->{$lang.no_limit}<!--{/if}--></b>　　　</p>
+             </div>
+             <div style="float:right">   
+                <p>{$lang.goods_put}：<b class="fRed">{$sgrade.goods.used}/<!--{if $sgrade.goods.total}-->{$sgrade.goods.total}<!--{else}-->{$lang.no_limit}<!--{/if}--></b>　　　</p>
+				<p>{$lang.space_use}：<b class="fRed">{$sgrade.space.used}M/<!--{if $sgrade.space.total}-->{$sgrade.space.total}M<!--{else}-->{$lang.no_limit}<!--{/if}--></b>　　　</p></td>
+          	  </div>
+          	  <td><h5>订单提醒</h5>
+          	  	<a href="javascript:;" onclick="doClick('orderL','index.php?app=seller_order&type=submitted');">订单</a>
+                <p>{sprintf lang=order_for_settle_remind var1=seller_stat.submitted}</p>
+                <p>{sprintf lang=order_for_ship_remind var1=seller_stat.accepted}</p></td>
+        </tr>
+        <tr>
+           <!--  <td><h5>团购提醒</h5>
+                <p>{sprintf lang=groupbuy_for_end_remind var1=seller_stat.groupbuy_end}</p></td>-->
+            <td><h5>管理信息</h5>
+                <p><a href="{url app=store_league&act=view&id=$store.store_id}" title="{$lang.look_store}" target="_blank" >{$lang.look_store}</a></p>
+                <p><a href="{url app=seller_order}" title="{$lang.manage_order}">{$lang.manage_order}</a></p></td> 
+        </tr>
+    </table>
+</div>
+{include file=storeadmin.footer.html}
+<script type="text/javascript"> 
+	function doClick(id,link){
+		parent.$("#"+id).attr("href",link);
+		parent.$("#"+id).click();
+	}
+</script>

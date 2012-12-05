@@ -1,0 +1,83 @@
+{include file="header.html"}
+<style type="text/css">
+.dataTable td{text-align:center;} 
+.firstCell{text-align:left;}  
+.dis_tab_span{margin-right:10px;}
+.mrightTop{padding-top:5px;}
+.ques_seach{margin:15px 0;text-align:right;margin-right:50px;}
+.ques_seach_input{height:18px;width:100px;}
+</style>
+<div>
+<div id="rightTop">
+  <p>{$lang.itempool_manage}</p>
+  <ul class="subnav">   
+    <li><a class="btn1" href="index.php?app=question&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=question">{$lang.manage}</a></li>
+  </ul>
+</div>
+
+	<div class="mrightTop">
+	 <form method="get">     
+		{$lang.class_name}：
+		<input type="radio" name="question_type" <!-- {if $question_type eq 0} -->checked<!-- {/if} --> value="0" />
+		全部
+		<input type="radio" <!-- {if $question_type eq 1} -->checked<!-- {/if} --> name="question_type" value="1" />
+		基本信息
+		<input type="radio" <!-- {if $question_type eq 2} -->checked<!-- {/if} --> name="question_type" value="2" />
+		问卷题
+		&nbsp;&nbsp;&nbsp;&nbsp;
+         
+		{$lang.question_type}：
+		<select name="class_name">
+        <option value="0">{$lang.choose}</option>
+		<!-- {foreach from=$question_classes item=opt} -->
+			<option value="{$opt.class_id}" <!-- {if $opt.class_id eq $class_id} -->selected<!-- {/if} -->>{$opt.class_name}</option>
+			
+        <!-- {/foreach} -->
+        </select>
+		{$lang.stem}：<input class="ques_seach_input" type="text" name="stem" value="{if !empty($stem)}{$stem}{/if}"/>
+		<input type="hidden" name="app" value="question" />
+		<input type="hidden" name="act" value="index" />
+		<input class="formbtn" style="vertical-align:-1px;margin-left:3px;" type="submit" value="搜索"/>
+		</form>
+  	</div>
+    <div class="fontr">
+       {if $page_info}{include file=page.top.html}{/if}
+    </div>
+ <form method="post" action="index.php?app=question&act=drop">
+  <table width="100%" cellspacing="0" class="dataTable" > 
+    <tr class="tatr1">
+   <td width="20" class="firstCell"><input type="checkbox" class="checkall"/></td>
+     <td width="20%"><span>{$lang.stem}</span></td>
+      <td width="20%"><span>{$lang.question_type}</span></td>
+      <td width="20%"><span>{$lang.class_name}</span></td>  
+      <td width="20%"><span>{$lang.create_time}</span></td>    
+      <td class="table-center"><span>操作</span></td>      
+    </tr>
+    <!-- {foreach from=$list item=row} -->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" name="id[]" value="{$row.question_id}"/></td>
+      <td title="{$row.stem|escape:'html'}">{$row.stem|truncate:30}</td>
+      <td>{$row.class_name}</td>
+      <td>{if $row.question_type eq 'basicinfo'}基本信息{else $ques.question_type eq 'question'}问卷题{/if}</td> 
+      <td>{$row.create_time|date:complete}</td>    
+      <td class="table-center"><a href="index.php?app=question&act=edit&id={$row.question_id}" class="dis_tab_span"><span>{$lang.edit}</span></a></td>   
+    </tr>  
+    <!--{foreachelse}-->
+    <tr class="no_data info">
+      <td colspan="8">{$lang.no_such_goods}</td>
+    </tr>
+    <!-- {/foreach} --> 
+  </table>  
+    <div id="dataFuncs">
+    <div id="batchAction" class="left paddingT15">
+      &nbsp;&nbsp;&nbsp;&nbsp;<input class="formbtn batchButton" type="submit" value="批量删除" />
+          &nbsp;&nbsp;
+    </div>
+    </form>
+   <div class="pageLinks">
+            {if $page_info}{include file=page.bottom.html}{/if}
+   </div>
+ </div>
+</div>
+{include file="footer.html"}

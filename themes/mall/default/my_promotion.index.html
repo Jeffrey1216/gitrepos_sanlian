@@ -1,0 +1,43 @@
+{include file=storeadmin.member.header.html}
+<style>
+.member_no_records {border-top: 0px !important;}
+.table td{ padding-left: 5px; }
+.table .ware_text { width: 155px; }
+</style>
+<div class="borderBox">
+	<h3 class="tit"><span>ÅÉÀ²×¨¹ñ</span></h3>
+<div class="table">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <!--{if $promotion_info}-->
+        <tr class="tatr1">
+            <td align="left">{$lang.goods_name}</td>
+            <td align="left">{$lang.spce_name}</td>
+            <td align="left">{$lang.spce_type}</td>
+            <td align="left">{$lang.pr_price}</td>
+            <td align="left">{$lang.pr_credit}</td>
+            <td align="left">{$lang.pr_time}</td>
+            <td align="left">{$lang.reason}</td>
+            <td align="left">{$lang.pr_status}</td>
+        </tr>
+        <!--{/if}-->
+        <!--{foreach from=$promotion_info item=promotion}-->
+        <tr class="tatr2">
+            <td align="left">{$promotion.goods_name}</td>
+           	<td align="left">{$promotion.spec_name_1}|{$promotion.spec_name_2}</td>
+           	<td align="left">{$promotion.spec_1}|{$promotion.spec_2}</td>
+           	<td align="left">{$promotion.pr_price}</td>
+           	<td align="left">{$promotion.pr_credit}</td>
+           	<td align="left">{$promotion.pr_addtime|date}|{$promotion.pr_addtime|date}</td>
+           	<td align="left">{$promotion.pr_reason}</td>
+           	<td align="left">{if $promotion.pr_status eq 0}{$lang.status0}{/if}{if $promotion.pr_status eq 10}{$lang.status10}{/if}{if $promotion.pr_status eq 11}{$lang.status11}{/if}{if $promotion.pr_status eq 20}{$lang.status20}{/if}</td>
+        </tr>
+        <!--{foreachelse}-->
+        <tr class="no_data">
+            <td colspan="7">{$lang.no_data}</td>
+        </tr>
+        <!--{/foreach}-->
+    </table>
+</div>
+</div>
+<iframe name="iframe_post" id="iframe_post" width="0" height="0"></iframe>
+{include file=storeadmin.footer.html}

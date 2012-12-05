@@ -1,0 +1,100 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>团购员收益管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel&act=managerIncome">提现</a></li>    
+    <li><span>管理</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+<div class="fontl">
+    <form method="get">
+       <div class="left">
+          <input type="hidden" name="app" value="channel" />
+          <input type="hidden" name="act" value="managerCash" />
+          <select id="smstype" class="querySelect" name="condt">
+          	<option value="0" {if $condt eq 0}selected{/if}>会员名</option>
+          	<option  value="1" {if $condt eq 1}selected{/if}>真实姓名</option>
+          </select>
+          <span class="two_grade"><input class="queryInput" name="mem" type="text" value="{}"></span>
+        <span>等级: </span>
+             <select name="level">
+             	<option value="0" {if $level eq 0}selected{/if}>所有记录</option>
+             	<option value="1" {if $level eq 1}selected{/if}>团购员</option>
+            	<option value="2" {if $level eq 2}selected{/if}>团购点</option>
+              	<option value="3" {if $level eq 3}selected{/if}>社区团购中心</option>
+             </select>   
+        <span>收益类型: </span>
+             <select name="gains_type">
+             	<option value="0" {if $gains_type eq 0}selected{/if}>所有记录</option>
+             	<option value="-1" {if $gains_type eq -1}selected{/if}>直接推荐收益</option>
+            	<option value="1" {if $gains_type eq 1}selected{/if}>间接消费收益</option>
+              	<option value="2" {if $gains_type eq 2}selected{/if}>会员消费收益</option>
+              	<option value="3" {if $gains_type eq 3}selected{/if}>提现</option>
+             </select> 
+          <input type="hidden" name="app" value="channel"/>
+          <input type="hidden" name="act" value="managerCash"/>
+          <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>用户名</td>
+      <td>真实姓名</td>
+      <td>性别</td>
+      <td>身份证号码</td>
+      <td>等级</td>
+      <td>收益类型</td>
+      <td>收益金额</td>
+      <td>时间</td>
+  	  <td class="handler">{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$customerGains_list item=node}-->
+    <tr class="tatr2">
+      <td>{$node.user_name}</td>
+      <td>{$node.real_name}</td>
+      <td>{$node.sex}</td>
+      <td>{$node.identity_num}</td>
+      <td>{$node.level_definition}</td>
+      <td><!-- {if $node.gains_type eq 0} -->直接推荐团购点收益<!-- {elseif $node.gains_type eq 1} -->间接推荐团购点收益<!-- {elseif $node.gains_type eq 2} -->会员消费收益<!-- {elseif $node.gains_type eq 3} -->用户提现<!-- {else} -->其它<!-- {/if} --></td>
+      <td>{$node.gains_amount|price}</td>
+      <td>{$node.gains_time|date}</td>
+      <td class="handler"><a href="index.php?app=channel&act=managerCashDetail&id={$node.id}">详情</a> 
+      </td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$("#smstype").change(function(){
+			changeValue();
+		})
+	})
+	function changeValue() {
+		var inputNode;
+		$(".two_grade").empty();
+		$("#smstype").attr('value'); //变
+		switch(parseInt($("#smstype").attr('value'))) {
+		case 0: inputNode ="<input class=\"queryInput\" name='user_name' type=\"text\" value=\"{$user_name}\"/>";break;
+		case 1: inputNode ="<input class=\"queryInput\" name='real_name' type=\"text\" value=\"{$real_name}\"/>"; break;
+		default : alert("Error! ..");return;
+		}
+		$(".two_grade").append(inputNode);
+	}
+	changeValue();
+</script>
+{include file="footer.html"}

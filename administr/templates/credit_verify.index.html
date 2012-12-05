@@ -1,0 +1,66 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>积分审核</p>
+<div>
+  <ul class="subnav">
+    <li><!--{if $credit.verify eq 0}--><span>未审核</span><!--{else}--><a class="btn1" href="index.php?app=credit_verify&verify=0&act=index">未审核</a><!--{/if}--></li>
+    <li><!--{if $credit.verify eq 1}--><span>已审核</span><!--{else}--><a class="btn1" href="index.php?app=credit_verify&verify=1&act=index">已通过</a><!--{/if}--></li>
+    <li><!--{if $credit.verify eq 2}--><span>未通过</span><!--{else}--><a class="btn1" href="index.php?app=credit_verify&verify=2&act=index">未通过</a><!--{/if}--></li>
+  </ul>
+</div>
+</div>
+<div class="mrightTop">
+  <div class="fontl">
+    <form method="get" action="index.php">
+       <div class="left">
+          <input type="hidden" name="app" value="credit_verify" />
+          <input type="hidden" name="act" value="index" />
+          <select id="smstype" class="querySelect" name="condt">
+          		<option value="0" {if $condt eq 0}selected{/if}>会员名</option>
+          		<option value="1" {if $condt eq 1}selected{/if}>手机</option>
+          </select>
+          <span class="two_grade">
+          <input class="queryInput" name="names" type="text" value="">
+          </span>      
+          <input type="submit" class="formbtn" value="{$lang.query}" />
+      </div>
+    </form>
+  </div>
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<form method="post">
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+   <tr class="tatr1" >
+      <td>会员名</td>
+      <td>手机</td>
+      <td>积分变动</td>
+      <td>积分变更记录</td>
+      <td>时间</td>
+      <td>审核状态</td>
+      <td>操作人</td>
+      <td>操作</td>
+   </tr>
+   <!-- {foreach from=$credit_verify item=credit} -->
+    	<tr class="tatr2">
+    	<td>{$credit.user_name}</td>
+    	<td>{$credit.phone_mob}</td>
+    	<td>{$credit.credit}</td>
+  		<td>{$credit.notes}</td>	
+    	<td>{$credit.add_time|date}</td>
+    	<td><!-- {if $credit.verify eq 0}-->未审核<!--{elseif $credit.verify eq 1}-->已通过<!--{elseif $credit.verify eq 2}-->未通过<!--{/if}--></td> 	
+    	<td>{$credit.operator}</td> 	
+    	<!-- {if $credit.verify eq 1} -->
+    	<td>已审核</td>
+    	<!-- {elseif $credit.verify eq 0} -->
+    	<td><a href="index.php?app=credit_verify&act=verify&id={$credit.id}">审核</a></td>
+    	<!-- {else} -->
+    	<td><a href="index.php?app=credit_verify&act=verify&id={$credit.id}">查看</a></td>
+    	<!-- {/if} -->
+    	</tr>
+   <!-- {/foreach} -->
+  </table>
+</div>
+</form>
+  <div class="pageLinks">{include file=page.bottom.html}</div>
+{include file="footer.html"}

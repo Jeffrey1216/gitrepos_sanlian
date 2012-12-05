@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC “-//W3C//DTD XHTML 1.0 Transitional//EN” “http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd“>
+<html xmlns=”http://www.w3.org/1999/xhtml” lang=”en”>
+<head>
+<title>派啦网--零售商业大革命</title>
+<meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″ />
+<link href="{res file=css/paila_public.css}" rel="stylesheet"type="text/css"/>
+<link href="{res file=css/paila_index.css}" rel="stylesheet" type="text/css" />
+<link type = "text/css" href = "{res file=topics/vote/css/vote_index.css}" rel="stylesheet"/>
+<script type="text/javascript" src="{res file=topics/vote/js/jquery.js}"></script>
+<script type="text/javascript" src="{res file=js/select.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{res file=topics/vote/js/jquery.pngFix.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){   //解决PNG24 IE6下透明问题
+		$('.banner_box').pngFix( );
+	});
+</script>
+</head>
+<body>
+{include file=new_head.html}
+<div class="bg_box">
+	<div class="content_bg">
+		<div class="body_bg">
+			<div class="banner_box">
+				<img class="banner_img" src="{$imgurl}"/>
+			</div>
+			<ul class="vote_tit">
+				{$rs.th_template}
+			</ul>
+			<form action="index.php?app=vote&tid={$smarty.get.tid}" method="post">
+			<div class="vote_state">
+				{$rs.th_rules}				
+			</div>
+			<div class="vote_goods_content">
+				<h3>{$rs.th_name}</h3>
+				<ul class="vote_box">
+					{$contents}				
+				</ul>
+				<input class="vote_sub" value="投票" type="submit"/><span style="*vertical-align:5px">（登陆后才可以投票，投票后才能查看结果）</span>
+			</div>
+			</form>
+			
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+var tot_num =0;
+var vote_speed = 3000;
+var _j =0;
+var col_arr = new Array("#a5ce45","#e64c69","#fec94c","#25aee0","#d285dd")
+	$(".vote_num").each(function(i){
+		tot_num = tot_num + parseInt($(this).html());
+		_j =i%5;		
+		$(".vote_cols").eq(i).css("background",col_arr[_j]);
+	})	
+	$(".vote_num").each(function(i){
+		$(this).next(".vote_precent").html((parseInt($(this).html())/tot_num*100).toFixed(2));
+		$(".vote_cols").eq(i).animate({width:$(".vote_li_bg").eq(i).width()*(parseInt($(this).html())/tot_num).toFixed(2)+"px"},vote_speed);
+	})	
+</script>
+</html>

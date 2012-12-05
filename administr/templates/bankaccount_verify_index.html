@@ -1,0 +1,73 @@
+{include file="header.html"}
+<div id="rightTop">
+	<p>银行账户审核</p>
+	<div>
+		<ul class="subnav">
+			<li><!--{if $status eq 1}--><span>未审核</span><!--{else}--><a class="btn1" href="index.php?app=bankaccount_verify&status=0&act=index">未审核</a><!--{/if}--></li>
+			<li><!--{if $status eq 2}--><span>已审核</span><!--{else}--><a class="btn1" href="index.php?app=bankaccount_verify&status=1&act=index">已通过</a><!--{/if}--></li>
+			<li><!--{if $status eq 3}--><span>锁定</span><!--{else}--><a class="btn1" href="index.php?app=bankaccount_verify&status=2&act=index">锁定</a><!--{/if}--></li>
+		</ul>
+	</div>
+</div>
+<div class="mrightTop">
+	<div class="fontl">
+		<form method="get" action="index.php">
+			<div class="left">
+				<input type="hidden" name="app" value="bankaccount_verify" />
+				<input type="hidden" name="act" value="index" />
+				<select id="smstype" class="querySelect" name="search_name">
+					{html_options options=$search_name selected=$smarty.get.search_name}
+				</select>        
+				<input class="queryInput" name='search_value' type="text" value="{$smarty.get.search_value|escape}">              
+				<input type="submit" class="formbtn" value="{$lang.query}" />
+			</div>
+		</form>
+	</div>
+	<div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+	<table width="100%" cellspacing="0" class="dataTable">
+		<tr class="tatr1" >
+			<td>会员名</td>
+			<td>银行账号</td>
+			<td>开户行</td>
+			<td>开户名</td>
+			<td>审核状态</td>
+			<td>创建时间</td>
+			<td>校验码</td>
+		</tr>
+		<!-- {foreach from=$memberCardInfo item=card_info} -->
+		<tr>
+			<td>{$card_info.UserName|escape}</td>
+			<td>{$card_info.CardNumber}</td>
+			<td>{$card_info.BankName}</td>
+			<td>{$card_info.RealName}</td>
+			<td>{$card_info.CardStatus|escape}</td>
+			<td>{$card_info.operator_time|date:Y-m-d H:i:s}</td>
+			<td><!--{if $card_info.CardStatus eq '非绑定'}-->
+				<span ectype="inline_edit" fieldname="Verify" fieldid="{$card_info.id}" required="1" class="editable" title="{$lang.editable}">{$card_info.Verify|escape}</span>
+				<!--{else}-->{$card_info.Verify|escape}<!--{/if}--></td>
+		</tr>
+		<!-- {/foreach} -->
+	</table>
+</div>
+<div class="pageLinks">{include file=page.bottom.html}</div>
+<script type="text/javascript">
+	$(function(){
+		$(".dataTable tr").mouseover(function(){   
+			$(this).addClass("TRover");
+		});
+		$(".dataTable tr").mouseout(function(){
+			$(this).removeClass("TRover");
+		});
+		$('.editable').click(function(){
+			$(this).parent("td").children("input").keyup(function (){
+				var $reg=/^[0-9]+([.]{1}[0-9]{1,2})?$/;
+				var $regStr = this.value.replace(/[^0-9\.]/g,'');
+				$(this).val($regStr);
+			});
+		}); 
+	});
+
+</script>
+{include file="footer.html"}

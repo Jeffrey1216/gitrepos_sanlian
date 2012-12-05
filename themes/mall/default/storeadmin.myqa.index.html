@@ -1,0 +1,91 @@
+{include file=storeadmin.member.header.html}
+<div class="borderBox">
+	<h3 class="tit"><span>×ÉÑ¯¹ÜÀí</span></h3>
+	<ul class="tabDiv mb10">
+		<li <!--{if $smarty.get.type == '' || $smarty.get.type == 'all_qa'}-->class="hover"<!--{/if}--> ><a href="index.php?app=my_qa&type=all_qa">È«²¿×ÉÑ¯</a></li>
+		<li <!--{if $smarty.get.type == 'to_reply_qa'}-->class="hover"<!--{/if}-->><a href="index.php?app=my_qa&type=to_reply_qa">Î´»Ø¸´×ÉÑ¯</a></li>
+		<li <!--{if $smarty.get.type == 'replied'}-->class="hover"<!--{/if}-->><a href="index.php?app=my_qa&type=replied">ÒÑ»Ø¸´×ÉÑ¯</a></li>
+	</ul>
+        <script type="text/javascript" src="{lib file=jquery.plugins/jquery.validate.js}" charset="{$charset}"></script>
+        <div>
+            <div class="public_index table1" style="width:97%">
+                <table width="100%" cellspacing="0" cellpadding="0">
+                <colgroup>
+                <col width="3%"/>
+                 <col width="47%"/>
+                  <col width="35%"/>
+                  
+                    <col width="15%"/>
+                </colgroup>
+                    <!--{if $my_qa_data}-->
+                    <tr class="line_bold">
+                        <th class="width1"><input id="all" type="checkbox" class="checkall" /></th>
+                        <th class="align1" colspan="3">
+                            <label for="all"><span class="all">{$lang.checkall}</span></label>
+                            <a href="javascript:void(0);" class="delete" ectype="batchbutton" uri="index.php?app=my_qa&amp;act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')">{$lang.drop}</a>
+                        </th>
+                    </tr>
+                    <!--{/if}-->
+                    <!-- {foreach from=$my_qa_data item=my_qa_list name=qa} -->
+                    <tr class="bgcolor">
+                        <td class="align2"><input type="checkbox"  value="{$my_qa_list.ques_id}" class="checkitem" /></td>
+                        <td  style="text-align:left">
+                        <a href="<!--{if $my_qa_list.type eq 'goods'}-->{url app=$my_qa_list.type&id=$my_qa_list.item_id&act=qa}<!--{else}-->{url app=$my_qa_list.type&id=$my_qa_list.item_id}<!--{/if}-->" target="_blank" class="link3">{$my_qa_list.item_name}</a> <span class="color002">[{$lang.$my_qa_list.type}]</span>
+                        </td>
+                        <td width="150">
+                            <span class="table_user"><!--{if $my_qa_list.user_name neq ''}-->{$my_qa_list.user_name|escape}<!--{else}-->{$lang.guest}<!--{/if}--></span></td>
+                        <td style="width:130px">
+                            <a href="javascript:drop_confirm('{$lang.drop_confirm}', 'index.php?app=my_qa&amp;act=drop&id={$my_qa_list.ques_id}');" class="delete">{$lang.drop}</a>&nbsp;&nbsp;
+                            <!--{if $my_qa_list.reply_content eq ''}--><a href="javascript:void(0);" class="add1_ico reply" ectype="dialog" dialog_id="my_qa_reply" dialog_title="{$lang.reply_question}" dialog_width="400" uri="index.php?app=my_qa&amp;act=reply&amp;ques_id={$my_qa_list.ques_id}">{$lang.reply}</a>
+                            <!--{else}-->
+                             <a href="javascript:void(0);" class="add1_ico reply" ectype="dialog" dialog_id="my_qa_edit_reply" dialog_title="{$lang.edit_reply}" dialog_width="400" uri="index.php?app=my_qa&amp;act=edit_reply&amp;ques_id={$my_qa_list.ques_id}">{$lang.edit_reply}</a>
+                            <!--{/if}-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <h3><span class="color001">{$lang.question_content}:</span><span>{$my_qa_list.question_content|escape}</span></h3>
+                        </td>
+                        <td><span class="time">{$my_qa_list.time_post|date:complete}</span></td>
+                        <td></td>
+                    </tr>
+                    <!--{if $my_qa_list.reply_content neq ''}-->
+                    <tr <!--{if $smarty.foreach.qa.last}-->class="line_bold"<!--{/if}-->>
+                        <td></td>
+                        <td>
+                            <h3><span class="color8">{$lang.my_reply}:</span><span class="color3">{$my_qa_list.reply_content|escape}</span></h3>
+                        </td>
+                        <td><span class="time">{$my_qa_list.time_reply|date:complete}</span></td>
+                        <td></td>
+                    </tr>
+                    <!-- {else} -->
+                    <!--{if $smarty.foreach.qa.last}-->
+                    <tr class="line_bold">
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    <!--{/if}-->
+                    <!--{/if}-->
+                    <!-- {foreachelse} -->
+                    <tr><td colspan="4" class="member_no_records">{$lang.no_records}</td></tr>
+                    <!-- {/foreach} -->
+                    <!--{if $my_qa_data}-->
+                    <tr>
+                        <th style="border:0;"><input id="all2" type="checkbox" class="checkall" /></th>
+                        <th style="border:0;" colspan="3">
+                            <p style="padding:0;" class="position1">
+                                <label for="all2"><span class="all">{$lang.checkall}</span></label>
+                                <a href="javascript:void(0);" class="delete" ectype="batchbutton" uri="index.php?app=my_qa&amp;act=drop" name="id" presubmit="confirm('{$lang.drop_confirm}')">{$lang.drop}</a>
+                            </p>
+                            <p class="position2">
+                                {include file=member.page.bottom.html}
+                            </p>
+                        </th>
+                    </tr>
+                    <!--{/if}-->
+                </table>
+              </div>
+            <iframe name="pop_warning" style="display:none;"></iframe>         
+        </div>
+</div>
+{include file=storeadmin.footer.html}

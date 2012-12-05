@@ -1,0 +1,28 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=service.html}
+<div class="content">
+    {include file=member.menu.html}
+<div id="manager_info" class="mypaila_right">
+
+	<h3>邀请成为团购员</h3>
+	<form method="post" action="index.php?app=member&act=invitgroup" id="recom_form">
+	<table>
+		<tr>
+	   	<td> 受邀人:</td><td><input type="text" id="user_name" name="user_name"/><span id="user_new" style="color:red">*请填写受邀人手机号或者用户名</span></td>
+	   	<td id="user_msg"></td>
+	   	
+	   </tr>
+	   <tr>
+	   	<td>
+	   	<input type="submit" class="btn" value="确认邀请" />
+	   	</td>
+	   </tr>
+	 </table> 
+	 </form>   
+
+</div>
+</div>
+{include file=footer.html}
+

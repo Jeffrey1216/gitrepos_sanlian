@@ -1,0 +1,36 @@
+{include file="header.html"}
+<div id="rightTop">
+    <ul class="subnav">
+        <li><a class="btn1" href="index.php?app=brandmandate&act=brand_index">管理</a></li>
+        <li><span>新增</span></li>
+    </ul>
+</div>
+
+<div class="info">
+    <form method="post">
+        <table class="infoTable">
+            <tr>
+                <th class="paddingT15">
+                    商品ID:</th>
+                <td class="paddingT15 wordSpacing5">
+                    <input class="infoTableInput2" id="brand_name" type="text" name="goods_id" value="{$brand.brand_name|escape}" /> <label class="field_notice">*请出入您要添加的商品的ID</label>
+                </td>
+            </tr>
+			<tr>
+                <th class="paddingT15">
+                    供应商ID:</th>
+                <td class="paddingT15 wordSpacing5">
+                    <input class="infoTableInput2" id="brand_name" type="text" name="supply_id" value="{$brand.brand_name|escape}" /> <label class="field_notice">*请出入您要添加的供应商的ID</label>
+                </td>
+            </tr>
+        <tr>
+            <th></th>
+            <td class="ptb20">
+                <input class="formbtn" type="submit" name="Submit" value="{$lang.submit}" />
+                <input class="formbtn" type="reset" name="Submit2" value="{$lang.reset}" />
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+{include file="footer.html"}

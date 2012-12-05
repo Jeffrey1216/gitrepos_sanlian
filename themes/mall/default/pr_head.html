@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="{res file=css/promote.index.css}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{res file=js/jquery.js}"></script>
+<title>派啦网_促销专区首页</title>
+</head>
+	<body>
+    <div class="loginbar">
+        <div class="loginbar_ctt">
+            <div class="loginbar_l">
+                 欢迎来到派啦网！ <span>{$visitor.user_name|escape}
+                 <!--{if !$visitor.user_id}-->&nbsp;
+                 <a href="{url app=member&act=login}">登录</a></span> / <span><a href="{url app=member&act=register}">免费注册</a>
+                 <!--{else}-->
+                 [<a href="{url app=member&act=logout}">退出</a>]
+                 <!--{/if}-->
+                 </span>
+            </div>
+            <div class="loginbar_r" style="position:relative;*top:-4px;_top:0;">
+            <div style="left:60px;height:32px;line-height:32px;float:left;position:absolute;z-index:1000;margin-left:0px;">
+          			</div>
+			<a href="index.php?app=member">我的派啦</a>
+                | <a href="index.php?app=message&act=newpm">站内消息</a>
+                | <a href="index.php?app=download&act=Merchant">派啦店下载</a> 
+                | <a href="{url app=article&act=help}">帮助中心</a>
+                | <a href="http://www.weibo.com/pailawang" class="weibo" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+	 <div class="promot_header">
+	  <div class="promot_nextbg">
+	   <div class="promot_logo content">
+		 <div class="promot_img_l">
+		  <a href="#this">
+		  <img src="{res file=images/logo_promotion.gif}" width="150" height="113"/>
+		  </a>
+		 </div>
+		 <div class="promot_nav_ul">
+		   <a id="nav_hover" href="#this">促销专区</a>
+		   <span class="promotion_line"></span>
+		   <a href="index.php">派啦商城</a>
+		   <span class="promotion_line"></span>
+		   <a href="{url app=store_league}">派啦店</a>
+		 </div>
+		 <div class="pomot_link_r">
+		  <img src="{res file=images/promotion_link.gif}" width="266" height="98"/>
+		 </div>
+	   </div>
+	  </div>
+	 </div>
+  <div class="promot_search">
+    <div class="promot_search_l content">
+	 <div class="search">
+	 <form action="" method="get">
+	 <input type="hidden" value="promotion_index" name="app"/>
+	 <input type="text" class="search_box" name="keyword" onclick="if (this.value=='请输入关键字') this.value=''" onfocus="this.select()" onblur="if (this.value=='') this.value='请输入关键字'" value="请输入关键字"/>
+     <input type="submit" value="" class="search_sub"/>    
+     </form>
+    </div>
+	<div class="promot_search_r">
+	 <div class="cd_car">
+	  <div class="notice_ctt_r">
+	    <a href="index.php?app=cart"><p>我的购车有 <span>{$cart_goods_kinds}</span> 件</p>
+	     <input type="button" value="" onclick="window.location.href='index.php?app=cart'" class="notice_bn">
+		</a>
+	  </div>
+      </div>
+	</div>
+  </div>
+  </div>

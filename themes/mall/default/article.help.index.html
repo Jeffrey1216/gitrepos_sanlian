@@ -1,0 +1,113 @@
+{include file=newothers_top.html}
+{include file=new_head.html}
+{include file=menu_select_js.html}
+{include file=help_curlocal.html}
+<script type="text/javascript" src="{lib file=public.js}" charset="utf-8"></script>
+<div class="content">
+{include file=article.help.left.html}   
+
+<!-- {if $article_info} -->
+    <div class="right">
+    {include file=article_info.html}
+    </div>
+<!-- {else} -->
+    <div class="right">
+        <div class="help_right">
+            <h1 class="help_right_bg">
+                        <div class="help_fl">请输入你想咨询的问题：</div>
+                        <form method="post">
+                            <fieldset>
+                                <input type="text" class="text3" name="keyword">
+                                <input type="submit" class="text04 quiet" value="搜索">
+                            </fieldset>
+                        </form>
+            </h1>
+            <!-- {if $dis} -->
+                 <div class="shop_text_list notice_txt_list">            
+            <table cellpadding="0" cellspacing="0">
+            <colgroup>
+            <col width="80%"/>
+            <col width="20%"/>
+            </colgroup>
+                <tr>
+                   <!--  <th class="align1" colspan="2">
+                        <div class="table_title">
+                        </div>
+                        <div class="top_page">
+                            {include file=page.top2.html}
+                        </div>
+                    </th>--> 
+                </tr>
+                <!-- {foreach from=$articles item=article} -->
+                <tr>
+                    <td><a {if $article.link}target="_blank"{/if} href="{url app=article&act=help&article_id=$article.article_id&parent_id=$article.cate_id}" class="lebioa">{$article.title|escape}</a></td>
+                    <td class="width9">{$article.add_time|date:Y-m-d H:i}</td>
+                </tr>
+                <!-- {foreachelse} -->
+                <tr>
+                  <td align="center" colspan="2">{$lang.no_records}</td>
+                </tr>
+                <!-- {/foreach} -->
+            </table>
+        </div>
+       </div>
+          <div class="clear"></div>   
+        {include file=page.bottom.html}
+    </div>  
+            <!-- {else} -->            
+            <h3 class="help_question">常见问题</h3>
+            <div class="help_ques_alist">
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+              <a href="#this">什么是PL币？</a>
+            </div>
+            <div class="help_liucheng">
+             <h3 class="help_question">购物流程</h3>
+             <p><img src="{res file=images/help_liucheng.jpg}" width="772px" height="80px"/></p>
+            </div>
+            <div class="help_liucheng help_margin_top">
+             <h3 class="help_question">派啦店入住流程</h3>
+             <p><img src="{res file=images/help_zhuce.jpg}" width="772px" height="80px"/></p>
+            </div>
+        </div>
+            </div>
+            <!-- {/if} -->
+   <!-- {/if} -->
+</div>
+<script type="text/javascript">
+function get_article($article_id)
+{
+	var url = SITE_URL + '/index.php?app=article&act=get_article';
+	$.getJSON(
+		url,
+		{'article_id':$article_id},
+		function (data) {
+			if (data.done)
+			{
+				$(".right").empty();
+				$(".right").append(data.retval);
+			}
+		}
+	);
+}
+</script>
+<div class="clear"></div>
+{include file=footer.html}

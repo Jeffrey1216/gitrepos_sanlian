@@ -1,0 +1,55 @@
+{include file=other_top.html}
+{include file=new_head.html}
+{include file=newothers_top.html}
+{include file=menu_select_js.html}
+
+{include file=service.html}
+<style type="text/css">
+body{font-size:12px;font-family: "宋体",Arial, Helvetica, sans-serif;}
+*{margin:0;padding:0;}
+*.ctt{width:790px;overflow:hideen;float:right;}
+.ctt ul li{padding:10px}
+.top0{padding:0px 0 0 0;}
+.top0 input{margin-right:10px;width:80px;}
+.slt{width:100px;}
+</style>
+<div class="content">
+	{include file=member.menu.html}
+	<div class="ctt">
+    <ul class="tab" style="margin:10px 0 0 0">
+       <li class="active">派啦币交易中心-发布信息</li>
+    </ul>
+	<div class="wrap">
+	<form method="post">
+	    <ul>
+	        <li>
+	        <label>出售数量：</label><input type="text" value="" name="credit_num"/>
+	        </li>
+	        <li>
+	        <label>出售价格：</label><input type="text" value="" name="price"/>
+	        </li>
+	        <li>
+	        <label>发布信息：</label><input type="text" value="" name="info"/>
+	        </li>
+	        <li>
+	        <label>发布状态：</label><input type="radio" value="1" checked="checked" name="type" /> <label>急售 </label><input type="radio" value="0" name="type" /> 出售
+	        </li>
+	        <li>
+	        <label>交易周期：</label>
+	        	<select class="slt" name="opt">
+	        		<option value="3">3天</option>
+	        		<option value="7">7天</option>
+	        		<option value="10">10天</option>
+	        		<option value="15">15天</option>
+	        	</select>
+	        </li>
+	    </ul>
+	    <div class="top0">
+	        <input type="Submit" name="Submit" value="提交" />
+	        <input type="button" value="返回" onclick="history.go(-1)"/>
+	    </div>
+	</form>
+	</div>
+</div>
+</div>
+{include file="footer.html"}

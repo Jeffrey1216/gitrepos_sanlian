@@ -1,0 +1,43 @@
+{include file="header.html"}
+<div id="rightTop">
+  <p>运营数据管理</p>
+  <ul class="subnav">
+    <li><a class="btn1" href="index.php?app=channel&act=fee">新增</a></li>
+    <li><span>管理</span></li>
+  </ul>
+</div>
+<div class="mrightTop">  
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">
+      <td>地区</td>
+      <td>代理等级</td>
+      <td>加盟费用</td>
+      <td>会员消费返利收益率</td>
+      <td>推荐渠道商收益率</td>
+  	  <td class="handler">{$lang.handler}</td>
+    </tr>
+    <!--{foreach from=$users item=user}-->
+    <tr class="tatr2">
+      <td>{$user.area_name}</td>
+      <td>{$user.level_name}</td>
+      <td>{$user.fee} 元/年</td>
+      <td>{$user.return_rate}%</td>
+      <td>{$user.recom_rate}%</td>
+      <td class="handler"><a href="index.php?app=channel&act=editfee&id={$user.fid}">修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+      						<a href="index.php?app=channel&act=delfee&id={$user.fid}">删除</a></td>
+    </tr>
+    <!--{foreachelse}-->
+    <tr class="no_data">
+      <td colspan="10">暂时没有记录！</td>
+    </tr>
+    <!--{/foreach}-->
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+{include file="footer.html"}

@@ -1,0 +1,42 @@
+{include file="header.html"}
+<style type="text/css">
+.dataTable td{text-align:center;} 
+.firstCell{text-align:left;}  
+.dis_tab_span{margin-right:10px;}
+.tdare{border-top:1px solid #cccccc;}
+</style>
+<div id="rightTop">
+  <p>物流设置</p>
+  <ul class="subnav">    
+    <li><a class="btn1" href="index.php?app=distribution&act=add">{$lang.add}</a></li>
+    <li><a class="btn1" href="index.php?app=distribution">管理</a></li>
+  </ul>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable" > 
+    <tr class="tatr1">
+      <td style="width:70px;text-align:left;"  class="firstCell"><input type="checkbox" class="checkall" />&nbsp;&nbsp;<a href="#">删除</a></td>
+      <td width="20%"><span>物流名称</span></td>
+      <td width="20%"><span>发货地址</span></td>
+      <td width="20%"><span>收货地址</span></td>
+      <td><span>起步价</span></td>
+      <td class="table-center"><span>起步重</span></td>
+      <td class="table-center"><span>操作</span></td>      
+    </tr>
+    <!--{foreach from=$data item=list}-->
+    <tr class="tatr2">
+      <td class="firstCell"><input type="checkbox" class="checkitem" /></td>
+
+      <td><!-- {if $list.p_id eq 1} -->顺风<!-- {/if} --><!-- {if $list.p_id eq 2} -->顺水<!-- {/if} --><!-- {if $list.p_id eq 3} -->顺你妹<!-- {/if} --></td>
+      <td><!-- {$list.incept_name} --></td>
+      <td><!-- {$list.finished_name} --></td>   
+      <td><!-- {$list.prise_info.price} --></td>
+     <td class="table-center"><!--{$list.prise_info.weight_start} --></td>
+    
+      <td class="table-center"><span class="dis_tab_span"><a href="index.php?app=distribution&act=edit&id={$list.pid}">编辑</a></span>
+      						   <span class="dis_tab_span"><a href="index.php?app=distribution&act=drop&id={$list.pid}">删除</a></span></td>   
+     <!--{/foreach}-->
+    </tr> 
+  </table>  
+</div>
+{include file="footer.html"}

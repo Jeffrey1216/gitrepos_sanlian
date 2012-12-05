@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="{$site_url}/" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7 charset=gbk" />
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<link href="{new_res file=css/public.css}" type="text/css" rel="stylesheet" />
+<link href="{new_res file=css/new_paila.css}" type="text/css" rel="stylesheet" />
+
+<script type="text/javascript" src="{new_res file=js/jquery.js}"></script>
+<script type="text/javascript" src="{new_res file=js/photo.js}"></script>
+{$page_seo}
+<!--  -->
+<script type="text/javascript" src="index.php?act=jslang"></script>
+
+<script type="text/javascript" src="{lib file=ecmall.js}" charset="utf-8"></script>
+<script type="text/javascript" src="{res file=js/nav.js}" charset="utf-8"></script>
+
+
+<script type="text/javascript">
+//<!CDATA[
+var SITE_URL = "{$site_url}";
+var PRICE_FORMAT = '{$price_format}';
+$(function(){
+    var select_list = document.getElementById("select_list");
+    var float_list = document.getElementById("float_list");
+    select_list.onmouseover = function () {
+        float_list.style.display = "block";
+    };
+    select_list.onmouseout = function () {
+        float_list.style.display = "none";
+    };
+});
+//]]>
+</script>
+
+
+{$_head_tags}
+<!--<editmode></editmode>-->
+
+
+<title>新版派啦网——派啦币交易专区</title>
+</head>
+<body>
+<!--     头部      start       -->
+<div id="header">
+    <div class="loginbar">
+        <div class="loginbar_ctt">
+            <div class="loginbar_l">
+                 欢迎来到派啦网！
+            <span style="padding-right:5px;color:#505050">{$visitor.user_name|escape}
+               	<!--{if !$visitor.user_id}-->&nbsp;
+           		请先 [ <a href="{url app=member&act=login}">登录</a> ] 或 [ <a href="{url app=member&act=register}">注册</a> ]
+          			<!--{else}--> 
+          			[<a href="{url app=member&act=logout}">退出</a>]
+          		<!--{/if}-->	
+			</span>		
+
+            </div>
+            <div class="loginbar_r">
+                <a href="index.php?app=member">我的派啦</a> | <a href="#">派啦店下载</a> | <a href="#">渠道商下载</a> | <a href="#">派啦店分布图</a> | <a href="index.php?app=article&act=credit&article_id=81">帮助中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="header_logo">
+        <div class="logo_l">
+            <a href="#"><img src="{new_res file=images/logo_03.gif}" alt="派啦网" /></a>
+        </div>
+        <div class="logo_m">
+            <div class="search">
+                <div class="search_l">
+                    <p><span>商品</span></p>
+                </div>
+                <div class="search_m">
+                    <input type="text" class="search_box" />
+                </div>
+                <div class="search_r">
+                    <input class="search_sub" type="submit" value="搜索" />
+                </div>
+            </div>
+            <div class="search_hot">
+                热门搜索：
+                <a href="#">回力鞋</a>
+                <a href="#">回力鞋</a>
+                <a href="#">回力鞋</a>
+                <a href="#">回力鞋</a>
+                <a href="#">回力鞋</a>
+                <a href="#">回力鞋</a>
+                <a href="#">回力鞋</a>
+                <a href="#">回力鞋</a>            
+            </div>
+        </div>
+        <div class="logo_r">
+        </div>
+    </div>
+</div>
+<div id="nav">
+  <div class="nav_ctt">
+        <div id="all_goods" class="nav_l">
+			<div class="placeholder">
+			</div>
+			<div class="nav_downico"></div>
+            <a href="#">全部商品分类</a>
+        </div>
+        <ul class="nav_r">
+           <li id="clk_bg">
+              <a href="#">
+                首页
+              </a>
+           </li>   
+           <li>
+              <a href="#">
+                派拉商城
+              </a>
+           </li>
+           <li>
+              <a href="#">
+                PL配送商城
+              </a>
+           </li>
+           <li>   
+              <a href="#">
+                绿色农场
+              </a>
+           </li>
+           <li>
+              <a href="#">
+                PL币交易
+              </a>
+           </li>
+           <li>
+              <a href="#">
+                品牌托管
+              </a>
+           </li>
+           <li>
+              <a href="#">
+                派啦商学院
+              </a>
+           </li>
+        </ul>
+    </div>
+</div>
+ <div class="notice">
+        <div class="notice_ctt" id="_menu">
+            <ul id="main_menu" class="menu">
+				<li class="menu_li_node">			
+				<a href="#" class="menu_tit"><span class="menu_ico1 ml_20">手机数码</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材</strong><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>				
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico3 ml_20">家用电器</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材</strong><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>				
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico2 ml_20">家具家装</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材</strong><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class=" menu_ico4 ml_20">电脑办公</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico5 ml_20">服饰鞋帽</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材</strong><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a><a href="#">水泥钢筋</a><a href="#">水泥</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico6 ml_20">礼品箱包</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico7 ml_20">个护化妆</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico8 ml_20">户外运动</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico9 ml_20">钟表首饰</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico10 ml_20">食品饮料</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+			<li class="menu_li_node">				
+				<a href="#" class="menu_tit"><span class="menu_ico11 ml_20">母婴玩具</span></a>
+				<div class="line"></div>
+				<div style="display:none" class="bottom_line"></div>
+				<ul class = "sub_menu">
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+					<li><strong class="red_col">建材建材</strong><a href="#">dsa</a><a href="#">dsa</a></li>
+				</ul>			
+			</li>
+            </ul>
+            <div class="notice_ctt_m">
+                <a href="#">公告：全场满PL币大放送啦！派啦商城买一送一，您还等什么，赶紧行动吧！</a></span>
+            </div>
+            <div class="notice_ctt_r">
+                <a href="{url app=cart}"><p>我的购车有 <span>{$cart_goods_kinds}</span> 件</p></a>
+                <input class="notice_bn" type="button" value="" />
+            </div>			
+        </div>		
+    </div> 
+    	<!--主菜单JS-->
+	<script type="text/javascript" src="{new_res file=js/menu.js}"></script>
+	<script type="text/javascript">  //主菜单下拉启动
+		slide_menu();   
+	</script>
+	
+	<!--     头部      END       -->

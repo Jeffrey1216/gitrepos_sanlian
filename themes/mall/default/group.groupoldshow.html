@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>派啦网往期团购</title>
+<link type="text/css" rel="stylesheet" href="{res file=topics/seckill_groupbuy/css/seckill_groupbuy.css}" />
+</head>
+<body>
+{include file=group.head.html}
+<div class="oldgroup">
+<div class="order_l">
+<!-- {foreach from=$pastGroup_list item=v} -->
+<div class="order_l_list groupline">
+<h3>{$v.start_time|date:Y-m-d H:i}</h3>
+<a href="index.php?app=group_project&act=goodsshow&id={$v.pid}">{$v.title}</a>
+<div class="order_l_list_l">
+<a href="index.php?app=group_project&act=goodsshow&id={$v.pid}"><img src="{$v.image_list}"/></a>
+<div class="overnow"></div>
+</div>
+<div class="order_l_list_r">
+<div><strong>{$v.buynum}</strong>人购买</div>
+<div>原价：<b>{$v.cprice|price}</b></div>
+<div>折扣：<strong>{$v.discount}折</strong></div>
+<div>现价：<b>{$v.price|price}</b></div>
+<div>节省：<b>{$v.save}</b></div>
+<div><a href="index.php?app=group_project&act=goodsshow&id={$v.pid}"><img alt="查看" src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/view.gif"></a></div>
+</div>
+</div>
+<!-- {/foreach} -->
+
+</div>
+
+<div class="order_r">
+<div class="order_r_accep">
+	<div class="order_r_accep_tit">
+				<h3>派啦网承诺</h3>
+			</div>
+			<p>派啦网采用支付宝、农行支付等多种方式进行支付，最大程度保证用户的交易快捷和安全</p>			
+			
+</div>
+<div class="order_r_accep padding01">
+	<div class="order_r_accep_tit">
+				<h3>派啦网客服</h3>
+			</div>
+			<div><img alt="联系我们" src="http://www.paila100.com/themes/mall/new/styles/default/topics/seckill_groupbuy/images/phone1.jpg"></div>			
+			
+</div>
+</div>
+<div class="productlist_footbg">
+    {include file=page.bottom.html}
+</div>
+
+</div>
+{include file=group.foot.html}
+</body>
+</html>

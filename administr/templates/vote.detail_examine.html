@@ -1,0 +1,39 @@
+{include file="header.html"}
+
+<div id="rightTop">
+  <p>投票管理</p>
+  <ul class="subnav">
+     <li><a class="btn1" href="index.php?app=vote&act=add">发起投票</a></li>
+    <li><a class="btn1" href="index.php?app=vote">管理</a></li>     
+  </ul>
+</div>
+<div class="mrightTop">
+ 
+  <div class="fontr">{include file=page.top.html}</div>
+</div>
+<div class="tdare">
+  <table width="100%" cellspacing="0" class="dataTable">
+    <tr class="tatr1">     
+      <td>用户名</td>      
+      <td>真实姓名</td>
+      <td>邮箱</td>
+      <td>联系电话</td>
+      <td>投票时间</td>         
+    </tr>
+    <!--{foreach from=$rs item=r}-->   
+    <tr class="tatr2">
+      <td>{$r.user_name}</td>  
+      <td>{$r.real_name}</td>    
+      <td>{$r.email}</td>
+      <td>{$r.mobile}</td>
+      <td>{$r.r_time}</td>         
+    </tr> 
+    <!--{/foreach}-->        
+  </table>
+  <div id="dataFuncs">
+    <div class="pageLinks">{include file=page.bottom.html}</div>
+    <div class="clear"></div>
+  </div>
+</div>
+<a style="margin:20px;display:block;color:#000;" href="javascript:history.back()">返回上一层</a>
+{include file="footer.html"}
