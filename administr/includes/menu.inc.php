@@ -167,6 +167,14 @@ return array(
                 'text'  => '库存销毁审核',
                 'url'   => 'index.php?app=stock_destory',
            	 ),
+ /*          	 'shop_destory' => array(
+                'text'  => '商城库存销毁查看',
+                'url'   => 'index.php?app=shop_destory',
+           	 ), */
+           	 'store_destory' => array(
+                'text'  => '店铺库存销毁查看',
+                'url'   => 'index.php?app=store_destory',
+           	 ),
         ),
     ),
     // 会员

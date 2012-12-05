@@ -72,7 +72,8 @@
 
         <!--{foreach from=$orders item=order}-->
         <tr class={cycle values="tr1","tr2"}>
-             <td class="on">{$order.buyer_name|escape}</td>
+             <td class="on">
+		        <a target="_blank" href='index.php?app=order_summary&act=member_collection&buyer_id={$order.buyer_id}'>{$order.buyer_name|escape}</a></td>
              <td>{$order.real_name|escape}</a></td>
              <td>{$order.mobile|escape}</a></td>
              <td  style="color:red">{$order.order_count|default:0}</td>
@@ -80,7 +81,7 @@
                  <td><em>{$order.sum_price|price}</em></td>
                  <td><em>{$order.sum_credit|default:0.00}</span></em>
                  <td><em>{$order.member_cate|price}</em></td>
-                 <td><em>{$order.member_obtain|price}</em></td>
+                 <td><em class="profit">{$order.member_obtain|price}</em></td>
                  <td><a target="_blank" href='index.php?app=order_summary&act=member_collection&buyer_id={$order.buyer_id}'>{$lang.detail_link}</a></td>
              </tr>
              <!--{foreachelse}-->

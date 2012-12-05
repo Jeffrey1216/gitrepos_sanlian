@@ -356,7 +356,7 @@ class Verify_last_managerApp extends BackendApp
     } 	
 	public function _get_member_count($user_id)
 	{
-		$all_amount = $this->_member_mod->getRow("SELECT SUM(goods_amount) as all_amount from pa_order where status in (20,30,40) and buyer_id=".$user_id);
+		$all_amount = $this->_member_mod->getRow("SELECT SUM(goods_amount) as all_amount from pa_order where status=40 and buyer_id=".$user_id);
 		$this->assign('amount',$all_amount);
 		$this->assign('achievement',ACHIEVEMENT);
 	}

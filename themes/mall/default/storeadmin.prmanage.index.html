@@ -57,7 +57,7 @@
 						<th width="6%">{$goods.pr_credit}PL</th>
 						<th width="6%">{$goods.pr_stock}</th>
 						<th width="6%">{$goods.pr_selllog}</th>
-						<th width="6%">{if $goods.pr_status eq 0}待审核{elseif $goods.pr_status eq 10}正常{elseif $goods.pr_status eq 11}未通过{elseif $goods.pr_status eq 20}已关闭{/if}</th>
+						<th width="6%">{if $goods.pr_status eq 0}待审核{elseif $goods.pr_status eq 5}待编辑{elseif $goods.pr_status eq 10}正常{elseif $goods.pr_status eq 11}未通过{elseif $goods.pr_status eq 20}已关闭{/if}</th>
 						<th width="4%">{$goods.pr_sort}</th>
 						<th width="8%">
 						{if $goods.pr_status eq 0}
@@ -65,6 +65,9 @@
 							|<a href="{url app=promotion_manage&act=drop&pr_id=$goods.promotion_id}" onclick="return confirm('是否将此促销信息删除?')">删除</a>
 						{elseif $goods.pr_status eq 10}
 							<a href="{url app=promotion_manage&act=edit_close&pr_id=$goods.promotion_id}" onclick="return confirm('是否将此促销信息关闭?关闭过后会归还该商品所有剩余库存')">关闭促销</a>
+						{elseif $goods.pr_status eq 5}
+						<a href="{url app=promotion_manage&act=edit&pr_id=$goods.promotion_id}">修改</a>
+						|<a href="{url app=promotion_manage&act=drop&pr_id=$goods.promotion_id}" onclick="return confirm('是否将此促销信息删除?')">删除</a>
 						{elseif $goods.pr_status eq 11}
 							<a href="{url app=promotion_manage&act=drop&pr_id=$goods.promotion_id}" onclick="return confirm('是否将此促销信息删除?')">删除</a>
 						{elseif $goods.pr_status eq 20}

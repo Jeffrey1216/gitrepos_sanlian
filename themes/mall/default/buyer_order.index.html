@@ -70,10 +70,12 @@ $(function(){
                            <!-- {if $order.seller_id eq $STORE_ID or $order.status eq 20} -->
                             <a class="btn1"  href="{url app=buyer_order&act=view&order_id=$order.order_id}&refunds" target="_blank" {if $order.status neq ORDER_ACCEPTED and $order.status neq ORDER_FINISHED or $order.evaluation_status eq 1 } style="display:none"{/if}>退货</a>
                            <!-- {/if} -->
-                           <!-- {if $order.complain_status neq 1} -->
+                           <!-- {if $order.complain_status eq 0} -->
                            		<a class="btn1" href="{url app=buyer_order&act=sue&order_id=$order.order_id}" target="_blank" />我要投诉</a>	
+                           <!-- {elseif $order.complain_status eq 1} -->
+                           		<a class="btn1">投诉中</a>
                            <!-- {else} -->
-                           		<a class="btn1">已投诉</a>
+								<a class="btn1">已完成</a>
                            <!-- {/if} -->
                         </div>
                     </div>

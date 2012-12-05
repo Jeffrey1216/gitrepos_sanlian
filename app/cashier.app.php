@@ -18,6 +18,53 @@ class CashierApp extends ShoppingbaseApp
     {
         /* 外部提供订单号 */
         $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
+                   	//导入脚本弹窗的js
+        	$this->import_resource(array(
+        	 'script' =>   array(
+        		array(
+                    'path' => 'jquery.ui/jquery.bgiframe-2.1.2.js',
+                    'attr' => '',
+                ),
+        		array(
+                    'path' => 'jquery.ui/jquery.ui.core.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.widget.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.mouse.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.button.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.draggable.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.position.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.resizable.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.dialog.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.effect.js',
+                	'attr' => '',
+                ),
+               ),
+               'style' =>  'jquery.ui/themes/ui-lightness/jquery.ui.css',
+              )
+             );
         if (!$order_id)
         {
             $this->show_warning('no_such_order');
@@ -27,11 +74,9 @@ class CashierApp extends ShoppingbaseApp
         /* 内部根据订单号收银,获取收多少钱，使用哪个支付接口 */
         $order_model =& m('order');
         $order_info  = $order_model->getRow("select o.*,s.address from pa_order o left join pa_store s on o.seller_id = s.store_id where order_id={$order_id} AND buyer_id=" . $this->visitor->get('user_id'));
-        
         if (empty($order_info))
         {
             $this->show_warning('no_such_order');
-
             return;
         }
         $this->assign("store_id" , STORE_ID);
@@ -246,7 +291,22 @@ class CashierApp extends ShoppingbaseApp
         $order_model =& m('order');
         $order_model->edit($order_id, $edit_data);
         $order_info  = $order_model->get("order_id={$order_id} AND buyer_id=" . $this->visitor->get('user_id'));
-
+        if($payment_id == 5)
+        {
+            if($order_info['testing_tpwd'] != 1)
+	        {
+	            if(!empty($_POST['traderpassword']))
+		        {
+		        	$ms =& ms();
+		    		$paypw = $ms->user->traderAuth($this->visitor->get('user_id'),$_POST['traderpassword']);
+		    		if(!$paypw)
+		    		{
+		    			$this->show_warning('非法验证');
+		    			return ;
+		    		}
+		        }
+	        }
+        }
         if (empty($order_info))
         {
             $this->show_warning('no_such_order');
@@ -316,7 +376,6 @@ class CashierApp extends ShoppingbaseApp
         if (!$pay_message)
         {
             $this->show_warning('no_pay_message');
-
             return;
         }
         $order_model =& m('order');
@@ -324,15 +383,12 @@ class CashierApp extends ShoppingbaseApp
         if (empty($order_info))
         {
             $this->show_warning('no_such_order');
-
             return;
         }
         $edit_data = array(
             'pay_message' => $pay_message
         );
-
         $order_model->edit($order_id, $edit_data);
-
         /* 线下支付完成并留下pay_message,发送给卖家付款完成提示邮件 */
         $model_member =& m('member');
         $seller_info   = $model_member->get($order_info['seller_id']);

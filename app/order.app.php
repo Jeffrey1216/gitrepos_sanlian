@@ -50,6 +50,7 @@ class OrderApp extends ShoppingbaseApp
         $this->assign('member_credit',$member_credit);
         $this->assign('real_name',$member_info['real_name']);
         $this->assign('member_mobile',$member_info['mobile']);
+        $this->assign('user_id',$user_id);
 		$this->assign('credit_total',$credit_total);
 		$this->assign('amount_total',$amount_total);
 		$this->assign('quantity_tatol',$quantity_tatol);
@@ -76,6 +77,53 @@ class OrderApp extends ShoppingbaseApp
             $order_type     =&  ot($goods_info['otype']);
             /* 显示订单表单 */
             $form = $order_type->get_order_form($goods_info['store_id']);
+           	//导入脚本弹窗的js
+        	$this->import_resource(array(
+        	 'script' =>   array(
+        		array(
+                    'path' => 'jquery.ui/jquery.bgiframe-2.1.2.js',
+                    'attr' => '',
+                ),
+        		array(
+                    'path' => 'jquery.ui/jquery.ui.core.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.widget.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.mouse.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.button.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.draggable.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.position.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.resizable.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.dialog.js',
+                    'attr' => '',
+                ),
+                array(
+                    'path' => 'jquery.ui/jquery.ui.effect.js',
+                	'attr' => '',
+                ),
+               ),
+               'style' =>  'jquery.ui/themes/ui-lightness/jquery.ui.css',
+              )
+             ); 
             if ($form === false)
             {
                 $this->show_warning($order_type->get_error());
@@ -106,7 +154,6 @@ class OrderApp extends ShoppingbaseApp
 
                 return;
             }
-            
             $_POST['use_credit'] = $_POST['get_credit'] = $_POST['money'] = 0;
 			
         	if(is_array($_POST['cartinfo']))
@@ -140,6 +187,25 @@ class OrderApp extends ShoppingbaseApp
          		}else{
          			$_POST['money'] = $amount_total;
          		}
+        	}
+        	if($_POST['use_credit'] > 0)
+        	{
+	            if(!empty($_POST['traderpassword']))
+	        	{
+	        		$ms =& ms();
+	    			$paypw = $ms->user->traderAuth($user_id,$_POST['traderpassword']);
+	    			if($paypw)
+	    			{
+						$_POST['testing_tpwd'] = "1";
+	    			}else {
+	    				$this->show_warning('非法验证');
+	    				return ;
+	    			}
+	        	}else {
+	        		$_POST['testing_tpwd'] = "0";       		
+	        	}
+        	}else {
+        		$_POST['testing_tpwd'] = "0";
         	}
         	//用积分抵扣物流费用
         	if($_POST['shipp'] == 1)
@@ -265,8 +331,8 @@ class OrderApp extends ShoppingbaseApp
             {
                 $goods_ids[] = $goods['goods_id'];
             }
-            $model_goodsstatistics->edit($goods_ids, 'orders=orders+1'); 
-            /* 到收银台付款 */			
+            $model_goodsstatistics->edit($goods_ids, 'orders=orders+1');
+            /* 到收银台付款 */	
             header('Location:index.php?app=cashier&order_id=' . $order_id);
         }
     }
@@ -599,6 +665,28 @@ class OrderApp extends ShoppingbaseApp
         	} 
         return;
    		}
+     }
+     function traderpassword()
+     {
+     	$ms =& ms();
+     	if(empty($_GET['user_id']))
+		{
+			$this->show_message('非法操作');
+			return ;
+		}
+    	if(empty($_GET['traderpassword']))
+    	{
+    		$this->json_error("支付密码不能为空");
+			return ;
+    	}
+    	$paypw = $ms->user->traderAuth($_GET['user_id'],$_GET['traderpassword']);
+		if(!$paypw)
+		{
+			$this->json_error("支付密码有误");
+			return ;
+		}else {
+			$this->json_result();
+		}
      }
 }
 ?>

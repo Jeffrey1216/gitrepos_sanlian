@@ -12,7 +12,8 @@
 		<div class="zhifu6">
 		   <p><span style="color: #009900;font-family:微软雅黑;font-size:18px;font-weight:normal">订单提交成功！请您尽快付款！</span></p>
 		   <p>订单号：{$order.order_sn}  &nbsp;&nbsp;&nbsp;&nbsp;应付金额：<span>{$order.paymoney|price}</span></p>
-	    </div>	
+	    </div>
+	    <span id="tradpwd"></span>	
 		<!-- {if $order.seller_id eq $store_id} -->
 	      <div class="zhifu7"> <strong>立即支付<span>{$order.paymoney|price}</span>元，即可完成订单。支付成功后，派啦网将在24小时内给您发货。 </strong></div>
 		<!-- {else} -->
@@ -43,15 +44,109 @@
 	   	 </div>
 	     	  	 
 	   <!--{/if}-->
-	
-	
+		<div id="dialog-form" title="验证支付密码">
+		<label for="name">支付密码</label>
+		<input type="password" name="traderpassword" id="traderpassword" class="text ui-widget-content ui-corner-all" />
+		<a href="javascript:#" onclick="window.open('index.php?app=member&act=passwordpayment');">找回支付密码</a>
+			<p><font id="content" face=宋体 color=red size=3></font></p>
+		</div>	
 	<ul class="zhifu5">
 	
-  	 <li ><a style="color:#fff;" href="javascript:$('#goto_pay').submit();" class="gouwuche_btn"></a></li>
+  	 <li ><a style="color:#fff;" href="javascript:toSubmit();" class="gouwuche_btn"></a></li>
 	 <li style="margin:25px 25px 25px 0;"><a href="index.php?app=cart"><img src="{res file=images/gouwuche_10.gif}" />返回购物车</a></li>
-	</ul>	
-
+	</ul>
+		
 </form>
 </div>
 </div>
+<script  type="text/javascript">
+	function toSubmit(){ 
+	var tpwd = {$order.testing_tpwd},
+		radioval = $("input[name=payment_id]:checked").val();
+	if (radioval == undefined)
+	{
+		alert("请选择支付方式");
+	}else{
+		if(radioval == 5)
+		{
+			if(tpwd == 1)
+			{
+				void($('#goto_pay').submit());
+			}else {
+					$( "#dialog-form" ).dialog( "open" );
+			}
+		}else {
+				void($('#goto_pay').submit());
+			}	
+		}
+	}  
+	$(function() {
+		var	traderpassword = $( "#traderpassword" ),
+			rowindex = $( "#rowindex" ), 
+			allFields = $( [] ).add( traderpassword ).add( rowindex );
+	
+		function updateTips( t ) {
+			tips
+				.text( t )
+				.addClass( "ui-state-highlight" );
+			setTimeout(function() {
+				tips.removeClass( "ui-state-highlight", 1500 );
+			}, 500 );
+		}
+		function checkLength( o, n, min, max ) {
+			if ( o.val().length > max || o.val().length < min ) {
+				o.addClass( "ui-state-error" );
+				updateTips( "Length of " + n + " must be between " +
+					min + " and " + max + "." );
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		function checkRegexp( o, regexp, n ) {
+			if ( !( regexp.test( o.val() ) ) ) {
+				o.addClass( "ui-state-error" );
+				updateTips( n );
+				return false;
+			} else {
+				return true;
+			}
+		}
+
+		$( "#dialog-form" ).dialog({
+			autoOpen: false,
+			height: 180,
+			width: 350,
+			modal: true,
+			buttons: {
+				"确认": function() {
+					var bValid = true;
+					if ( bValid ) {
+						var arg = $('#traderpassword').val();
+						$.getJSON("index.php?app=order&act=traderpassword", {traderpassword: arg, user_id: '{$user_id}'}, function(data){
+							if(data['done'])
+				            {
+								$('#tradpwd').append("<input type='hidden' value='"+ arg +"' name='traderpassword'/>");
+								void($('#goto_pay').submit());					
+								$( this ).dialog( "close" );
+				            }
+				            else
+				            {
+				            	$('#content').empty();
+								$('#content').append(data['msg']);								
+				            }
+				        });
+					}
+				},
+				"取消": function() {
+					$( this ).dialog( "close" );
+				}
+			},
+			close: function() {
+				allFields.val( "" ).removeClass( "ui-state-error" );
+			}
+		});
+	});
+</script>
 {include file="footer.html"}

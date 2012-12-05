@@ -10,72 +10,27 @@ $(function(){
 </script>
 <div id="rightTop" style="margin-left:5px;">
     <ul class="subnav2" style="margin-left:5px;">
-    	<!-- {if !$storemanage} -->
-    	<li><a href="index.php?app=store_statistics&act=sell">店铺进货单<span></span></a></li>
-        <li {if $smarty.get.store_type eq 0} class='on'{/if}><a href="index.php?app=order_summary&act=member_collection&store_type=0">直营店零售单<span></span></a></li>
-        <li {if $smarty.get.store_type eq 1} class='on'{/if}><a href="index.php?app=store_statistics&act=collection&store_type=1">加盟店零售单<span></span></a></li>
-        <li>采购总计:<font class="price">{$total.gprice_total|price}</font></li>
-        <!-- {else} -->
-        <li><a href="index.php?app=storemanage_statistics&act=sell">店铺进货单<span></span></a></li>
-        <li {if $smarty.get.store_type eq 0} class='on'{/if}><a href="index.php?app=storemanage_statistics&act=collection&store_type=0">直营店零售单<span></span></a></li>
-        <li {if $smarty.get.store_type eq 1} class='on'{/if}><a href="index.php?app=storemanage_statistics&act=collection&store_type=1">加盟店零售单<span></span></a></li>
-        <!-- {/if} -->
-        <li>批发总计:<font class="price">{$total.zprice_total|price}</font></li>
-        <li>物流总计:<font class="price">{$total.ship_fee|price}</font></li> 
-        <li>团购员配送PL:<font class="price">{$total.send_pl}PL</font></li>
-        <li>团购员提成:<font class="price">{$total.send_money|price}</font></li>    	
-        <li>{$total_name}:<font class="price">{$total.total|price}</font></li>
+        <li  class='on'><a href="index.php?app=order_summary&act=member_collection">会员订单列表<span></span></a></li>
     </ul>
 </div>
 <div class="mrightTop2">
     <div class="fontl">
         <form method="get">
              <div class="left">
-             	<div class="schinput">
-             	<!-- {if !$storemanage} -->
-              	<input type="hidden" name="app" value="order_summary" />
+             	
+                <div class="schinput">
+		<!-- {if !$storemanage} -->
+                	<input type="hidden" name="app" value="order_summary" />
               	<!-- {else} -->
               	<input type="hidden" name="app" value="order_summary" />
               	<!-- {/if} -->
-                <input type="hidden" name="act" value="collection" />
+                <input type="hidden" name="act" value="member_collection" />
+                <input type="hidden" name="buyer_id" value="{$buyer_id}" />
                   查询条件:<select class="querySelect" name="field">{html_options options=$search_options selected=$smarty.get.field}
                 </select><input class="queryInput" type="text" name="search_name" value="{$query.search_name|escape}" />
-                <select class="querySelect" name="store_type" style="display:none">
-                    <option value="">请选择</option>
-                    {html_options options=$store_type selected=$query.store_type.value}
-                </select>
-               
-                付款时间:<input class="queryInput3" type="text" value="{$query.finished_time_from}" id="finished_time_from" name="finished_time_from"/>
-                至:<input class="queryInput3" type="text" value="{$query.finished_time_to}" id="finished_time_to" name="finished_time_to"/>
-                物流金额:<input class="queryInput2" type="text" value="{$query.order_amount_from}" name="order_amount_from" />
-                至:<input class="queryInput2" type="text" style="width:60px;" value="{$query.order_amount_to}" name="order_amount_to"/>
-                
-           		</div>
-                <div class="schinput">
-                订单状态:
-                &nbsp;<select name="status" style="width:182px;">
-                    <option value="">全部订单</option>
-                    {html_options options=$status selected=$query.status}
-                </select>&nbsp;&nbsp;                
-            	支付方式:
-                	<select name="payment" style="width:120px;">
-                     <option value="">请选择</option>
-                    {html_options options=$paymeny_type selected=$smarty.get.payment}
-                	</select>&nbsp;&nbsp;&nbsp;&nbsp;
-            	支付类型:<select name="paytype" style="width:145px;">
-                    <option value="">请选择</option>
-                    {html_options options=$pay_type selected=$smarty.get.paytype}
-                	</select>
                     &nbsp;&nbsp;&nbsp;<input type="submit" class="formbtn" value="{$lang.query}" />
             	</div>
             </div>
-            <!--{if $filtered}-->
-            <!-- {if !$storemanage} -->
-            <a class="left formbtn1" href="index.php?app=store_statistics&act=collection">{$lang.cancel_query}</a>
-         	<!-- {else} -->
-         	<a class="left formbtn1" href="index.php?app=storemanage_statistics&act=collection">{$lang.cancel_query}</a>
-         	<!-- {/if} -->
-            <!--{/if}-->
         </form>
     </div>
     <div class="fontr">
@@ -86,32 +41,26 @@ $(function(){
     <table width="100%" cellspacing="0" class="dataTable">
         <tr class="tatr1">
            <th>订单编号</th>
-           <th style=" padding-left:10px; text-align:left">店铺名</th>
-           <th style=" padding-left:0; text-align:center">直/加</th>
+           <th>店铺名</th>
+           <th>直/加</th>
            <th>会员</th>
-           <!-- {if !$storemanage} -->
-           <td>采购价</td>
-           <!-- {/if} --> 
            <th>批发价</th>
            <th>物流费</th>
            <th>赠送PL币</th>
            <th>业务提成</th>
-           <th>总价</th>  
+           <th>销售总金额</th>  
            <th>支付类型</th> 
            <th>订单状态</th>
            <th>付款时间</th> 
-           <th>操作</th>       
+           <th>查看</th>       
         </tr>
 
         <!--{foreach from=$orders item=order}-->
         <tr class="tatr2">
-           <td><a href="index.php?app=store_statistics&act=collection_view&id={$order.order_id}">{$order.order_sn}</a></td>
+           <td><a href='index.php?app=order_summary&act=orderGoodsDetails&orderid={$order.order_id}'>{$order.order_sn}</a></td>
 		   <td>{$order.seller_name|escape}</td>
            <td align="center"><!-- {if $order.store_type eq 0} -->直营店<!-- {elseif $order.store_type eq 1} -->加盟店<!-- {/if} --></td>
 		   <td><a href="#">{$order.buyer_name|escape}</a></td>
-		   <!-- {if !$storemanage} -->
-           <td style="color:red">{$goods_info.stock_price|price}</td>
-           <!-- {/if} --> 
 		   <td>{$order.league_price|price}</td>
 		   <td>{$order.shipping_fee|price}</td>
 		   <td>{$order.get_credit}	PL</td>
@@ -127,13 +76,7 @@ $(function(){
 		   <td><!-- {if $order.status eq 11} -->待付款<!-- {elseif $order.status eq 12} -->等待确认付款<!-- {elseif $order.status eq 20} -->已付款,待发货<!-- {elseif $order.status eq 30} -->已发货<!-- {elseif $order.status eq 40} -->交易成功<!-- {elseif $order.status eq 50} -->退款中<!-- {else $order.status eq 60} -->交易取消<!-- {/if} --></td>
 		   <td>{$order.pay_time|date:complete}</td>
 		   <td>
-		   <!-- {if !$storemanage} -->
-		   <a href='index.php?app=store_statistics&act=collection_view&id={$order.order_id}'>查看</a>
-		   |<a onclick="window.open('index.php?app=store_statistics&act=retail_orderprint&id={$order.order_id}')">订单打印</a>
-           <!-- {else} -->
-		   <a href='index.php?app=storemanage_statistics&act=collection_view&id={$order.order_id}'>查看</a>
-		   |<a onclick="window.open('index.php?app=storemanage_statistics&act=retail_orderprint&id={$order.order_id}')">订单打印</a>           
-           <!-- {/if} --> 
+		   <a href='index.php?app=order_summary&act=orderGoodsDetails&orderid={$order.order_id}'>查看</a>
 		   </td>
         </tr>
         <!--{foreachelse}-->

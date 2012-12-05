@@ -445,6 +445,7 @@ class BaseOrder extends Object
         	'need_invoice'	=> intval($post['need_invoice']),
         	'invoice_header'	=> trim($post['invoice_header']),
         	'buyer_desc'	=> $post['buyer_desc'],
+        	'testing_tpwd'	=> $post['testing_tpwd'],
         );
     }
 	/**

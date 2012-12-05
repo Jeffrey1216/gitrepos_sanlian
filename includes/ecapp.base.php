@@ -413,13 +413,13 @@ EOT;
         }
         elseif (is_array($resources))
         {
+        	
             foreach ($resources as $type => $res)
             {
-                $headtag .= $this->import_resource($res, $type);
+            	$headtag .= $this->import_resource($res, $type);
             }
             $this->headtag($headtag);
         }
-
         return $headtag;
     }
     

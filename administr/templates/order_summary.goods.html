@@ -1,0 +1,63 @@
+{include file="header.html"}
+<script type="text/javascript">
+$(function(){
+	$('#pay_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+	$('#pay_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+	$('#finished_time_from').datepicker({dateFormat: 'yy-mm-dd'});
+	$('#finished_time_to').datepicker({dateFormat: 'yy-mm-dd'});
+	
+});
+</script>
+<div id="rightTop" style="margin-left:5px;">
+    <ul class="subnav2" style="margin-left:5px;">
+        <li  class='on'><a href="">订单商品列表<span></span></a></li>
+    </ul>
+</div>
+
+<div class="tdare">
+    <table width="100%" cellspacing="0" class="dataTable">
+        <tr class="tatr1">
+           <th>会员名称</th>
+           <th>订单编号</th>
+           <th>商品编号</th>
+           <th>商品名称</th>
+           <th>规格</th>
+           <th>批发价</th>
+           <th>单价</th>
+           <th>销售数量</th>
+           <th>销售总价</th>  
+           <th>会员PL币</th>
+           <th>销售总价</th>
+           <th>团购员提成</th>
+           <th>店铺收益</th> 
+           <th>付款时间</th> 
+        </tr>
+
+        <!--{foreach from=$order_goods item=order}-->
+     <tr class="tatr2">
+		   <td>{$order.buyer_name|escape}</td>
+		   <td>{$order.order_sn|escape}</td>
+		   <td>{$order.commodity_code|escape}</td>
+		   <td>{$order.goods_name|escape}</td>
+		   <td>{$order.specification|escape}</td>
+		   <td>{$order.zprice|price}</td>
+		   <td>{$order.price|price}</td>
+		   <td>{$order.quantity|escape}</td>
+		   <td>{$order.goods_amount|price}</td>
+		   <td>{$order.sum_credit|escape} 	PL</td>
+		   <td>{$order.sum_price|price}</td>
+		   <td>{$order.member_cate|price}</td>
+		   <td>{$order.member_obtain|price}</td>
+		   <td>{$order.pay_time|date:complete}</td>
+        </tr>
+        
+        <!--{/foreach}-->
+    </table>
+    <div id="dataFuncs">
+        <div class="pageLinks">
+            {include file=page.bottom.html}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+{include file="footer.html"}

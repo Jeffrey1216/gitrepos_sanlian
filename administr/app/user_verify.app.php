@@ -151,7 +151,7 @@
 					}elseif($verify['notes'] == 17){
 					   $status = ADD_MONEY;
 					   $money_amount = $verify['money'];
-					   $desc = "团购员充值余额:".$verify['money']."元";
+					   $desc = "会员充值余额:".$verify['money']."元";
                        
 					}elseif($verify['notes'] == 14)
 					{

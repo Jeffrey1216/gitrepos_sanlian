@@ -24,5 +24,6 @@ return array(
     'user_price'    => '销售总金额',
     'detail_link'   => '明细',
     'telephone'     => '电话',
+    'order_num'     => '订单编号',
 );
 ?>

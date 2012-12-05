@@ -49,7 +49,7 @@ class Order_summaryApp extends BackendApp {
     }
 
     //加盟店零售统计
-    function collection() {
+    public function collection() {
         $search_options = array(
             'o.buyer_name' => Lang::get('会员名称'),
             'm.mobile' => Lang::get('手机号'),
@@ -93,10 +93,10 @@ class Order_summaryApp extends BackendApp {
         $sql = "select o.buyer_id,o.buyer_name,m.real_name,m.mobile,o.order_id,
 					SUM(og.quantity) AS sum_quantity,
 					sum(og.zprice * og.quantity) AS sum_zprice,
-					price * SUM(og.quantity) AS sum_price,
+					SUM(price * og.quantity) AS sum_price,
 					SUM(og.quantity) * og.credit as sum_credit,
-					(SUM(quantity) * og.credit)/2 as member_cate,
-					((price - zprice) * SUM(quantity) - SUM(quantity) * og.credit - SUM(quantity) * og.credit/2 ) as member_obtain 
+					SUM(quantity * og.credit)/2 as member_cate,
+					(SUM((price - zprice) * quantity) - SUM(quantity * og.credit) - SUM(quantity * og.credit)/2 ) as member_obtain 
 					from pa_order o 
 					left join pa_member m on m.user_id = o.buyer_id 
 					left join pa_order_goods og on o.order_id = og.order_id where "
@@ -107,7 +107,8 @@ class Order_summaryApp extends BackendApp {
         $orders = $this->store_order_mod->getAll($sql . " limit " . $page['limit']);
         foreach ($orders as $key => &$val) {
 		    $sqlOrderCount = "SELECT COUNT(*) FROM ( SELECT og.order_id FROM pa_order_goods og 
-							LEFT JOIN pa_order o ON o.order_id = og.order_id  WHERE buyer_id = {$val['buyer_id']} GROUP BY og.order_id ) tab";
+							LEFT JOIN pa_order o ON o.order_id = og.order_id  WHERE o.status>=20 and o.status<=50
+							and buyer_id = {$val['buyer_id']} GROUP BY og.order_id ) tab";
 			$val['order_count'] = $this->store_order_goods_mod->getOne($sqlOrderCount);
             $val['member_cate'] = format_money($val['member_cate']);
             $val['member_obtain'] = format_money($val['member_obtain']);
@@ -127,22 +128,22 @@ class Order_summaryApp extends BackendApp {
      * 会员订单详情
      */
 
-    function member_collection() {
+    public function member_collection() {
 	    if(empty($_GET['buyer_id']))
 		{
 			$this->show_warning('会员信息有误！');
 			return ;
 		}
         $search_options = array(
-            's.store_name' => Lang::get('store_name'),
             'o.order_sn' => Lang::get('order_num'),
-            'o.buyer_name' => Lang::get('会员'),
+            's.store_name' => Lang::get('store_name'),
         );
         /* 默认搜索的字段是店铺名 */
         $field = 'seller_name';
 	    $order_id = $_GET['order_id']; 
         array_key_exists($_GET['field'], $search_options) && $field = $_GET['field'];
         //按用户名,店铺名,支付方式名称进行搜索
+
         $conditions = 'status>=20 and status<=50';
         $conditions .= $this->_get_query_conditions(array(array(
                 'field' => $field,
@@ -254,7 +255,6 @@ class Order_summaryApp extends BackendApp {
             $orders[$k]['pay_type_name'] = $paytype[$v['pay_type']];
         }
 
-
         $total = $this->store_order_mod->getRow('select sum(' . $total_field . ') as total,sum(oe.shipping_fee) as ship_fee,sum(o.get_credit) as gcredit from pa_order o left join pa_store s on o.seller_id = s.store_id left join pa_order_extm oe on o.order_id = oe.order_id where
        												  ' . $conditions);
 
@@ -280,15 +280,58 @@ class Order_summaryApp extends BackendApp {
             '40' => '交易成功',
             '50' => '退款中',
         ));
+		$this->_format_page($page);
+
+        $this->assign('buyer_id',$_GET['buyer_id']);
         $this->assign('pay_type', $paytype);
         $this->assign('paymeny_type', $this->_get_payment_type());
         $this->assign('orders', $orders);
-        $this->_format_page($page);
         $this->assign('page_info', $page);
         $this->assign('goods_collect', $orders_collect);
         $this->assign('search_options', $search_options);
+
         $this->display('store_statistics.member_collection.html');
     }
+
+    public function orderGoodsDetails(){
+	   if(empty($_GET['orderid'])) {
+		   $this->show_warning('订单编号有误！');
+		   exit;
+	   } 
+
+	   $condiArray = array(
+	       array(
+		       'field' => 'og.order_id',
+		       'equal' => '=',
+			   'type'  => 'numeric',
+			   'name'  => 'orderid'
+	       )
+	   );
+
+	   $conditions = ' 1=1 ';
+	   $conditions .= $this->_get_query_conditions($condiArray);
+	   //分页条数 & 统计总数
+	   $fields = "SELECT o.`buyer_name`,o.`order_sn`,og.`commodity_code`,og.`specification`,og.`goods_name`,
+		    og.`zprice`,og.`price`,og.quantity,o.`goods_amount`,og.quantity * og.`credit` AS sum_credit,
+		    og.quantity * og.`price` AS sum_price,
+		    (quantity * og.credit)/2 AS member_cate,
+		    ((price - zprice) *quantity - quantity * og.credit - quantity * og.credit/2 ) AS member_obtain";
+	   $sql= " FROM pa_order_goods og LEFT JOIN pa_order o ON og.`order_id` = o.`order_id` WHERE "
+	      . $conditions;
+	   $sqlCount = "select count(*) " . $sql;
+	   $page = $this->_get_page(20);
+	   $page['item_count'] = $this->store_mod->getOne($sqlCount);
+
+	   $order_goods = $this->store_mod->getAll($fields . $sql . " limit " . $page['limit']);
+
+	   $this->_format_page($page);
+	   $this->assign('order_goods',$order_goods);
+	   $this->display('order_summary.goods.html');
+
+    }
+
+
+    
 
     /**
      * 读取正在使用的支付方式
