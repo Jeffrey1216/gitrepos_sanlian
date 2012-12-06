@@ -236,7 +236,7 @@ class Order_summaryApp extends BackendApp {
 		        (o.cash+o.use_money+o.use_credit) as showmany,o.get_credit,o.seller_name,o.buyer_name,o.status,s.store_type,
 			    oe.shipping_fee,o.payment_name,o.pay_time,o.pay_type 
 			    from pa_order o left join pa_store s on o.seller_id = s.store_id 
-			    left join pa_order_extm oe on o.order_id = oe.order_id where ' . $conditions . ' limit ' . $page['limit'];
+			    left join pa_order_extm oe on o.order_id = oe.order_id where ' . $conditions . ' order by o.pay_time desc limit ' . $page['limit'];
         $orders = $this->store_order_mod->getAll($sql);
 	
 
