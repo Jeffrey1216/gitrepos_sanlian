@@ -95,8 +95,8 @@ class Order_summaryApp extends BackendApp {
 					sum(og.zprice * og.quantity) AS sum_zprice,
 					SUM(price * og.quantity) AS sum_price,
 					SUM(og.quantity) * og.credit as sum_credit,
-					SUM(quantity * og.credit)/2 as member_cate,
-					(SUM((price - zprice) * quantity) - SUM(quantity * og.credit) - SUM(quantity * og.credit)/2 ) as member_obtain 
+					SUM(quantity * o.get_credit)/2 as member_cate,
+					(SUM((price - zprice) * quantity) - SUM(quantity * o.get_credit) - SUM(quantity * o.get_credit)/2 ) as member_obtain 
 					from pa_order o 
 					left join pa_member m on m.user_id = o.buyer_id 
 					left join pa_order_goods og on o.order_id = og.order_id where "

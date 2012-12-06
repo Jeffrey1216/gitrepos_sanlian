@@ -53,9 +53,10 @@ class Sales_rankApp extends BackendApp {
         $sql = "SELECT og.gs_id,og.goods_id,og.goods_name,
 			rec_id,og.order_id,specification ,s.supply_name,s.supply_id,
 			SUM(quantity) AS sum_quantity,
-			og.zprice,og.price,SUM(quantity) * og.credit as sum_credit,
-			price * SUM(quantity) AS sum_price,
-			'团购员提成' as member_cate,'店铺利润' as member_obtain,o.pay_time 
+			og.zprice,og.price,SUM(quantity * og.credit) as sum_credit,
+			sum(price * quantity) AS sum_price,
+			SUM(quantity * og.credit)/2 as member_cate,
+			(SUM((price - zprice) * quantity) - SUM(quantity * og.credit) - SUM(quantity * og.credit)/2 ) as member_obtain ,o.pay_time 
 			FROM pa_order_goods og 
 			LEFT JOIN pa_supply_goods sg ON og.goods_id = sg.goods_id 
 			LEFT JOIN pa_supply s ON sg.supply_id = s.supply_id 
@@ -68,6 +69,8 @@ class Sales_rankApp extends BackendApp {
         $this->_format_page($page);
         foreach ($goods_info as $key => &$val) {
             $val['index'] = $key + 1 + ($page['curr_page'] - 1) * $page['pageper'];
+		    $val['member_cate'] = format_money($val['member_cate']);
+            $val['member_obtain'] = format_money($val['member_obtain']);
         }
         $this->assign('goods_info', $goods_info);
         //将分页信息传递给视图，用于形成分页条

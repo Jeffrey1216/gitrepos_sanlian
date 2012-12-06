@@ -68,12 +68,12 @@ $(function(){
       <td>{$goods.specification|escape}</td>
       <td>{$goods.supply_name|escape}</td>
       <td>{$goods.supply_id|escape}</td>
-      <td>{$goods.zprice|escape}</td>
-      <td>{$goods.price|escape}</td>
-      <td>{$goods.sum_price|escape}</td>
-      <td>{$goods.sum_credit|escape}</td>
-      <td>{$goods.member_cate|escape}</td>
-      <td>{$goods.member_obtain|escape}</td>
+      <td><em>{$goods.zprice|price}</em></td>
+      <td><em>{$goods.price|price}</em></td>
+      <td><em>{$goods.sum_price|price}</em></td>
+      <td><em>{$goods.sum_credit|escape}  <font class="cash">PL</font></em></td>
+      <td><em>{$goods.member_cate|price}</em></td>
+      <td><em>{$goods.member_obtain|price}</em></td>
     </tr>
     <!--{foreachelse}-->
     <tr class="no_data info">
