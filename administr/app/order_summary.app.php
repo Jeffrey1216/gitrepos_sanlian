@@ -91,15 +91,15 @@ class Order_summaryApp extends BackendApp {
         //分页条数
         $page = $this->_get_page(20);
         $sql = "select o.buyer_id,o.buyer_name,m.real_name,m.mobile,o.order_id,
-					SUM(og.quantity) AS sum_quantity,
-					sum(og.zprice * og.quantity) AS sum_zprice,
-					SUM(price * og.quantity) AS sum_price,
-					SUM(og.quantity) * og.credit as sum_credit,
-					SUM(quantity * o.get_credit)/2 as member_cate,
-					(SUM((price - zprice) * quantity) - SUM(quantity * o.get_credit) - SUM(quantity * o.get_credit)/2 ) as member_obtain 
-					from pa_order o 
-					left join pa_member m on m.user_id = o.buyer_id 
-					left join pa_order_goods og on o.order_id = og.order_id where "
+			SUM(og.quantity) AS sum_quantity,
+			sum(og.zprice * og.quantity) AS sum_zprice,
+			SUM(goods_amount) AS sum_price,
+			SUM(og.quantity * og.credit) as sum_credit,
+			SUM(o.get_credit)/2 as member_cate,
+			(SUM(goods_amount) - sum(og.zprice * og.quantity) - SUM(og.quantity * og.credit)) as member_obtain
+		from pa_order o 
+		left join pa_member m on m.user_id = o.buyer_id 
+		left join pa_order_goods og on o.order_id = og.order_id where "
                 . $conditions . " group by o.buyer_id";
         //统计总数
         $sql_count = "select count(*) from ({$sql}) tab";
