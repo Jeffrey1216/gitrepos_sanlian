@@ -450,6 +450,10 @@ return array(
                 			'text'  => '退货订单',
                 			'url'   => 'index.php?app=refunds',
            				 ),
+					     'express' => array(
+							'text'  => '物流费管理',
+							'url'   => 'index.php?app=express',
+						 ),
 					),
 			),
 			'seo'=>array(

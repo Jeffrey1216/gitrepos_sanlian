@@ -42,6 +42,7 @@ $menu_data = array
         'salesdetail'     => 'salesdetail|all',
         'sales_rank'     => 'sales_rank|all',
         'order_summary'     => 'order_summary|all',
+        'express'     => 'express|all',
     ),
     'store_admin' => array
     (
@@ -51,7 +52,10 @@ $menu_data = array
     	'supply'	=> 'supply|all',//供应商管理
     	'storemanage_statistics' => 'storemanage_statistics|all',//店铺订单管理
     	'store_order_manage' => 'store_order_manage|all', //店铺订单审核
-    	'StoreOrder' => 'StoreOrder|all' //商城订单管理
+    	'StoreOrder' => 'StoreOrder|all', //商城订单管理
+    	'stock_destory' => 'stock_destory|all', //库存销毁审核
+    	'store_destory' => 'store_destory|all'//店铺库存销毁查看
+    	
     ),
     'member' => array
     (
